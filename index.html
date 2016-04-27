@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>The Shenango Channel</title>
+    <title>Meaning from Monitoring</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <style type='text/css'>
       html, body {
@@ -308,263 +308,114 @@
       var showSmokeDetection = true;
 
       var esdr_feeds = {
-        ACHD_Avalon : {
-          feed_id: 1,
+         A_Atchison_Village_Refinery: {
+          feed_id: 4909,
           coordinates : {
-            latitude: 40.499767,
-            longitude: -80.072
+            latitude: 37.941351,
+            longitude: -122.381193
           },
-          api_key: "8a2ce5c845ca323d80056aefd564f6f7305724a0476318e488c5ea380094ebc2",
+          api_key: "4d0b819302d14b247934a1800b226762de399d825147e735a8814ad9068d5265",
           requested_day: {},
           channels : {
-            "PM25B_UG_M3": {
+            "Benzene": {
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "ACHD: Avalon - PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
+                label: "Benzene",
                 color: "10,104,177"
               },
               summary: {}
             },
-            "SONICWS_MPH": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            },
-            "SONICWD_DEG": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        Speck1 : {
-          feed_id: 5332,
-          coordinates : {
-            latitude: 40.499767,
-            longitude: -80.068
-          },
-          requested_day: {},
-          api_key: "b05e15a31711c80542d3db0fc3f5e63590638052ffa121732df9c776316c5d89",
-          channels: {
-            particle_concentration : {
+            "Toluene": {
               show_graph: true,
+              hourly : true,
               graphMetaData : {
-                label: "Avalon Speck - <br> PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
+                label: "Toluene",
                 color: "127, 57, 148"
               },
               summary: {}
+            },
+            "Xylene": {
+              show_graph: true,
+              hourly : true,
+              graphMetaData : {
+                label: "Xylene",
+                color: "27, 141, 52"
+              },
+              summary: {}
+            },
+            "Hydrogen_Sulfide": {
+              show_graph: true,
+              hourly : true,
+              graphMetaData : {
+                label: "Benzene",
+                color: "230, 120, 26"
+              },
+              summary: {}
+            },
+            "Wind_Speed_MPH": {
+              show_graph: false,
+              hourly : true,
+              summary: {}
+            },
+            "Wind_Direction": {
+              show_graph: false,
+              hourly : true,
+              summary: {}
             }
           },
           fullTimeRange: {}
         },
-        Speck1b : {
-          feed_id: 5333,
+        B_Atchison_Village_Community : {
+          feed_id: 4910,
           coordinates : {
-            latitude: 40.499767,
-            longitude: -80.068
+            latitude: 37.934708,
+            longitude: -122.371597
           },
           isDouble: true,
+          api_key: "f055255ae9388c6a44ec4c43f7db1e155968c9d95641b7946ad19c16977797f7",
           requested_day: {},
-          api_key: "d4f535777752957c32a004d89a8c7136b95c7330dd66e9a6f65e2bd9e665bc38",
-          channels: {
-            particle_concentration : {
+          channels : {
+            "Benzene": {
               show_graph: true,
+              hourly : true,
               graphMetaData : {
-                label: "Avalon Speck - <br> PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
+                label: "Benzene",
+                color: "10,104,177"
+              },
+              summary: {}
+            },
+            "Toluene": {
+              show_graph: true,
+              hourly : true,
+              graphMetaData : {
+                label: "Toluene",
                 color: "127, 57, 148"
               },
               summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        Speck2 : {
-          feed_id: 4617,
-          coordinates : {
-            latitude: 40.501,
-            longitude: -80.061
-          },
-          requested_day: {},
-          api_key: "3c9286797e517dacd885309bb8e88a1309a9bdd0e7655bcfa1c47fa47f7c7b76",
-          channels: {
-            particle_concentration : {
+            },
+            "Xylene": {
               show_graph: true,
+              hourly : true,
               graphMetaData : {
-                label: "Bellevue Speck - PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
+                label: "Xylene",
                 color: "27, 141, 52"
               },
               summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        Speck2b : {
-          feed_id: 4711,
-          coordinates : {
-            latitude: 40.501,
-            longitude: -80.061
-          },
-          isDouble: true,
-          requested_day: {},
-          api_key: "39c80375a56564c06c9faea157aeeecdded2ac5bc2cc14c812cab23682af16f4",
-          channels: {
-            particle_concentration : {
+            },
+            "Hydrogen_Sulfide": {
               show_graph: true,
+              hourly : true,
               graphMetaData : {
-                label: "Bellevue Speck 2 - PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
-                color: "27, 141, 52"
-              },
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        Speck3 : {
-          feed_id: 4316,
-          coordinates : {
-            latitude: 40.508,
-            longitude: -80.076
-          },
-          requested_day: {},
-          api_key: "02e22d5b3a81370d60d265d9ae9e61e1ddbb276f5aafe894c5f7de424e849147",
-          channels: {
-            particle_concentration : {
-              show_graph: true,
-              graphMetaData : {
-                label: "Ben Avon Speck - PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
+                label: "Benzene",
                 color: "230, 120, 26"
               },
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        Speck3b : {
-          feed_id: 4616,
-          coordinates : {
-            latitude: 40.508,
-            longitude: -80.076
-          },
-          isDouble: true,
-          requested_day: {},
-          api_key: "6371248f9710d694e92591f4f44ff339bf40907d3faf34e5ad85f2e69483fd74",
-          channels: {
-            particle_concentration : {
-              show_graph: true,
-              graphMetaData : {
-                label: "Ben Avon Speck 2 - PM<sub>2.5</sub>, &mu;g/m<sup>3</sup>",
-                color: "230, 120, 26"
-              },
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        ACHD_North_Braddock : {
-          feed_id: 3,
-          coordinates : {
-            latitude: 40.402,
-            longitude: -79.860
-          },
-          requested_day: {},
-          api_key: "3c607ed62b70fd874e62c8aea4c40811398c6ddcf5dc3e15edfc4cda4dc256d6",
-          channels: {
-            "SONICWS_MPH": {
+            "Wind_Speed_MPH": {
               show_graph: false,
               hourly : true,
               summary: {}
             },
-            "SONICWD_DEG": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        ACHD_Lawrenceville : {
-          feed_id: 26,
-          coordinates : {
-            latitude: 40.465,
-            longitude: -79.960
-          },
-          requested_day: {},
-          api_key: "01aceb2dd35a61aadb5992292ee7cc34ec8d044ccf8d49b4b24c9c335476616c",
-          channels: {
-            "SONICWS_MPH": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            },
-            "SONICWD_DEG": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        ACHD_Parkway_East : {
-          feed_id: 43,
-          coordinates : {
-            latitude: 40.437,
-            longitude: -79.863
-          },
-          requested_day: {},
-          api_key: "bf61b67e0b93d612dacf8f9f034fba75da9141046df38fd058b44fdb1076ab9f",
-          channels: {
-            "SONICWS_MPH": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            },
-            "SONICWD_DEG": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        ACHD_Liberty : {
-          feed_id: 28,
-          coordinates : {
-            latitude: 40.323,
-            longitude: -79.868
-          },
-          requested_day: {},
-          api_key: "ce7e8af4e53980642fd0249808af4f55bcfb00744207106a5b000119a0c5e189",
-          channels: {
-            "SONICWS_MPH": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            },
-            "SONICWD_DEG": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            }
-          },
-          fullTimeRange: {}
-        },
-        ACHD_South_Fayette : {
-          feed_id: 32,
-          coordinates : {
-            latitude: 40.375,
-            longitude: -80.169
-          },
-          requested_day: {},
-          api_key: "fd7a17dee775a42a97a0a87d9ba504a172e1fe46b466f8ae2972df1dcf105b7c",
-          channels: {
-            "SONICWS_MPH": {
-              show_graph: false,
-              hourly : true,
-              summary: {}
-            },
-            "SONICWD_DEG": {
+            "Wind_Direction": {
               show_graph: false,
               hourly : true,
               summary: {}
@@ -572,6 +423,7 @@
           },
           fullTimeRange: {}
         }
+      }
       };
 
       if (showSmokeDetection) {
@@ -995,7 +847,7 @@
             }, 150);
           });
           dateAxis.setMaxRange(null, endTime);
-          addSmellReportsToGrapher();
+          //addSmellReportsToGrapher();
           if (timelapse) {
             var currentCaptureTime = timelapse.getCurrentCaptureTime();
             if (currentCaptureTime) {
@@ -1017,13 +869,7 @@
         var color_line = "rgb(" + feed.channels[channelName].graphMetaData.color + ")";
         var color_fill = "rgba(" + feed.channels[channelName].graphMetaData.color + ",1)";
 
-        if (feed.feed_id == 5333) {
-          seriesIdx = 2;
-        } else if (feed.feed_id == 4711) {
-          seriesIdx = 3;
-        } else if (feed.feed_id == 4616) {
-          seriesIdx = 4;
-        } else {
+
           series[seriesIdx] = {};
           series[seriesIdx].id = seriesIdx;
           var row = $('<tr class="chart grapher_row"' + 'data-channel=' + channelName + '></tr>');
@@ -1039,7 +885,7 @@
               loadMetaData(currentDate, currentLocation);
             });
           }
-        }
+        
 
         var datasource;
         (function(source) {
