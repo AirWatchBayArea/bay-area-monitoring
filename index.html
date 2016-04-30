@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Meaning from Monitoring</title>
+    <title>Bay Area Monitoring</title>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <style type='text/css'>
       html, body {
@@ -296,6 +296,8 @@
       jQuery.support.cors = true;
       var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis;
       var pageLoadDate = cached_breathecam.latest.date;
+      var today = new Date();
+      cached_breathecam.latest.date = today.toISOString().substring(0,10);
       var series = [];
       var currentLocation = "shenango1";
       var currentDate;
@@ -321,7 +323,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Benzene",
+                label: "Benzene (ppb)",
                 color: "10,104,177"
               },
               summary: {}
@@ -330,7 +332,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Toluene",
+                label: "Toluene (ppb)",
                 color: "127, 57, 148"
               },
               summary: {}
@@ -339,7 +341,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Xylene",
+                label: "Xylene (ppb)",
                 color: "27, 141, 52"
               },
               summary: {}
@@ -348,7 +350,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Benzene",
+                label: "Hydrogen Sulfide (ppb)",
                 color: "230, 120, 26"
               },
               summary: {}
@@ -380,7 +382,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Benzene",
+                label: "Benzene (ppb) (ppb)",
                 color: "10,104,177"
               },
               summary: {}
@@ -389,7 +391,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Toluene",
+                label: "Toluene (ppb)",
                 color: "127, 57, 148"
               },
               summary: {}
@@ -398,7 +400,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Xylene",
+                label: "Xylene (ppb)",
                 color: "27, 141, 52"
               },
               summary: {}
@@ -407,7 +409,7 @@
               show_graph: true,
               hourly : true,
               graphMetaData : {
-                label: "Benzene",
+                label: "Hydrogen Sulfide (ppb)",
                 color: "230, 120, 26"
               },
             "Wind_Speed_MPH": {
@@ -869,7 +871,10 @@
         var color_line = "rgb(" + feed.channels[channelName].graphMetaData.color + ")";
         var color_fill = "rgba(" + feed.channels[channelName].graphMetaData.color + ",1)";
 
-
+        if (feed.feed_id == 4910) {
+          seriesIdx = 1;
+        }
+        else {
           series[seriesIdx] = {};
           series[seriesIdx].id = seriesIdx;
           var row = $('<tr class="chart grapher_row"' + 'data-channel=' + channelName + '></tr>');
@@ -885,7 +890,7 @@
               loadMetaData(currentDate, currentLocation);
             });
           }
-        
+        }
 
         var datasource;
         (function(source) {
@@ -1055,8 +1060,8 @@
         dateAxis.setSize(dateAxisWidth, dateAxisHeight, SequenceNumber.getNext());
         for (var i = 0; i < series.length; i++) {
           var newHeight = $('.chart').height();
-          if (i === 0)
-            newHeight = $('.annotationContent').height();
+          // if (i === 0)
+          //   newHeight = $('.annotationContent').height();
           if (series[i].axis)
             series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
           if (series[i].pc)
@@ -1262,11 +1267,12 @@
   <body style="height: 100%">
     <div id="tabs" style="width: 100%; height: 100%; margin: 0; padding: 0px; position: absolute;">
       <ul>
-        <li><a href="#tabs-1" style="outline:0;">Introduction by ACCAN</a></li>
-        <li><a href="#tabs-2" style="outline:0;">Shenango Channel</a></li>
+        <li><a href="#tabs-1" style="outline:0;">Introduction</a></li>
+        <li><a href="#tabs-2" style="outline:0;">Richmond</a></li>
+        <li><a href="#tabs-3" style="outline:0;">Crockett-Rodeo</a></li>
       </ul>
       <div id="tabs-1" style="width: 100%; padding: 0px; margin: 0;">
-        <iframe id="google-doc" src="http://shenangochannel.org/google-docs.php" width="100%" height="1200px" style="border: 0px;"></iframe>
+        <h1>Welcome to the Bay Area Air Monitoring Hub</h1>
       </div>
       <div id="tabs-2" style="width: 100%; height: 100%; margin: 0; padding: 0px">
         <div id="foo" style="height: calc(100% - 35px)">
@@ -1292,12 +1298,12 @@
               <a class="location_thumbnail_container" data-location-id="shenango1" href="javascript:void(0)">
                 <div id="shenango1_overlay" class="location_thumbnail_overlay"></div>
                 <img src="assets/images/shenango1.png" class="location_thumbnail" alt="Shenango1">
-                <div class="location_title">ACCAN Camera (Avalon)</div>
+                <div class="location_title"> </div>
               </a>
               <a class="location_thumbnail_container location_thumbnail_container_end" data-location-id="shenango2" href="javascript:void(0)">
                 <div id="shenango2_overlay" class="location_thumbnail_overlay"></div>
                 <img src="assets/images/shenango2.png" class="location_thumbnail" alt="Shenango2">
-                <div class="location_title">ACHD Camera (Bellevue)</div>
+                <div class="location_title"> </div>
               </a>
             </div>
           </div>
