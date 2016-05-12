@@ -16,8 +16,8 @@ function initMap(div) {
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
-    zoom: 13,
-    center: new google.maps.LatLng(40.495, -80.079)
+    zoom: 10,
+    center: new google.maps.LatLng(37.99, -122.33)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
 
