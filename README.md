@@ -1,4 +1,2 @@
-# the-shenango-channel
-All Shenango. All day.
-
-Explore for yourself at: http://shenangochannel.org
+# bay-area-monitoring
+All Bay Area refineries. All day.

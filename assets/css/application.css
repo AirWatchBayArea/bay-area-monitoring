@@ -46,7 +46,7 @@ a img {
 }
 
 #container {
-  height: 50%;
+  height: 25%;
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -430,7 +430,7 @@ a img {
   right: 212px;
   top: 0px;
   width: auto;
-  height: 100%;
+  height: 0%;
 }
 
 #datepicker {
