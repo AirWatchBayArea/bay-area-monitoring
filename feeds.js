@@ -1,9 +1,9 @@
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene"]//,"Sulfur_Dioxide","PM_2_5","Ammonia","3_Methylpentane","Black_Carbon","N_Hexane"]
-var colors = ["70,181,211", "219,73,76", "235,164,50", "128,76,168", "172,61,31","32,114,136"]
+var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
+var colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"]
 var successCallback = function(area_feed_ids) {
   var keys = Object.keys(esdr_feeds);
-    if(keys.length == area_feed_ids.length) {
-      channelPageSetup();
+    if(keys.length == area_feed_ids.length + 1) {
+      initFeeds();
     }
   }
 

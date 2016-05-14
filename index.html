@@ -24,6 +24,7 @@
         height: 50%;
       }
 
+
       .row1 {
         display:table-row;
         height: 50%;
@@ -344,6 +345,7 @@
 
         var hash = window.location.hash.slice(1);
         hashVars = org.gigapan.Util.unpackVars(hash);
+        //org.gigapan.timelapse.getHomeView() = {};
 
         var loadedTimelapse = false;
         if (hashVars) {
@@ -610,21 +612,21 @@
 
       function highlightDays(date) {
         date = $.datepicker.formatDate('yy-mm-dd', date);
-        if (cached_breathecam.datasets[date])
+        //if (cached_breathecam.datasets[date])
           return [true, 'date-highlight'];
-        else
-          return [false, ''];
+        //else
+          //return [false, ''];
       }
 
       function selectDay(dateText, dateElem) {
         var date = $.datepicker.formatDate('yy-mm-dd', new Date(dateText));
-        var path = cached_breathecam.datasets[date];
-        if (timelapse && path) {
+        //var path = cached_breathecam.datasets[date];
+        //if (timelapse && path) {
           $(".gwt-PopupPanel").remove();
           currentDate = date;
           setGraphTimeRange(date);
-          timelapse.loadTimelapse(path, null, null, true);
-        }
+          //timelapse.loadTimelapse(path, null, null, true);
+        //}
       }
 
       function setLocationThumbnailToggle() {
@@ -981,7 +983,7 @@
             if ($(ui.newPanel)[0].id == "tabs-2") {
               $("body, html").css("overflow", "hidden");
               if (!timelapse) {
-                loadFeeds(atchison_feeds);
+                channelPageSetup();
                 $(window).resize(function() {
                   setSizes();
                   google.maps.event.trigger(map, 'resize');
@@ -1051,94 +1053,103 @@
           }
         });
       }
-
-      function channelPageSetup() {
-        // Initialize E-Cam
-        var timelapseSupported = org.gigapan.Util.browserSupported();
-        var stitchedImage = "N/A";
-        locationDivId = "shenango1" + "_overlay";
-        setLocationThumbnailToggle();
-        $(".location_thumbnail_container").on("click", function() {
-          if (window.location.hash)
-            window.location.hash = "";
-          var newLocation = $(this).attr("data-location-id");
-          if (timelapse)
-            var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
-          changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
-        });
-        if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
-          // Nothing is up. Hide containers and inform the user
-          $("#stitched_image_wrapper").hide();
-          $("#location_toggle_container").hide();
-          $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
-        } else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
-          timelapseFeedUnavailable = true;
-          // TODO: Image feed is not working since the-shenango-channel currently does not have a way to get the latest image,
-          // unlike when it was running on the Rails server.
-          // Timelapse unavailable, show latest stitched pano
-          // Calendar is gone in this mode, so move thumbnail toggles to top of page
-          //$("#location_toggle").css({'top':'0px'});
-          //$("#image_feed_timestamp").css({"top" : "48px", "right" : "22px"});
-          //img_init();
-          $("#stitched_image_wrapper").hide();
-          $("#location_toggle_container").hide();
-          $("#timelapse_feed").hide();
-          $("#grapher").hide();
-          $("#map-canvas").hide();
-          $("#tutorialDialog").hide();
-          $("#loading").html("<div class='error_msg2'>Shenango Channel is not available on mobile devices. Please use a desktop or laptop when viewing this site.</div>");
-        } else {
-          // Show timelapse
-          tm_init();
+      function initFeeds() {
+        var feedNames = Object.keys(esdr_feeds).sort();
+        if(showSmokeDetection) {
+          feedNames.splice(feedNames.indexOf("Smoke_Detection"), 1);
+          feedNames[feedNames.length] = "Smoke_Detection";
         }
-
-        // Initialize Map
-        initMap('map-canvas');
-
-        grapherLoadedInterval = window.setInterval(function() {
-          if (!grapherReady) return;
-
-          window.clearInterval(grapherLoadedInterval);
-          grapherLoadedInterval = null;
-
-          // Initialize Smells
-          initSmells();
-
-          // Initialize Graphs
-          var feedNames = Object.keys(esdr_feeds).sort();
-          if(showSmokeDetection) {
-            feedNames.splice(feedNames.indexOf("Smoke_Detection"), 1);
-            feedNames[feedNames.length] = "Smoke_Detection";
-          }
-          for (var i = 0; i < feedNames.length; i++) {
-            (function(i){
-              $.ajax({
-                type: "GET",
-                dataType: "json",
-                url: ESDR_API_ROOT_URL + '/feeds/' + esdr_feeds[feedNames[i]].api_key,
-                success: function(json) {
-                  esdr_feeds[feedNames[i]].fullTimeRange.min = json.data.minTimeSecs;
-                  esdr_feeds[feedNames[i]].fullTimeRange.max = json.data.maxTimeSecs;
-                  if (i == feedNames.length - 1) {
-                    for (var j = 0; j < feedNames.length; j++) {
-                      (function(j){
-                        var feed = esdr_feeds[feedNames[j]];
-                        var channelNames = Object.keys(feed.channels);
-                        channelNames.forEach(function(channelName) {
-                          if (!feed.channels[channelName].show_graph) return;
-                          window.setTimeout(function() {
-                            createChart(feed, channelName, feed.api_key);
-                          }, j*50);
-                        });
-                      })(j);
-                    }
+        for (var i = 0; i < feedNames.length; i++) {
+          (function(i){
+            $.ajax({
+              type: "GET",
+              dataType: "json",
+              url: ESDR_API_ROOT_URL + '/feeds/' + esdr_feeds[feedNames[i]].api_key,
+              success: function(json) {
+                esdr_feeds[feedNames[i]].fullTimeRange.min = json.data.minTimeSecs;
+                esdr_feeds[feedNames[i]].fullTimeRange.max = json.data.maxTimeSecs;
+                if (i == feedNames.length - 1) {
+                  for (var j = 0; j < feedNames.length; j++) {
+                    (function(j){
+                      var feed = esdr_feeds[feedNames[j]];
+                      var channelNames = Object.keys(feed.channels);
+                      channelNames.forEach(function(channelName) {
+                        if (!feed.channels[channelName].show_graph) return;
+                        window.setTimeout(function() {
+                          createChart(feed, channelName, feed.api_key);
+                        }, j*50);
+                      });
+                    })(j);
                   }
                 }
-              });
-            })(i);
-          }
-        }, 10);
+              }
+            });
+          })(i);
+        }
       }
+            function channelPageSetup() {
+              // Initialize E-Cam
+              var timelapseSupported = org.gigapan.Util.browserSupported();
+              var stitchedImage = "N/A";
+              locationDivId = "shenango1" + "_overlay";
+              setLocationThumbnailToggle();
+              $(".location_thumbnail_container").on("click", function() {
+                if (window.location.hash)
+                  window.location.hash = "";
+                var newLocation = $(this).attr("data-location-id");
+                if (timelapse)
+                  var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
+                changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
+              });
+              if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
+                // Nothing is up. Hide containers and inform the user
+                $("#stitched_image_wrapper").hide();
+                $("#location_toggle_container").hide();
+                $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
+              } else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
+                timelapseFeedUnavailable = true;
+                // TODO: Image feed is not working since the-shenango-channel currently does not have a way to get the latest image,
+                // unlike when it was running on the Rails server.
+                // Timelapse unavailable, show latest stitched pano
+                // Calendar is gone in this mode, so move thumbnail toggles to top of page
+                //$("#location_toggle").css({'top':'0px'});
+                //$("#image_feed_timestamp").css({"top" : "48px", "right" : "22px"});
+                //img_init();
+                $("#stitched_image_wrapper").hide();
+                $("#location_toggle_container").hide();
+                $("#timelapse_feed").hide();
+                $("#grapher").hide();
+                $("#map-canvas").hide();
+                $("#tutorialDialog").hide();
+                $("#loading").html("<div class='error_msg2'>Shenango Channel is not available on mobile devices. Please use a desktop or laptop when viewing this site.</div>");
+              } else {
+                // Show timelapse
+                tm_init();
+                //$("#timeMachine").hide();
+                //$("#locationTitle").hide();
+                //$(".player").hide();
+                $("#timelapse_feed").hide();
+                $("#loading").html("<div class='error_msg2'>Camera feed coming soon!</div>");
+
+              }
+
+              // Initialize Map
+              initMap('map-canvas');
+
+              grapherLoadedInterval = window.setInterval(function() {
+                if (!grapherReady) return;
+
+                window.clearInterval(grapherLoadedInterval);
+                grapherLoadedInterval = null;
+
+                // Initialize Smells
+                initSmells();
+
+                loadFeeds(atchison_feeds);
+                // Initialize Graphs
+
+              }, 10);
+            }
 
       window.requestAnim =
         window.requestAnimationFrame ||
@@ -1203,7 +1214,7 @@
               </a>
             </div>
           </div>
-          <div id="grapher_parent" style="width:50%; height:50%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
+          <div id="grapher_parent" style="width:50%; height:75%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
           <div style="width:50%; height:50%; float: right"><div id="map-canvas"></div></div>
           </div>
       </div>
