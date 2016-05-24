@@ -324,6 +324,21 @@ a img {
   top: 20px;
 }
 
+.timelapse_hide {
+  cursor: default;
+  font-size: 30px;
+  color: #EB7474;
+  font-weight: bold;
+  position: relative;
+  top: 20px;
+  width: 60%
+}
+
+#communitySelection {
+  border: 1px solid black;
+  width: 365px;
+}
+
 .disabled {
   cursor: default !important;
 }

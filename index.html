@@ -24,6 +24,10 @@
         height: 50%;
       }
 
+      #legend {
+        border: 1px solid black;
+        height: 30px;
+      }
 
       .row1 {
         display:table-row;
@@ -155,7 +159,7 @@
         text-decoration: underline;
         font-size: 15px;
         border-top: 1px solid black;
-        width: 160px;
+        width: 150px;
       }
 
       #tabs {
@@ -301,7 +305,9 @@
       var today = new Date();
       cached_breathecam.latest.date = today.toISOString().substring(0,10);
       var series = [];
-      var loaded_series = [];
+      var loadedSeries = [];
+      var colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"];
+      var area = {};
       var currentLocation = "shenango1";
       var currentDate;
       var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
@@ -335,6 +341,44 @@
           },
           fullTimeRange: {}
         };
+      }
+
+      function selectArea(targetArea) {
+        area.id = targetArea;
+        if(targetArea === "richmond") {
+          area.feeds = atchison_feeds;
+        }
+        else if (targetArea === "crockett-rodeo") {
+          area.feeds = rodeo_feeds;
+        }
+        if(!(Object.keys(esdr_feeds).length === 1)) {
+          refreshChannelPage();
+        }
+      }
+
+      function refreshChannelPage() {
+        esdr_feeds = {};
+        esdr_feeds.Smoke_Detection = {
+          feed_id: 5494,
+          requested_day: {},
+          api_key: "22075ad630b1f674e7f1da7f3de77b5abeea89f95e9c6c8868eef6cf0cd312b1",
+          channels: {
+            smoke_level : {
+              show_graph: true,
+              graphMetaData : {
+                label: "Smoke Detection",
+                color: "93,93,93"
+              },
+              summary: {}
+            }
+          },
+          fullTimeRange: {}
+        };
+        series = [];
+        colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"]
+        loadedSeries = [];
+        $("#grapher").empty();
+        channelPageSetup();
       }
 
       function tm_init() {
@@ -464,6 +508,9 @@
             // Share view
             var hash = window.location.hash.slice(1);
             timelapse.loadSharedViewFromUnsafeURL("#" + hash);
+            $("#timeMachine").hide();
+            $("#locationTitle").hide();
+            //$("#container").html("<div class='timelapse_hide'>Camera feed coming soon!</div>");
           }
         };
         timelapse = new org.gigapan.timelapse.Timelapse("timeMachine", settings);
@@ -685,9 +732,9 @@
         if (!$("#dateAxisContainer").length) {
 
           $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td class="sensorColumnTitle">Location / Sensor</td><td id="dateAxis"></td><td></td></tr>');
-          $("#grapher").append('<tr id="radioButtonContainer"><td class="sensorColumnTitle">Community:</td>' +
-          '<td id="communitySelection"><form><input type="radio">Atchison Village <input type="radio"> Point Richmond ' +
-          '<input type="radio"> North Richmond </form></td><td></td></tr>');
+          $("#grapher").append('<tr id="radioButtonContainer"><td id="legend"><img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor</td>' +
+          '<td class="annotationContent"><form><input type="radio" checked>Atchison Village <input type="radio" disabled> Point Richmond ' +
+          '<input type="radio" disabled> North Richmond </form></td><td></td></tr>');
           dateAxis = new DateAxis("dateAxis", "horizontal", {
             min: startTime,
             max: endTime
@@ -764,15 +811,15 @@
         // Add charts
         var seriesIdx = series.length;
         var color_line = (feed.isDouble ? "rgb(0,255,0)" : "rgb(0,0,255)");
-        var color_fill = "rgba(" + feed.channels[channelName].graphMetaData.color + ",1)";
         var channelLabel = feed.channels[channelName].graphMetaData.label;
-        var idx = loaded_series.indexOf(channelLabel);
+        var idx = loadedSeries.indexOf(channelLabel);
         if(idx != -1) {
-          loaded_series.push(channelLabel + "2");
+          loadedSeries.push(channelLabel + "2");
           seriesIdx = idx;
         }
         else {
-          loaded_series.push(channelLabel);
+          loadedSeries.push(channelLabel);
+          var color_fill = "rgba(" + colors.shift() + ",1)";
           series[seriesIdx] = {};
           series[seriesIdx].id = seriesIdx;
           var row = $('<tr class="chart grapher_row"' + 'data-channel=' + channelName + '></tr>');
@@ -871,7 +918,7 @@
           }
         });
 
-        if (loaded_series.indexOf(channelLabel + "2") != -1) {
+        if (loadedSeries.indexOf(channelLabel + "2") != -1) {
           series[seriesIdx].pc.addPlot(plot);
         } else {
           series[seriesIdx].p = [];
@@ -1125,12 +1172,6 @@
               } else {
                 // Show timelapse
                 tm_init();
-                //$("#timeMachine").hide();
-                //$("#locationTitle").hide();
-                //$(".player").hide();
-                $("#timelapse_feed").hide();
-                $("#loading").html("<div class='error_msg2'>Camera feed coming soon!</div>");
-
               }
 
               // Initialize Map
@@ -1145,8 +1186,8 @@
                 // Initialize Smells
                 initSmells();
 
-                loadFeeds(atchison_feeds);
                 // Initialize Graphs
+                loadFeeds(area.feeds);
 
               }, 10);
             }
@@ -1175,8 +1216,8 @@
     <div id="tabs" style="width: 100%; height: 100%; margin: 0; padding: 0px; position: absolute;">
       <ul>
         <li><a href="#tabs-1" style="outline:0;">Introduction</a></li>
-        <li><a href="#tabs-2" style="outline:0;">Richmond</a></li>
-        <li><a href="#tabs-3" style="outline:0;">Crockett-Rodeo</a></li>
+        <li><a onclick="selectArea('richmond')" href="#tabs-2" style="outline:0;">Richmond</a></li>
+        <li><a onclick="selectArea('crockett-rodeo')" href="#tabs-2" style="outline:0;">Crockett-Rodeo</a></li>
       </ul>
       <div id="tabs-1" style="width: 100%; padding: 0px; margin: 0;">
         <h1>Welcome to the Bay Area Air Monitoring Hub</h1>
@@ -1215,7 +1256,7 @@
             </div>
           </div>
           <div id="grapher_parent" style="width:50%; height:75%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
-          <div style="width:50%; height:50%; float: right"><div id="map-canvas"></div></div>
+          <div style="width:50%; height:75%; float: right"><div id="map-canvas"></div></div>
           </div>
       </div>
     </div>
