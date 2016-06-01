@@ -94,6 +94,16 @@
         background: white;
       }
 
+      #radioButtonContainer {
+        margin-left: auto;
+        margin-right: auto;
+        display: table;
+      }
+
+      .areaButton {
+        margin: 5px;
+      }
+
       .chart {
         height: auto;
         background: #4f5457 !important;
@@ -318,10 +328,14 @@
       var grapherLoadedInterval = null;
       var showSmokeDetection = true;
 
-      var atchison_feeds = [4910, 4909];
-      var north_richmond_feeds = [4911, 4912];
-      var point_richmond_feeds = [4913, 4914];
-      var rodeo_feeds = [4901, 4902, 4903];
+      var feedMap = {
+        "Atchison Village" : [4910, 4909],
+        "North Richmond" : [4911, 4912],
+        "Point Richmond" : [4913, 4914],
+        "North Rodeo" : [4902],
+        "South Rodeo" : [4901],
+        "Rodeo Wind" : [4903]
+      }
       var esdr_feeds = {};
 
       if (showSmokeDetection) {
@@ -343,13 +357,16 @@
         };
       }
 
-      function selectArea(targetArea) {
+      function selectArea(targetArea, locale) {
         area.id = targetArea;
-        if(targetArea === "richmond") {
-          area.feeds = atchison_feeds;
+        if(locale === null && targetArea === "richmond") {
+          area.locale = "Atchison Village";
         }
-        else if (targetArea === "crockett-rodeo") {
-          area.feeds = rodeo_feeds;
+        else if (locale === null && targetArea === "crockett-rodeo") {
+          area.locale = "North Rodeo";
+        }
+        else {
+          area.locale = locale;
         }
         if(!(Object.keys(esdr_feeds).length === 1)) {
           refreshChannelPage();
@@ -732,9 +749,13 @@
         if (!$("#dateAxisContainer").length) {
 
           $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td class="sensorColumnTitle">Location / Sensor</td><td id="dateAxis"></td><td></td></tr>');
-          $("#grapher").append('<tr id="radioButtonContainer"><td id="legend"><img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor</td>' +
-          '<td class="annotationContent"><form><input type="radio" checked>Atchison Village <input type="radio" disabled> Point Richmond ' +
-          '<input type="radio" disabled> North Richmond </form></td><td></td></tr>');
+          var allLocales = Object.keys(feedMap);
+          var locales = (area.id === "richmond" ? allLocales.slice(0,3) : allLocales.slice(3,5));
+          $("#grapher").append('<tr><td id="legend"><img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor</td>' +
+          '<td class="annotationContent"><form id="radioButtonContainer"></form></td><td></td></tr>');
+          for(var i=0;i<locales.length;i++) {
+            $("#radioButtonContainer").append('<button type="button" class="areaButton" onclick="selectArea(\'' + area.id + '\',\'' + locales[i] + '\')">' + locales[i] + '</button>');
+          }
           dateAxis = new DateAxis("dateAxis", "horizontal", {
             min: startTime,
             max: endTime
@@ -1187,7 +1208,7 @@
                 initSmells();
 
                 // Initialize Graphs
-                loadFeeds(area.feeds);
+                loadFeeds(feedMap[area.locale]);
 
               }, 10);
             }
@@ -1216,8 +1237,8 @@
     <div id="tabs" style="width: 100%; height: 100%; margin: 0; padding: 0px; position: absolute;">
       <ul>
         <li><a href="#tabs-1" style="outline:0;">Introduction</a></li>
-        <li><a onclick="selectArea('richmond')" href="#tabs-2" style="outline:0;">Richmond</a></li>
-        <li><a onclick="selectArea('crockett-rodeo')" href="#tabs-2" style="outline:0;">Crockett-Rodeo</a></li>
+        <li><a onclick="selectArea('richmond', null)" href="#tabs-2" style="outline:0;">Richmond</a></li>
+        <li><a onclick="selectArea('crockett-rodeo', null)" href="#tabs-2" style="outline:0;">Crockett-Rodeo</a></li>
       </ul>
       <div id="tabs-1" style="width: 100%; padding: 0px; margin: 0;">
         <h1>Welcome to the Bay Area Air Monitoring Hub</h1>

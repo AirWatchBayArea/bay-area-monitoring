@@ -47,19 +47,20 @@ function loadFeeds(area_feed_ids) {
         var feed_channels = Object.keys(feed.channelBounds.channels);
         for(j=0;j<feed_channels.length;j++) {
           var chemical = feed_channels[j];
+          var chemicalLabel = chemical;
           if(isRodeoFenceline) {
-            chemical = chemical.slice(chemical.indexOf("_")+1);
+            chemicalLabel = chemical.slice(chemical.indexOf("_")+1);
           }
-          if(target_channels.indexOf(chemical) != -1) {
-            var chemical_label = chemical.replace(/_/g," ");
+          if(target_channels.indexOf(chemicalLabel) != -1) {
+            chemicalLabel = chemicalLabel.replace(/_/g," ");
             if(chemical.indexOf("Xylene") != -1) {
-              chemical_label = "Xylene";
+              chemicalLabel = "Xylene";
             }
             esdr_feeds[feed.name].channels[chemical] = {
               show_graph: true,
               hourly: true,
               graphMetaData: {
-                label: chemical_label + " (ppb)"
+                label: chemicalLabel + " (ppb)"
               },
               summary: {}
             }
