@@ -26,7 +26,7 @@ function loadFeeds(area_feed_ids) {
           channels: {},
           fullTimeRange: {}
         }
-        if(feed.name.includes("Refinery")) {
+        if(feed.name.indexOf("Refinery") > 0) {
           esdr_feeds[feed.name].isDouble = true;
         }
         var isRodeoFenceline = (feed.id == 4901 || feed.id == 4902);

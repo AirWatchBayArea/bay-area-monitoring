@@ -126,7 +126,16 @@
         right: 35px;
         height: auto;
         border: 1px solid black;
-        background: white;
+        background: transparent;
+      }
+
+      .colorBox {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        height: inherit;
+        background-color: crimson;
+        z-index: -1;
       }
 
       .annotationContent {
@@ -332,9 +341,8 @@
         "Atchison Village" : [4910, 4909],
         "North Richmond" : [4911, 4912],
         "Point Richmond" : [4913, 4914],
-        "North Rodeo" : [4902],
-        "South Rodeo" : [4901],
-        "Rodeo Wind" : [4903]
+        "North Rodeo" : [4902, 4903],
+        "South Rodeo" : [4901]
       }
       var esdr_feeds = {};
 
@@ -747,8 +755,7 @@
 
         // Initial creation
         if (!$("#dateAxisContainer").length) {
-
-          $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td class="sensorColumnTitle">Location / Sensor</td><td id="dateAxis"></td><td></td></tr>');
+          $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td class="sensorColumnTitle">Chemical</td><td id="dateAxis"></td><td></td></tr>');
           var allLocales = Object.keys(feedMap);
           var locales = (area.id === "richmond" ? allLocales.slice(0,3) : allLocales.slice(3,5));
           $("#grapher").append('<tr><td id="legend"><img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor</td>' +
@@ -822,6 +829,7 @@
           }
         }
 
+
         // Set max range of all the graphs
         if (endTime > dateAxis.getMax()) {
           dateAxis.setMaxRange(null, endTime);
@@ -848,6 +856,7 @@
           row.append('<td id="series' + seriesIdx + '" class="chartContent"></td>');
           row.append('<td id="series' + seriesIdx + 'axis" class="chartAxis"></td>');
           $('#grapher').append(row);
+          addHealthLimitOverlays(seriesIdx, channelName);
           series[seriesIdx].axis = new NumberAxis('series' + seriesIdx + 'axis', "vertical");
           if (showSmokeDetection && channelName == "smoke_level") {
             hideSmokeDetectionGraph();
@@ -939,6 +948,8 @@
           }
         });
 
+
+
         if (loadedSeries.indexOf(channelLabel + "2") != -1) {
           series[seriesIdx].pc.addPlot(plot);
         } else {
@@ -961,6 +972,11 @@
         }, 100);
 
       };
+
+      function addHealthLimitOverlays(seriesIdx, channelName) {
+        $("#series" + seriesIdx).append("<div id='level" + seriesIdx + "' class='colorBox'></div>");
+        //<div id="level_160" class="color_box" style="z-index: -2; height: 125.202px; max-height: 300px; width: 636px; left: 0px; background-color: rgb(252, 141, 89);"></div>
+      }
 
       function clampNumberAxisToDataRange(plots, seriesIdx) {
         var stats, tmp_stats, min = 9999, max = -9999;

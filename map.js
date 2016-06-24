@@ -13,11 +13,18 @@ function initMap(div) {
   // Initialize Google Map
   resolutionScale = window.devicePixelRatio || 1;
 
+  var center = {};
+  if(area.id === "richmond") {
+    center.x = 37.96;
+    center.y = -122.33;
+  }
+
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
-    zoom: 10,
-    center: new google.maps.LatLng(37.99, -122.33)
+    zoom: 12,
+    //TODO: make center depend of locale
+    center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
 
@@ -65,16 +72,11 @@ function setupCanvasLayerProjection() {
   context.translate(-offset.x * projectionScale, -offset.y * projectionScale);
 }
 
-function paintPM25(site, channelName, epochTime) {
-  var channel = site.channels[channelName];
+function paintWind(site, epochTime) {
   var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
   var x = worldPoint.x * projectionScale;
   var y = worldPoint.y * projectionScale;
-
-  var bar_width = 5;
-  var bar_scale = 0.5;
-  context.font = '4px Arial';
 
   // How many pixels per mile?
   var offset1mile = mapProjection.fromLatLngToPoint(new google.maps.LatLng(site.coordinates.latitude + 0.014457067, site.coordinates.longitude));
@@ -82,50 +84,14 @@ function paintPM25(site, channelName, epochTime) {
 
   y_scale = site.flip_y ? -1 : 1;
 
-  var pm25 = getData(site, channel, epochTime);
-
-  var siteDouble;
-  if (site.feed_id == 4315) {
-    siteDouble = esdr_feeds.Speck1b;
-    channel = siteDouble.channels[channelName];
-  } else if (site.feed_id == 4617) {
-    siteDouble = esdr_feeds.Speck2b;
-    channel = siteDouble.channels[channelName];
-  } else if (site.feed_id == 4316) {
-    siteDouble = esdr_feeds.Speck3b;
-    channel = siteDouble.channels[channelName];
-  }
-
-  // If a site has 2 devices, take the average
-  var numSites = 2;
-  if (siteDouble) {
-    var pm25_2 = getData(siteDouble, channel, epochTime);
-    if (pm25_2 !== null && isFinite(pm25_2)) {
-      if (pm25 === null || !isFinite(pm25)) {
-        pm25 = 0;
-        numSites -= 1;
-      }
-      pm25 = Math.round((pm25 + pm25_2) / numSites);
-    }
-  }
-
-  if (pm25 !== null && isFinite(pm25)) {
-    context.fillStyle = 'rgba(' + site.channels[channelName].graphMetaData.color + ', 1)';
-    context.fillRect(x - bar_width, y, bar_width, -bar_scale * pm25 * y_scale);
-    context.strokeStyle = 'black';
-    context.lineWidth = 1.0 / contextScale;
-    context.strokeRect(x - bar_width, y, bar_width, -bar_scale * pm25 * y_scale);
-    context.fillText(pm25, x - bar_width - 0.1, y + y_scale * 2.2 + 1.5);
-  }
-
   var wind_speed, wind_dir;
-  if (site.channels.SONICWS_MPH) {
-    wind_speed = getData(site, site.channels.SONICWS_MPH, epochTime);
-    wind_dir = getData(site, site.channels.SONICWD_DEG, epochTime);
+  if (site.channels.Wind_Speed_MPH) {
+    wind_speed = getData(site, site.channels.Wind_Speed_MPH, epochTime);
+    wind_dir = getData(site, site.channels.Wind_Direction, epochTime);
   }
 
   if (wind_speed && wind_dir) {
-    x -= bar_width;
+    console.log("we have wind speed and wind dir");
     if (wind_speed > 0.1) {
       var wind_dir_radians = wind_dir * Math.PI / 180;
       var dx = -Math.sin(wind_dir_radians);
@@ -220,17 +186,20 @@ function repaintCanvasLayer() {
     // Date.parse() can only reliably parse RFC2822 or ISO 8601 dates.
     // The result is that parsing the capture time from Time Machine results in undefined.
     // Chrome (unlike FireFox or IE) is more lenient and will parse it correctly though.
-    var epochTime = (new Date((timelapse.getCurrentCaptureTime()).replace(/-/g,"/")).getTime()) / 1000;
+    //var epochTime = (new Date((timelapse.getCurrentCaptureTime()).replace(/-/g,"/")).getTime()) / 1000;
+    var currentTime = new Date();
+    var epochTime = (currentTime.getTime() / 1000) - 3600;
 
-    paintPM25(esdr_feeds.ACHD_Avalon, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.ACHD_North_Braddock, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.ACHD_Lawrenceville, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.ACHD_Parkway_East, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.ACHD_Liberty, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.ACHD_South_Fayette, 'PM25B_UG_M3', epochTime);
-    paintPM25(esdr_feeds.Speck1, 'particle_concentration', epochTime);
-    paintPM25(esdr_feeds.Speck2, 'particle_concentration', epochTime);
-    paintPM25(esdr_feeds.Speck3, 'particle_concentration', epochTime);
+    var feedName;
+    if(area.locale.indexOf("Rodeo") > 0) {
+      feedName = "Rodeo fenceline_org";
+    }
+    else {
+      feedName = "Atchison Village Refinery Fence Line fenceline_org";
+    }
+    var esdrKeys = Object.keys(esdr_feeds);
+    var feed = esdr_feeds[feedName];
+    paintWind(feed, epochTime);
   } catch(e) {
     //console.log(e);
   }
