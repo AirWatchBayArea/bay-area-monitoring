@@ -134,7 +134,7 @@
         left: 0px;
         width: 100%;
         height: inherit;
-        background-color: crimson;
+        background-color: white;
         z-index: -1;
       }
 
@@ -696,7 +696,8 @@
         //if (timelapse && path) {
           $(".gwt-PopupPanel").remove();
           currentDate = date;
-          setGraphTimeRange(date);
+          var dayStart = setGraphTimeRange(date);
+          repaintCanvasLayer(dayStart);
           //timelapse.loadTimelapse(path, null, null, true);
         //}
       }
@@ -1058,6 +1059,7 @@
         var dayStart = (new Date((dayStartString).replace(/-/g,"/")).getTime()) / 1000;
         var dayEnd = (new Date((dayEndString).replace(/-/g,"/")).getTime()) / 1000;
         dateAxis.setRange(dayStart, dayEnd);
+        return dayStart;
       }
 
       function initialize() {
@@ -1190,7 +1192,8 @@
                 $("#stitched_image_wrapper").hide();
                 $("#location_toggle_container").hide();
                 $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
-              } else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
+              }
+              /** else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
                 timelapseFeedUnavailable = true;
                 // TODO: Image feed is not working since the-shenango-channel currently does not have a way to get the latest image,
                 // unlike when it was running on the Rails server.
@@ -1206,7 +1209,8 @@
                 $("#map-canvas").hide();
                 $("#tutorialDialog").hide();
                 $("#loading").html("<div class='error_msg2'>Shenango Channel is not available on mobile devices. Please use a desktop or laptop when viewing this site.</div>");
-              } else {
+              } */
+              else {
                 // Show timelapse
                 tm_init();
               }

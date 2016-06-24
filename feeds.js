@@ -30,16 +30,17 @@ function loadFeeds(area_feed_ids) {
           esdr_feeds[feed.name].isDouble = true;
         }
         var isRodeoFenceline = (feed.id == 4901 || feed.id == 4902);
+        var isRodeoWind = feed.id == 4903;
         if(!isRodeoFenceline) {
           esdr_feeds[feed.name].channels = {
             "Wind_Speed_MPH": {
               show_graph: false,
-              hourly: true,
+              hourly: !isRodeoWind,
               summary: {}
             },
             "Wind_Direction": {
               show_graph: false,
-              hourly: true,
+              hourly: !isRodeoWind,
               summary: {}
             }
           }

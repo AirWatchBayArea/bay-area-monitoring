@@ -18,12 +18,15 @@ function initMap(div) {
     center.x = 37.96;
     center.y = -122.33;
   }
+  else if(area.id === "crockett-rodeo") {
+    center.x = 38.05;
+    center.y = -122.23;
+  }
 
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
     zoom: 12,
-    //TODO: make center depend of locale
     center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
@@ -91,7 +94,6 @@ function paintWind(site, epochTime) {
   }
 
   if (wind_speed && wind_dir) {
-    console.log("we have wind speed and wind dir");
     if (wind_speed > 0.1) {
       var wind_dir_radians = wind_dir * Math.PI / 180;
       var dx = -Math.sin(wind_dir_radians);
@@ -145,7 +147,7 @@ function getData(site, channel, time) {
     requestEsdrExport(requestInfo, function(csvData) {
       parseEsdrCSV(csvData, site);
       //console.log('got that data');
-      repaintCanvasLayer();
+      repaintCanvasLayer(time);
     });
   } else {
     //console.log('We have data for ' + site.feed_id + ', day ' + day);
@@ -160,7 +162,7 @@ function getData(site, channel, time) {
     } else {
       time = Math.round(time);
       // Search for data
-      var search_dist = 45;  // 45 seconds
+      var search_dist = 150;  // 45 seconds
       //console.log('Searching for time ' + time + ', +/- ' + search_dist);
       //console.log(channel);
       for (var i = 0; i <= search_dist; i++) {
@@ -179,7 +181,7 @@ function getData(site, channel, time) {
   }
 }
 
-function repaintCanvasLayer() {
+function repaintCanvasLayer(epochTime) {
   try {
     //console.log('repaint');
     setupCanvasLayerProjection();
@@ -187,8 +189,10 @@ function repaintCanvasLayer() {
     // The result is that parsing the capture time from Time Machine results in undefined.
     // Chrome (unlike FireFox or IE) is more lenient and will parse it correctly though.
     //var epochTime = (new Date((timelapse.getCurrentCaptureTime()).replace(/-/g,"/")).getTime()) / 1000;
-    var currentTime = new Date();
-    var epochTime = (currentTime.getTime() / 1000) - 3600;
+    if(!epochTime) {
+      var currentTime = new Date();
+      epochTime = (currentTime.getTime() / 1000) - 3600;
+    }
 
     var feedName;
     if(area.locale.indexOf("Rodeo") > 0) {
