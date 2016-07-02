@@ -362,6 +362,23 @@
         "Xylene (ppb)": 200,
         "Ethylbenzene (ppb)": 400
       }
+
+      var communityDetectionLimitMap = {
+        "Benzene (ppb)" : 0.5,
+        "Hydrogen Sulfide (ppb)": 2,
+        "Toluene (ppb)": 0.5,
+        "Xylene (ppb)": 0.5,
+        "Ethylbenzene (ppb)": 0.5
+      }
+
+      var refineryDetectionLimitMap = {
+        "Benzene (ppb)" : 5,
+        "Hydrogen Sulfide (ppb)": 30,
+        "Sulfur Dioxide (ppb)": 5,
+        "Toluene (ppb)": 5,
+        "Xylene (ppb)": 5
+      }
+
       var esdr_feeds = {};
 
       if (showSmokeDetection) {
@@ -875,8 +892,11 @@
           row.append('<td id="series' + seriesIdx + '" class="chartContent"></td>');
           row.append('<td id="series' + seriesIdx + 'axis" class="chartAxis"></td>');
           $('#grapher').append(row);
-          addHealthLimitOverlays(seriesIdx, channelName);
+          addGraphOverlays(seriesIdx);
           series[seriesIdx].axis = new NumberAxis('series' + seriesIdx + 'axis', "vertical");
+          series[seriesIdx].axis.addAxisChangeListener(function() {
+            adjustGraphOverlays(seriesIdx, channelLabel);
+          });
           if (showSmokeDetection && channelName == "smoke_level") {
             hideSmokeDetectionGraph();
             loadMetaData(currentDate, currentLocation);
@@ -992,11 +1012,27 @@
 
       };
 
-      function addHealthLimitOverlays(seriesIdx, channelName) {
+      function addGraphOverlays(seriesIdx) {
         $("#series" + seriesIdx).append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
         $("#series" + seriesIdx).append("<div id='greyAreaBox" + seriesIdx + "' class='greyAreaBox'></div>");
+      }
 
-        //<div id="level_160" class="color_box" style="z-index: -2; height: 125.202px; max-height: 300px; width: 636px; left: 0px; background-color: rgb(252, 141, 89);"></div>
+      function adjustGraphOverlays(seriesIdx, channelLabel) {
+        var axis = series[seriesIdx].axis;
+        var chartHeight = $('.chart').height();
+
+        var level = healthLimitMap[channelLabel];
+        var overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        $('#healthDangerBox' + seriesIdx)
+            .height(overlayHeight)
+            .css("max-height", chartHeight);
+
+        level = communityDetectionLimitMap[channelLabel];
+        overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        $('#greyAreaBox' + seriesIdx)
+            .height(overlayHeight)
+            .css("max-height", chartHeight);
+        //$('#greyAreaBox' + seriesIdx).height(2* overlayHeight/3);
       }
 
       function clampNumberAxisToDataRange(plots, seriesIdx) {
@@ -1068,8 +1104,9 @@
           if (series[i].axis)
             series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
           if(channelLabel) {
-              $('#healthDangerBox' + i).height(newHeight/3);
-              $('#greyAreaBox' + i).height(2 * newHeight/3);
+            adjustGraphOverlays(seriesIdx, channelLabel);
+              //$('#healthDangerBox' + i).height(newHeight/3);
+              //$('#greyAreaBox' + i).height(2 * newHeight/3);
           }
           if (series[i].pc)
             series[i].pc.setSize($('#series' + i).width(), newHeight, SequenceNumber.getNext());
@@ -1090,6 +1127,7 @@
         $( "#tabs" ).tabs({
           heightStyle: "content",
           activate: function(event, ui) {
+            console.log("click!");
             if ($(ui.newPanel)[0].id == "tabs-2") {
               $("body, html").css("overflow", "hidden");
               if (!timelapse) {
