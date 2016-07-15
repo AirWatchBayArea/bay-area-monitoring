@@ -124,7 +124,20 @@ function paintWind(site, epochTime) {
       context.beginPath();
       context.arc(x, y, 1.18, 0, 2 * Math.PI, false);
       context.fill();
-    }
+
+      //show wind speed value on hover
+      //context.font = "12px Arial";
+      $("#map_parent").hover(
+        function() {
+          //context.fillText(wind_speed + " mph", x-dx, y-dy+12);
+          $("#wind_speed").html("Wind Speed: " + wind_speed + " mph");
+        },
+          function() {
+            //context.clearRect(x-dx,y-dy,12,12);
+            $("#wind_speed").empty();
+          }
+        );
+      }
   }
 }
 
@@ -194,14 +207,18 @@ function repaintCanvasLayer(epochTime) {
       epochTime = (currentTime.getTime() / 1000) - 3600;
     }
 
+    var esdrKeys = Object.keys(esdr_feeds);
     var feedName;
     if(area.locale.indexOf("Rodeo") > 0) {
       feedName = "Rodeo fenceline_org";
     }
     else {
-      feedName = "Atchison Village Refinery Fence Line fenceline_org";
+      for(var i=0;i<esdrKeys.length;i++) {
+        if(esdrKeys[i].indexOf("Refinery") > -1) {
+          feedName = esdrKeys[i];
+        }
+      }
     }
-    var esdrKeys = Object.keys(esdr_feeds);
     var feed = esdr_feeds[feedName];
     paintWind(feed, epochTime);
   } catch(e) {

@@ -29,6 +29,10 @@
         height: 30px;
       }
 
+      #map_parent {
+        position: relative;
+      }
+
       .row1 {
         display:table-row;
         height: 50%;
@@ -67,6 +71,20 @@
         width: 100%;
         margin: 0;
         padding: 0;
+      }
+
+      #wind_speed {
+        position:absolute;
+        top: 10px;
+        left: 40%;
+        z-index: 99;
+        font-size: 12pt;
+        background-color: aliceblue;
+        border: 2px solid black;
+      }
+
+      #wind_speed:empty {
+        display:none;
       }
 
       #grapher {
@@ -134,7 +152,7 @@
         left: 0px;
         width: 100%;
         background-color: rgb(255, 179, 179);
-        z-index: -1;
+        z-index: -2;
       }
 
       .greyAreaBox {
@@ -142,8 +160,17 @@
         left: 0px;
         width: 100%;
         background-color: rgb(217, 217, 217);
-        border-bottom: 2px dashed black;
-        z-index: -2;
+        border-bottom: 0px dashed black;
+        z-index: -3;
+      }
+
+      .refineryDetectionLimit {
+        position: absolute;
+        left: 0px;
+        width: 100%;
+        background-color: transparent;
+        border-bottom: 2px dotted black;
+        z-index: -1;
       }
 
 
@@ -182,10 +209,7 @@
       }
 
       .sensorColumnTitle {
-        background: rgb(214, 208, 208);
         padding-left: 12px;
-        text-decoration: underline;
-        font-size: 15px;
         border-top: 1px solid black;
         width: 150px;
       }
@@ -265,7 +289,7 @@
         outline: none;
         font-family: Arial, Helvetica, sans-serif !important;
         font-size: 11px !important;
-        border: 4px solid white !important;
+        border: 1px solid white !important;
       }
 
       .zoomGrapherBtn:hover {
@@ -275,17 +299,17 @@
       #zoomGrapherIn {
         position: absolute;
         top: 1px;
-        right: 0px;
-        height: 38px;
-        width: 34px;
+        right: 8px;
+        height: 19px;
+        width: 17px;
       }
 
       #zoomGrapherOut {
         position: absolute;
-        top: 35px;
-        right: 0px;
-        height: 38px;
-        width: 34px;
+        top: 20px;
+        right: 8px;
+        height: 19px;
+        width: 17px;
       }
     </style>
 
@@ -411,9 +435,11 @@
         else {
           area.locale = locale;
         }
-        if(!(Object.keys(esdr_feeds).length === 1)) {
-          refreshChannelPage();
-        }
+      }
+
+      function changeLocale(targetArea, locale) {
+        selectArea(targetArea, locale);
+        refreshChannelPage();
       }
 
       function refreshChannelPage() {
@@ -612,7 +638,7 @@
             showSmokeDetectionGraph();
           },
           error: function() {
-            timelapse.getTimelineMetadataVisualizer().hideControlUI();
+            //timelapse.getTimelineMetadataVisualizer().hideControlUI();
             hideSmokeDetectionGraph();
           }
         });
@@ -785,25 +811,36 @@
         }
       }
 
+      function updateAreaSelectionMenu() {
+        $('#radioButtonContainer').empty();
+        var allLocales = Object.keys(feedMap);
+        var locales = (area.id === "richmond" ? allLocales.slice(0,3) : allLocales.slice(3,5));
+        $("#areaSelectionMenu").append('<form id="radioButtonContainer"></form>');
+        for(var i=0;i<locales.length;i++) {
+          $("#radioButtonContainer").append('<input type="radio" name="areaRadioButtonGroup"' + (i==0? 'checked="checked"' : '')
+          + 'onclick="changeLocale(\'' + area.id + '\',\'' + locales[i] + '\')">' + locales[i] + '</input>');
+        }
+      }
+
       var createChart = function(feed, channelName, feedAPIKey) {
         var startTime = feed.fullTimeRange.min;
         var endTime = feed.fullTimeRange.max;
 
         // Initial creation
         if (!$("#dateAxisContainer").length) {
-          $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td class="sensorColumnTitle">Chemical</td><td id="dateAxis"></td><td></td></tr>');
-          var allLocales = Object.keys(feedMap);
-          var locales = (area.id === "richmond" ? allLocales.slice(0,3) : allLocales.slice(3,5));
-          $("#grapher").append('<tr><td id="legend"><img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor</td>' +
-          '<td class="annotationContent"><form id="radioButtonContainer"></form></td><td></td></tr>');
-          for(var i=0;i<locales.length;i++) {
-            $("#radioButtonContainer").append('<button type="button" class="areaButton" onclick="selectArea(\'' + area.id + '\',\'' + locales[i] + '\')">' + locales[i] + '</button>');
+          $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td id="legend" class="sensorColumnTitle"></td><td id="dateAxis"></td><td></td></tr>');
+
+
+        // $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td id="legend"></td><td id="dateAxis"></td><td></td></tr>');
+          if (area.id == "richmond") {
+            $("#legend").append('<img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor');
           }
           dateAxis = new DateAxis("dateAxis", "horizontal", {
             min: startTime,
             max: endTime
           });
 
+          //$("#grapher").append('<tr class="annotationChart"></tr>');
           // Create zooming buttons
           $("#grapher").append('<button id="zoomGrapherIn" class="zoomGrapherBtn" title="Zoom in the graphs"></button>');
           $("#grapher").append('<button id="zoomGrapherOut" class="zoomGrapherBtn" title="Zoom out the graphs"></button>');
@@ -892,7 +929,7 @@
           row.append('<td id="series' + seriesIdx + '" class="chartContent"></td>');
           row.append('<td id="series' + seriesIdx + 'axis" class="chartAxis"></td>');
           $('#grapher').append(row);
-          addGraphOverlays(seriesIdx);
+          addGraphOverlays(seriesIdx, channelLabel);
           series[seriesIdx].axis = new NumberAxis('series' + seriesIdx + 'axis', "vertical");
           series[seriesIdx].axis.addAxisChangeListener(function() {
             adjustGraphOverlays(seriesIdx, channelLabel);
@@ -1012,9 +1049,16 @@
 
       };
 
-      function addGraphOverlays(seriesIdx) {
-        $("#series" + seriesIdx).append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
-        $("#series" + seriesIdx).append("<div id='greyAreaBox" + seriesIdx + "' class='greyAreaBox'></div>");
+      function addGraphOverlays(seriesIdx, channelLabel) {
+        if (healthLimitMap[channelLabel]) {
+          $("#series" + seriesIdx).append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
+        }
+        if (area.id == "richmond" && communityDetectionLimitMap[channelLabel]) {
+          $("#series" + seriesIdx).append("<div id='greyAreaBox" + seriesIdx + "' class='greyAreaBox'></div>");
+        }
+        if (refineryDetectionLimitMap[channelLabel]) {
+          $("#series" + seriesIdx).append("<div id='refineryDetectionLimit" + seriesIdx + "' class='refineryDetectionLimit'></div>");
+        }
       }
 
       function adjustGraphOverlays(seriesIdx, channelLabel) {
@@ -1029,10 +1073,18 @@
 
         level = communityDetectionLimitMap[channelLabel];
         overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        var borderVisible;
+        overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
         $('#greyAreaBox' + seriesIdx)
             .height(overlayHeight)
-            .css("max-height", chartHeight);
-        //$('#greyAreaBox' + seriesIdx).height(2* overlayHeight/3);
+            .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
+
+        level = refineryDetectionLimitMap[channelLabel];
+        overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
+        $('#refineryDetectionLimit' + seriesIdx)
+            .height(overlayHeight)
+            .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
       }
 
       function clampNumberAxisToDataRange(plots, seriesIdx) {
@@ -1104,9 +1156,7 @@
           if (series[i].axis)
             series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
           if(channelLabel) {
-            adjustGraphOverlays(seriesIdx, channelLabel);
-              //$('#healthDangerBox' + i).height(newHeight/3);
-              //$('#greyAreaBox' + i).height(2 * newHeight/3);
+            adjustGraphOverlays(i, channelLabel);
           }
           if (series[i].pc)
             series[i].pc.setSize($('#series' + i).width(), newHeight, SequenceNumber.getNext());
@@ -1127,8 +1177,9 @@
         $( "#tabs" ).tabs({
           heightStyle: "content",
           activate: function(event, ui) {
-            console.log("click!");
             if ($(ui.newPanel)[0].id == "tabs-2") {
+              selectArea($(ui.newTab)[0].id, null);
+              updateAreaSelectionMenu();
               $("body, html").css("overflow", "hidden");
               if (!timelapse) {
                 channelPageSetup();
@@ -1137,7 +1188,7 @@
                   google.maps.event.trigger(map, 'resize');
                 });
               } else {
-                timelapse.onresize();
+                refreshChannelPage();
               }
               setSizes();
               google.maps.event.trigger(map, 'resize');
@@ -1319,8 +1370,8 @@
     <div id="tabs" style="width: 100%; height: 100%; margin: 0; padding: 0px; position: absolute;">
       <ul>
         <li><a href="#tabs-1" style="outline:0;">Introduction</a></li>
-        <li><a onclick="selectArea('richmond', null)" href="#tabs-2" style="outline:0;">Richmond</a></li>
-        <li><a onclick="selectArea('crockett-rodeo', null)" href="#tabs-2" style="outline:0;">Crockett-Rodeo</a></li>
+        <li id="richmond"><a href="#tabs-2" style="outline:0;">Richmond</a></li>
+        <li id="crockett-rodeo"><a href="#tabs-2" style="outline:0;">Crockett-Rodeo</a></li>
       </ul>
       <div id="tabs-1" style="width: 100%; padding: 0px; margin: 0;">
         <div style="text-align: center">
@@ -1329,25 +1380,18 @@
           <a href="www.fenceline.org">fenceline.org</a></h3>
         <p>Please note that this website is a prototype and may contain bugs. If you discover one, please describe it
           here: </p>
-          <form name="savefile" method="post" action="">
-        <textarea rows="9" cols="50" name="textdata"></textarea><br/>
-        <input type="submit" name="submitsave" value="Submit">
+          <form action="save-to-log.php" method="POST">
+            <fieldset>
+              <textarea rows="9" cols="50" name="message"></textarea><br/>
+              <input type="submit" value="Submit" onclick="alert('Thanks for your feedback!')">
+            </fieldset>
         </form>
-          <!--<?php
-            if(isset($_POST['submit']))
-              {
-                $file = 'bugs.txt';
-                if(file_exist($file))
-                {
-                  file_put_contents($file,$_POST['content']);
-                }
-              }
-              ?-->
         </div>
       </div>
       <div id="tabs-2" style="width: 100%; height: 100%; margin: 0; padding: 0px">
-        <div id="foo" style="height: calc(100% - 35px)">
-          <div id="container">
+        <div id="areaSelectionMenu" style="width: 100%; height: 25px; margin: 0; padding: 0px; background-color:aliceblue"></div>
+        <div id="foo" style="height: calc(100% - 55px)">
+          <div id="container" style="height:32%">
             <div id="loading">
               <img id="loadingImg" src="assets/images/loading.gif" width="358" height="250" alt="loading">
             </div>
@@ -1378,8 +1422,11 @@
               </a>
             </div>
           </div>
-          <div id="grapher_parent" style="width:50%; height:75%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
-          <div style="width:50%; height:75%; float: right"><div id="map-canvas"></div></div>
+          <div id="grapher_parent" style="width:50%; height:68%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
+          <div id="map_parent" style="width:50%; height:68%; float: right">
+            <div id="map-canvas"></div>
+            <div id="wind_speed"></div>
+        </div>
           </div>
       </div>
     </div>
