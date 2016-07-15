@@ -960,6 +960,11 @@
                     }
                   }
                 }
+                /*if(channelName != "smoke_level") {
+                    json.data.data = json.data.data.filter(function(entry) {
+                      return entry[1] != 0;
+                    });
+                  }*/
                 successCallback(JSON.stringify(json.data));
               },
               failure: failureCallback
