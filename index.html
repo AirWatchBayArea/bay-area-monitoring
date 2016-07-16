@@ -960,11 +960,16 @@
                     }
                   }
                 }
-                /*if(channelName != "smoke_level") {
-                    json.data.data = json.data.data.filter(function(entry) {
+                if(channelName != "smoke_level") {
+                    /*json.data.data = json.data.data.filter(function(entry) {
                       return entry[1] != 0;
-                    });
-                  }*/
+                    });*/
+                    /*for (var i=0; i<json.data.data.length; i++) {
+                      if(json.data.data[i][1] == 0) {
+                        json.data.data[i][1] = -1e+308;
+                      }
+                    }*/
+                  }
                 successCallback(JSON.stringify(json.data));
               },
               failure: failureCallback
@@ -1391,6 +1396,12 @@
               <input type="submit" value="Submit" onclick="alert('Thanks for your feedback!')">
             </fieldset>
         </form>
+        </div>
+        <br>
+        <div style="border: 2px solid black; padding-left: 20px;">
+        <h2><u>What's New</u></h2>
+        <strong>7/15/16</strong>
+        <p>Wind speed can now be viewed by hovering over the map.
         </div>
       </div>
       <div id="tabs-2" style="width: 100%; height: 100%; margin: 0; padding: 0px">

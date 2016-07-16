@@ -1,3 +1,5 @@
+"use strict";
+
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
 var successCallback = function(area_feed_ids) {
   var keys = Object.keys(esdr_feeds);
@@ -7,7 +9,7 @@ var successCallback = function(area_feed_ids) {
   }
 
 function loadFeeds(area_feed_ids) {
-  for(i=0;i<area_feed_ids.length;i++) {
+  for(var i=0;i<area_feed_ids.length;i++) {
     $.ajax({
       type: "GET",
       dataType: "json",
@@ -46,7 +48,7 @@ function loadFeeds(area_feed_ids) {
           }
         }
         var feed_channels = Object.keys(feed.channelBounds.channels);
-        for(j=0;j<feed_channels.length;j++) {
+        for(var j=0;j<feed_channels.length;j++) {
           var chemical = feed_channels[j];
           var chemicalLabel = chemical;
           if(isRodeoFenceline) {
