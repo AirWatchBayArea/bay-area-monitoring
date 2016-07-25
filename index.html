@@ -102,7 +102,7 @@
       }
 
       #dateAxis {
-        position: absolute;
+        position: absolute !important;
         right: 250px;
         left: 159px;
         top: 0px;
@@ -123,15 +123,14 @@
       }
 
       .chart {
-        height: auto;
-        background: #4f5457 !important;
+        width: 100%;
       }
 
       .chartTitle {
         position: absolute;
         left: 0px;
         width: 136px;
-        height: auto;
+        height: 100%;
         border: 1px solid black;
         font-family: 'Helvetica Neue', Helvetica, Arial;
         color: white;
@@ -142,9 +141,10 @@
         position: absolute;
         left: 159px;
         right: 35px;
-        height: auto;
         border: 1px solid black;
         background: transparent;
+        width: 100%;
+        height: 80px;
       }
 
       .healthDangerBox {
@@ -200,12 +200,12 @@
       }
 
       .chartAxis {
-        position: absolute;
+        position: absolute !important;
         right: 0px;
         width: 34px;
-        height: 100%;
         border: 1px solid black;
         background: white;
+        height: 92px;
       }
 
       .sensorColumnTitle {
@@ -343,8 +343,8 @@
     <script src="http://tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript"></script>
     <script src="assets/js/jquery.xdomainrequest.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
-    <!--<script src="assets/grapher/grapher2.nocache.js" type="text/javascript"></script>-->
     <script src="assets/grapher.min.js" type="text/javascript"></script>
+    <script src="assets/PlotManager.js" type="text/javascript"></script>
     <script src="map.js"></script>
     <script src="smell.js"></script>
     <script src="feeds.js"></script>
@@ -359,6 +359,8 @@
       cached_breathecam.latest.date = today.toISOString().substring(0,10);
       var series = [];
       var loadedSeries = [];
+      var seriesIdx = 0;
+      var plotManager;
       var colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"];
       var area = {};
       var currentLocation = "shenango1";
@@ -368,8 +370,10 @@
       var fixedCursorPosition;
       var tmpCount = 0;
       var grapherReady = false;
+      var tmReady = false;
       var grapherLoadedInterval = null;
-      var showSmokeDetection = true;
+      var showSmokeDetection = false;
+      var dateAxisListener = null;
 
       var feedMap = {
         "Atchison Village" : [4910, 4909],
@@ -377,7 +381,7 @@
         "Point Richmond" : [4913, 4914],
         "North Rodeo" : [4902, 4903],
         "South Rodeo" : [4901]
-      }
+      };
 
       var healthLimitMap = {
         "Benzene (ppb)" : 1,
@@ -386,7 +390,7 @@
         "Toluene (ppb)": 70,
         "Xylene (ppb)": 200,
         "Ethylbenzene (ppb)": 400
-      }
+      };
 
       var communityDetectionLimitMap = {
         "Benzene (ppb)" : 0.5,
@@ -394,7 +398,7 @@
         "Toluene (ppb)": 0.5,
         "Xylene (ppb)": 0.5,
         "Ethylbenzene (ppb)": 0.5
-      }
+      };
 
       var refineryDetectionLimitMap = {
         "Benzene (ppb)" : 5,
@@ -402,7 +406,7 @@
         "Sulfur Dioxide (ppb)": 5,
         "Toluene (ppb)": 5,
         "Xylene (ppb)": 5
-      }
+      };
 
       var esdr_feeds = {};
 
@@ -445,7 +449,7 @@
 
       function refreshChannelPage() {
         esdr_feeds = {};
-        esdr_feeds.Smoke_Detection = {
+        /*esdr_feeds.Smoke_Detection = {
           feed_id: 5494,
           requested_day: {},
           api_key: "22075ad630b1f674e7f1da7f3de77b5abeea89f95e9c6c8868eef6cf0cd312b1",
@@ -460,11 +464,16 @@
             }
           },
           fullTimeRange: {}
-        };
+        };*/
+        plotManager.getDateAxis().removeAxisChangeListener(dateAxisListener);
+        plotManager.removeAllPlotContainers();
+        $("#grapher > tbody > tr").not("tr:first").remove();
+        $("#legend").empty();
+        var maxTimeSecs = Date.now() / 1000;
+        var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
         series = [];
-        colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"]
+        colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"];
         loadedSeries = [];
-        $("#grapher").empty();
         channelPageSetup();
       }
 
@@ -537,6 +546,7 @@
           showThumbnailTool: true,
           enableTimelineMetadataVisualizer: true,
           onTimeMachinePlayerReady: function(viewerDivId) {
+            tmReady = true;
             createTutorialButton(720, 540, "#timeMachine");
             if (canvasLayer)
               repaintCanvasLayer();
@@ -824,126 +834,7 @@
       }
 
       var createChart = function(feed, channelName, feedAPIKey) {
-        var startTime = feed.fullTimeRange.min;
-        var endTime = feed.fullTimeRange.max;
-
-        // Initial creation
-        if (!$("#dateAxisContainer").length) {
-          $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td id="legend" class="sensorColumnTitle"></td><td id="dateAxis"></td><td></td></tr>');
-
-
-        // $("#grapher").append('<tr id="dateAxisContainer" class="grapher_row"><td id="legend"></td><td id="dateAxis"></td><td></td></tr>');
-          if (area.id == "richmond") {
-            $("#legend").append('<img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor');
-          }
-          dateAxis = new DateAxis("dateAxis", "horizontal", {
-            min: startTime,
-            max: endTime
-          });
-
-          //$("#grapher").append('<tr class="annotationChart"></tr>');
-          // Create zooming buttons
-          $("#grapher").append('<button id="zoomGrapherIn" class="zoomGrapherBtn" title="Zoom in the graphs"></button>');
-          $("#grapher").append('<button id="zoomGrapherOut" class="zoomGrapherBtn" title="Zoom out the graphs"></button>');
-          $("#zoomGrapherIn").button({
-            icons: {
-              secondary: "ui-icon-custom-plus-white"
-            },
-            text: false
-          }).on("click", function() {
-            zoomGrapher(0.7);
-          });
-          $("#zoomGrapherOut").button({
-            icons: {
-              secondary: "ui-icon-custom-minus-white"
-            },
-            text: false
-          }).on("click", function() {
-            zoomGrapher(1.3);
-          });
-
-          //dateAxis.setCursorColor("#1A1A1A");
-          dateAxis.addAxisChangeListener(function(e) {
-            // Boo, grapher hacks abound...
-            var $gwtPopupPanels = $(".gwt-PopupPanel");
-            if ($gwtPopupPanels.length && (fixedCursorPosition < dateAxis.getMin() || fixedCursorPosition > dateAxis.getMax())) {
-              $gwtPopupPanels.each(function() {
-                if ($(this).text() == gwtPopUpText) {
-                  $(this).hide();
-                } else if ($gwtPopupPanels.length == 1) {
-                  $(this).show();
-                }
-              });
-            }
-            if (e) {
-              var cursorPosition = e.cursorPosition;
-              if (fixedCursorPosition != cursorPosition) {
-                // Reset the cursor position
-                dateAxis.setCursorPosition(fixedCursorPosition);
-              }
-            }
-            if (clampTimeout) return;
-            clampTimeout = window.setTimeout(function() {
-              for (var seriesCount = 0; seriesCount < series.length; seriesCount++) {
-                var plots = series[seriesCount].p;
-                //clampNumberAxisToDataRange(plots, seriesCount);
-              }
-              window.clearTimeout(clampTimeout);
-              clampTimeout = null;
-            }, 150);
-          });
-          dateAxis.setMaxRange(null, endTime);
-          //addSmellReportsToGrapher();
-          if (timelapse) {
-            var currentCaptureTime = timelapse.getCurrentCaptureTime();
-            if (currentCaptureTime) {
-              fixedCursorPosition = Date.parse(currentCaptureTime.replace(/-/g, "/")) / 1000;
-              dateAxis.setCursorPosition(fixedCursorPosition);
-            }
-          }
-        }
-
-
-        // Set max range of all the graphs
-        if (endTime > dateAxis.getMax()) {
-          dateAxis.setMaxRange(null, endTime);
-        }
-
-        setGraphTimeRange(pageLoadDate);
-
-        // Add charts
-        var seriesIdx = series.length;
-        var color_line = (feed.isDouble ? "rgb(0,255,0)" : "rgb(0,0,255)");
-        var channelLabel = feed.channels[channelName].graphMetaData.label;
-        var idx = loadedSeries.indexOf(channelLabel);
-        if(idx != -1) {
-          loadedSeries.push(channelLabel + "2");
-          seriesIdx = idx;
-        }
-        else {
-          loadedSeries.push(channelLabel);
-          var color_fill = "rgba(" + colors.shift() + ",1)";
-          series[seriesIdx] = {};
-          series[seriesIdx].id = seriesIdx;
-          var row = $('<tr class="chart grapher_row"' + 'data-channel=' + channelName + '></tr>');
-          row.append('<td class="chartTitle" style="background:' + color_fill + '"><div>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
-          row.append('<td id="series' + seriesIdx + '" class="chartContent"></td>');
-          row.append('<td id="series' + seriesIdx + 'axis" class="chartAxis"></td>');
-          $('#grapher').append(row);
-          addGraphOverlays(seriesIdx, channelLabel);
-          series[seriesIdx].axis = new NumberAxis('series' + seriesIdx + 'axis', "vertical");
-          series[seriesIdx].axis.addAxisChangeListener(function() {
-            adjustGraphOverlays(seriesIdx, channelLabel);
-          });
-          if (showSmokeDetection && channelName == "smoke_level") {
-            hideSmokeDetectionGraph();
-            loadMetaData(currentDate, currentLocation);
-            timelapse.addDatasetLoadedListener(function() {
-              loadMetaData(currentDate, currentLocation);
-            });
-          }
-        }
-
+        // Setup tile source for each chart
         var datasource;
         (function(source) {
           datasource = function(level, offset, successCallback, failureCallback) {
@@ -952,11 +843,11 @@
               dataType: "json",
               url: ESDR_API_ROOT_URL + "/feeds/" + feedAPIKey + "/channels/" + source + "/tiles/" + level + "." + offset,
               success: function(json) {
-                if(showSmokeDetection && channelName=="smoke_level") {
+                if( showSmokeDetection && channelName=="smoke_level") {
                   // Set max smoke reading value
                   var max_smoke_value = 300;
-                  for (var i=0; i<json.data.data.length; i++) {
-                    if(json.data.data[i][1]>max_smoke_value) {
+                  for (var i = 0; i < json.data.data.length; i++) {
+                    if (json.data.data[i][1] > max_smoke_value) {
                       json.data.data[i][1] = max_smoke_value;
                     }
                   }
@@ -967,87 +858,58 @@
             });
           };
         })(channelName);
-        var plot = new DataSeriesPlot(datasource, dateAxis, series[seriesIdx].axis, {});
 
-        plot.addDataPointListener(function(pointData, event) {
-          if (!event) return;
-          if (event.actionName == "click") {
-            fixedCursorPosition = pointData.date;
-            var pointDataDateObj = new Date(pointData.dateString.split(".")[0]);
-            var commentDate = $.datepicker.formatDate('yy-mm-dd', pointDataDateObj);
-            if (commentDate != currentDate) {
-              var path = cached_breathecam.datasets[commentDate];
-              var currentView = timelapse.getView();
-              currentDate = commentDate;
-              timelapse.loadTimelapse(path, currentView, null, null, pointDataDateObj);
-              $("#datepicker").datepicker("setDate", pointDataDateObj);
-            } else {
-              var desiredDateString = pointData.dateString.split(", ")[1];
-              var closestDesiredFrame = timelapse.findExactOrClosestCaptureTime(desiredDateString.substr(0, 8));
-              timelapse.seekToFrame(closestDesiredFrame);
-            }
+        // Legend
+        if ($("#legend").children().length == 0) {
+          if (area.id == "richmond") {
+            $("#legend").append('<img src="assets/images/blue.png">Community Monitor<br><img src="assets/images/green.png">Refinery Monitor');
           }
-        });
+        }
 
-        var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
-        /**plot.setStyle({
-          "cursor" : {
-            "color" : cursorColor,
-            "lineWidth" : 1
-          },
-          "styles": [
-            { "type" : "line", "lineWidth" : 1, "show" : true, "color" : color_line }
-          ],
-          "highlight" : {
-            "lineWidth" : 1,
-            "styles" : [
-               {
-                  "type" : "circle",
-                  radius : 3.5,
-                  "lineWidth" : 0.5,
-                  "show" : true,
-                  "color" : "#2A2A2A",
-                  fill : true,
-                  fillColor: "#2A2A2A"
-               },
-               {
-                  "show" : true,
-                  "type" : "value",
-                  "fillColor" : "#000000",
-                  "marginWidth" : 10,
-                  "font" : "12pt Helvetica,Arial,Verdana,sans-serif",
-                  "verticalOffset" : 5,
-                  "horizontalOffset" : 12,
-                  "numberFormat" : "###,##0.#"
-               }
-            ]
-          }
-        });*/
-
-
-
-
-        if (loadedSeries.indexOf(channelLabel + "2") != -1) {
-          series[seriesIdx].pc.addPlot(plot);
+        // Add charts
+        var channelLabel = feed.channels[channelName].graphMetaData.label;
+        var idx = loadedSeries.indexOf(channelLabel);
+        var seriesIdx = series.length;
+        var plotContainerId = seriesIdx + "_plot_container";
+        var plotId = seriesIdx + "_plot";
+        var yAxisId = seriesIdx + "_yaxis";
+        if (idx != -1) {
+          var tmpId = new Date().getTime();
+          loadedSeries.push(channelLabel + tmpId);
+          seriesIdx = idx;
+          plotId = seriesIdx + "_plot" + tmpId;
+          plotContainerId = seriesIdx + "_plot_container";
+          yAxisId = seriesIdx + "_yaxis";
+          plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, datasource, yAxisId);
         } else {
-          series[seriesIdx].p = [];
-          series[seriesIdx].pc = new PlotContainer("series" + seriesIdx, false, [plot], dateAxis);
+          series[seriesIdx] = {};
+          series[seriesIdx].id = seriesIdx;
+          series[seriesIdx].pc = [];
+          loadedSeries.push(channelLabel);
+          // Add chart html to page since this chart does not exist yet
+          var color_fill = "rgba(" + colors.shift() + ",1)";
+          var row = $('<tr class="chart grapher_row"' + 'data-channel=' + channelName + '></tr>');
+          row.append('<td class="chartTitle" style="background:' + color_fill + '"><div>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
+          row.append('<td id="' + plotContainerId + '" class="chartContent"></td>');
+          row.append('<td id="' + yAxisId + '" class="chartAxis"></td>');
+          $('#grapher').append(row);
+          addGraphOverlays(seriesIdx, channelLabel);
+          //series[seriesIdx].axis.addAxisChangeListener(function() {
+          //  adjustGraphOverlays(seriesIdx, channelLabel);
+          //});
+          if (showSmokeDetection && channelName == "smoke_level") {
+            hideSmokeDetectionGraph();
+            loadMetaData(currentDate, currentLocation);
+            timelapse.addDatasetLoadedListener(function() {
+              loadMetaData(currentDate, currentLocation);
+            });
+          }
+          plotManager.addDataSeriesPlot(plotId, datasource, plotContainerId, yAxisId);
+          window.setTimeout(function() { $(window).trigger('resize'); }, 50);
         }
-        series[seriesIdx].p.push(plot);
-
-        setSizes(channelLabel);
-
-        var plotIdx = series[seriesIdx].p.length - 1;
-        if (!series[seriesIdx].loadingIntervalCounts) {
-          series[seriesIdx].loadingIntervalCounts = {};
-          series[seriesIdx].checkPlotLoadedIntervals = {};
-        }
-        series[seriesIdx].loadingIntervalCounts[plotIdx] = 0;
-        series[seriesIdx].checkPlotLoadedIntervals[plotIdx] = setInterval(function(){
-          //clampNumberAxisToDataRange(series[seriesIdx].p, seriesIdx);
-          series[seriesIdx].loadingIntervalCounts[plotIdx]++;
-        }, 100);
-
+        var plotContainer = plotManager.getPlotContainer(plotContainerId);
+        plotContainer.setAutoScaleEnabled(true, true);
+        series[seriesIdx].pc.push(plotContainer);
       };
 
       function addGraphOverlays(seriesIdx, channelLabel) {
@@ -1088,36 +950,6 @@
             .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
       }
 
-      function clampNumberAxisToDataRange(plots, seriesIdx) {
-        var stats, tmp_stats, min = 9999, max = -9999;
-        if (!plots) return;
-        if (plots.constructor === Array) {
-          for (var i = 0; i < plots.length; i++) {
-            if (series[seriesIdx].loadingIntervalCounts && series[seriesIdx].loadingIntervalCounts[i] >= 20) {
-              clearInterval(series[seriesIdx].checkPlotLoadedIntervals[i]);
-            }
-            tmp_stats = plots[i].getSimpleStatistics(dateAxis.getMin(), dateAxis.getMax());
-            if (tmp_stats.count > 0) {
-              stats = tmp_stats;
-              if (min > stats.y_min) min = stats.y_min;
-              if (max < stats.y_max) max = stats.y_max;
-            }
-          }
-        } else {
-          if (series[seriesIdx].loadingIntervalCounts && series[seriesIdx].loadingIntervalCounts[0] >= 20) {
-            clearInterval(series[seriesIdx].checkPlotLoadedIntervals[0]);
-          }
-          stats = plots.getSimpleStatistics(dateAxis.getMin(), dateAxis.getMax());
-          min = stats.y_min;
-          max = stats.y_max;
-        }
-
-        if (stats && stats.has_data && typeof stats.y_min !== 'undefined' && typeof stats.y_max !== 'undefined') {
-          var paddedRange = paddedYAxisRange(min, max);
-          series[seriesIdx].axis.setRange(paddedRange.min, paddedRange.max);
-        }
-      }
-
       function zoomGrapher(scale) {
         var min_time = dateAxis.getMin();
         var max_time = dateAxis.getMax();
@@ -1138,16 +970,22 @@
       }
 
       function setSizes(channelLabel) {
+        $('.chartContent').height($('.chart').height() - 1);
+        $('.chartTitle').height($('.chart').height() - 23);
+        $('.chartAxis').height($('.chart').height() - 1);
+        google.maps.event.trigger(map, 'resize');
+
+        return;
         var width = $(window).width() / 2;
         var height = $(window).height() / 2;
         if (!dateAxis) return;
         //$("#grapher").css({"width" : width + "px", "height" : height + "px"});
         $("#dateAxis").width($('.chartContent').width());
         var dateAxisWidth = $('#dateAxis').width();
-        var dateAxisHeight = $('#dateAxis').height();
-        $('.chartContent').height($('.chart').height() - 1);
-        $('.chartTitle').height($('.chart').height() - 23);
-        $('.chartAxis').height($('.chart').height() - 1);
+        var dateAxisHeight = 38;
+        $('.chartContent').height(100 - 1);
+        $('.chartTitle').height(100 - 23);
+        $('.chartAxis').height(100 - 1);
         if (!dateAxisWidth || !dateAxisHeight) return;
         dateAxis.setSize(dateAxisWidth, dateAxisHeight, SequenceNumber.getNext());
         for (var i = 0; i < series.length; i++) {
@@ -1156,9 +994,9 @@
           //   newHeight = $('.annotationContent').height();
           if (series[i].axis)
             series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
-          if(channelLabel) {
-            adjustGraphOverlays(i, channelLabel);
-          }
+          //if(channelLabel) {
+          //  adjustGraphOverlays(i, channelLabel);
+          //}
           if (series[i].pc)
             series[i].pc.setSize($('#series' + i).width(), newHeight, SequenceNumber.getNext());
         }
@@ -1184,14 +1022,9 @@
               $("body, html").css("overflow", "hidden");
               if (!timelapse) {
                 channelPageSetup();
-                $(window).resize(function() {
-                  setSizes();
-                  google.maps.event.trigger(map, 'resize');
-                });
               } else {
                 refreshChannelPage();
               }
-              setSizes();
               google.maps.event.trigger(map, 'resize');
             } else {
               $("body, html").css("overflow", "auto");
@@ -1210,6 +1043,16 @@
       }
 
       window.grapherLoad = function() {
+        var maxTimeSecs = Date.now() / 1000;
+        var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
+        plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
+        plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
+        $(window).resize(function() {
+          setSizes();
+        });
+        plotManager.setWillAutoResizeWidth(true, function() {
+          return $("#grapher").width() - 34 - 136 - 26;
+        });
         grapherReady = true;
       };
 
@@ -1275,9 +1118,7 @@
                       var channelNames = Object.keys(feed.channels);
                       channelNames.forEach(function(channelName) {
                         if (!feed.channels[channelName].show_graph) return;
-                        window.setTimeout(function() {
-                          createChart(feed, channelName, feed.api_key);
-                        }, j*50);
+                        createChart(feed, channelName, feed.api_key);
                       });
                     })(j);
                   }
@@ -1286,66 +1127,72 @@
             });
           })(i);
         }
+        if (canvasLayer)
+          repaintCanvasLayer();
       }
-            function channelPageSetup() {
-              // Initialize E-Cam
-              var timelapseSupported = org.gigapan.Util.browserSupported();
-              var stitchedImage = "N/A";
-              locationDivId = "shenango1" + "_overlay";
-              setLocationThumbnailToggle();
-              $(".location_thumbnail_container").on("click", function() {
-                if (window.location.hash)
-                  window.location.hash = "";
-                var newLocation = $(this).attr("data-location-id");
-                if (timelapse)
-                  var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
-                changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
-              });
-              if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
-                // Nothing is up. Hide containers and inform the user
-                $("#stitched_image_wrapper").hide();
-                $("#location_toggle_container").hide();
-                $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
-              }
-              /** else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
-                timelapseFeedUnavailable = true;
-                // TODO: Image feed is not working since the-shenango-channel currently does not have a way to get the latest image,
-                // unlike when it was running on the Rails server.
-                // Timelapse unavailable, show latest stitched pano
-                // Calendar is gone in this mode, so move thumbnail toggles to top of page
-                //$("#location_toggle").css({'top':'0px'});
-                //$("#image_feed_timestamp").css({"top" : "48px", "right" : "22px"});
-                //img_init();
-                $("#stitched_image_wrapper").hide();
-                $("#location_toggle_container").hide();
-                $("#timelapse_feed").hide();
-                $("#grapher").hide();
-                $("#map-canvas").hide();
-                $("#tutorialDialog").hide();
-                $("#loading").html("<div class='error_msg2'>Shenango Channel is not available on mobile devices. Please use a desktop or laptop when viewing this site.</div>");
-              } */
-              else {
-                // Show timelapse
-                tm_init();
-              }
 
-              // Initialize Map
-              initMap('map-canvas');
+      function channelPageSetup() {
+        if (!tmReady) {
+          // Initialize E-Cam
+          var timelapseSupported = org.gigapan.Util.browserSupported();
+          var stitchedImage = "N/A";
+          locationDivId = "shenango1" + "_overlay";
+          setLocationThumbnailToggle();
+          $(".location_thumbnail_container").on("click", function() {
+            if (window.location.hash)
+              window.location.hash = "";
+            var newLocation = $(this).attr("data-location-id");
+            if (timelapse)
+              var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
+            changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
+          });
+          if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
+            // Nothing is up. Hide containers and inform the user
+            $("#stitched_image_wrapper").hide();
+            $("#location_toggle_container").hide();
+            $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
+          }
+          /** else if (!timelapseSupported || typeof (cached_breathecam) === "undefined") {
+            timelapseFeedUnavailable = true;
+            // TODO: Image feed is not working since the-shenango-channel currently does not have a way to get the latest image,
+            // unlike when it was running on the Rails server.
+            // Timelapse unavailable, show latest stitched pano
+            // Calendar is gone in this mode, so move thumbnail toggles to top of page
+            //$("#location_toggle").css({'top':'0px'});
+            //$("#image_feed_timestamp").css({"top" : "48px", "right" : "22px"});
+            //img_init();
+            $("#stitched_image_wrapper").hide();
+            $("#location_toggle_container").hide();
+            $("#timelapse_feed").hide();
+            $("#grapher").hide();
+            $("#map-canvas").hide();
+            $("#tutorialDialog").hide();
+            $("#loading").html("<div class='error_msg2'>Shenango Channel is not available on mobile devices. Please use a desktop or laptop when viewing this site.</div>");
+          } */
+          else {
+            // Show timelapse
+            tm_init();
+          }
+        }
 
-              grapherLoadedInterval = window.setInterval(function() {
-                if (!grapherReady) return;
 
-                window.clearInterval(grapherLoadedInterval);
-                grapherLoadedInterval = null;
+        // Initialize Map
+        initMap('map-canvas');
 
-                // Initialize Smells
-                initSmells();
+        grapherLoadedInterval = window.setInterval(function() {
+          if (!grapherReady) return;
 
-                // Initialize Graphs
-                loadFeeds(feedMap[area.locale]);
+          window.clearInterval(grapherLoadedInterval);
+          grapherLoadedInterval = null;
 
-              }, 10);
-            }
+          // Initialize Smells
+          initSmells();
+
+          // Initialize Graphs
+          loadFeeds(feedMap[area.locale]);
+
+        }, 10);
+      }
 
       window.requestAnim =
         window.requestAnimationFrame ||
@@ -1410,7 +1257,7 @@
                 <span id="image_feed_timestamp">03/09/2015 03:16 PM</span>
               </div>
             </div>
-            <div id="location_toggle_container" class="no-select">
+            <!--<div id="location_toggle_container" class="no-select">
               <a class="location_thumbnail_container" data-location-id="shenango1" href="javascript:void(0)">
                 <div id="shenango1_overlay" class="location_thumbnail_overlay"></div>
                 <img src="assets/images/shenango1.png" class="location_thumbnail" alt="Shenango1">
@@ -1421,9 +1268,15 @@
                 <img src="assets/images/shenango2.png" class="location_thumbnail" alt="Shenango2">
                 <div class="location_title"> </div>
               </a>
-            </div>
+            </div> -->
           </div>
-          <div id="grapher_parent" style="width:50%; height:68%; float: left"><table id="grapher" border="0" cellspacing="0" cellpadding="0"></table></div>
+          <div id="grapher_parent" style="width:50%; height:68%; float: left">
+            <table id="grapher" border="0" cellspacing="0" cellpadding="0">
+              <tr id="dateAxisContainer" class="grapher_row">
+                <td id="legend" class="sensorColumnTitle"></td><td id="dateAxis"></td><td></td>
+              </tr>
+            </table>
+          </div>
           <div id="map_parent" style="width:50%; height:68%; float: right">
             <div id="map-canvas"></div>
             <div id="wind_speed"></div>
