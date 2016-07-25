@@ -3,7 +3,7 @@
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
 var successCallback = function(area_feed_ids) {
   var keys = Object.keys(esdr_feeds);
-    if(keys.length == area_feed_ids.length + 1) {
+    if(keys.length == area_feed_ids.length) {
       initFeeds();
     }
   }
