@@ -380,7 +380,7 @@
         "North Richmond" : [4911, 4912],
         "Point Richmond" : [4913, 4914],
         "North Rodeo" : [4902, 4903],
-        "South Rodeo" : [4901]
+        "South Rodeo" : [4901, 4903]
       };
 
       var healthLimitMap = {
@@ -904,9 +904,6 @@
           row.append('<td id="' + yAxisId + '" class="chartAxis"></td>');
           $('#grapher').append(row);
           addGraphOverlays(seriesIdx, channelLabel);
-          //series[seriesIdx].axis.addAxisChangeListener(function() {
-          //  adjustGraphOverlays(seriesIdx, channelLabel);
-          //});
           if (showSmokeDetection && channelName == "smoke_level") {
             hideSmokeDetectionGraph();
             loadMetaData(currentDate, currentLocation);
@@ -915,8 +912,47 @@
             });
           }
           plotManager.addDataSeriesPlot(plotId, datasource, plotContainerId, yAxisId);
+          plotManager.getYAxis(yAxisId).addAxisChangeListener(function() {
+            adjustGraphOverlays(seriesIdx, channelLabel);
+          });
           window.setTimeout(function() { $(window).trigger('resize'); }, 50);
         }
+        var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
+        var color_line = (feed.isDouble ? "rgb(0,255,0)" : "rgb(0,0,255)");
+      plotManager.getPlot(plotId).setStyle({
+        "cursor" : {
+          "color" : cursorColor,
+          "lineWidth" : 1
+        },
+        "styles": [
+          { "type" : "line", "lineWidth" : 1, "show" : true, "color" : color_line },
+          { "type" : "circle", radius : .25, "lineWidth" : 1, "show" : false, "color" : "black", fill : true }
+        ],
+        "highlight" : {
+          "lineWidth" : 1,
+          "styles" : [
+             {
+                "type" : "circle",
+                radius : 3.5,
+                "lineWidth" : 0.5,
+                "show" : true,
+                "color" : "#2A2A2A",
+                fill : true,
+                fillColor: "#2A2A2A"
+             },
+             {
+                "show" : true,
+                "type" : "value",
+                "fillColor" : "#000000",
+                "marginWidth" : 10,
+                "font" : "12pt Helvetica,Arial,Verdana,sans-serif",
+                "verticalOffset" : 5,
+                "horizontalOffset" : 12,
+                "numberFormat" : "###,##0.#"
+             }
+          ]
+        }
+      });
         var plotContainer = plotManager.getPlotContainer(plotContainerId);
         plotContainer.setAutoScaleEnabled(true, true);
         series[seriesIdx].pc.push(plotContainer);
@@ -924,28 +960,31 @@
 
       function addGraphOverlays(seriesIdx, channelLabel) {
         if (healthLimitMap[channelLabel]) {
-          $("#series" + seriesIdx).append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
+          $("#" + seriesIdx + "_plot_container").append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
         }
         if (area.id == "richmond" && communityDetectionLimitMap[channelLabel]) {
-          $("#series" + seriesIdx).append("<div id='greyAreaBox" + seriesIdx + "' class='greyAreaBox'></div>");
+          $("#" + seriesIdx + "_plot_container").append("<div id='greyAreaBox" + seriesIdx + "' class='greyAreaBox'></div>");
         }
         if (refineryDetectionLimitMap[channelLabel]) {
-          $("#series" + seriesIdx).append("<div id='refineryDetectionLimit" + seriesIdx + "' class='refineryDetectionLimit'></div>");
+          $("#" + seriesIdx + "_plot_container").append("<div id='refineryDetectionLimit" + seriesIdx + "' class='refineryDetectionLimit'></div>");
         }
       }
 
       function adjustGraphOverlays(seriesIdx, channelLabel) {
-        var axis = series[seriesIdx].axis;
+        var axis = plotManager.getYAxis(seriesIdx + "_yaxis");
+        //var axis = series[seriesIdx].axis;
         var chartHeight = $('.chart').height();
+        var range = axis.getRange();
 
         var level = healthLimitMap[channelLabel];
-        var overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        var overlayHeight = (range.max - level) / (range.max - range.min) * chartHeight;
+        //var overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
         $('#healthDangerBox' + seriesIdx)
             .height(overlayHeight)
             .css("max-height", chartHeight);
 
         level = communityDetectionLimitMap[channelLabel];
-        overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        overlayHeight = (range.max - level) / (range.max - range.min) * chartHeight;
         var borderVisible;
         overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
         $('#greyAreaBox' + seriesIdx)
@@ -953,7 +992,7 @@
             .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
 
         level = refineryDetectionLimitMap[channelLabel];
-        overlayHeight = (axis.getMax() - level) / (axis.getMax() - axis.getMin()) * chartHeight;
+        overlayHeight = (range.max - level) / (range.max - range.min) * chartHeight;
         overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
         $('#refineryDetectionLimit' + seriesIdx)
             .height(overlayHeight)
@@ -1004,21 +1043,22 @@
           //   newHeight = $('.annotationContent').height();
           if (series[i].axis)
             series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
-          //if(channelLabel) {
-          //  adjustGraphOverlays(i, channelLabel);
-          //}
+          if(channelLabel) {
+            adjustGraphOverlays(i, channelLabel);
+          }
           if (series[i].pc)
             series[i].pc.setSize($('#series' + i).width(), newHeight, SequenceNumber.getNext());
         }
       }
 
       function setGraphTimeRange(date) {
-        if (!dateAxis) return;
+        var axis = plotManager.getDateAxis();
+        if (!axis) return;
         var dayStartString = date + " 00:00:00";
         var dayEndString = date + " 23:59:59";
         var dayStart = (new Date((dayStartString).replace(/-/g,"/")).getTime()) / 1000;
         var dayEnd = (new Date((dayEndString).replace(/-/g,"/")).getTime()) / 1000;
-        dateAxis.setRange(dayStart, dayEnd);
+        axis.setRange(dayStart, dayEnd);
         return dayStart;
       }
 
@@ -1235,7 +1275,7 @@
         <div style="text-align: center">
         <h1>Welcome to the Bay Area Air Monitoring Hub</h1>
         <h3>To view real-time air quality data in full detail, please visit
-          <a href="www.fenceline.org">fenceline.org</a></h3>
+          <a href="http://www.fenceline.org">fenceline.org</a></h3>
         <p>Please note that this website is a prototype and may contain bugs. If you discover one, please describe it
           here: </p>
           <form action="save-to-log.php" method="POST">
