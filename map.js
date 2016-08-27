@@ -8,6 +8,7 @@ var resolutionScale;
 var mapProjection;
 var projectionScale = 2000;
 var y_scale;
+var windMonitor;
 
 function initMap(div) {
   // Initialize Google Map
@@ -126,18 +127,32 @@ function paintWind(site, epochTime) {
       context.fill();
 
       //show wind speed value on hover
-      //context.font = "12px Arial";
-      $("#map_parent").hover(
-        function() {
-          //context.fillText(wind_speed + " mph", x-dx, y-dy+12);
-          $("#wind_speed").html("Wind Speed: " + wind_speed + " mph");
-        },
-          function() {
-            //context.clearRect(x-dx,y-dy,12,12);
-            $("#wind_speed").empty();
-          }
-        );
-      }
+        var windDirs = ["SW", "NW", "NE", "SE"];
+        var contentString = "Wind Speed (mph): " + wind_speed + "\n Wind Direction: " + windDirs[Math.floor(wind_dir/90)];
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          position: rectLatLng
+        });
+
+        //windMonitor.setMap(null);
+        windMonitor = new google.maps.Circle({
+          strokeColor: '#FF0000',
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0,
+          map: map,
+          center: rectLatLng,
+          radius: wind_speed*200
+        });
+
+        windMonitor.addListener('mouseover', function() {
+          infowindow.open(map);
+        });
+        windMonitor.addListener('mouseout', function() {
+          infowindow.close();
+        });
+    }
   }
 }
 

@@ -73,18 +73,12 @@
         padding: 0;
       }
 
-      #wind_speed {
-        position:absolute;
-        top: 10px;
-        left: 40%;
-        z-index: 99;
+      .valueHover {
+        display: none;
+        z-index: 9999;
         font-size: 12pt;
         background-color: aliceblue;
-        border: 2px solid black;
-      }
-
-      #wind_speed:empty {
-        display:none;
+        float: right;
       }
 
       #grapher {
@@ -282,6 +276,16 @@
         line-height: 15px!important;
         text-align: left !important;
       }
+
+      #fencelineInfo {
+        width: 100%;
+        height: 30px;
+        text-align: center;
+        margin: 0;
+        padding: 0px;
+        background-color:aliceblue;
+      }
+
 
       .zoomGrapherBtn {
         background: rgb(150,150,150) !important;
@@ -876,6 +880,29 @@
           }
         }
 
+
+        //Zoom buttons
+        if($(".ui-icon-custom-plus-white").length == 0) {
+          $("#grapher").append('<button id="zoomGrapherIn" class="zoomGrapherBtn" title="Zoom in the graphs"></button>');
+          $("#grapher").append('<button id="zoomGrapherOut" class="zoomGrapherBtn" title="Zoom out the graphs"></button>');
+          $("#zoomGrapherIn").button({
+            icons: {
+              secondary: "ui-icon-custom-plus-white"
+            },
+            text: false
+          }).on("click", function() {
+            zoomGrapher(0.7);
+          });
+          $("#zoomGrapherOut").button({
+            icons: {
+              secondary: "ui-icon-custom-minus-white"
+            },
+            text: false
+          }).on("click", function() {
+            zoomGrapher(1.3);
+          });
+          }
+
         // Add charts
         var channelLabel = feed.channels[channelName].graphMetaData.label;
         var idx = loadedSeries.indexOf(channelLabel);
@@ -903,7 +930,9 @@
           row.append('<td id="' + plotContainerId + '" class="chartContent"></td>');
           row.append('<td id="' + yAxisId + '" class="chartAxis"></td>');
           $('#grapher').append(row);
+
           addGraphOverlays(seriesIdx, channelLabel);
+
           if (showSmokeDetection && channelName == "smoke_level") {
             hideSmokeDetectionGraph();
             loadMetaData(currentDate, currentLocation);
@@ -919,6 +948,15 @@
         }
         var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
         var color_line = (feed.isDouble ? "rgb(0,255,0)" : "rgb(0,0,255)");
+        plotManager.getPlot(plotId).addDataPointListener(function(val) {
+          var valueHoverElement = $("#valueHover" + seriesIdx);
+          if (val == null) {
+             valueHoverElement.empty().hide();
+          }
+          else {
+             valueHoverElement.text(val.valueString.substr(0,4)).show();
+          }
+       });
       plotManager.getPlot(plotId).setStyle({
         "cursor" : {
           "color" : cursorColor,
@@ -926,7 +964,7 @@
         },
         "styles": [
           { "type" : "line", "lineWidth" : 1, "show" : true, "color" : color_line },
-          { "type" : "circle", radius : .25, "lineWidth" : 1, "show" : false, "color" : "black", fill : true }
+          { "type" : "circle", radius : 1.2, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
         ],
         "highlight" : {
           "lineWidth" : 1,
@@ -968,6 +1006,7 @@
         if (refineryDetectionLimitMap[channelLabel]) {
           $("#" + seriesIdx + "_plot_container").append("<div id='refineryDetectionLimit" + seriesIdx + "' class='refineryDetectionLimit'></div>");
         }
+        $("#" + seriesIdx + "_plot_container").append("<div id='valueHover" + seriesIdx + "' class='valueHover'></div>");
       }
 
       function adjustGraphOverlays(seriesIdx, channelLabel) {
@@ -1000,11 +1039,23 @@
       }
 
       function zoomGrapher(scale) {
-        var min_time = dateAxis.getMin();
-        var max_time = dateAxis.getMax();
+        var min_time = plotManager.getDateAxis().getRange().min;
+        var max_time = plotManager.getDateAxis().getRange().max;
         var mean_time = (max_time+min_time)/2;
         var range_half_scaled = scale*(max_time-min_time)/2;
-        dateAxis.setRange(mean_time-range_half_scaled,mean_time+range_half_scaled);
+        plotManager.getDateAxis().setRange(mean_time-range_half_scaled,mean_time+range_half_scaled);
+      }
+
+      function grapherZoomToWeek() {
+        var max_time = plotManager.getDateAxis().getRange().max;
+        var weekLength = 590707;
+        plotManager.getDateAxis().setRange(max_time-weekLength,max_time);
+      }
+
+      function grapherZoomToDay() {
+        var max_time = plotManager.getDateAxis().getRange().max;
+        var weekLength = 82918;
+        plotManager.getDateAxis().setRange(max_time-weekLength,max_time);
       }
 
       function paddedYAxisRange(min, max) {
@@ -1146,6 +1197,7 @@
           }
         });
       }
+
       function initFeeds() {
         var feedNames = Object.keys(esdr_feeds).sort();
         if(showSmokeDetection) {
@@ -1255,14 +1307,6 @@
         };
 
     </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-10682694-14', 'auto');
-      ga('send', 'pageview');
-    </script>
   </head>
   <body style="height: 100%">
     <div id="tabs" style="width: 100%; height: 100%; margin: 0; padding: 0px; position: absolute;">
@@ -1274,27 +1318,40 @@
       <div id="tabs-1" style="width: 100%; padding: 0px; margin: 0;">
         <div style="text-align: center">
         <h1>Welcome to the Bay Area Air Monitoring Hub</h1>
-        <h3>To view real-time air quality data in full detail, please visit
+        <h3>To view our source of real-time air quality data, please visit
           <a href="http://www.fenceline.org">fenceline.org</a></h3>
         <p>Please note that this website is a prototype and may contain bugs. If you discover one, please describe it
           here: </p>
-          <form action="save-to-log.php" method="POST">
+          <form action="index.php" method="POST">
             <fieldset>
               <textarea rows="9" cols="50" name="message"></textarea><br/>
               <input type="submit" value="Submit" onclick="alert('Thanks for your feedback!')">
             </fieldset>
         </form>
         </div>
+        <?php
+          $log_file_name = 'bug_log.log';
+          $message = $_POST['message'];
+          $time_label = date("Y-m-d",time());
+          $entry = $time_label . " " . $message . "\n";
+          file_put_contents($log_file_name, $entry, FILE_APPEND);
+          debug_to_console($entry);
+          header('Location: index.php');
+        ?>
         <br>
         <div style="border: 2px solid black; padding-left: 20px;">
         <h2><u>What's New</u></h2>
+        <strong>8/5/16</strong>
+        <p>The bug reporting form is up and running.</p><hr>
+        <strong>7/29/16</strong>
+        <p>Zooming in and zooming out on the graphs can now be done using a pinching or mouse scrolling. Additionally, the issue with the browser freezing up is fixed.</p><hr>
         <strong>7/15/16</strong>
-        <p>Wind speed can now be viewed by hovering over the map.
+        <p>Wind speed can now be viewed by hovering over the monitor location on the map.</p>
         </div>
       </div>
       <div id="tabs-2" style="width: 100%; height: 100%; margin: 0; padding: 0px">
         <div id="areaSelectionMenu" style="width: 100%; height: 25px; margin: 0; padding: 0px; background-color:aliceblue"></div>
-        <div id="foo" style="height: calc(100% - 55px)">
+        <div id="foo" style="height: calc(100% - 80px)">
           <div id="container" style="height:32%">
             <div id="loading">
               <img id="loadingImg" src="assets/images/loading.gif" width="358" height="250" alt="loading">
@@ -1303,6 +1360,10 @@
             <div id="locationTitle" class="no-select"></div>
             <div id="timelapse_feed" class="timelapse_feed_embed">
               <div id="timeMachine"></div>
+              <div id="timeFrame">
+                <button onclick="grapherZoomToWeek()">Last 7 Days</button>
+                <button onclick="grapherZoomToDay()">Last 24 Hours</button>
+              </div>
               <div id="datepicker" class="datepicker_embed no-select"></div>
             </div>
             <div id="image_feed" class="image_feed_embed no-select">
@@ -1338,6 +1399,8 @@
             <div id="wind_speed"></div>
         </div>
           </div>
+          <div id="fencelineInfo">To view our source of real-time air quality data, please visit
+            <a href="http://www.fenceline.org">fenceline.org</a></div>
       </div>
     </div>
     <div style="font-family: Custom-Calibri;">.</div>
