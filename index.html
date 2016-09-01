@@ -73,14 +73,6 @@
         padding: 0;
       }
 
-      .valueHover {
-        display: none;
-        z-index: 9999;
-        font-size: 12pt;
-        background-color: aliceblue;
-        float: right;
-      }
-
       #grapher {
         font-size: 10pt !important;
         position: relative;
@@ -114,6 +106,13 @@
 
       .areaButton {
         margin: 5px;
+      }
+      .valueHover {
+        display: none;
+        z-index: 9999;
+        font-size: 12pt;
+        background-color: aliceblue;
+        float: right;
       }
 
       .chart {
@@ -880,7 +879,6 @@
           }
         }
 
-
         //Zoom buttons
         if($(".ui-icon-custom-plus-white").length == 0) {
           $("#grapher").append('<button id="zoomGrapherIn" class="zoomGrapherBtn" title="Zoom in the graphs"></button>');
@@ -901,7 +899,7 @@
           }).on("click", function() {
             zoomGrapher(1.3);
           });
-          }
+        }
 
         // Add charts
         var channelLabel = feed.channels[channelName].graphMetaData.label;
@@ -1054,8 +1052,8 @@
 
       function grapherZoomToDay() {
         var max_time = plotManager.getDateAxis().getRange().max;
-        var weekLength = 82918;
-        plotManager.getDateAxis().setRange(max_time-weekLength,max_time);
+        var dayLength = 82918;
+        plotManager.getDateAxis().setRange(max_time-dayLength,max_time);
       }
 
       function paddedYAxisRange(min, max) {
@@ -1277,7 +1275,6 @@
           }
         }
 
-
         // Initialize Map
         initMap('map-canvas');
 
@@ -1335,7 +1332,6 @@
           $time_label = date("Y-m-d",time());
           $entry = $time_label . " " . $message . "\n";
           file_put_contents($log_file_name, $entry, FILE_APPEND);
-          debug_to_console($entry);
           header('Location: index.php');
         ?>
         <br>
