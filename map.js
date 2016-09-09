@@ -134,7 +134,10 @@ function paintWind(site, epochTime) {
           position: rectLatLng
         });
 
-        //windMonitor.setMap(null);
+        if(windMonitor) {
+          windMonitor.setMap(null);
+          google.maps.event.clearInstanceListeners(windMonitor);
+        }
         windMonitor = new google.maps.Circle({
           strokeColor: '#FF0000',
           strokeOpacity: 0,
