@@ -37,12 +37,12 @@ function loadFeeds(area_feed_ids) {
           esdr_feeds[feed.name].channels = {
             "Wind_Speed_MPH": {
               show_graph: false,
-              hourly: !isRodeoWind,
+              hourly: false,
               summary: {}
             },
             "Wind_Direction": {
               show_graph: false,
-              hourly: !isRodeoWind,
+              hourly: false,
               summary: {}
             }
           }

@@ -285,6 +285,15 @@
         background-color:aliceblue;
       }
 
+      .playbackBtn {
+        border-radius: 0px !important;
+        outline: none;
+        font-family: Arial, Helvetica, sans-serif !important;
+        font-size: 11px !important;
+        border: 1px solid white !important;
+        height: 25px;
+        width: 25px;
+      }
 
       .zoomGrapherBtn {
         background: rgb(150,150,150) !important;
@@ -360,7 +369,7 @@
     <script>
       "use strict";
       jQuery.support.cors = true;
-      var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis, dialogDateAxis, dateAxisListener;
+      var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis, dialogDateAxis, dateAxisListener, playInterval;
       var pageLoadDate = cached_breathecam.latest.date;
       var today = new Date();
       cached_breathecam.latest.date = today.toISOString().substring(0,10);
@@ -473,6 +482,7 @@
           },
           fullTimeRange: {}
         };*/
+        $("#playbackMenu").empty();
         plotManager.getDateAxis().removeAxisChangeListener(dateAxisListener);
         plotManager.removeAllPlotContainers();
         $("#grapher > tbody > tr").not("tr:first").remove();
@@ -541,6 +551,16 @@
         }).bind("mousedown", function() {
           $(this).removeClass("openHand closedHand").addClass("closedHand");
         });
+      }
+
+      var play = function() {
+        var currentTime = plotManager.getDateAxis().getCursorPosition();
+        plotManager.getDateAxis().setCursorPosition(currentTime + 300);
+        playInterval = window.requestAnim(play);
+      };
+
+      var pause = function() {
+        window.cancelAnimationFrame(playInterval);
       }
 
       function setupTimelapse(initialDataset, startingDate) {
@@ -956,6 +976,7 @@
             });
           }
           plotManager.addDataSeriesPlot(plotId, datasource, plotContainerId, yAxisId);
+          adjustGraphOverlays(seriesIdx, channelLabel);
           plotManager.getYAxis(yAxisId).addAxisChangeListener(function() {
             adjustGraphOverlays(seriesIdx, channelLabel);
           });
@@ -1000,7 +1021,8 @@
         //
       };
 
-      function addGraphOverlays(seriesIdx, channelLabel) {
+      function addGraphOverlays(seriesIdx) {
+        var channelLabel = $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
         if (healthLimitMap[channelLabel]) {
           $("#" + seriesIdx + "_plot_container").append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
         }
@@ -1013,7 +1035,8 @@
         $("#" + seriesIdx + "_plot_container").append("<div id='valueHover" + seriesIdx + "' class='valueHover'></div>");
       }
 
-      function adjustGraphOverlays(seriesIdx, channelLabel) {
+      function adjustGraphOverlays(seriesIdx) {
+        var channelLabel = $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
         var axis = plotManager.getYAxis(seriesIdx + "_yaxis");
         //var axis = series[seriesIdx].axis;
         var chartHeight = $('.chart').height();
@@ -1062,18 +1085,7 @@
         plotManager.getDateAxis().setRange(max_time-dayLength,max_time);
       }
 
-      function paddedYAxisRange(min, max) {
-        var yDiff = max - min;
-        var padding = 0.5;
-        if (yDiff < 1e-10) {
-          padding = 0.5;
-        } else {
-          padding = 0.05 * yDiff;
-        }
-        return {min : min - padding, max : max + padding};
-      }
-
-      function setSizes(channelLabel) {
+      function setSizes() {
         var height = $('.chart').height();
         $('.chartContent').height(height - 1);
         $('.chartTitle').height(height - 23);
@@ -1081,33 +1093,10 @@
         plotManager.forEachPlotContainer(function(pc) {
           pc.setHeight(height);
         });
-        google.maps.event.trigger(map, 'resize');
-
-        return;
-        var width = $(window).width() / 2;
-        var height = $(window).height() / 2;
-        if (!dateAxis) return;
-        //$("#grapher").css({"width" : width + "px", "height" : height + "px"});
-        $("#dateAxis").width($('.chartContent').width());
-        var dateAxisWidth = $('#dateAxis').width();
-        var dateAxisHeight = 38;
-        $('.chartContent').height(100 - 1);
-        $('.chartTitle').height(100 - 23);
-        $('.chartAxis').height(100 - 1);
-        if (!dateAxisWidth || !dateAxisHeight) return;
-        dateAxis.setSize(dateAxisWidth, dateAxisHeight, SequenceNumber.getNext());
         for (var i = 0; i < series.length; i++) {
-          var newHeight = $('.chart').height();
-          // if (i === 0)
-          //   newHeight = $('.annotationContent').height();
-          if (series[i].axis)
-            series[i].axis.setSize($('#series' + i + 'axis').width(), newHeight, SequenceNumber.getNext());
-          if(channelLabel) {
-            adjustGraphOverlays(i, channelLabel);
-          }
-          if (series[i].pc)
-            series[i].pc.setSize($('#series' + i).width(), newHeight, SequenceNumber.getNext());
+          adjustGraphOverlays(i);
         }
+        google.maps.event.trigger(map, 'resize');
       }
 
       var dateAxisListener = function(event) {
@@ -1160,7 +1149,6 @@
         var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
         plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
         //dialogPlotManager = new org.bodytrack.grapher.PlotManager("dialogDateAxis", minTimeSecs, maxTimeSecs);
-        plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
         $(window).resize(function() {
           setSizes();
         });
@@ -1295,9 +1283,27 @@
         // Initialize Map
         initMap('map-canvas');
 
+        //Initialize pop-out graph window
         $("#grapherDialogWindow").dialog({
           autoOpen: false
         });
+
+        //Initialize playback things
+        plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
+        $("#playbackMenu").append('<button id="play" class="playbackBtn" title="Play"></button>');
+        $("#playbackMenu").append('<button id="pause" class="playbackBtn" title="Pause"></button>');
+        $("#play").button({
+          icons: {
+            secondary: "ui-icon-play"
+          },
+          text: false
+        }).on("click", play);
+        $("#pause").button({
+          icons: {
+            secondary: "ui-icon-pause"
+          },
+          text: false
+        }).on("click", pause);
 
         grapherLoadedInterval = window.setInterval(function() {
           if (!grapherReady) return;
@@ -1378,8 +1384,11 @@
             <div id="timelapse_feed" class="timelapse_feed_embed">
               <div id="timeMachine"></div>
               <div id="timeFrame">
+                <div id="playbackMenu"></div>
                 <!--<button onclick="grapherZoomToWeek()">Last 7 Days</button>
-                <button onclick="grapherZoomToDay()">Last 24 Hours</button>-->
+                <button onclick="grapherZoomToDay()">Last 24 Hours</button>
+                <button id="play" onclick="play()">Play</button>
+                <button id="stop" onclick="stop()">Stop</button>-->
                 <div id="grapherDialogWindow">
                   <table id="dialogGrapher" border="0" cellspacing="0" cellpadding="0">
                     <tr id="dialogDateAxisContainer" class="grapher_row">

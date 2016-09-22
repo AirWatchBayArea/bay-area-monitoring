@@ -1,0 +1,751 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<kml xmlns='http://www.opengis.net/kml/2.2'>
+	<Document>
+		<name>Monitor Locations</name>
+		<description><![CDATA[Precise locations of wind and chemical monitors around refineries in the Bay Area]]></description>
+		<Folder>
+			<name>North Richmond</name>
+			<Placemark>
+				<name>North Richmond Source Tower</name>
+				<description><![CDATA[37.952750°,-122.375425°]]></description>
+				<styleUrl>#icon-1739-0288D1</styleUrl>
+				<Point>
+					<coordinates>-122.375425,37.95275,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>North Richmond Monitoring Station</name>
+				<description><![CDATA[37.948234°,-122.375425°]]></description>
+				<styleUrl>#icon-1498-0288D1</styleUrl>
+				<Point>
+					<coordinates>-122.375425,37.948234,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>North Richmond Fence Line</name>
+				<styleUrl>#line-0288D1-5-nodesc</styleUrl>
+				<LineString>
+					<tessellate>1</tessellate>
+					<coordinates>-122.375425,37.95275,0.0 -122.375425,37.948234,0.0</coordinates>
+				</LineString>
+			</Placemark>
+			<Placemark>
+				<name>North Richmond Community</name>
+				<styleUrl>#icon-1899-0288D1-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.364771,37.947999,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>Atchison Village</name>
+			<Placemark>
+				<name>Atchison Village Source Tower</name>
+				<styleUrl>#icon-1739-880E4F-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.381193,37.941351,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>A Village and Point Richmond recievers</name>
+				<styleUrl>#icon-1498-880E4F-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.385595,37.934769,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Atchison Village Fence Line</name>
+				<styleUrl>#line-880E4F-3-nodesc</styleUrl>
+				<LineString>
+					<tessellate>1</tessellate>
+					<coordinates>-122.3860216,37.9347546,0.0 -122.381193,37.941351,0.0</coordinates>
+				</LineString>
+			</Placemark>
+			<Placemark>
+				<name>A VILLAGE COMMUNITY</name>
+				<styleUrl>#icon-1899-880E4F-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.371665,37.934477,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>South Rodeo</name>
+			<Placemark>
+				<name>South Fence Receiver</name>
+				<styleUrl>#icon-1498-9C27B0-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.260765,38.039964,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>South Fence Source</name>
+				<styleUrl>#icon-1739-9C27B0-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.254674,38.034268,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>South Rodeo Fence Line</name>
+				<styleUrl>#line-9C27B0-5-nodesc</styleUrl>
+				<LineString>
+					<tessellate>1</tessellate>
+					<coordinates>-122.254674,38.034268,0.0 -122.260765,38.039964,0.0</coordinates>
+				</LineString>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>Point Richmond</name>
+			<Placemark>
+				<name>Point Richmond Source Tower</name>
+				<description><![CDATA[37.933972°,-122.392989°]]></description>
+				<styleUrl>#icon-1739-F9A825</styleUrl>
+				<Point>
+					<coordinates>-122.392989,37.933972,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>Point Richmond Fence Line</name>
+				<styleUrl>#line-F9A825-4-nodesc</styleUrl>
+				<LineString>
+					<tessellate>1</tessellate>
+					<coordinates>-122.3860216,37.9347546,0.0 -122.392989,37.933972,0.0</coordinates>
+				</LineString>
+			</Placemark>
+			<Placemark>
+				<name>Point Richmond Community</name>
+				<styleUrl>#icon-1899-F9A825-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.382155,37.924239,0.0</coordinates>
+				</Point>
+			</Placemark>
+		</Folder>
+		<Folder>
+			<name>North Rodeo</name>
+			<Placemark>
+				<name>North Fence Reciever</name>
+				<styleUrl>#icon-1498-7CB342-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.24379,38.042281,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>North Fence Source</name>
+				<styleUrl>#icon-1739-7CB342-nodesc</styleUrl>
+				<Point>
+					<coordinates>-122.25208,38.047566,0.0</coordinates>
+				</Point>
+			</Placemark>
+			<Placemark>
+				<name>North Rodeo Fence Line</name>
+				<styleUrl>#line-7CB342-4-nodesc</styleUrl>
+				<LineString>
+					<tessellate>1</tessellate>
+					<coordinates>-122.25208,38.047566,0.0 -122.24379,38.042281,0.0</coordinates>
+				</LineString>
+			</Placemark>
+		</Folder>
+		<Style id='icon-1498-0288D1-normal'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+		</Style>
+		<Style id='icon-1498-0288D1-highlight'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+		</Style>
+		<StyleMap id='icon-1498-0288D1'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1498-0288D1-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1498-0288D1-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1498-7CB342-nodesc-normal'>
+			<IconStyle>
+				<color>ff42B37C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1498-7CB342-nodesc-highlight'>
+			<IconStyle>
+				<color>ff42B37C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1498-7CB342-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1498-7CB342-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1498-7CB342-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1498-880E4F-nodesc-normal'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1498-880E4F-nodesc-highlight'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1498-880E4F-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1498-880E4F-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1498-880E4F-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1498-9C27B0-nodesc-normal'>
+			<IconStyle>
+				<color>ffB0279C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1498-9C27B0-nodesc-highlight'>
+			<IconStyle>
+				<color>ffB0279C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1498-9C27B0-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1498-9C27B0-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1498-9C27B0-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1739-0288D1-normal'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+		</Style>
+		<Style id='icon-1739-0288D1-highlight'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+		</Style>
+		<StyleMap id='icon-1739-0288D1'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1739-0288D1-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1739-0288D1-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1739-7CB342-nodesc-normal'>
+			<IconStyle>
+				<color>ff42B37C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1739-7CB342-nodesc-highlight'>
+			<IconStyle>
+				<color>ff42B37C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1739-7CB342-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1739-7CB342-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1739-7CB342-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1739-880E4F-nodesc-normal'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1739-880E4F-nodesc-highlight'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1739-880E4F-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1739-880E4F-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1739-880E4F-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1739-9C27B0-nodesc-normal'>
+			<IconStyle>
+				<color>ffB0279C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1739-9C27B0-nodesc-highlight'>
+			<IconStyle>
+				<color>ffB0279C</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1739-9C27B0-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1739-9C27B0-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1739-9C27B0-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1739-F9A825-normal'>
+			<IconStyle>
+				<color>ff25A8F9</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+		</Style>
+		<Style id='icon-1739-F9A825-highlight'>
+			<IconStyle>
+				<color>ff25A8F9</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+		</Style>
+		<StyleMap id='icon-1739-F9A825'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1739-F9A825-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1739-F9A825-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1899-0288D1-nodesc-normal'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1899-0288D1-nodesc-highlight'>
+			<IconStyle>
+				<color>ffD18802</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1899-0288D1-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1899-0288D1-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1899-0288D1-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1899-880E4F-nodesc-normal'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1899-880E4F-nodesc-highlight'>
+			<IconStyle>
+				<color>ff4F0E88</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1899-880E4F-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1899-880E4F-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1899-880E4F-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='icon-1899-F9A825-nodesc-normal'>
+			<IconStyle>
+				<color>ff25A8F9</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>0.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='icon-1899-F9A825-nodesc-highlight'>
+			<IconStyle>
+				<color>ff25A8F9</color>
+				<scale>1.0</scale>
+				<Icon>
+					<href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+				</Icon>
+			</IconStyle>
+			<LabelStyle>
+				<scale>1.0</scale>
+			</LabelStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='icon-1899-F9A825-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#icon-1899-F9A825-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#icon-1899-F9A825-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='line-0288D1-5-nodesc-normal'>
+			<LineStyle>
+				<color>ffD18802</color>
+				<width>5</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='line-0288D1-5-nodesc-highlight'>
+			<LineStyle>
+				<color>ffD18802</color>
+				<width>8.0</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='line-0288D1-5-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#line-0288D1-5-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#line-0288D1-5-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='line-7CB342-4-nodesc-normal'>
+			<LineStyle>
+				<color>ff42B37C</color>
+				<width>4</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='line-7CB342-4-nodesc-highlight'>
+			<LineStyle>
+				<color>ff42B37C</color>
+				<width>6.0</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='line-7CB342-4-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#line-7CB342-4-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#line-7CB342-4-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='line-880E4F-3-nodesc-normal'>
+			<LineStyle>
+				<color>ff4F0E88</color>
+				<width>3</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='line-880E4F-3-nodesc-highlight'>
+			<LineStyle>
+				<color>ff4F0E88</color>
+				<width>5.0</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='line-880E4F-3-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#line-880E4F-3-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#line-880E4F-3-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='line-9C27B0-5-nodesc-normal'>
+			<LineStyle>
+				<color>ffB0279C</color>
+				<width>5</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='line-9C27B0-5-nodesc-highlight'>
+			<LineStyle>
+				<color>ffB0279C</color>
+				<width>8.0</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='line-9C27B0-5-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#line-9C27B0-5-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#line-9C27B0-5-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+		<Style id='line-F9A825-4-nodesc-normal'>
+			<LineStyle>
+				<color>ff25A8F9</color>
+				<width>4</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<Style id='line-F9A825-4-nodesc-highlight'>
+			<LineStyle>
+				<color>ff25A8F9</color>
+				<width>6.0</width>
+			</LineStyle>
+			<BalloonStyle>
+				<text><![CDATA[<h3>$[name]</h3>]]></text>
+			</BalloonStyle>
+		</Style>
+		<StyleMap id='line-F9A825-4-nodesc'>
+			<Pair>
+				<key>normal</key>
+				<styleUrl>#line-F9A825-4-nodesc-normal</styleUrl>
+			</Pair>
+			<Pair>
+				<key>highlight</key>
+				<styleUrl>#line-F9A825-4-nodesc-highlight</styleUrl>
+			</Pair>
+		</StyleMap>
+	</Document>
+</kml>

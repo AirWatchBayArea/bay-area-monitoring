@@ -16,21 +16,30 @@ function initMap(div) {
 
   var center = {};
   if(area.id === "richmond") {
-    center.x = 37.96;
-    center.y = -122.33;
+    center.x = 37.951468927073634;
+    center.y = -122.36782797656247;
   }
   else if(area.id === "crockett-rodeo") {
-    center.x = 38.05;
-    center.y = -122.23;
+    center.x = 38.03885974316995;
+    center.y = -122.23290213427731;
   }
 
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
-    zoom: 12,
+    zoom: 13,
     center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
+
+  //import KML with monitor and fence line locations
+  //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
+  //var myMapsId = '1K27qUtzHhKofoXuUA1001rBMW8I';
+  new google.maps.KmlLayer({
+      map: map,
+      url: 'http://www.jetslab.org/bay-area-monitoring/monitor_locations_no_fenceline_pins.kmz',
+      preserveViewport: true
+    });
 
   // initialize the canvasLayer
   var canvasLayerOptions = {
@@ -100,7 +109,7 @@ function paintWind(site, epochTime) {
       var dx = -Math.sin(wind_dir_radians);
       var dy =  Math.cos(wind_dir_radians);
       var d = 1;
-      var length = unitsPerMile * wind_speed / 2;
+      var length = unitsPerMile * wind_speed / 5;
 
       context.strokeStyle = '#0000ee';
       context.lineWidth = Math.max(2.0 / contextScale, d * 0.75);
