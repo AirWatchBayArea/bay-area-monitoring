@@ -285,14 +285,33 @@
         background-color:aliceblue;
       }
 
+      #playbackMenu {
+        position: absolute;
+        bottom: 0;
+        width: 50%;
+        height: 40px;
+        border: 1px solid black;
+        background-color: aliceblue;
+        text-align: center;
+      }
+
+      #slider {
+        margin: 10px;
+        margin-right: 70px;
+        float:right;
+        width:40%
+      }
+
       .playbackBtn {
         border-radius: 0px !important;
         outline: none;
         font-family: Arial, Helvetica, sans-serif !important;
         font-size: 11px !important;
-        border: 1px solid white !important;
-        height: 25px;
-        width: 25px;
+        border: 1px solid black !important;
+        height: 40px;
+        width: 40px !important;
+        margin-right: 10px;
+        margin-left: 10px;
       }
 
       .zoomGrapherBtn {
@@ -482,7 +501,7 @@
           },
           fullTimeRange: {}
         };*/
-        $("#playbackMenu").empty();
+        $("#playbackButtons").empty();
         plotManager.getDateAxis().removeAxisChangeListener(dateAxisListener);
         plotManager.removeAllPlotContainers();
         $("#grapher > tbody > tr").not("tr:first").remove();
@@ -555,7 +574,7 @@
 
       var play = function() {
         var currentTime = plotManager.getDateAxis().getCursorPosition();
-        plotManager.getDateAxis().setCursorPosition(currentTime + 300);
+        plotManager.getDateAxis().setCursorPosition(currentTime + 100);
         playInterval = window.requestAnim(play);
       };
 
@@ -905,7 +924,7 @@
         }
 
         //Zoom buttons
-        /*if($(".ui-icon-custom-plus-white").length == 0) {
+        if($(".ui-icon-custom-plus-white").length == 0) {
           $("#grapher").append('<button id="zoomGrapherIn" class="zoomGrapherBtn" title="Zoom in the graphs"></button>');
           $("#grapher").append('<button id="zoomGrapherOut" class="zoomGrapherBtn" title="Zoom out the graphs"></button>');
           $("#zoomGrapherIn").button({
@@ -924,7 +943,7 @@
           }).on("click", function() {
             zoomGrapher(1.3);
           });
-        }*/
+        }
 
         // Add charts
         var channelLabel = feed.channels[channelName].graphMetaData.label;
@@ -1290,8 +1309,8 @@
 
         //Initialize playback things
         plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-        $("#playbackMenu").append('<button id="play" class="playbackBtn" title="Play"></button>');
-        $("#playbackMenu").append('<button id="pause" class="playbackBtn" title="Pause"></button>');
+        $("#playbackButtons").append('<button id="play" class="playbackBtn" title="Play"></button>');
+        $("#playbackButtons").append('<button id="pause" class="playbackBtn" title="Pause"></button>');
         $("#play").button({
           icons: {
             secondary: "ui-icon-play"
@@ -1304,6 +1323,9 @@
           },
           text: false
         }).on("click", pause);
+        $("#slider").slider();
+        var initTime = plotManager.getDateAxis().getRange().min;
+        plotManager.getDateAxis().setCursorPosition(initTime+1600);
 
         grapherLoadedInterval = window.setInterval(function() {
           if (!grapherReady) return;
@@ -1384,11 +1406,8 @@
             <div id="timelapse_feed" class="timelapse_feed_embed">
               <div id="timeMachine"></div>
               <div id="timeFrame">
-                <div id="playbackMenu"></div>
                 <!--<button onclick="grapherZoomToWeek()">Last 7 Days</button>
-                <button onclick="grapherZoomToDay()">Last 24 Hours</button>
-                <button id="play" onclick="play()">Play</button>
-                <button id="stop" onclick="stop()">Stop</button>-->
+                <button onclick="grapherZoomToDay()">Last 24 Hours</button>-->
                 <div id="grapherDialogWindow">
                   <table id="dialogGrapher" border="0" cellspacing="0" cellpadding="0">
                     <tr id="dialogDateAxisContainer" class="grapher_row">
@@ -1399,6 +1418,14 @@
                       <td id="dialogYAxis"></td>
                     </tr>
                   </table>
+                </div>
+                <div id="playbackMenu">
+                    Playback Controls:
+                  <span id="playbackButtons" style="margin-right:40px">
+                  </span>
+                  <span id="sliderContainer">
+                    Speed:<div id="slider"></div>
+                  </span>
                 </div>
               </div>
               <div id="datepicker" class="datepicker_embed no-select"></div>

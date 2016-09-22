@@ -37,7 +37,7 @@ function initMap(div) {
   //var myMapsId = '1K27qUtzHhKofoXuUA1001rBMW8I';
   new google.maps.KmlLayer({
       map: map,
-      url: 'http://www.jetslab.org/bay-area-monitoring/monitor_locations_no_fenceline_pins.kmz',
+      url: 'https://www.cs.drexel.edu/~amg463/monitor_locations_no_fenceline_pins.kmz',
       preserveViewport: true
     });
 
