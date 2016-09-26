@@ -401,6 +401,7 @@
       var currentLocation = "shenango1";
       var currentDate;
       var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
+      var MILLISECONDS_IN_DAY = 86400000;
       var clampTimeout = null;
       var fixedCursorPosition;
       var tmpCount = 0;
@@ -506,8 +507,6 @@
         plotManager.removeAllPlotContainers();
         $("#grapher > tbody > tr").not("tr:first").remove();
         $("#legend").empty();
-        var maxTimeSecs = Date.now() / 1000;
-        var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
         series = [];
         colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"];
         loadedSeries = [];
@@ -574,7 +573,7 @@
 
       var play = function() {
         var currentTime = plotManager.getDateAxis().getCursorPosition();
-        plotManager.getDateAxis().setCursorPosition(currentTime + 100);
+        plotManager.getDateAxis().setCursorPosition(currentTime + 60);
         playInterval = window.requestAnim(play);
       };
 
@@ -816,6 +815,7 @@
           $(".gwt-PopupPanel").remove();
           currentDate = date;
           var dayStart = setGraphTimeRange(date);
+          plotManager.getDateAxis().setCursorPosition(dayStart);
           repaintCanvasLayer(dayStart);
           //timelapse.loadTimelapse(path, null, null, true);
         //}
@@ -1119,7 +1119,17 @@
       }
 
       var dateAxisListener = function(event) {
-        repaintCanvasLayer(event.cursorPosition);
+        var timeInSecs = event.cursorPosition;
+        var d = new Date(timeInSecs * 1000);
+        var pad = function(num) {
+          var norm = Math.abs(Math.floor(num));
+          return (norm < 10 ? '0' : '') + norm;
+        }
+        var dateString = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+        if(dateString != currentDate) {
+          updateCalendarAndToggleUI(dateString);
+        }
+        repaintCanvasLayer(timeInSecs);
       };
 
       function setGraphTimeRange(date) {
@@ -1252,7 +1262,7 @@
           })(i);
         }
         if (canvasLayer)
-          repaintCanvasLayer();
+        repaintCanvasLayer();
       }
 
       function channelPageSetup() {
@@ -1324,8 +1334,9 @@
           text: false
         }).on("click", pause);
         $("#slider").slider();
-        var initTime = plotManager.getDateAxis().getRange().min;
-        plotManager.getDateAxis().setCursorPosition(initTime+1600);
+        var initTime = plotManager.getDateAxis().getRange().max;
+        plotManager.getDateAxis().setCursorPosition(initTime);
+        repaintCanvasLayer(initTime);
 
         grapherLoadedInterval = window.setInterval(function() {
           if (!grapherReady) return;
