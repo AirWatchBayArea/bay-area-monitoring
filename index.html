@@ -409,6 +409,7 @@
       var tmReady = false;
       var grapherLoadedInterval = null;
       var showSmokeDetection = false;
+      var playSpeed = 10;
 
       var feedMap = {
         "Atchison Village" : [4910, 4909],
@@ -573,7 +574,7 @@
 
       var play = function() {
         var currentTime = plotManager.getDateAxis().getCursorPosition();
-        plotManager.getDateAxis().setCursorPosition(currentTime + 60);
+        plotManager.getDateAxis().setCursorPosition(currentTime + playSpeed);
         playInterval = window.requestAnim(play);
       };
 
@@ -976,9 +977,26 @@
               function() {
                 $(this).css("font-weight","normal");
               }
-            );
-            $chartTitle.click(function(event) {
-              initializeDialogGraph(event);
+            )
+            .attr("title","View in ESDR")
+            .click(function(event) {
+              var channelName = event.currentTarget.parentElement.attributes["data-channel"].value;
+              //initializeDialogGraph(channelName);
+              var channels = "#channels=";
+              for(var feed of feedMap[area.locale]) {
+                channels += feed + "." + channelName + ",";
+              }
+              channels = channels.slice(0,channels.length-1);
+              var range = plotManager.getDateAxis().getRange();
+              var time = range.min + "," + range.max;
+              var cursor = plotManager.getDateAxis().getCursorPosition();
+              var win = window.open("https://esdr.cmucreatelab.org/browse/"+channels+"&time=" + time + "&zoom=10&center=37.89143760613535,-121.80124835968014&cursor=" + cursor, "_blank");
+              if (win) {
+                win.focus();
+              }
+              else {
+                alert('Please allow popups for this website in order to go to detail view on ESDR');
+              }
             });
           row.append($chartTitle);
           row.append('<td id="' + plotContainerId + '" class="chartContent"></td>');
@@ -1028,17 +1046,12 @@
         series[seriesIdx].pc.push(plotContainer);
       };
 
-      function initializeDialogGraph(obj) {
-        var channelName = obj.currentTarget.parentElement.attributes["data-channel"].value;
+      function initializeDialogGraph(channelName) {
         $("#grapherDialogWindow").dialog({
           title: channelName
         });
         $("#grapherDialogWindow").dialog("open");
       }
-
-      function initDialogGraph() {
-        //
-      };
 
       function addGraphOverlays(seriesIdx) {
         var channelLabel = $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
@@ -1333,7 +1346,11 @@
           },
           text: false
         }).on("click", pause);
-        $("#slider").slider();
+        $("#slider").slider({
+          stop: function(event,ui) {
+            playSpeed = 15 + (10 * ui.value);
+          }
+        });
         var initTime = plotManager.getDateAxis().getRange().max;
         plotManager.getDateAxis().setCursorPosition(initTime);
         repaintCanvasLayer(initTime);
