@@ -392,6 +392,7 @@
       var pageLoadDate = cached_breathecam.latest.date;
       var today = new Date();
       cached_breathecam.latest.date = today.toISOString().substring(0,10);
+      var esdr_feeds = {};
       var series = [];
       var loadedSeries = [];
       var seriesIdx = 0;
@@ -401,8 +402,7 @@
       var currentLocation = "shenango1";
       var currentDate;
       var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
-      var MILLISECONDS_IN_DAY = 86400000;
-      var clampTimeout = null;
+      var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
       var fixedCursorPosition;
       var tmpCount = 0;
       var grapherReady = false;
@@ -445,8 +445,6 @@
         "Toluene (ppb)": 5,
         "Xylene (ppb)": 5
       };
-
-      var esdr_feeds = {};
 
       if (showSmokeDetection) {
         esdr_feeds.Smoke_Detection = {
@@ -898,14 +896,11 @@
                 }
               }
               if(channelName != "smoke_level") {
-                  /*json.data.data = json.data.data.filter(function(entry) {
-                    return entry[1] != 0;
-                  });*/
-                  /*for (var i=0; i<json.data.data.length; i++) {
+                  for (var i=0; i<json.data.data.length; i++) {
                     if(json.data.data[i][1] == 0) {
-                      json.data.data[i][1] = -1e+308;
+                      json.data.data[i][1] = TILE_BOUNDARY_SENTINEL_VALUE;
                     }
-                  }*/
+                  }
                 }
               successCallback(JSON.stringify(json.data));
             },
