@@ -420,11 +420,11 @@
       };
 
       var healthLimitMap = {
-        "Benzene (ppb)" : 0.9,
+        "Benzene (ppb)" : 1,
         "Black Carbon (ppb)": 3.5,
-        "Hydrogen Sulfide (ppb)": 7.2,
+        "Hydrogen Sulfide (ppb)": 8,
         "Sulfur Dioxide (ppb)": 75,
-        "Toluene (ppb)": 79.7,
+        "Toluene (ppb)": 70,
         "Xylene (ppb)": 50,
         "Ethylbenzene (ppb)": 60
       };
@@ -435,7 +435,7 @@
         "Toluene (ppb)": 0.5,
         "Xylene (ppb)": 0.5,
         "Ethylbenzene (ppb)": 0.5,
-        "Black Carbon (ppb)": 0.1
+        "Black Carbon (ppb)": 0.05
       };
 
       var refineryDetectionLimitMap = {
@@ -1036,8 +1036,11 @@
         ]
       });
         var plotContainer = plotManager.getPlotContainer(plotContainerId);
-        //plotContainer.setAutoScaleEnabled(true, true);
-        plotContainer.getYAxis().setRange(0,healthLimitMap[channelLabel]);
+        var healthLimit = healthLimitMap[channelLabel];
+        var pad = healthLimit * 0.1;
+        plotContainer.getYAxis().getWrappedAxis().setMinRangeConstraints(-pad,healthLimit+pad);
+        plotContainer.getYAxis().setRange(-pad,healthLimit+pad);
+        plotContainer.setAutoScaleEnabled(true, true);
         series[seriesIdx].pc.push(plotContainer);
       };
 
@@ -1348,6 +1351,8 @@
         });
         var initTime = plotManager.getDateAxis().getRange().max;
         plotManager.getDateAxis().setCursorPosition(initTime);
+        plotManager.getDateAxis().setRange(initTime - 8 * 60 * 60, initTime);
+        plotManager.getDateAxis().getWrappedAxis().isTwelveHour = true
         repaintCanvasLayer(initTime);
 
         grapherLoadedInterval = window.setInterval(function() {

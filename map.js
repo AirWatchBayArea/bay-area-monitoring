@@ -28,24 +28,28 @@ function initMap(div) {
     keyboardShortcuts: false,
     scaleControl: true,
     zoom: 13,
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
     center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
 
   //import KML with monitor and fence line locations
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
-  //var myMapsId = '1K27qUtzHhKofoXuUA1001rBMW8I';
   new google.maps.KmlLayer({
       map: map,
       url: 'https://www.cs.drexel.edu/~amg463/monitor_locations_no_fenceline_pins.kmz',
       preserveViewport: true
     });
 
-  // initialize the canvasLayer
+    // initialize the canvasLayer
+  var update = function() {
+    var epochTime = plotManager.getDateAxis().getCursorPosition();
+    repaintCanvasLayer(epochTime);
+  }
   var canvasLayerOptions = {
     map: map,
     animate: false,
-    updateHandler: repaintCanvasLayer,
+    updateHandler: update,
     resolutionScale: resolutionScale
   };
   canvasLayer = new CanvasLayer(canvasLayerOptions);
