@@ -346,6 +346,14 @@
       #grapherDialogWindow {
         background: rgb(255,255,255);
       }
+
+      .toggle-button-on {
+        background: pink;
+      }
+
+      .toggle-button-off {
+        background: red !important;
+      }
     </style>
 
     <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css" />
@@ -509,6 +517,7 @@
         series = [];
         colors = ["90,200,250","255,204,0","255,149,0", "255,45,85", "0,122,255", "76,217,100","255,59,48"];
         loadedSeries = [];
+        $("#auto_scale_toggle_button").removeClass("toggle-button-off");
         channelPageSetup();
       }
 
@@ -1015,7 +1024,7 @@
           window.setTimeout(function() { $(window).trigger('resize'); }, 50);
         }
         var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
-        var color_line = (feed.isDouble ? "rgb(0,255,0)" : "rgb(0,0,255)");
+        var color_line = (feed.isDouble ? "rgb(245,124,0)" : "rgb(1,87,155)");
         plotManager.getPlot(plotId).addDataPointListener(function(val) {
           var valueHoverElement = $("#valueHover" + seriesIdx);
           if (val == null) {
@@ -1032,17 +1041,21 @@
         },
         "styles": [
           { "type" : "line", "lineWidth" : 1, "show" : true, "color" : color_line },
-          { "type" : "circle", radius : 1.2, "lineWidth" : 1, "show" : true, "color" : "black", fill : true }
+          { "type" : "circle", radius : 1.2, "lineWidth" : 1, "show" : false, "color" : "black", fill : true }
         ]
       });
         var plotContainer = plotManager.getPlotContainer(plotContainerId);
-        var healthLimit = healthLimitMap[channelLabel];
-        var pad = healthLimit * 0.1;
-        plotContainer.getYAxis().getWrappedAxis().setMinRangeConstraints(-pad,healthLimit+pad);
-        plotContainer.getYAxis().setRange(-pad,healthLimit+pad);
+        setMinRangeToHealthLimit(plotContainer, channelLabel);
         plotContainer.setAutoScaleEnabled(true, true);
         series[seriesIdx].pc.push(plotContainer);
       };
+
+      function setMinRangeToHealthLimit(plotContainer, channelLabel) {
+        var healthLimit = healthLimitMap[channelLabel];
+        var pad = healthLimit * 0.1;
+        plotContainer.getYAxis().constrainMinRangeTo(-pad,healthLimit+pad);
+        plotContainer.getYAxis().setRange(-pad,healthLimit+pad);
+      }
 
       function initializeDialogGraph(channelName) {
         $("#grapherDialogWindow").dialog({
@@ -1051,8 +1064,12 @@
         $("#grapherDialogWindow").dialog("open");
       }
 
+      function getChannelLabel(seriesIdx) {
+        return $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
+      }
+
       function addGraphOverlays(seriesIdx) {
-        var channelLabel = $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
+        var channelLabel = getChannelLabel(seriesIdx);
         if (healthLimitMap[channelLabel]) {
           $("#" + seriesIdx + "_plot_container").append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
         }
@@ -1066,7 +1083,7 @@
       }
 
       function adjustGraphOverlays(seriesIdx) {
-        var channelLabel = $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
+        var channelLabel = getChannelLabel(seriesIdx);
         var axis = plotManager.getYAxis(seriesIdx + "_yaxis");
         //var axis = series[seriesIdx].axis;
         var chartHeight = $('.chart').height();
@@ -1153,6 +1170,27 @@
         axis.setRange(dayStart, dayEnd);
         return dayStart;
       }
+
+      function toggleYAxisAutoScaling() {
+      var autoScaleToggleButton = $("#auto_scale_toggle_button");
+      var isAutoScaleOff = autoScaleToggleButton.hasClass("toggle-button-off");
+      plotManager.forEachPlotContainer(function (pc) {
+        pc.setAutoScaleEnabled(isAutoScaleOff, false);
+        if(isAutoScaleOff) {
+          var channelLabel = getChannelLabel(pc.getElementId()[0]);
+          setMinRangeToHealthLimit(pc, channelLabel);
+        }
+        else {
+          pc.getYAxis().clearMinRangeConstraints();
+        }
+      });
+      if (isAutoScaleOff) {
+        autoScaleToggleButton.removeClass("toggle-button-off");
+      }
+      else {
+       autoScaleToggleButton.addClass("toggle-button-off");
+      }
+   }
 
       function initialize() {
         $( "#tabs" ).tabs({
@@ -1436,6 +1474,9 @@
               <div id="timeFrame">
                 <!--<button onclick="grapherZoomToWeek()">Last 7 Days</button>
                 <button onclick="grapherZoomToDay()">Last 24 Hours</button>-->
+                <span>
+                <button id="auto_scale_toggle_button" class="toggle-button-on" onclick="toggleYAxisAutoScaling()">Auto Scale</button>
+              </span>
                 <div id="grapherDialogWindow">
                   <table id="dialogGrapher" border="0" cellspacing="0" cellpadding="0">
                     <tr id="dialogDateAxisContainer" class="grapher_row">

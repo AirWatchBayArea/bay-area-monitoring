@@ -28,7 +28,7 @@ function initMap(div) {
     keyboardShortcuts: false,
     scaleControl: true,
     zoom: 13,
-    mapTypeId: google.maps.MapTypeId.SATELLITE,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
     center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
@@ -37,7 +37,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   new google.maps.KmlLayer({
       map: map,
-      url: 'https://www.cs.drexel.edu/~amg463/monitor_locations_no_fenceline_pins.kmz',
+      url: 'https://www.cs.drexel.edu/~amg463/monitors_pollutants.kmz',
       preserveViewport: true
     });
 
@@ -115,7 +115,7 @@ function paintWind(site, epochTime) {
       var d = 1;
       var length = unitsPerMile * wind_speed / 5;
 
-      context.strokeStyle = '#0000ee';
+      context.strokeStyle = '#7ed9ed';
       context.lineWidth = Math.max(2.0 / contextScale, d * 0.75);
       context.beginPath();
       context.moveTo(x, y);
@@ -123,7 +123,7 @@ function paintWind(site, epochTime) {
                      y + (length - d * 1) * dy);
       context.stroke();
 
-      context.fillStyle = '#0000ee';
+      context.fillStyle = '#7ed9ed';
       context.beginPath();
       context.moveTo(x + length * dx,
                      y + length * dy);
