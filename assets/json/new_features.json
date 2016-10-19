@@ -1,0 +1,26 @@
+jsonCallback([
+    {
+      "date": "10/14/16",
+      "content":"Redesigned landing page is live."
+    },
+    {
+      "date": "10/11/16",
+      "content":"Default view of graphs zooms out to the health hazard limit. This can be toggled with the \"Auto Scale\" button."
+    },
+    {
+      "date": "9/22/16",
+      "content":"Playback functionality for animating incidents is available."
+    },
+    {
+      "date": "8/5/16",
+      "content": "The bug reporting form is up and running."
+    },
+    {
+      "date": "7/29/16",
+      "content": "Zooming in and zooming out on the graphs can now be done using a pinching or mouse scrolling. Additionally, the issue with the browser freezing up is fixed."
+    },
+    {
+      "date": "7/15/16",
+      "content": "Wind speed can now be viewed by hovering over the monitor location on the map."
+    },
+]);

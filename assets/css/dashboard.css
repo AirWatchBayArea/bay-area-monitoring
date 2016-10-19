@@ -1,0 +1,168 @@
+.custom-col {
+  padding: 0px !important;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.border {
+  border: 1px solid black;
+}
+
+#radioButtonContainer {
+  margin-left: auto;
+  margin-right: auto;
+  display: table;
+}
+
+#grapher {
+  width: 100%;
+  min-width: 385px;
+}
+
+#grapher * {
+  box-sizing: content-box;
+  -webkit-box-sizing: content-box;
+}
+
+#dateAxisContainer {
+  width: 100%;
+  height: 41px;
+  position: relative;
+}
+
+.playContainer {
+  border-top: 1px solid black;
+  width: 159px;
+}
+
+.playMenu {
+  height:100%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#slider {
+  width:60px;
+  margin-top: 13px;
+}
+
+.playbackBtn {
+  border-radius: 0px !important;
+  outline: none;
+  border: 1px solid black !important;
+  height: 30px;
+  width: 30px;
+  margin-top: 4px;
+}
+
+.toggle-button-on {
+  background: pink;
+}
+
+.toggle-button-off {
+  background: red !important;
+}
+
+#dateAxis {
+  position: absolute !important;
+  right: 250px;
+  left: 159px;
+  top: 0px;
+  height: 40px;
+  border: 1px solid black;
+  width: 100%;
+  background: white;
+}
+
+.zoomGrapherBtn {
+  position: absolute;
+  padding: 0px;
+  border: 0px;
+  right: 8px;
+  height: 19px;
+  width: 19px;
+}
+
+#zoomGrapherIn {
+  top: 1px;
+}
+
+#zoomGrapherOut {
+  top: 21px;
+}
+
+.chartTitle {
+  position: absolute;
+  left: 0px;
+  width: 136px;
+  height: 100%;
+  border: 1px solid black;
+  font-family: 'Helvetica Neue', Helvetica, Arial;
+  background-color: rgba(126,217,237,.43);
+  padding: 11px;
+}
+
+.chartContent {
+  position: absolute;
+  left: 159px;
+  right: 35px;
+  border: 1px solid black;
+  background: white;
+  width: 100%;
+  height: 80px;
+  z-index: 4 !important;
+}
+
+.chartAxis {
+  position: absolute !important;
+  right: 0px;
+  width: 34px;
+  border: 1px solid black;
+  background: white;
+  height: inherit;
+}
+
+.healthDangerBox {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  background-color: rgb(255, 179, 179);
+  z-index: -2;
+}
+
+.greyAreaBox {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  background-color: rgb(217, 217, 217);
+  border-bottom: 0px dashed black;
+  z-index: -3;
+}
+
+.refineryDetectionLimit {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  background-color: transparent;
+  border-bottom: 2px dotted black;
+  z-index: -1;
+}
+
+.valueHover {
+  display: none;
+  z-index: 9999;
+  font-size: 12pt;
+  background-color: aliceblue;
+  float: right;
+}
+
+#fencelineInfo {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  margin: 0;
+  padding: 0px;
+  background-color:aliceblue;
+}
