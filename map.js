@@ -8,7 +8,41 @@ var resolutionScale;
 var mapProjection;
 var projectionScale = 2000;
 var y_scale;
-var windMonitor;
+var windMonitor, fencelineMonitor, communityMonitor;
+
+var sourceTowers = {
+  "Atchison Village": {
+    lat:   37.935014,
+    lng: -122.384772
+  },
+  "North Richmond": {
+    lat: 37.952750,
+    lng: -122.375425
+  },
+  "Point Richmond": {
+    lat:  37.933972,
+    lng: -122.392989
+  },
+  "North Rodeo": {
+    lat: 38.04756,
+    lng: -122.25207
+  },
+  "South Rodeo": {
+    lat: 38.03426,
+    lng: -122.25467
+  }
+};
+
+var receivers = {
+  "North Rodeo": {
+    lat: 38.04228,
+    lng: -122.24378
+  },
+  "South Rodeo": {
+    lat: 38.03996,
+    lng: -122.26076
+  }
+}
 
 function initMap(div) {
   // Initialize Google Map
@@ -16,8 +50,8 @@ function initMap(div) {
 
   var center = {};
   if(area.id === "richmond") {
-    center.x = 37.951468927073634;
-    center.y = -122.36782797656247;
+    center.x = 37.931468927073634;
+    center.y = -122.38782797656247;
   }
   else if(area.id === "crockett-rodeo") {
     center.x = 38.03885974316995;
@@ -35,10 +69,16 @@ function initMap(div) {
 
   //import KML with monitor and fence line locations
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
-  new google.maps.KmlLayer({
+  var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: 'https://www.cs.drexel.edu/~amg463/monitors_pollutants.kmz',
+      url: PROJ_ROOT_URL + "/assets/kmz/map1.kmz",
       preserveViewport: true
+    });
+
+    kmlLayer.addListener('click', function(kmlEvent) {
+      if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
+        changeLocale(area.id, kmlEvent.featureData.description);
+      }
     });
 
     // initialize the canvasLayer
@@ -159,7 +199,7 @@ function paintWind(site, epochTime) {
           fillOpacity: 0,
           map: map,
           center: rectLatLng,
-          radius: wind_speed*200
+          radius: 200
         });
 
         windMonitor.addListener('mouseover', function() {
@@ -173,8 +213,6 @@ function paintWind(site, epochTime) {
 }
 
 function getData(site, channel, time) {
-  //console.log('getData');
-
   var day = Math.floor(time / 86400);
 
   if (!site.requested_day[day]) {
@@ -221,6 +259,42 @@ function getData(site, channel, time) {
       }
       //console.log('could not find time in range');
       return null;
+    }
+  }
+}
+
+function highlightSelectedMonitors() {
+  if(communityMonitor) communityMonitor.setMap(null);
+  if(fencelineMonitor) fencelineMonitor.setMap(null);
+  for(var feed in esdr_feeds) {
+    if(area.id === "richmond") {
+      receivers[area.locale] = {
+        lat: esdr_feeds[feed].coordinates.latitude,
+        lng: esdr_feeds[feed].coordinates.longitude
+      }
+    }
+    if(feed.indexOf("Fenceline") > 0 || feed.indexOf("Fence Line") > 0) {
+      var fencelineCoords = [receivers[area.locale], sourceTowers[area.locale]]
+      fencelineMonitor = new google.maps.Polyline({
+        map: map,
+        path: fencelineCoords,
+        geodesic: true,
+        strokeColor: '#FFF000',
+        strokeOpacity: 0.5,
+        strokeWeight: 10
+      });
+    }
+    else if(feed.indexOf("Community") > 0){
+        communityMonitor = new google.maps.Circle({
+          strokeColor: '#FFF000',
+          strokeOpacity: 0.5,
+          strokeWeight: 2,
+          fillColor: '#FFF000',
+          fillOpacity: 0.5,
+          map: map,
+          center: receivers[area.locale],
+          radius: 260
+      });
     }
   }
 }

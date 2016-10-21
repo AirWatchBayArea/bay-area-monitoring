@@ -13,6 +13,7 @@
   var currentLocation = "shenango1";
   var currentDate;
   var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
+  var PROJ_ROOT_URL = 'http://jetslab.org/bay-area-monitoring';
   var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
   var fixedCursorPosition;
   var grapherReady = false;
@@ -105,6 +106,7 @@
     playSpeed = 10;
     $("#zoomGrapherOut").off();
     $("#zoomGrapherIn").off();
+    $(".collapse-handle").off();
     channelPageSetup();
   }
 
@@ -373,6 +375,19 @@
     }
   }
 
+  function initCalendarMenu() {
+    $(".collapse-handle").click(function() {
+      $("#calendarMenu").toggleClass("collapsed", {
+        complete: switchCollapseArrow
+      });
+    })
+  }
+
+  var switchCollapseArrow = function() {
+    $(".collapse-icon").toggleClass("glyphicon-menu-left");
+    $(".collapse-icon").toggleClass("glyphicon-menu-right");
+  }
+
   function updateCalendarAndToggleUI(startingDate) {
     $(".gwt-PopupPanel").remove();
     locationDivId = currentLocation + "_overlay";
@@ -392,6 +407,7 @@
       onSelect : selectDay,
       beforeShowDay : highlightDays
     });
+    $("#datepicker").datepicker("show");
   }
 
   function highlightDays(date) {
@@ -460,17 +476,6 @@
         var timeStamp = sensor.channels[channelHeading].hourly ? (csvLineAsArray[0] - 1800): csvLineAsArray[0];
         sensor.channels[channelHeading].summary[timeStamp] = parseFloat(csvLineAsArray[j]);
       }
-    }
-  }
-
-  function updateAreaSelectionMenu() {
-    $('#radioButtonContainer').empty();
-    var allLocales = Object.keys(feedMap);
-    var locales = (area.id === "richmond" ? allLocales.slice(0,3) : allLocales.slice(3,5));
-    $("#areaSelectionMenu").append('<form id="radioButtonContainer"></form>');
-    for(var i=0;i<locales.length;i++) {
-      $("#radioButtonContainer").append('<input type="radio" name="areaRadioButtonGroup"' + (i==0? 'checked="checked"' : '')
-      + 'onclick="changeLocale(\'' + area.id + '\',\'' + locales[i] + '\')">' + locales[i] + '</input>');
     }
   }
 
@@ -742,7 +747,6 @@
 
   function initialize() {
     selectArea($("title")[0].innerText);
-    updateAreaSelectionMenu();
     $("body, html").css("overflow", "hidden");
     if (!timelapse) {
       channelPageSetup();
@@ -839,7 +843,7 @@
       })(i);
     }
     if (canvasLayer)
-    repaintCanvasLayer();
+    highlightSelectedMonitors();
   }
 
   function channelPageSetup() {
@@ -880,6 +884,10 @@
       zoomGrapher(1.3);
     });
 
+    $('[data-toggle="popover"]').popover();
+
+    initCalendarMenu();
+
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
     $("#play").on("click", function() {
@@ -910,7 +918,6 @@
 
       // Initialize Graphs
       loadFeeds(feedMap[area.locale]);
-
     }, 10);
   }
 

@@ -42,4 +42,6 @@ html, body {
 
 .custom-button {
   background-color: #ff5252;
+  text-transform: uppercase;
+  color: white;
 }
