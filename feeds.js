@@ -51,6 +51,7 @@ function loadFeeds(area_feed_ids) {
         for(var j=0;j<feed_channels.length;j++) {
           var chemical = feed_channels[j];
           var chemicalLabel = chemical;
+          var units;
           if(isRodeoFenceline) {
             chemicalLabel = chemical.slice(chemical.indexOf("_")+1);
           }
@@ -59,11 +60,12 @@ function loadFeeds(area_feed_ids) {
             if(chemical.indexOf("Xylene") != -1) {
               chemicalLabel = "Xylene";
             }
+            var units = chemical.indexOf("Black_Carbon") != -1 ? " (µg/m³)" : " (ppb)";
             esdr_feeds[feed.name].channels[chemical] = {
               show_graph: true,
               hourly: true,
               graphMetaData: {
-                label: chemicalLabel + " (ppb)"
+                label: chemicalLabel + units
               },
               summary: {}
             }

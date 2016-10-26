@@ -20,7 +20,6 @@
   var tmReady = false;
   var grapherLoadedInterval = null;
   var showSmokeDetection = false;
-  var playSpeed = 10;
 
   var feedMap = {
     "Atchison Village" : [4910, 4909],
@@ -32,7 +31,7 @@
 
   var healthLimitMap = {
     "Benzene (ppb)" : 1,
-    "Black Carbon (ppb)": 3.5,
+    "Black Carbon (µg/m³)": 5,
     "Hydrogen Sulfide (ppb)": 8,
     "Sulfur Dioxide (ppb)": 75,
     "Toluene (ppb)": 70,
@@ -46,7 +45,7 @@
     "Toluene (ppb)": 0.5,
     "Xylene (ppb)": 0.5,
     "Ethylbenzene (ppb)": 0.5,
-    "Black Carbon (ppb)": 0.05
+    "Black Carbon (µg/m³)": 0.05
   };
 
   var refineryDetectionLimitMap = {
@@ -87,6 +86,12 @@
     else {
       area.locale = locale;
     }
+    $(".active a").removeClass("custom-nav-link-active");
+    $(".active a").addClass("custom-nav-link");
+    $(".active").removeClass("active");
+
+    $("#" + targetArea).addClass("active");
+    $("#" + targetArea + " a").addClass("custom-nav-link-active");
   }
 
   function changeLocale(targetArea, locale) {
@@ -101,9 +106,8 @@
     $("#grapher > tbody > tr").not("tr:first").remove();
     series = [];
     loadedSeries = [];
-    $("#auto_scale_toggle_button").removeClass("toggle-button-off");
+    $("#auto_scale_toggle_button").addClass("toggle-button-on");
     $("#play").off();
-    playSpeed = 10;
     $("#zoomGrapherOut").off();
     $("#zoomGrapherIn").off();
     $(".collapse-handle").off();
@@ -116,11 +120,11 @@
     var initialDataset = cached_breathecam.latest.path;
     var startingDate = cached_breathecam.latest.date;
 
-    var hash = window.location.hash.slice(1);
-    hashVars = org.gigapan.Util.unpackVars(hash);
+    //var hash = window.location.hash.slice(1);
+    //hashVars = org.gigapan.Util.unpackVars(hash);
 
     var loadedTimelapse = false;
-    if (hashVars) {
+    /*if (hashVars) {
       if (hashVars.d) {
         startingDate = String(hashVars.d);
         initialDataset = cached_breathecam.datasets[startingDate];
@@ -139,7 +143,7 @@
           setupTimelapse(initialDataset, startingDate);
         });
       }
-    }
+    }*/
 
     // If we did not load the timelapse with the hash vars above, do so now.
     if (!loadedTimelapse)
@@ -168,8 +172,11 @@
   }
 
   function play() {
-    var currentTime = plotManager.getDateAxis().getCursorPosition();
-    plotManager.getDateAxis().setCursorPosition(currentTime + playSpeed);
+    var dateAxis = plotManager.getDateAxis();
+    var currentTime = dateAxis.getCursorPosition();
+    var range = dateAxis.getRange().max - dateAxis.getRange().min;
+    var delta = Math.abs($("#slider").slider("value") - 100) * 7 + 50;
+    plotManager.getDateAxis().setCursorPosition(currentTime + (range / delta));
     playInterval = window.requestAnim(play);
   };
 
@@ -191,7 +198,7 @@
         tmReady = true;
         createTutorialButton(720, 540, "#timeMachine");
         if (canvasLayer)
-          repaintCanvasLayer();
+          //repaintCanvasLayer();
         if (smellCanvasLayer)
           repaintSmellCanvasLayer();
         // Time Machine Listeners
@@ -206,7 +213,7 @@
             repaintSmellCanvasLayer();
         });
         // Override the hashchange event
-        window.onhashchange = null;
+        /*window.onhashchange = null;
         $(window).on("hashchange", function() {
           var newHash = window.location.hash.slice(1);
           var newHashVars = org.gigapan.Util.unpackVars(newHash);
@@ -248,8 +255,7 @@
         var hash = window.location.hash.slice(1);
         timelapse.loadSharedViewFromUnsafeURL("#" + hash);
         $("#timeMachine").hide();
-        $("#locationTitle").hide();
-        //$("#container").html("<div class='timelapse_hide'>Camera feed coming soon!</div>");
+        $("#locationTitle").hide();*/
       }
     };
     timelapse = new org.gigapan.timelapse.Timelapse("timeMachine", settings);
@@ -380,7 +386,8 @@
       $("#calendarMenu").toggleClass("collapsed", {
         complete: switchCollapseArrow
       });
-    })
+    });
+
   }
 
   var switchCollapseArrow = function() {
@@ -403,9 +410,10 @@
     var dateArray = startingDate.split("-");
     $("#datepicker").datepicker({
       defaultDate : new Date(dateArray[0], dateArray[1] - 1, dateArray[2]),
-      minDate : new Date(2014, 0),
+      minDate : new Date(2015, 5),
       onSelect : selectDay,
-      beforeShowDay : highlightDays
+      beforeShowDay : highlightDays,
+      showOptions: {direction: "up"}
     });
     $("#datepicker").datepicker("show");
   }
@@ -422,6 +430,7 @@
     var date = $.datepicker.formatDate('yy-mm-dd', new Date(dateText));
     //var path = cached_breathecam.datasets[date];
     //if (timelapse && path) {
+
       $(".gwt-PopupPanel").remove();
       currentDate = date;
       var dayStart = setGraphTimeRange(date);
@@ -600,8 +609,8 @@
       "lineWidth" : 1
     },
     "styles": [
-      { "type" : "line", "lineWidth" : 1, "show" : true, "color" : color_line },
-      { "type" : "circle", radius : 1.2, "lineWidth" : 1, "show" : false, "color" : "black", fill : true }
+      { "type" : "line", "lineWidth" : 4, "show" : true, "color" : color_line },
+      { "type" : "circle", "radius" : 1.2, "lineWidth" : 3, "show" : true, "color" : color_line, fill : true }
     ]
   });
     var plotContainer = plotManager.getPlotContainer(plotContainerId);
@@ -652,10 +661,10 @@
     level = communityDetectionLimitMap[channelLabel];
     overlayHeight = (range.max - level) / (range.max - range.min) * chartHeight;
     var borderVisible;
-    overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
+    //overlayHeight > 2 ? borderVisible = "2px" : borderVisible = "0px";
     $('#greyAreaBox' + seriesIdx)
         .height(overlayHeight)
-        .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
+        .css({"max-height": chartHeight/*, "border-bottom-width": borderVisible*/});
 
     level = refineryDetectionLimitMap[channelLabel];
     overlayHeight = (range.max - level) / (range.max - range.min) * chartHeight;
@@ -671,6 +680,12 @@
     var mean_time = (max_time+min_time)/2;
     var range_half_scaled = scale*(max_time-min_time)/2;
     plotManager.getDateAxis().setRange(mean_time-range_half_scaled,mean_time+range_half_scaled);
+  }
+
+  function grapherZoomToMonth() {
+    var max_time = plotManager.getDateAxis().getRange().max;
+    var length = 2487540;
+    plotManager.getDateAxis().setRange(max_time-length,max_time);
   }
 
   function grapherZoomToWeek() {
@@ -701,14 +716,20 @@
 
   var dateAxisListener = function(event) {
     var timeInSecs = event.cursorPosition;
+    var dateAxis = plotManager.getDateAxis();
+    var range = dateAxis.getRange();
+    if (timeInSecs > range.max) {
+      timeInSecs = range.min;
+      dateAxis.setCursorPosition(range.min);
+    }
     var d = new Date(timeInSecs * 1000);
     var pad = function(num) {
       var norm = Math.abs(Math.floor(num));
       return (norm < 10 ? '0' : '') + norm;
     }
-    var dateString = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+    var dateString = pad(d.getMonth()+1) + "/" + pad(d.getDate()) + "/" + d.getFullYear() ;
     if(dateString != currentDate) {
-      updateCalendarAndToggleUI(dateString);
+      $("#datepicker").datepicker("setDate",dateString);
     }
     repaintCanvasLayer(timeInSecs);
   };
@@ -726,10 +747,10 @@
 
   function toggleYAxisAutoScaling() {
   var autoScaleToggleButton = $("#auto_scale_toggle_button");
-  var isAutoScaleOff = autoScaleToggleButton.hasClass("toggle-button-off");
+  var isAutoScaleOn = autoScaleToggleButton.hasClass("toggle-button-on");
   plotManager.forEachPlotContainer(function (pc) {
-    pc.setAutoScaleEnabled(isAutoScaleOff, false);
-    if(isAutoScaleOff) {
+    pc.setAutoScaleEnabled(!isAutoScaleOn, false);
+    if(!isAutoScaleOn) {
       var channelLabel = getChannelLabel(pc.getElementId()[0]);
       setMinRangeToHealthLimit(pc, channelLabel);
     }
@@ -737,17 +758,11 @@
       pc.getYAxis().clearMinRangeConstraints();
     }
   });
-  if (isAutoScaleOff) {
-    autoScaleToggleButton.removeClass("toggle-button-off");
-  }
-  else {
-   autoScaleToggleButton.addClass("toggle-button-off");
-  }
+  autoScaleToggleButton.toggleClass("toggle-button-on");
 }
 
-  function initialize() {
-    selectArea($("title")[0].innerText);
-    $("body, html").css("overflow", "hidden");
+  function initialize(location) {
+    selectArea(location);
     if (!timelapse) {
       channelPageSetup();
     } else {
@@ -756,7 +771,14 @@
     google.maps.event.trigger(map, 'resize');
   }
 
+  window.onhashchange = function() {
+    window.location.reload();
+  }
+
   window.grapherLoad = function() {
+    var hash = window.location.hash.slice(1).split("&");
+    var location = hash[0].slice(4);
+
     var maxTimeSecs = Date.now() / 1000;
     var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
@@ -767,7 +789,7 @@
       return $("#grapher").width() - 34 - 136 - 26;
     });
     grapherReady = true;
-    initialize();
+    initialize(location);
   };
 
   //$(initialize);
@@ -854,8 +876,8 @@
       locationDivId = "shenango1" + "_overlay";
       setLocationThumbnailToggle();
       $(".location_thumbnail_container").on("click", function() {
-        if (window.location.hash)
-          window.location.hash = "";
+        //if (window.location.hash)
+          //window.location.hash = "";
         var newLocation = $(this).attr("data-location-id");
         if (timelapse)
           var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
@@ -896,11 +918,7 @@
       icon.toggleClass("glyphicon-pause");
       icon.hasClass("glyphicon-pause") ? play() : pause();
     });
-    $("#slider").slider({
-      stop: function(event,ui) {
-        playSpeed = 15 + (10 * ui.value);
-      }
-    });
+    $("#slider").slider();
     var initTime = plotManager.getDateAxis().getRange().max;
     plotManager.getDateAxis().setCursorPosition(initTime);
     plotManager.getDateAxis().setRange(initTime - 8 * 60 * 60, initTime);

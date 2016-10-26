@@ -44,6 +44,36 @@ var receivers = {
   }
 }
 
+var communityMonitors = {
+  "Atchison Village": {
+    lat:   37.93447,
+    lng: -122.37166
+  },
+  "North Richmond": {
+    lat: 37.94799,
+    lng: -122.36477
+  },
+  "Point Richmond": {
+    lat:  37.92423,
+    lng: -122.38215
+  }
+}
+
+var refineries = {
+  "Phillips 66 Refinery": {
+    lat: 38.04221,
+    lng: -122.25405
+  },
+  "Chevron Process Units": {
+    lat: 37.95076,
+    lng: -122.39687
+  },
+  "Chevron Tank Farm": {
+    lat: 37.93952,
+    lng: -122.40237
+  }
+}
+
 function initMap(div) {
   // Initialize Google Map
   resolutionScale = window.devicePixelRatio || 1;
@@ -62,7 +92,7 @@ function initMap(div) {
     keyboardShortcuts: false,
     scaleControl: true,
     zoom: 13,
-    mapTypeId: google.maps.MapTypeId.HYBRID,
+    mapTypeId: google.maps.MapTypeId.SATELLITE,
     center: new google.maps.LatLng(center.x, center.y)
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
@@ -95,6 +125,37 @@ function initMap(div) {
   canvasLayer = new CanvasLayer(canvasLayerOptions);
   context = canvasLayer.canvas.getContext('2d');
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
+  addMapLabels();
+}
+
+function addMapLabels() {
+  for(var coord in sourceTowers) {
+    var align = coord.indexOf("Point Richmond") != -1 ? 'right' : 'left';
+    var lat = coord.indexOf("Atchison") != -1 ? sourceTowers[coord].lat + .0041 : sourceTowers[coord].lat;
+    new MapLabel({
+      text: coord + " Fenceline Monitor",
+      map: map,
+      position: new google.maps.LatLng(lat, sourceTowers[coord].lng),
+      align: align
+    });
+  }
+
+  for(var coord in communityMonitors) {
+    new MapLabel({
+      text: coord + " Community Monitor",
+      map: map,
+      position: new google.maps.LatLng(communityMonitors[coord].lat, communityMonitors[coord].lng),
+      align: 'left'
+    });
+  }
+
+  for (var coord in refineries) {
+    new MapLabel({
+      text: coord,
+      map: map,
+      position: new google.maps.LatLng(refineries[coord].lat, refineries[coord].lng)
+    });
+  }
 }
 
 function setupCanvasLayerProjection() {
