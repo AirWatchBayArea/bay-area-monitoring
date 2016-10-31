@@ -13,7 +13,7 @@
   var currentLocation = "shenango1";
   var currentDate;
   var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
-  var PROJ_ROOT_URL = 'http://jetslab.org/bay-area-monitoring';
+  var PROJ_ROOT_URL = 'http://airwatchbayarea.org';
   var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
   var fixedCursorPosition;
   var grapherReady = false;
@@ -173,7 +173,7 @@
 
   function play() {
     var dateAxis = plotManager.getDateAxis();
-    var currentTime = dateAxis.getCursorPosition();
+    var currentTime = Number(dateAxis.getCursorPosition());
     var range = dateAxis.getRange().max - dateAxis.getRange().min;
     var delta = Math.abs($("#slider").slider("value") - 100) * 7 + 50;
     plotManager.getDateAxis().setCursorPosition(currentTime + (range / delta));
@@ -381,13 +381,19 @@
     }
   }
 
+  function generateShareLink() {
+    var range = plotManager.getDateAxis().getRange();
+    var link = PROJ_ROOT_URL + "/dashboard.html#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
+    $("#shareLink").val(link);
+    $("#dialog").dialog("open");
+  }
+
   function initCalendarMenu() {
     $(".collapse-handle").click(function() {
       $("#calendarMenu").toggleClass("collapsed", {
         complete: switchCollapseArrow
       });
     });
-
   }
 
   var switchCollapseArrow = function() {
@@ -412,8 +418,7 @@
       defaultDate : new Date(dateArray[0], dateArray[1] - 1, dateArray[2]),
       minDate : new Date(2015, 5),
       onSelect : selectDay,
-      beforeShowDay : highlightDays,
-      showOptions: {direction: "up"}
+      beforeShowDay : highlightDays
     });
     $("#datepicker").datepicker("show");
   }
@@ -761,10 +766,10 @@
   autoScaleToggleButton.toggleClass("toggle-button-on");
 }
 
-  function initialize(location) {
-    selectArea(location);
+  function initialize(fromShareLink, location, monitor) {
+    selectArea(location, monitor);
     if (!timelapse) {
-      channelPageSetup();
+      channelPageSetup(fromShareLink);
     } else {
       refreshChannelPage();
     }
@@ -776,11 +781,20 @@
   }
 
   window.grapherLoad = function() {
-    var hash = window.location.hash.slice(1).split("&");
-    var location = hash[0].slice(4);
+    var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
 
-    var maxTimeSecs = Date.now() / 1000;
-    var minTimeSecs = maxTimeSecs - 1 * 24 * 60 * 60;
+    var hash = window.location.hash.slice(1).split("&");
+    if(hash[1]) {
+      fromShareLink = true;
+      var timeRange = hash[2].slice(5).split(",");
+      minTimeSecs = timeRange[0];
+      maxTimeSecs = timeRange[1];
+      monitor = hash[1].slice(8).replace(/-/g," ");
+    }
+    else {
+      maxTimeSecs = Date.now() / 1000;
+      minTimeSecs = maxTimeSecs - 8 * 60 * 60;
+    }
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
     $(window).resize(function() {
       setSizes();
@@ -789,10 +803,10 @@
       return $("#grapher").width() - 34 - 136 - 26;
     });
     grapherReady = true;
-    initialize(location);
-  };
 
-  //$(initialize);
+    var location = hash[0].slice(4);
+    initialize(fromShareLink, location, monitor);
+  };
 
   function createTutorialButton(buttonWidth, buttonHeight, appendingDiv) {
     var $tutorialButton = $("<div class='tutorialButton'>Quick Tour</div>");
@@ -868,7 +882,14 @@
     highlightSelectedMonitors();
   }
 
-  function channelPageSetup() {
+  var playCallback = function() {
+    var icon = $("#playIcon");
+    icon.toggleClass("glyphicon-play");
+    icon.toggleClass("glyphicon-pause");
+    icon.hasClass("glyphicon-pause") ? play() : pause();
+  }
+
+  function channelPageSetup(fromShareLink) {
     if (!tmReady) {
       // Initialize E-Cam
       var timelapseSupported = org.gigapan.Util.browserSupported();
@@ -907,21 +928,16 @@
     });
 
     $('[data-toggle="popover"]').popover();
+    $("#dialog").dialog({ autoOpen: false });
 
     initCalendarMenu();
 
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-    $("#play").on("click", function() {
-      var icon = $("#playIcon");
-      icon.toggleClass("glyphicon-play");
-      icon.toggleClass("glyphicon-pause");
-      icon.hasClass("glyphicon-pause") ? play() : pause();
-    });
+    $("#play").on("click", playCallback);
     $("#slider").slider();
-    var initTime = plotManager.getDateAxis().getRange().max;
+    var initTime = plotManager.getDateAxis().getRange().min;
     plotManager.getDateAxis().setCursorPosition(initTime);
-    plotManager.getDateAxis().setRange(initTime - 8 * 60 * 60, initTime);
     plotManager.getDateAxis().getWrappedAxis().isTwelveHour = true
     repaintCanvasLayer(initTime);
 
@@ -936,6 +952,10 @@
 
       // Initialize Graphs
       loadFeeds(feedMap[area.locale]);
+      if(fromShareLink) {
+        $("#slider").slider("value",85);
+        playCallback();
+      }
     }, 10);
   }
 

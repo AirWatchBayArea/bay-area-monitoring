@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>richmond</title>
+<title>Air Watch: Bay Area</title>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -84,13 +84,13 @@
 
   <div class="container-fluid" style="height:calc(100% - 50px)">
     <div class="row guide">
-      <div class="col-sm-3 full-height">
+      <div class="col-sm-2 col-sm-offset-1 guide-col full-height">
         <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-map-marker guide-icon" style="left:9px"></span>
         </div>
         <div class="guide-text">
           Choose a monitor on the map to see a graph of chemical levels at that location.
-          <a href="#" data-toggle="popover" title="Reading the Graphs" data-placement="bottom" data-html="true"
+          <a data-toggle="popover" title="Reading the Graphs" data-placement="bottom" data-html="true"
           data-content="<ul><li>The numbers on the right tell you chemical concentrations in ppb unless otherwise noted.</li>
           <li>When the line is in the 'red zone' it is above a health-based screening level.
             <a href='.'><i>(Where do the levels come from?)</i></a>
@@ -101,19 +101,19 @@
           <li>When the line is in the 'gray area', chemicals have been detected in the air, and it's difficult to say whether the levels could harm you.
             <a href='.'><i>(Why don't we know?)</i></a>
           </li></ul>">
-            [+]
+            <i>(more)</i>
           </a>
         </div>
         <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
       </div>
-      <div class="col-sm-3 full-height">
+      <div class="col-sm-2 guide-col full-height">
         <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-calendar guide-icon" style="left:12px"></span>
         </div>
         <div class="guide-text">Choose a date on the calendar to jump to see what was in the air on that day.</div>
         <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
       </div>
-      <div class="col-sm-3 full-height">
+      <div class="col-sm-2 guide-col full-height">
         <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-hand-up guide-icon" style="left:9px"></span>
         </div>
@@ -122,13 +122,25 @@
         </div>
           <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
       </div>
-      <div class="col-sm-3 full-height">
+      <div class="col-sm-2 guide-col full-height">
         <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-play-circle guide-icon" style="left:11px"></span>
         </div>
         <div class="guide-text">Click the play button to see how wind direction changes with chemical levels.
-          <span class="secondary">(You can adjust the slider for faster or slower playback.)</span>
+          <a data-toggle="popover" data-placement="bottom" data-html="true"
+          data-content="You can adjust the slider for faster or slower playback"><i>(more)</i></a>
         </div>
+        <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
+      </div>
+      <div class="col-sm-2 guide-col full-height">
+        <div class="guide-icon-circle custom-button">
+          <span class="glyphicon glyphicon-share guide-icon" style="left:12px"></span>
+        </div>
+        <div class="guide-text">See a pollution event? Zoom the graph into it, and share it with our <a onclick="generateShareLink()">custom link generator.</a></div>
+      </div>
+      <div id="dialog" title="Share a Pollution Incident">
+        To link others to your current view, use this URL:
+        <input id="shareLink" type="text"></input>
       </div>
     </div>
     <div class="row" style="height:calc(100% - 150px)">

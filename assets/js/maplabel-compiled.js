@@ -1,5 +1,4 @@
-(function(){/*
-
+/*
 
  Copyright 2011 Google Inc.
 
@@ -7,7 +6,7 @@
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
- http://www.apache.org/licenses/LICENSE-2.0
+     http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,7 +14,9 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-var d="prototype";function e(a){this.set("fontFamily","sans-serif");this.set("fontSize",12);this.set("fontColor","#000000");this.set("strokeWeight",4);this.set("strokeColor","#ffffff");this.set("align","center");this.set("zIndex",1E3);this.setValues(a)}e.prototype=new google.maps.OverlayView;window.MapLabel=e;e[d].changed=function(a){switch(a){case "fontFamily":case "fontSize":case "fontColor":case "strokeWeight":case "strokeColor":case "align":case "text":return h(this);case "maxZoom":case "minZoom":case "position":return this.draw()}};
-function h(a){var b=a.a;if(b){var f=b.style;f.zIndex=a.get("zIndex");var c=b.getContext("2d");c.clearRect(0,0,b.width,b.height);c.strokeStyle=a.get("strokeColor");c.fillStyle=a.get("fontColor");c.font=a.get("fontSize")+"px "+a.get("fontFamily");var b=Number(a.get("strokeWeight")),g=a.get("text");if(g){if(b)c.lineWidth=b,c.strokeText(g,b,b);c.fillText(g,b,b);a:{c=c.measureText(g).width+b;switch(a.get("align")){case "left":a=0;break a;case "right":a=-c;break a}a=c/-2}f.marginLeft=a+"px";f.marginTop=
-"-0.4em"}}}e[d].onAdd=function(){var a=this.a=document.createElement("canvas");a.style.position="absolute";var b=a.getContext("2d");b.lineJoin="round";b.textBaseline="top";h(this);(b=this.getPanes())&&b.mapPane.appendChild(a)};e[d].onAdd=e[d].onAdd;
-e[d].draw=function(){var a=this.getProjection();if(a&&this.a){var b=this.get("position");if(b){b=a.fromLatLngToDivPixel(b);a=this.a.style;a.top=b.y+"px";a.left=b.x+"px";var b=this.get("minZoom"),f=this.get("maxZoom");if(b===void 0&&f===void 0)b="";else{var c=this.getMap();c?(c=c.getZoom(),b=c<b||c>f?"hidden":""):b=""}a.visibility=b}}};e[d].draw=e[d].draw;e[d].onRemove=function(){var a=this.a;a&&a.parentNode&&a.parentNode.removeChild(a)};e[d].onRemove=e[d].onRemove;})()
+function MapLabel(a){this.set("fontFamily","sans-serif");this.set("fontSize",12);this.set("fontColor","#000000");this.set("strokeWeight",4);this.set("strokeColor","#ffffff");this.set("align","center");this.set("zIndex",1E3);this.setValues(a)}MapLabel.prototype=new google.maps.OverlayView;window.MapLabel=MapLabel;
+MapLabel.prototype.changed=function(a){switch(a){case "fontFamily":case "fontSize":case "fontColor":case "strokeWeight":case "strokeColor":case "align":case "text":return this.drawCanvas_();case "maxZoom":case "minZoom":case "position":return this.draw()}};
+MapLabel.prototype.drawCanvas_=function(){var a=this.canvas_;if(a){var b=a.style;b.zIndex=this.get("zIndex");var c=a.getContext("2d");c.clearRect(0,0,a.width,a.height);c.strokeStyle=this.get("strokeColor");c.fillStyle=this.get("fontColor");c.font=this.get("fontSize")+"px "+this.get("fontFamily");var a=Number(this.get("strokeWeight")),d=this.get("text");d&&(a&&(c.lineWidth=a,c.strokeText(d,a,a)),c.fillText(d,a,a),c=c.measureText(d).width+a,b.marginLeft=this.getMarginLeft_(c)+"px",b.marginTop="-0.4em")}};
+MapLabel.prototype.onAdd=function(){var a=this.canvas_=document.createElement("canvas");a.className="map-label";a.style.position="absolute";var b=a.getContext("2d");b.lineJoin="round";b.textBaseline="top";this.drawCanvas_();(b=this.getPanes())&&b.overlayLayer.appendChild(a)};MapLabel.prototype.onAdd=MapLabel.prototype.onAdd;MapLabel.prototype.getMarginLeft_=function(a){switch(this.get("align")){case "left":return 0;case "right":return-a}return a/-2};
+MapLabel.prototype.draw=function(){var a=this.getProjection();if(a&&this.canvas_){var b=this.get("position");b&&(a=a.fromLatLngToDivPixel(b),b=this.canvas_.style,b.top=a.y+"px",b.left=a.x+"px",b.visibility=this.getVisible_())}};MapLabel.prototype.draw=MapLabel.prototype.draw;MapLabel.prototype.getVisible_=function(){var a=this.get("minZoom"),b=this.get("maxZoom");if(void 0===a&&void 0===b)return"";var c=this.getMap();if(!c)return"";c=c.getZoom();return c<a||c>b?"hidden":""};
+MapLabel.prototype.onRemove=function(){var a=this.canvas_;a&&a.parentNode&&a.parentNode.removeChild(a)};MapLabel.prototype.onRemove=MapLabel.prototype.onRemove;

@@ -102,7 +102,8 @@ function initMap(div) {
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
       url: PROJ_ROOT_URL + "/assets/kmz/map1.kmz",
-      preserveViewport: true
+      preserveViewport: true,
+      zIndex: 0
     });
 
     kmlLayer.addListener('click', function(kmlEvent) {
@@ -123,6 +124,7 @@ function initMap(div) {
     resolutionScale: resolutionScale
   };
   canvasLayer = new CanvasLayer(canvasLayerOptions);
+  canvasLayer.canvas.style.zIndex = 25;
   context = canvasLayer.canvas.getContext('2d');
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();

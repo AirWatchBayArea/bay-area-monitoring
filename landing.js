@@ -1,5 +1,7 @@
 "use strict";
 
+var PROJ_ROOT_URL = "http://airwatchbayarea.org"
+
 //get json of new posts from server
 function jsonCallback(json) {
   var container = $("#newFeaturesContainer");
@@ -15,7 +17,7 @@ function initialize() {
   //and site and user list can call to JSON to automatically send out/display updates?
   $.ajax({
     dataType: "jsonp",
-    url: "http://www.jetslab.org/bay-area-monitoring/assets/json/new_features.json",
+    url: PROJ_ROOT_URL + "/assets/json/new_features.json",
   });
 }
 
