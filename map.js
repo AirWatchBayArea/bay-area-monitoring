@@ -355,7 +355,10 @@ function highlightSelectedMonitors() {
           fillColor: '#FFF000',
           fillOpacity: 0.5,
           map: map,
-          center: receivers[area.locale],
+          center: {
+            lat: receivers[area.locale].lat + .002,
+            lng: receivers[area.locale].lng,
+          },
           radius: 260
       });
     }
