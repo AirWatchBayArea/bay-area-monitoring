@@ -847,6 +847,16 @@
     });
   }
 
+  /* Open when someone clicks on the span element */
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+/* Close when someone clicks on the "x" symbol inside the overlay */
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
   function initFeeds() {
     var feedNames = Object.keys(esdr_feeds).sort();
     if(showSmokeDetection) {
@@ -958,6 +968,17 @@
       }
     }, 10);
   }
+
+  var count = 0;
+  window.setInterval(function() {
+    if(++count < 4) {
+      $(".help-tab").effect({
+        effect: "highlight",
+        duration: 4000,
+        color: "#7ED9ED"
+      });
+    }
+  }, 3000);
 
   window.requestAnim =
     window.requestAnimationFrame ||

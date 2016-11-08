@@ -10,6 +10,14 @@ var projectionScale = 2000;
 var y_scale;
 var windMonitor, fencelineMonitor, communityMonitor;
 
+var iconBase = 'assets/images/';
+var icons = {
+  "Fenceline Monitor": iconBase + 'fenceline.png',
+  "Community Monitor": iconBase + 'community-monitor-pin.png',
+  "Pollution Source": iconBase + 'pollution-source.png',
+  "Selected Monitors": iconBase + 'highlight.png'
+}
+
 var sourceTowers = {
   "Atchison Village": {
     lat:   37.935014,
@@ -128,23 +136,25 @@ function initMap(div) {
   context = canvasLayer.canvas.getContext('2d');
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
+  generateLegend();
 }
 
 function addMapLabels() {
   for(var coord in sourceTowers) {
+    //position labels around other map features
     var align = coord.indexOf("Point Richmond") != -1 ? 'right' : 'left';
     var lat = coord.indexOf("Atchison") != -1 ? sourceTowers[coord].lat + .0041 : sourceTowers[coord].lat;
     new MapLabel({
-      text: coord + " Fenceline Monitor",
+      text: coord,
       map: map,
-      position: new google.maps.LatLng(lat, sourceTowers[coord].lng),
+      position: new google.maps.LatLng(lat + 0.0011, sourceTowers[coord].lng),
       align: align
     });
   }
 
   for(var coord in communityMonitors) {
     new MapLabel({
-      text: coord + " Community Monitor",
+      text: coord,
       map: map,
       position: new google.maps.LatLng(communityMonitors[coord].lat, communityMonitors[coord].lng),
       align: 'left'
@@ -158,6 +168,25 @@ function addMapLabels() {
       position: new google.maps.LatLng(refineries[coord].lat, refineries[coord].lng)
     });
   }
+}
+
+function generateLegend() {
+  var headerHtml = '<h4>Legend</h4><span id="legend-toggle" class="glyphicon glyphicon-menu-up"></span>';
+  $("#map_parent").append('<div id="legend">' + headerHtml + '</div>');
+  var legend = document.getElementById('legend');
+  for (var key in icons) {
+    var name = key;
+    var icon = icons[key];
+    var div = document.createElement('div');
+    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    legend.appendChild(div);
+  }
+  $("#legend-toggle").click(function() {
+    $("#legend > div").toggleClass("hide");
+    $("#legend-toggle").toggleClass("glyphicon-menu-up");
+    $("#legend-toggle").toggleClass("glyphicon-menu-down");
+  })
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
 
 function setupCanvasLayerProjection() {
@@ -218,7 +247,7 @@ function paintWind(site, epochTime) {
       var d = 1;
       var length = unitsPerMile * wind_speed / 5;
 
-      context.strokeStyle = '#7ed9ed';
+      context.strokeStyle = 'red';
       context.lineWidth = Math.max(2.0 / contextScale, d * 0.75);
       context.beginPath();
       context.moveTo(x, y);
@@ -226,7 +255,7 @@ function paintWind(site, epochTime) {
                      y + (length - d * 1) * dy);
       context.stroke();
 
-      context.fillStyle = '#7ed9ed';
+      context.fillStyle = 'red';
       context.beginPath();
       context.moveTo(x + length * dx,
                      y + length * dy);
