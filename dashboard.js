@@ -605,7 +605,7 @@
          valueHoverElement.empty().hide();
       }
       else {
-         valueHoverElement.text(val.valueString.substr(0,4)).show();
+         valueHoverElement.text(val.valueString.substr(0,10) + " at " + val.dateString).show();
       }
    });
   plotManager.getPlot(plotId).setStyle({
@@ -857,6 +857,13 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
+function toggleGuide() {
+  $("#guide").toggleClass("guide-expanded");
+  $("#guide").toggleClass("guide-collapsed");
+  $("#dataRow").height("calc(100% - 40px)");
+  setSizes();
+}
+
   function initFeeds() {
     var feedNames = Object.keys(esdr_feeds).sort();
     if(showSmokeDetection) {
@@ -974,7 +981,7 @@ function closeNav() {
     if(++count < 4) {
       $(".help-tab").effect({
         effect: "highlight",
-        duration: 4000,
+        duration: 2000,
         color: "#7ED9ED"
       });
     }

@@ -8,14 +8,15 @@ var resolutionScale;
 var mapProjection;
 var projectionScale = 2000;
 var y_scale;
-var windMonitor, fencelineMonitor, communityMonitor;
+var windMonitor, fencelineMonitor, communityMonitor, infowindow;
 
 var iconBase = 'assets/images/';
 var icons = {
   "Fenceline Monitor": iconBase + 'fenceline.png',
   "Community Monitor": iconBase + 'community-monitor-pin.png',
+  "Selected Monitors": iconBase + 'highlight.png',
   "Pollution Source": iconBase + 'pollution-source.png',
-  "Selected Monitors": iconBase + 'highlight.png'
+  "School": "http://maps.google.com/mapfiles/kml/pal2/icon10.png"
 }
 
 var sourceTowers = {
@@ -99,7 +100,7 @@ function initMap(div) {
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
-    zoom: 13,
+    zoom: 14,
     mapTypeId: google.maps.MapTypeId.SATELLITE,
     center: new google.maps.LatLng(center.x, center.y)
   };
@@ -109,7 +110,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map1.kmz",
+      url: PROJ_ROOT_URL + "/assets/kmz/map6.kmz",
       preserveViewport: true,
       zIndex: 0
     });
@@ -119,6 +120,14 @@ function initMap(div) {
         changeLocale(area.id, kmlEvent.featureData.description);
       }
     });
+
+    infowindow = new google.maps.InfoWindow();
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+      location: new google.maps.LatLng(center.x, center.y),
+      radius: 5000,
+      type: ['school']
+    }, callback);
 
     // initialize the canvasLayer
   var update = function() {
@@ -137,6 +146,27 @@ function initMap(div) {
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
   generateLegend();
+}
+
+function callback(results, status) {
+  if (status === google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      createMarker(results[i]);
+    }
+  }
+}
+
+function createMarker(place) {
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: place.geometry.location,
+    icon: "http://maps.google.com/mapfiles/kml/pal2/icon10.png"
+  });
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
 }
 
 function addMapLabels() {
@@ -273,7 +303,8 @@ function paintWind(site, epochTime) {
 
       //show wind speed value on hover
         var windDirs = ["SW", "NW", "NE", "SE"];
-        var contentString = "Wind Speed (mph): " + wind_speed + "\n Wind Direction: " + windDirs[Math.floor(wind_dir/90)];
+        var formattedDate = new Date(epochTime * 1000).toString();
+        var contentString = "<div>Wind Speed (mph): " + wind_speed + "</div><div>Wind Direction: " + windDirs[Math.floor(wind_dir/90)] +"</div><div>Time: "+ formattedDate +"</div>";
         var infowindow = new google.maps.InfoWindow({
           content: contentString,
           position: rectLatLng
@@ -358,6 +389,9 @@ function getData(site, channel, time) {
 function highlightSelectedMonitors() {
   if(communityMonitor) communityMonitor.setMap(null);
   if(fencelineMonitor) fencelineMonitor.setMap(null);
+  //this could be a hacky way to scale the radius of the monitor highlight to map zoom
+  //var radius = Number($(".gm-style-cc > div > span")[1].innerHTML.split(" ")[0])
+
   for(var feed in esdr_feeds) {
     if(area.id === "richmond") {
       receivers[area.locale] = {
@@ -377,6 +411,13 @@ function highlightSelectedMonitors() {
       });
     }
     else if(feed.indexOf("Community") > 0){
+      var factor, radius, center;
+      factor = Math.pow(2,(13 - map.zoom));
+      radius = 260 * factor;
+      center = {
+        lat: receivers[area.locale].lat,
+        lng: receivers[area.locale].lng,
+      };
         communityMonitor = new google.maps.Circle({
           strokeColor: '#FFF000',
           strokeOpacity: 0.5,
@@ -385,13 +426,22 @@ function highlightSelectedMonitors() {
           fillOpacity: 0.5,
           map: map,
           center: {
-            lat: receivers[area.locale].lat + .002,
-            lng: receivers[area.locale].lng,
+            lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
+            lng: center.lng
           },
-          radius: 260
+          radius: radius
       });
     }
   }
+  map.addListener('zoom_changed', function() {
+    if (communityMonitor) {
+      factor = Math.pow(2,(13 - map.zoom));
+      radius = 260 * factor;
+      communityMonitor.setRadius(radius);
+      var lat = center.lat + Math.pow(2,17-map.zoom) * .0001;
+      communityMonitor.setCenter(new google.maps.LatLng(lat, center.lng));
+    }
+  });
 }
 
 function repaintCanvasLayer(epochTime) {

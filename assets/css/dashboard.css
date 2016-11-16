@@ -10,8 +10,23 @@
   border: 1px solid black;
 }
 
-.guide {
+.guide-expanded {
   min-height: 110px;
+}
+
+.guide-collapsed {
+  height: 20px;
+}
+
+.guide-collapsed span {
+  display: block;
+  text-align: center;
+  color: darkgrey;
+  font-size: 20px;
+}
+
+.guide-collapsed div, .guide-collapsed a, .guide-expanded .guide-expand {
+  display: none;
 }
 
 @media (min-width: 1600px) {
@@ -49,6 +64,13 @@
   position: absolute !important;
   top: 15px !important;
   right: -15px;
+}
+
+.guide-dismiss {
+  font-size: 40px;
+  color: darkgrey;
+  position: absolute;
+  right: 10px;
 }
 
 #dialog {
@@ -207,7 +229,7 @@
 .valueHover {
   display: none;
   z-index: 9999;
-  font-size: 12pt;
+  font-size: 10pt;
   background-color: rgba(255,255,255,.5);
   float: right;
 }
@@ -342,10 +364,9 @@
 /* Position the content inside the overlay */
 .overlay-content {
     position: relative;
-    top: 25%; /* 25% from the top */
+    top: 20%; /* 25% from the top */
     width: 100%; /* 100% width */
     text-align: center; /* Centered text/links */
-    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
 }
 
 /* The navigation links inside the overlay */
@@ -365,9 +386,8 @@
 
 /* Position the close button (top right corner) */
 .overlay .closebtn {
-    position: absolute;
-    top: 20px;
-    right: 45px;
+    text-align: right;
+    margin-right: 45px;
     font-size: 60px;
 }
 
