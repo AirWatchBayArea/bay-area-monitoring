@@ -12,6 +12,7 @@ var windMonitor, fencelineMonitor, communityMonitor, infowindow;
 
 var iconBase = 'assets/images/';
 var icons = {
+  "Wind": iconBase + 'wind-arrow.png',
   "Fenceline Monitor": iconBase + 'fenceline.png',
   "Community Monitor": iconBase + 'community-monitor-pin.png',
   "Selected Monitors": iconBase + 'highlight.png',
@@ -65,6 +66,14 @@ var communityMonitors = {
   "Point Richmond": {
     lat:  37.92423,
     lng: -122.38215
+  },
+  "North Rodeo": {
+    lat: 38.05492,
+    lng: -122.2332
+  },
+  "South Rodeo": {
+    lat: 38.03433,
+    lng: -122.27033
   }
 }
 
@@ -110,7 +119,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map6.kmz",
+      url: PROJ_ROOT_URL + "/assets/kmz/map8.kmz",
       preserveViewport: true,
       zIndex: 0
     });
@@ -389,17 +398,16 @@ function getData(site, channel, time) {
 function highlightSelectedMonitors() {
   if(communityMonitor) communityMonitor.setMap(null);
   if(fencelineMonitor) fencelineMonitor.setMap(null);
-  //this could be a hacky way to scale the radius of the monitor highlight to map zoom
-  //var radius = Number($(".gm-style-cc > div > span")[1].innerHTML.split(" ")[0])
 
   for(var feed in esdr_feeds) {
+    //get lat and lng of richmond fenceline recievers
     if(area.id === "richmond") {
       receivers[area.locale] = {
         lat: esdr_feeds[feed].coordinates.latitude,
         lng: esdr_feeds[feed].coordinates.longitude
       }
     }
-    if(feed.indexOf("Fenceline") > 0 || feed.indexOf("Fence Line") > 0) {
+    if(feed.indexOf("Fence") > 0) {
       var fencelineCoords = [receivers[area.locale], sourceTowers[area.locale]]
       fencelineMonitor = new google.maps.Polyline({
         map: map,
@@ -410,13 +418,13 @@ function highlightSelectedMonitors() {
         strokeWeight: 10
       });
     }
-    else if(feed.indexOf("Community") > 0){
+    else {
       var factor, radius, center;
       factor = Math.pow(2,(13 - map.zoom));
       radius = 260 * factor;
       center = {
-        lat: receivers[area.locale].lat,
-        lng: receivers[area.locale].lng,
+        lat: communityMonitors[area.locale].lat,
+        lng: communityMonitors[area.locale].lng,
       };
         communityMonitor = new google.maps.Circle({
           strokeColor: '#FFF000',

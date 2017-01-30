@@ -40,6 +40,12 @@ html, body {
   color: white;
 }
 
+.ui-icon {
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -transform: scale(1.5);
+}
+
 .custom-button {
   background-color: #ff5252;
   text-transform: uppercase;

@@ -25,8 +25,9 @@
     "Atchison Village" : [4910, 4909],
     "North Richmond" : [4911, 4912],
     "Point Richmond" : [4913, 4914],
-    "North Rodeo" : [4902, 4903],
-    "South Rodeo" : [4901, 4903]
+    "North Rodeo" : [4902, 4903, 4850],
+    "South Rodeo" : [4901, 4903, 4846],
+    "Benicia": [8421]
   };
 
   var healthLimitMap = {
@@ -36,7 +37,9 @@
     "Sulfur Dioxide (ppb)": 75,
     "Toluene (ppb)": 70,
     "Xylene (ppb)": 50,
-    "Ethylbenzene (ppb)": 60
+    "Ethylbenzene (ppb)": 60,
+    "VOC (ppb)": 345,
+    "Dust (µg/m³)": 10
   };
 
   var communityDetectionLimitMap = {
@@ -83,6 +86,9 @@
     else if (!locale && targetArea === "crockett-rodeo") {
       area.locale = "North Rodeo";
     }
+    else if(!locale && targetArea === "benicia") {
+      area.locale = "Benicia"
+    }
     else {
       area.locale = locale;
     }
@@ -106,7 +112,8 @@
     $("#grapher > tbody > tr").not("tr:first").remove();
     series = [];
     loadedSeries = [];
-    $("#auto_scale_toggle_button").addClass("toggle-button-on");
+    $("#auto_scale_toggle_button").addClass("ui-icon-locked");
+    $("#auto_scale_toggle_button").removeClass("ui-icon-unlocked");
     $("#play").off();
     $("#zoomGrapherOut").off();
     $("#zoomGrapherIn").off();
@@ -511,9 +518,17 @@
           }
           if(channelName != "smoke_level") {
               for (var i=0; i<json.data.data.length; i++) {
+                //if reading is 0, tell grapher not to draw it
                 if(json.data.data[i][1] == 0) {
                   json.data.data[i][1] = TILE_BOUNDARY_SENTINEL_VALUE;
                 }
+                //if data has a comment field, this is a blackout period
+                //if(json.data.data[i][4]) {
+                  //time = json.data.data[i][0];
+                  //if time < blackout.min...
+                  //if time > blackout.max
+                  //array of blackout periods? maybe...
+                //}
               }
             }
           successCallback(JSON.stringify(json.data));
@@ -752,7 +767,7 @@
 
   function toggleYAxisAutoScaling() {
   var autoScaleToggleButton = $("#auto_scale_toggle_button");
-  var isAutoScaleOn = autoScaleToggleButton.hasClass("toggle-button-on");
+  var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
   plotManager.forEachPlotContainer(function (pc) {
     pc.setAutoScaleEnabled(!isAutoScaleOn, false);
     if(!isAutoScaleOn) {
@@ -763,7 +778,8 @@
       pc.getYAxis().clearMinRangeConstraints();
     }
   });
-  autoScaleToggleButton.toggleClass("toggle-button-on");
+  autoScaleToggleButton.toggleClass("ui-icon-locked");
+  autoScaleToggleButton.toggleClass("ui-icon-unlocked");
 }
 
   function initialize(fromShareLink, location, monitor) {
@@ -934,7 +950,12 @@ function toggleGuide() {
     }
 
     // Initialize Map
-    initMap('map-canvas');
+    if (area.id == "benicia") {
+      $("#map_parent").html("<div class='error-msg'>Map data for Benicia coming soon!</div>");
+    }
+    else {
+      initMap('map-canvas');
+    }
 
     //Zoom buttons
     $("#zoomGrapherIn").on("click", function() {

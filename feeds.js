@@ -1,6 +1,6 @@
 "use strict";
 
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
+var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
 var successCallback = function(area_feed_ids) {
   var keys = Object.keys(esdr_feeds);
     if(keys.length == area_feed_ids.length) {
@@ -28,12 +28,13 @@ function loadFeeds(area_feed_ids) {
           channels: {},
           fullTimeRange: {}
         }
-        if(feed.name.indexOf("Refinery") > 0) {
+        if(feed.name.indexOf("Fence") > 0) {
           esdr_feeds[feed.name].isDouble = true;
         }
         var isRodeoFenceline = (feed.id == 4901 || feed.id == 4902);
+        var isBAAQMD = (feed.id == 4850 || feed.id == 4846);
         var isRodeoWind = feed.id == 4903;
-        if(!isRodeoFenceline) {
+        if(!isRodeoFenceline && !isBAAQMD ) {
           esdr_feeds[feed.name].channels = {
             "Wind_Speed_MPH": {
               show_graph: false,
@@ -54,6 +55,9 @@ function loadFeeds(area_feed_ids) {
           var units;
           if(isRodeoFenceline) {
             chemicalLabel = chemical.slice(chemical.indexOf("_")+1);
+          }
+          if(isBAAQMD) {
+            chemicalLabel = chemical.slice(0,chemical.lastIndexOf("_"));
           }
           if(target_channels.indexOf(chemicalLabel) != -1) {
             chemicalLabel = chemicalLabel.replace(/_/g," ");

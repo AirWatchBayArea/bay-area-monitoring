@@ -56,6 +56,7 @@
         <li id="intro" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href=".">Introduction</a></li>
         <li id="richmond" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=richmond">Richmond</a></li>
         <li id="crockett-rodeo" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=crockett-rodeo">Crockett-Rodeo</a></li>
+        <li id="benicia" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=benicia">Benicia</a></li>
         <li id="report" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" target="_blank" href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection">Make a Report</a></li>
       </ul>
     </div>
@@ -90,7 +91,7 @@
         </div>
         <div class="guide-text">
           Choose a monitor on the map to see a graph of chemical levels at that location.
-          <a data-toggle="popover" title="Reading the Graphs" data-placement="bottom" data-html="true"
+          <a data-toggle="popover" title="Reading the Graphs <span class='dismiss-popover'>&times;</span>" data-placement="bottom" data-html="true" data-trigger="focus" tabindex="0"
           data-content="<ul><li>The numbers on the right tell you chemical concentrations in ppb unless otherwise noted.</li>
           <li>When the line is in the 'red zone' it is above a health-based screening level.
             <a href='.'><i>(Where do the levels come from?)</i></a>
@@ -101,7 +102,7 @@
           <li>When the line is in the 'gray area', chemicals have been detected in the air, and it's difficult to say whether the levels could harm you.
             <a href='.'><i>(Why don't we know?)</i></a>
           </li></ul>">
-            <i>(more)</i>
+            <i class=".btn">(more)</i>
           </a>
         </div>
         <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
@@ -127,7 +128,7 @@
           <span class="glyphicon glyphicon-play-circle guide-icon" style="left:11px"></span>
         </div>
         <div class="guide-text">Click the play button to see how wind direction changes with chemical levels.
-          <a data-toggle="popover" data-placement="bottom" data-html="true"
+          <a data-toggle="popover" title="Tip <span class='dismiss-popover'>&times;</span>" data-placement="bottom" data-trigger="focus" data-html="true" tabindex="0"
           data-content="You can adjust the slider for faster or slower playback"><i>(more)</i></a>
         </div>
         <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
@@ -167,8 +168,8 @@
             </td>
             <td id="dateAxis"></td>
             <td class="border">
-              <button id="auto_scale_toggle_button" class="autoScaleToggleBtn custom-button toggle-button-on" title="Toggle Autoscaling of Y Axes" onclick="toggleYAxisAutoScaling()">
-                <span class="glyphicon glyphicon-lock"></span>
+              <button class="autoScaleToggleBtn custom-button" title="Toggle Autoscaling of Y Axes" onclick="toggleYAxisAutoScaling()">
+                <span id="auto_scale_toggle_button" class="ui-icon ui-icon-locked"></span>
               </button>
             </td>
           </tr>
