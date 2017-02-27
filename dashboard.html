@@ -84,8 +84,9 @@
   <!-- end timelapse things -->
 
   <div class="container-fluid" style="height:calc(100% - 50px)">
+    <button id="help-btn" class="custom-button" onclick="openNav()">Help</button>
     <div id="guide" class="row guide-expanded">
-      <div class="col-sm-2 col-sm-offset-1 guide-col full-height">
+      <div class="col-sm-2 guide-col full-height">
         <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-map-marker guide-icon" style="left:9px"></span>
         </div>
@@ -109,9 +110,16 @@
       </div>
       <div class="col-sm-2 guide-col full-height">
         <div class="guide-icon-circle custom-button">
+          <span class="glyphicon glyphicon-menu-hamburger guide-icon" style="left:10px"></span>
+        </div>
+        <div class="guide-text">Use the tabs on the right side of the map to open the calendar, animation menu, or legend.</div>
+        <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
+      </div>
+      <div class="col-sm-2 guide-col full-height">
+        <div class="guide-icon-circle custom-button">
           <span class="glyphicon glyphicon-calendar guide-icon" style="left:12px"></span>
         </div>
-        <div class="guide-text">Choose a date on the calendar to jump to see what was in the air on that day.</div>
+        <div class="guide-text">Choose a date on the calendar to jump to that day and see what was in the air.</div>
         <span class="glyphicon glyphicon-menu-right guide-arrow"></span>
       </div>
       <div class="col-sm-2 guide-col full-height">
@@ -151,43 +159,55 @@
         <table id="grapher" class="full-height" border="0" cellspacing="0" cellpadding="0">
           <tr id="dateAxisContainer" class="grapher_row">
             <td class="playContainer">
-              <div id="playbackButtons" class="playMenu" style="float:left">
-                <button id="play" class="playbackBtn custom-button" title="Play">
-                  <span id="playIcon" class="glyphicon glyphicon-play"></span>
-                </button>
-              </div>
-              <div class="playMenu">
-                <div id="slider"></div>
-                <button id="zoomGrapherIn" class="zoomGrapherBtn custom-button" title="Zoom in the graphs">
+                <button id="zoomGrapherIn" class="axesControls custom-button" title="Zoom in the graphs">
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
-                <button id="zoomGrapherOut" class="zoomGrapherBtn custom-button" title="Zoom out the graphs">
+                <button id="zoomGrapherOut" class="axesControls custom-button" title="Zoom out the graphs">
                   <span class="glyphicon glyphicon-minus"></span>
                 </button>
-              </div>
+                <button class="axesControls custom-button" title="Toggle Autoscaling of Y Axes" onclick="toggleYAxisAutoScaling()">
+                  <span id="auto_scale_toggle_button" class="ui-icon ui-icon-locked"></span>
+                </button>
             </td>
             <td id="dateAxis"></td>
             <td class="border">
-              <button class="autoScaleToggleBtn custom-button" title="Toggle Autoscaling of Y Axes" onclick="toggleYAxisAutoScaling()">
-                <span id="auto_scale_toggle_button" class="ui-icon ui-icon-locked"></span>
-              </button>
             </td>
           </tr>
         </table>
       </div>
       <div id="map_parent" class="col-md-6 custom-col full-height">
         <div id="map-canvas" class="full-height"></div>
-        <div id="calendarMenu" class="left-collapse-menu">
-        <div class="calendar-controls">
-          <div id="datepicker"></div>
+        <div id="menuContainer" class="left-collapse-menu collapsed">
+          <div class="control-tab custom-button" style="top: 30px" onclick="toggleMenu(this,'#calendarMenu')">
+            <span class="glyphicon glyphicon-calendar"></span>
+          </div>
+          <div class="control-tab custom-button" style="top: 82px" onclick="toggleMenu(this,'#playbackMenu')">
+            <span class="glyphicon glyphicon-play-circle"></span>
+          </div>
+          <div class="control-tab custom-button" style="top: 134px" onclick="toggleMenu(this,'#legendMenu')">
+            <span class="glyphicon glyphicon-info-sign"></span>
+          </div>
+        <div id="calendarMenu" class="menu">
+          <div class="calendar-controls">
+            <div id="datepicker"></div>
             <button type="button" class="btn custom-button time-button" onclick="grapherZoomToDay()">Past 24 Hours</button>
             <button type="button" class="btn custom-button time-button" onclick="grapherZoomToWeek()">Past 7 Days</button>
             <button type="button" class="btn custom-button time-button" onclick="grapherZoomToMonth()">Past 30 Days</button>
           </div>
-          <div class="collapse-handle full-height">
-            <span class="glyphicon glyphicon-menu-left collapse-icon"></span>
-          </div>
         </div>
+        <div id="playbackMenu" class="menu">
+          <div id="playbackButtons" class="playBackContainer">
+            <button id="play" class="playbackBtn custom-button" style="float:left" title="Play">
+              <span id="playIcon" class="glyphicon glyphicon-play"></span>
+            </button>
+            <div id="slider" style="float:right"></div>
+          </div>
+            <div class="playback-help-text">
+              <i>Tip: You can also play and pause using the spacebar</i>
+            </div>
+        </div>
+        <div id="legendMenu" class="menu"></div>
+      </div>
       </div>
     </div>
     <div id="fencelineInfo" class="row">To view our source of real-time air quality data, please visit
@@ -196,7 +216,6 @@
 
   <!-- The overlay -->
   <div id="myNav" class="overlay">
-<div class="help-tab" onclick="openNav()">Click here for help</div>
     <!-- Button to close the overlay navigation -->
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 

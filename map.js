@@ -16,8 +16,8 @@ var icons = {
   "Fenceline Monitor": iconBase + 'fenceline.png',
   "Community Monitor": iconBase + 'community-monitor-pin.png',
   "Selected Monitors": iconBase + 'highlight.png',
-  "Pollution Source": iconBase + 'pollution-source.png',
-  "School": "http://maps.google.com/mapfiles/kml/pal2/icon10.png"
+  "Pollution Source": iconBase + 'pollution-marker-grey-circle.png',
+  "School": iconBase + "school.png"
 }
 
 var sourceTowers = {
@@ -106,12 +106,35 @@ function initMap(div) {
     center.y = -122.23290213427731;
   }
 
+  var styleArray = [
+    {
+      featureType: "all",
+      stylers: [
+        {saturation: -80}
+      ]
+    }, {
+      featureType: "road.arterial",
+      elementType: "geometry",
+      stylers: [
+        {hue: "#ff5252"},
+        {saturation: 50}
+      ]
+    }, {
+      featureType: "poi.business",
+      elementType: "labels",
+      stylers: [
+        {visibility: "off"}
+      ]
+    }
+  ];
+
   var mapOptions = {
     keyboardShortcuts: false,
     scaleControl: true,
     zoom: 14,
-    mapTypeId: google.maps.MapTypeId.SATELLITE,
-    center: new google.maps.LatLng(center.x, center.y)
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: new google.maps.LatLng(center.x, center.y),
+    styles: styleArray
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
 
@@ -119,7 +142,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map8.kmz",
+      url: PROJ_ROOT_URL + "/assets/kmz/map10.kmz",
       preserveViewport: true,
       zIndex: 0
     });
@@ -170,7 +193,7 @@ function createMarker(place) {
   var marker = new google.maps.Marker({
     map: map,
     position: place.geometry.location,
-    icon: "http://maps.google.com/mapfiles/kml/pal2/icon10.png"
+    icon: PROJ_ROOT_URL + "/assets/images/school.png"
   });
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(place.name);
@@ -210,8 +233,8 @@ function addMapLabels() {
 }
 
 function generateLegend() {
-  var headerHtml = '<h4>Legend</h4><span id="legend-toggle" class="glyphicon glyphicon-menu-up"></span>';
-  $("#map_parent").append('<div id="legend">' + headerHtml + '</div>');
+  var headerHtml = '<h4>Legend</h4>';
+  $("#legendMenu").append('<div id="legend">' + headerHtml + '</div>');
   var legend = document.getElementById('legend');
   for (var key in icons) {
     var name = key;
@@ -220,12 +243,6 @@ function generateLegend() {
     div.innerHTML = '<img src="' + icon + '"> ' + name;
     legend.appendChild(div);
   }
-  $("#legend-toggle").click(function() {
-    $("#legend > div").toggleClass("hide");
-    $("#legend-toggle").toggleClass("glyphicon-menu-up");
-    $("#legend-toggle").toggleClass("glyphicon-menu-down");
-  })
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
 
 function setupCanvasLayerProjection() {
@@ -286,7 +303,7 @@ function paintWind(site, epochTime) {
       var d = 1;
       var length = unitsPerMile * wind_speed / 5;
 
-      context.strokeStyle = 'red';
+      context.strokeStyle = '#085b64';
       context.lineWidth = Math.max(2.0 / contextScale, d * 0.75);
       context.beginPath();
       context.moveTo(x, y);
@@ -294,7 +311,7 @@ function paintWind(site, epochTime) {
                      y + (length - d * 1) * dy);
       context.stroke();
 
-      context.fillStyle = 'red';
+      context.fillStyle = '#085b64';
       context.beginPath();
       context.moveTo(x + length * dx,
                      y + length * dy);
@@ -307,7 +324,7 @@ function paintWind(site, epochTime) {
       // Black dot as base to wind vector
       context.fillStyle = 'black';
       context.beginPath();
-      context.arc(x, y, 1.18, 0, 2 * Math.PI, false);
+      context.arc(x, y, 0.5, 0, 2 * Math.PI, false);
       context.fill();
 
       //show wind speed value on hover

@@ -118,6 +118,8 @@
     $("#zoomGrapherOut").off();
     $("#zoomGrapherIn").off();
     $(".collapse-handle").off();
+    $("#legendMenu").empty();
+    window.removeEventListener('keydown',playOnSpacebarPress);
     channelPageSetup();
   }
 
@@ -191,6 +193,12 @@
     window.cancelAnimationFrame(playInterval);
   }
 
+  var playOnSpacebarPress = function(e) {
+    if(e.keyCode == 32 && e.target == document.body) {
+      playCallback();
+    }
+  }
+
   function setupTimelapse(initialDataset, startingDate) {
     var settings = {
       url: initialDataset,
@@ -205,9 +213,8 @@
         tmReady = true;
         createTutorialButton(720, 540, "#timeMachine");
         if (canvasLayer)
-          //repaintCanvasLayer();
-        if (smellCanvasLayer)
-          repaintSmellCanvasLayer();
+          repaintCanvasLayer();
+        drawSmellReports();
         // Time Machine Listeners
         timelapse.addTimeChangeListener(function(videoTime) {
           if (dateAxis) {
@@ -216,8 +223,7 @@
           }
           if (canvasLayer)
             repaintCanvasLayer();
-          if (smellCanvasLayer)
-            repaintSmellCanvasLayer();
+          drawSmellReports();
         });
         // Override the hashchange event
         /*window.onhashchange = null;
@@ -395,17 +401,31 @@
     $("#dialog").dialog("open");
   }
 
-  function initCalendarMenu() {
-    $(".collapse-handle").click(function() {
-      $("#calendarMenu").toggleClass("collapsed", {
-        complete: switchCollapseArrow
-      });
-    });
+  function toggleMenu(e, menu) {
+    //close menu
+    if ($(menu).is(":visible")) {
+      $("div.menu:visible").hide();
+      $("div.open").removeClass("open");
+      $("#menuContainer").toggleClass("collapsed");
+    }
+    //change tabs
+    else if (!$("#menuContainer").hasClass("collapsed")){
+      $("div.menu:visible").hide();
+      $(menu).toggle();
+      $("div.open").removeClass("open");
+      $(e).addClass("open");
+    }
+    //open menu
+    else {
+      $(menu).toggle();
+      $("#menuContainer").toggleClass("collapsed");
+      $(e).addClass("open");
+    }
   }
 
   var switchCollapseArrow = function() {
-    $(".collapse-icon").toggleClass("glyphicon-menu-left");
     $(".collapse-icon").toggleClass("glyphicon-menu-right");
+    $(".collapse-icon").toggleClass("glyphicon-menu-left");
   }
 
   function updateCalendarAndToggleUI(startingDate) {
@@ -726,9 +746,11 @@
     $('.chartTitle').height(height - 23);
     $('.chartAxis').height(height - 1);
     plotManager.forEachPlotContainer(function(pc) {
-      pc.setHeight(height);
+      if(pc.getElementId()[0] != "0") {
+        pc.setHeight(height);
+      }
     });
-    for (var i = 0; i < series.length; i++) {
+    for (var i = 1; i < series.length; i++) {
       adjustGraphOverlays(i);
     }
     google.maps.event.trigger(map, 'resize');
@@ -752,6 +774,7 @@
       $("#datepicker").datepicker("setDate",dateString);
     }
     repaintCanvasLayer(timeInSecs);
+    drawSmellReports(timeInSecs);
   };
 
   function setGraphTimeRange(date) {
@@ -968,12 +991,12 @@ function toggleGuide() {
     $('[data-toggle="popover"]').popover();
     $("#dialog").dialog({ autoOpen: false });
 
-    initCalendarMenu();
-
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
     $("#play").on("click", playCallback);
     $("#slider").slider();
+    window.addEventListener('keydown',playOnSpacebarPress);
+
     var initTime = plotManager.getDateAxis().getRange().min;
     plotManager.getDateAxis().setCursorPosition(initTime);
     plotManager.getDateAxis().getWrappedAxis().isTwelveHour = true
@@ -997,17 +1020,6 @@ function toggleGuide() {
     }, 10);
   }
 
-  var count = 0;
-  window.setInterval(function() {
-    if(++count < 4) {
-      $(".help-tab").effect({
-        effect: "highlight",
-        duration: 2000,
-        color: "#7ED9ED"
-      });
-    }
-  }, 3000);
-
   window.requestAnim =
     window.requestAnimationFrame ||
     window.webkitRequestAnimationFrame ||
@@ -1017,3 +1029,18 @@ function toggleGuide() {
     function(callback) {
       return window.setTimeout(callback, 10);
     };
+
+window.addEventListener('message', function(event) {
+
+    // IMPORTANT: Check the origin of the data!
+    if (~event.origin.indexOf('http://crockett-rodeo-united.com')) {
+        // The data has been sent from your site
+
+        // The data sent with postMessage is stored in event.data
+        console.log(event.data);
+    } else {
+        // The data hasn't been sent from your site!
+        // Be careful! Do not use it.
+        return;
+    }
+});

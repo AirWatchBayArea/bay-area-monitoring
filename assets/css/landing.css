@@ -46,8 +46,22 @@
   font-size: 6em;
   letter-spacing: .2em;
   font-weight: bold;
-  margin-top: 8%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
+
+@media only screen
+and (max-device-width: 768px){
+  .site-title-text {
+    font-size: 3em !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  .subheading {
+    font-size: 0.5em !important;
+  }
+  }
 
 .panel {
   background-color: rgba(126,217,237,.43) !important;
