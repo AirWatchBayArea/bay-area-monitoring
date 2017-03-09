@@ -149,6 +149,14 @@
   padding-right: 11px;
 }
 
+.annotationChartAxis {
+  position: absolute !important;
+  right: 0px;
+  width: 34px;
+  background: white;
+  height: 35px !important;
+}
+
 .playContainer {
   border-top: 1px solid black;
   width: 159px;

@@ -22,30 +22,44 @@ function loadFeeds(area_feed_ids) {
             latitude: feed.latitude,
             longitude: feed.longitude
           },
-          isDouble: false,
           api_key: feed.apiKeyReadOnly,
           requested_day: {},
           channels: {},
           fullTimeRange: {}
         }
-        if(feed.name.indexOf("Fence") > 0) {
-          esdr_feeds[feed.name].isDouble = true;
-        }
         var isRodeoFenceline = (feed.id == 4901 || feed.id == 4902);
-        var isBAAQMD = (feed.id == 4850 || feed.id == 4846);
+        var isBAAQMD = feed.name.indexOf("BAAQMD") >= 0;
         var isRodeoWind = feed.id == 4903;
-        if(!isRodeoFenceline && !isBAAQMD ) {
+        if(feed.name.indexOf("Fence") > 0) {
+          esdr_feeds[feed.name].type = "Refinery";
+        }
+        else if(isBAAQMD) {
+          esdr_feeds[feed.name].type = "BAAQMD";
+        }
+        else {
+          esdr_feeds[feed.name].type = "Community";
+        }
+        if(!isRodeoFenceline) {
           esdr_feeds[feed.name].channels = {
-            "Wind_Speed_MPH": {
-              show_graph: false,
-              hourly: false,
-              summary: {}
-            },
             "Wind_Direction": {
               show_graph: false,
               hourly: false,
               summary: {}
             }
+          }
+          if (!isBAAQMD) {
+            esdr_feeds[feed.name].channels["Wind_Speed_MPH"] = {
+                show_graph: false,
+                hourly: false,
+                summary: {}
+              }
+          }
+          else if (feed.name.indexOf("Vallejo") >= 0) {
+            esdr_feeds[feed.name].channels["Wind_Speed"] = {
+                show_graph: false,
+                hourly: false,
+                summary: {}
+              }
           }
         }
         var feed_channels = Object.keys(feed.channelBounds.channels);

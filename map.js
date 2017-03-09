@@ -8,13 +8,14 @@ var resolutionScale;
 var mapProjection;
 var projectionScale = 2000;
 var y_scale;
-var windMonitor, fencelineMonitor, communityMonitor, infowindow;
+var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
 
 var iconBase = 'assets/images/';
 var icons = {
   "Wind": iconBase + 'wind-arrow.png',
   "Fenceline Monitor": iconBase + 'fenceline.png',
   "Community Monitor": iconBase + 'community-monitor-pin.png',
+  "BAAQMD Monitor": iconBase + 'baaqmd-monitor-pin.png',
   "Selected Monitors": iconBase + 'highlight.png',
   "Pollution Source": iconBase + 'pollution-marker-grey-circle.png',
   "School": iconBase + "school.png"
@@ -89,6 +90,10 @@ var refineries = {
   "Chevron Tank Farm": {
     lat: 37.93952,
     lng: -122.40237
+  },
+  "Valero Benicia Refinery": {
+    lat: 38.071614,
+    lng: -122.139319
   }
 }
 
@@ -104,6 +109,10 @@ function initMap(div) {
   else if(area.id === "crockett-rodeo") {
     center.x = 38.03885974316995;
     center.y = -122.23290213427731;
+  }
+  else if(area.id === "benicia") {
+    center.x = 38.06830801346868;
+    center.y = -122.1451339240234;
   }
 
   var styleArray = [
@@ -142,7 +151,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map10.kmz",
+      url: PROJ_ROOT_URL + "/assets/kmz/map11.kmz",
       preserveViewport: true,
       zIndex: 0
     });
@@ -290,8 +299,9 @@ function paintWind(site, epochTime) {
   y_scale = site.flip_y ? -1 : 1;
 
   var wind_speed, wind_dir;
-  if (site.channels.Wind_Speed_MPH) {
-    wind_speed = getData(site, site.channels.Wind_Speed_MPH, epochTime);
+  var windSpeedChannel = site.channels.Wind_Speed_MPH ? site.channels.Wind_Speed_MPH : site.channels.Wind_Speed;
+  if (windSpeedChannel) {
+    wind_speed = getData(site, windSpeedChannel, epochTime);
     wind_dir = getData(site, site.channels.Wind_Direction, epochTime);
   }
 
@@ -414,18 +424,27 @@ function getData(site, channel, time) {
 
 function highlightSelectedMonitors() {
   if(communityMonitor) communityMonitor.setMap(null);
+  if(BAAQMDMonitor) BAAQMDMonitor.setMap(null);
   if(fencelineMonitor) fencelineMonitor.setMap(null);
 
   for(var feed in esdr_feeds) {
-    //get lat and lng of richmond fenceline recievers
-    if(area.id === "richmond") {
-      receivers[area.locale] = {
-        lat: esdr_feeds[feed].coordinates.latitude,
-        lng: esdr_feeds[feed].coordinates.longitude
-      }
+    //skip the Rodeo wind feed
+    if (feed == "Rodeo fenceline_org") {
+      continue;
     }
+    var coords = {
+      lat: esdr_feeds[feed].coordinates.latitude,
+      lng: esdr_feeds[feed].coordinates.longitude
+    }
+
     if(feed.indexOf("Fence") > 0) {
-      var fencelineCoords = [receivers[area.locale], sourceTowers[area.locale]]
+      var fencelineCoords;
+      if(area.id === "richmond") {
+        fencelineCoords = [coords, sourceTowers[area.locale]];
+      }
+      else {
+        fencelineCoords = [receivers[area.locale], sourceTowers[area.locale]];
+      }
       fencelineMonitor = new google.maps.Polyline({
         map: map,
         path: fencelineCoords,
@@ -436,14 +455,16 @@ function highlightSelectedMonitors() {
       });
     }
     else {
-      var factor, radius, center;
+      var monitor, factor, radius, center;
+      monitor = (feed.indexOf("BAAQMD") >= 0) ? BAAQMDMonitor : communityMonitor;
       factor = Math.pow(2,(13 - map.zoom));
       radius = 260 * factor;
-      center = {
+      center = coords;
+      /*{
         lat: communityMonitors[area.locale].lat,
         lng: communityMonitors[area.locale].lng,
-      };
-        communityMonitor = new google.maps.Circle({
+      };*/
+        monitor = new google.maps.Circle({
           strokeColor: '#FFF000',
           strokeOpacity: 0.5,
           strokeWeight: 2,
@@ -459,12 +480,14 @@ function highlightSelectedMonitors() {
     }
   }
   map.addListener('zoom_changed', function() {
-    if (communityMonitor) {
-      factor = Math.pow(2,(13 - map.zoom));
-      radius = 260 * factor;
-      communityMonitor.setRadius(radius);
-      var lat = center.lat + Math.pow(2,17-map.zoom) * .0001;
-      communityMonitor.setCenter(new google.maps.LatLng(lat, center.lng));
+    for (var monitor of [BAAQMDMonitor, communityMonitor]) {
+      if (monitor) {
+        factor = Math.pow(2,(13 - map.zoom));
+        radius = 260 * factor;
+        monitor.setRadius(radius);
+        var lat = center.lat + Math.pow(2,17-map.zoom) * .0001;
+        monitor.setCenter(new google.maps.LatLng(lat, center.lng));
+      }
     }
   });
 }

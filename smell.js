@@ -51,6 +51,27 @@ function sortingFunction(a, b) {
   return 0;
 }
 
+function zoomMapToClickedReport(pointData) {
+  var selectedPoint;
+  for (var i=0;i<commentData.length;i++) {
+    if(commentData[i][0] == pointData.x) {
+      selectedPoint = commentData[i];
+    }
+  }
+  if (selectedPoint) {
+    var latLngArray = selectedPoint[selectedPoint.length - 1].split(",");
+    var latLng = new google.maps.LatLng(latLngArray[0], latLngArray[1]);
+    map.panTo(latLng);
+    map.setZoom(14);
+    Object.keys(smellMarkers).forEach( function(i) {
+      if (smellMarkers[i].position.equals(latLng)) {
+        infowindow_smell.setContent(smellMarkers[i].content);
+        infowindow_smell.open(map,smellMarkers[i]);
+      }
+    });
+  }
+}
+
 function addSmellReportsToGrapher() {
   var smellPlotIndex = 0;
   series[smellPlotIndex] = {};
@@ -101,46 +122,20 @@ function addSmellReportsToGrapher() {
         row.append('<td id="' + yAxisId + '" class="annotationChartAxis" style="display: none"></td>');
         $('#dateAxisContainer').after(row);
         plotManager.addDataSeriesPlot(plotId, commentDatasource, plotContainerId, yAxisId);
-        plotManager.getYAxis(yAxisId).setRange({"min":-5,"max":5});
+        plotManager.getPlotContainer(plotContainerId).setAutoScaleEnabled(true, false);
+        plotManager.getYAxis(yAxisId).constrainMinRangeTo(-3,4);
+        plotManager.getYAxis(yAxisId).setRange(-3,4);
       }
       else {
         plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, commentDatasource, yAxisId);
       }
       var plot = plotManager.getPlot(plotId);
 
-      /*plot.addDataPointListener(function(pointData, event) {
-        isHighlighting = false;
-        if (pointData && event && event.actionName == "highlight") {
-          isHighlighting = true;
-          lastHighlightDate = pointData.date;
-        } else if (event && event.actionName == "click") {
-          if (lastHighlightDate !== pointData.date) return;
-          fixedCursorPosition = lastHighlightDate;
-          gwtPopUpText = pointData.comment;
-          var selectedPoint = findPoint(pointData.date);
-          if (selectedPoint) {
-            var latLngArray = selectedPoint[selectedPoint.length - 1].split(",");
-            var latLng = new google.maps.LatLng(latLngArray[0], latLngArray[1]);
-            map.panTo(latLng);
-            map.setZoom(14);
-          }
-          var pointDataDateObj = new Date(pointData.dateString.split(".")[0]);
-          var commentDate = $.datepicker.formatDate('yy-mm-dd', pointDataDateObj);
-          if (commentDate != currentDate) {
-            var path = cached_breathecam.datasets[commentDate];
-            var currentView = timelapse.getView();
-            currentDate = commentDate;
-            /*timelapse.loadTimelapse(path, currentView, null, null, pointDataDateObj, function() {
-              var closestDesiredFrame = timelapse.findExactOrClosestCaptureTime(pointData.dateString, "up");
-              timelapse.seekToFrame(closestDesiredFrame);
-            });
-            $("#datepicker").datepicker("setDate", pointDataDateObj);
-          } else {
-            //var closestDesiredFrame = timelapse.findExactOrClosestCaptureTime(pointData.dateString, "up");
-            //timelapse.seekToFrame(closestDesiredFrame);
-          }
+      plot.addDataPointListener(function(pointData, event) {
+        if (event && event.type == "mousedown") {
+          zoomMapToClickedReport(pointData);
         }
-      });*/
+      });
 
       var ratingColor = ratingColors[rating - 1];
 
@@ -148,7 +143,7 @@ function addSmellReportsToGrapher() {
       plot.setStyle({
         "styles": [
           { "type" : "line", "lineWidth" : 1, "show" : false, "color" : ratingColor },
-          { "type" : "circle", "radius" : 15, "lineWidth" : 3, "show" : true, "color" : ratingColor, fill : true }
+          { "type" : "circle", "radius" : 10, "lineWidth" : 3, "show" : true, "color" : ratingColor, fill : true }
         ]
       });
       plots.push(plot);
@@ -156,25 +151,6 @@ function addSmellReportsToGrapher() {
     })(rating);
   }
   drawSmellReports();
-}
-
-function findPoint(searchElement) {
-  var minIndex = 0;
-  var maxIndex = commentData.length - 1;
-  var currentIndex;
-  var currentElement;
-  while (minIndex <= maxIndex) {
-    currentIndex = (minIndex + maxIndex) / 2 | 0;
-    currentElement = commentData[currentIndex][0];
-    if (currentElement < searchElement) {
-      minIndex = currentIndex + 1;
-    } else if (currentElement > searchElement) {
-      maxIndex = currentIndex - 1;
-    } else {
-      return commentData[currentIndex];
-    }
-  }
-  return null;
 }
 
 function drawSmellReports(epochTime) {

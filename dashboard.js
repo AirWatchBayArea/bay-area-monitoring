@@ -21,14 +21,21 @@
   var grapherLoadedInterval = null;
   var showSmokeDetection = false;
 
+  var monitorTypeColors = {
+    "Refinery" : "rgb(245,124,0)",
+    "Community" : "rgb(1,87,155)",
+    "BAAQMD" : "rgb(103,58,183)"
+  };
+
   var feedMap = {
     "Atchison Village" : [4910, 4909],
     "North Richmond" : [4911, 4912],
     "Point Richmond" : [4913, 4914],
     "North Rodeo" : [4902, 4903, 4850],
-    "South Rodeo" : [4901, 4903, 4846],
+    "South Rodeo" : [4901, 4903, 4846, 10011],
     "Benicia": [8421]
   };
+  //vallejo BAAQMD feed: 4857
 
   var healthLimitMap = {
     "Benzene (ppb)" : 1,
@@ -561,7 +568,7 @@
   var createChart = function(feed, channelName, feedAPIKey) {
     var datasource = setupTileSource(channelName, feedAPIKey);
 
-    // Add charts
+    //Add charts
     var channelLabel = feed.channels[channelName].graphMetaData.label;
     var idx = loadedSeries.indexOf(channelLabel);
     var seriesIdx = series.length;
@@ -632,8 +639,8 @@
       });
       window.setTimeout(function() { $(window).trigger('resize'); }, 50);
     }
-    var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
-    var color_line = (feed.isDouble ? "rgb(245,124,0)" : "rgb(1,87,155)");
+    //var cursorColor = (feed.isDouble) ? "rgba(0,0,0,0)" : "#2A2A2A";
+    var color_line = monitorTypeColors[feed.type];
     plotManager.getPlot(plotId).addDataPointListener(function(val) {
       var valueHoverElement = $("#valueHover" + seriesIdx);
       if (val == null) {
@@ -644,10 +651,10 @@
       }
    });
   plotManager.getPlot(plotId).setStyle({
-    "cursor" : {
+    /*"cursor" : {
       "color" : cursorColor,
       "lineWidth" : 1
-    },
+    },*/
     "styles": [
       { "type" : "line", "lineWidth" : 4, "show" : true, "color" : color_line },
       { "type" : "circle", "radius" : 1.2, "lineWidth" : 3, "show" : true, "color" : color_line, fill : true }
@@ -973,12 +980,12 @@ function toggleGuide() {
     }
 
     // Initialize Map
-    if (area.id == "benicia") {
-      $("#map_parent").html("<div class='error-msg'>Map data for Benicia coming soon!</div>");
-    }
-    else {
+    //if (area.id == "benicia") {
+      //$("#map_parent").html("<div class='error-msg'>Map data for Benicia coming soon!</div>");
+    //}
+    //else {
       initMap('map-canvas');
-    }
+    //}
 
     //Zoom buttons
     $("#zoomGrapherIn").on("click", function() {
