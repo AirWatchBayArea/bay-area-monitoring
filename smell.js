@@ -62,7 +62,7 @@ function zoomMapToClickedReport(pointData) {
     var latLngArray = selectedPoint[selectedPoint.length - 1].split(",");
     var latLng = new google.maps.LatLng(latLngArray[0], latLngArray[1]);
     map.panTo(latLng);
-    map.setZoom(14);
+    map.setZoom(12);
     Object.keys(smellMarkers).forEach( function(i) {
       if (smellMarkers[i].position.equals(latLng)) {
         infowindow_smell.setContent(smellMarkers[i].content);

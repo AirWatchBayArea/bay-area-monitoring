@@ -17,7 +17,7 @@ function initialize() {
   //and site and user list can call to JSON to automatically send out/display updates?
   $.ajax({
     dataType: "jsonp",
-    url: PROJ_ROOT_URL + "/assets/json/new_features.json",
+    url: PROJ_ROOT_URL + "/assets/json/new_features.json"
   });
 }
 

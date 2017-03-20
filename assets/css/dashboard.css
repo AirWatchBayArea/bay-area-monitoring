@@ -21,7 +21,6 @@
 
 .guide-expanded {
   min-height: 110px;
-  overflow-x: scroll;
 }
 
 .guide-collapsed {

@@ -1,0 +1,61 @@
+html {
+  font-family: 'Lato', sans-serif !important;
+}
+
+@page {
+    size: A4;
+}
+
+h1 {
+  margin-bottom: 5px;
+  page-break-before: always;
+}
+
+.header {
+  text-transform: uppercase;
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.banner {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  background-color: rgba(126,217,237,.43);
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.health-text {
+  font-style: italic;
+  text-align: right;
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
+.data-table * {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+table.data-table tr td:first-child{
+  font-weight: normal !important;
+}
+
+table.data-table tr td:not(:first-child){
+  text-align: right;
+}
+
+.primary {
+  font-weight: bold;
+}
+
+tr.secondary td {
+  font-size: 15px !important;
+}
+
+tr.secondary td:first-child {
+  padding-left: 30px;
+}

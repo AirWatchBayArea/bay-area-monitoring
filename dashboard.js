@@ -66,6 +66,8 @@
     "Xylene (ppb)": 5
   };
 
+  //switch these maps to a matrix with feeds on the rows and chemicals on the columns?
+
   if (showSmokeDetection) {
     esdr_feeds.Smoke_Detection = {
       feed_id: 5494,
@@ -279,8 +281,6 @@
       }
     };
     timelapse = new org.gigapan.timelapse.Timelapse("timeMachine", settings);
-
-    loadCalendar(startingDate);
   }
 
   function hideSmokeDetectionGraph() {
@@ -582,7 +582,8 @@
       plotId = seriesIdx + "_plot" + tmpId;
       plotContainerId = seriesIdx + "_plot_container";
       yAxisId = seriesIdx + "_yaxis";
-      plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, datasource, yAxisId);
+      var plotContainer = plotManager.getPlotContainer(plotContainerId);
+      plotContainer.addDataSeriesPlot(plotId, datasource, yAxisId);
     } else {
       series[seriesIdx] = {};
       series[seriesIdx].id = seriesIdx;
@@ -625,13 +626,6 @@
 
       addGraphOverlays(seriesIdx, channelLabel);
 
-      if (showSmokeDetection && channelName == "smoke_level") {
-        hideSmokeDetectionGraph();
-        loadMetaData(currentDate, currentLocation);
-        timelapse.addDatasetLoadedListener(function() {
-          loadMetaData(currentDate, currentLocation);
-        });
-      }
       plotManager.addDataSeriesPlot(plotId, datasource, plotContainerId, yAxisId);
       adjustGraphOverlays(seriesIdx, channelLabel);
       plotManager.getYAxis(yAxisId).addAxisChangeListener(function() {
@@ -903,13 +897,6 @@ function closeNav() {
     document.getElementById("myNav").style.width = "0%";
 }
 
-function toggleGuide() {
-  $("#guide").toggleClass("guide-expanded");
-  $("#guide").toggleClass("guide-collapsed");
-  $("#dataRow").height("calc(100% - 40px)");
-  setSizes();
-}
-
   function initFeeds() {
     var feedNames = Object.keys(esdr_feeds).sort();
     if(showSmokeDetection) {
@@ -975,7 +962,7 @@ function toggleGuide() {
       }
       else {
         // Show timelapse
-        tm_init();
+        loadCalendar(cached_breathecam.latest.date);
       }
     }
 

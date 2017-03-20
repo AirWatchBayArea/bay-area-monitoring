@@ -10,6 +10,8 @@ var projectionScale = 2000;
 var y_scale;
 var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
 
+var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, , 12, 24, 24, 24, 36, 60, 90, 180, 240, 360];
+
 var iconBase = 'assets/images/';
 var icons = {
   "Wind": iconBase + 'wind-arrow.png',
@@ -151,7 +153,7 @@ function initMap(div) {
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   var kmlLayer = new google.maps.KmlLayer({
       map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map11.kmz",
+      url: PROJ_ROOT_URL + "/assets/kmz/map12.kmz",
       preserveViewport: true,
       zIndex: 0
     });
@@ -208,37 +210,54 @@ function createMarker(place) {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+  google.maps.event.addListener(map, 'zoom_changed', function() {
+    var icon_size = zoom_level_to_marker_size[map.getZoom()];
+    var icon = {
+      url: PROJ_ROOT_URL + "/assets/images/school.png",
+      scaledSize: new google.maps.Size(icon_size,icon_size), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    };
+    marker.setIcon(icon);
+  });
 }
 
 function addMapLabels() {
+  var labels = [];
   for(var coord in sourceTowers) {
     //position labels around other map features
     var align = coord.indexOf("Point Richmond") != -1 ? 'right' : 'left';
     var lat = coord.indexOf("Atchison") != -1 ? sourceTowers[coord].lat + .0041 : sourceTowers[coord].lat;
-    new MapLabel({
+    var label = new MapLabel({
       text: coord,
       map: map,
       position: new google.maps.LatLng(lat + 0.0011, sourceTowers[coord].lng),
       align: align
     });
+    labels.push(label);
   }
 
   for(var coord in communityMonitors) {
-    new MapLabel({
+    var label = new MapLabel({
       text: coord,
       map: map,
       position: new google.maps.LatLng(communityMonitors[coord].lat, communityMonitors[coord].lng),
       align: 'left'
     });
+    labels.push(label);
   }
 
   for (var coord in refineries) {
-    new MapLabel({
+    var label = new MapLabel({
       text: coord,
       map: map,
       position: new google.maps.LatLng(refineries[coord].lat, refineries[coord].lng)
     });
+    labels.push(label);
   }
+  google.maps.event.addListener(map, 'zoom_changed', function() {
+    //for (var label of labels:
+  });
 }
 
 function generateLegend() {
@@ -455,28 +474,32 @@ function highlightSelectedMonitors() {
       });
     }
     else {
-      var monitor, factor, radius, center;
-      monitor = (feed.indexOf("BAAQMD") >= 0) ? BAAQMDMonitor : communityMonitor;
+      var factor, radius, center;
       factor = Math.pow(2,(13 - map.zoom));
       radius = 260 * factor;
       center = coords;
-      /*{
-        lat: communityMonitors[area.locale].lat,
-        lng: communityMonitors[area.locale].lng,
-      };*/
-        monitor = new google.maps.Circle({
-          strokeColor: '#FFF000',
-          strokeOpacity: 0.5,
-          strokeWeight: 2,
-          fillColor: '#FFF000',
-          fillOpacity: 0.5,
-          map: map,
-          center: {
-            lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
-            lng: center.lng
-          },
-          radius: radius
-      });
+      var markerOptions = {
+        strokeColor: '#FFF000',
+        strokeOpacity: 0.5,
+        strokeWeight: 2,
+        fillColor: '#FFF000',
+        fillOpacity: 0.5,
+        map: map,
+        center: {
+          lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
+          lng: center.lng
+        },
+        radius: radius
+      }
+
+      if (feed.indexOf("BAAQMD") >= 0) {
+        BAAQMDMonitor = new google.maps.Circle(markerOptions);
+        BAAQMDMonitor.initialCenter = center;
+      }
+      else {
+        communityMonitor = new google.maps.Circle(markerOptions);
+        communityMonitor.initialCenter = center;
+      }
     }
   }
   map.addListener('zoom_changed', function() {
@@ -485,8 +508,8 @@ function highlightSelectedMonitors() {
         factor = Math.pow(2,(13 - map.zoom));
         radius = 260 * factor;
         monitor.setRadius(radius);
-        var lat = center.lat + Math.pow(2,17-map.zoom) * .0001;
-        monitor.setCenter(new google.maps.LatLng(lat, center.lng));
+        var lat = monitor.initialCenter.lat + Math.pow(2,17-map.zoom) * .0001;
+        monitor.setCenter(new google.maps.LatLng(lat, monitor.initialCenter.lng));
       }
     }
   });

@@ -84,6 +84,15 @@ div.panel p {
   font-size: 1.1em;
 }
 
+div.panel li {
+  font-size: 1.1em;
+}
+
+div.panel a {
+  text-decoration: underline;
+  color: inherit;
+}
+
 .scroll-panel {
   overflow-y: scroll;
   height:90%;
