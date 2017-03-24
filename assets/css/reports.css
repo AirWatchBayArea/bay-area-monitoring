@@ -52,10 +52,11 @@ table.data-table tr td:not(:first-child){
   font-weight: bold;
 }
 
-tr.secondary td {
-  font-size: 15px !important;
-}
-
 tr.secondary td:first-child {
   padding-left: 30px;
+}
+
+.center {
+  text-align: center;
+  font-style: italic;
 }

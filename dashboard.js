@@ -35,7 +35,7 @@
     "South Rodeo" : [4901, 4903, 4846, 10011],
     "Benicia": [8421]
   };
-  //vallejo BAAQMD feed: 4857
+
 
   var healthLimitMap = {
     "Benzene (ppb)" : 1,
@@ -895,6 +895,13 @@ function openNav() {
 /* Close when someone clicks on the "x" symbol inside the overlay */
 function closeNav() {
     document.getElementById("myNav").style.width = "0%";
+}
+
+function toggleGuide() {
+  $("#guide").toggleClass("guide-expanded");
+  $("#guide").toggleClass("guide-collapsed");
+  $("#dataRow").height("calc(100% - 40px)");
+  setSizes();
 }
 
   function initFeeds() {

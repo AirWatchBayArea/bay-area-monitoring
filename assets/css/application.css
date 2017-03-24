@@ -20,6 +20,7 @@ html, body {
   margin-left: 2px;
   margin-right: 2px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 .custom-nav-link {
@@ -72,4 +73,14 @@ button:active {
   background-color: #872a2a;
   box-shadow: 0 0 #872a2a !important;
   transform: translateY(2px) translateX(2px);
+}
+
+#summaryDialog {
+  background-color: #eceff1;
+  width: 200px;
+  text-align: center;
+}
+
+#summaryDialog a {
+  text-decoration: underline;
 }

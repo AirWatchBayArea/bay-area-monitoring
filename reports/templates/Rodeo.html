@@ -14,7 +14,7 @@
       size: landscape;
     }
     .health-text {
-      font-size: 15px;
+      font-size: 12px;
     }
     h1 {
       font-size: 50px;
@@ -24,6 +24,12 @@
     }
     .banner {
       font-size: 20px;
+    }
+    tr.secondary td {
+      font-size: 12px !important;
+    }
+    footer {
+      font-size: 12px;
     }
   </style>
   <script>
@@ -51,15 +57,15 @@
   <table class="data-table">
     <tr class="primary">
       <td>Monitor:</td>
-      <td class="data"></td>
-      <td class="data"></td>
-      <td class="data"></td>
+      <td class="data">-</td>
+      <td class="data">-</td>
+      <td class="data">-</td>
     </tr>
     <tr class="secondary">
       <td>Detection Limit (DL):</td>
-      <td class="data"></td>
-      <td class="data"></td>
-      <td class="data"></td>
+      <td class="data">-</td>
+      <td class="data">-</td>
+      <td class="data">-</td>
     </tr>
     <tr class="primary">
       <td>Maximum 1-hour average:</td>
@@ -92,10 +98,10 @@
       <td class="data">Below DL</td>
     </tr>
     <tr class="primary">
-      <td>Total time above health limit:</td>
-      <td class="data">Below DL</td>
-      <td class="data">Below DL</td>
-      <td class="data">Below DL</td>
+      <td>Total time above health limit (HL):</td>
+      <td class="data">Below HL</td>
+      <td class="data">Below HL</td>
+      <td class="data">Below HL</td>
     </tr>
     <tr class="primary">
       <td>Average<sup>2</sup></td>
@@ -118,6 +124,7 @@
   </table>
 </body>
 <footer class="footnote">
+  <br><div class="center">Explore full air quality data at <a href="http://airwatchbayarea.org">airwatchbayarea.org</a></div><br>
    <sup>1</sup>OEHHA 8-hour and chronic reference exposure level for Benzene.<br>
    <sup>2</sup>Best case scenario assumes periods of non-detection represent ambient concentrations of 0ppb, and worst case scenario assumes that non-detection periods represent ambient concentrations of the detection limit.
  </footer>
@@ -140,15 +147,15 @@
    <table class="data-table">
      <tr class="primary">
        <td>Monitor:</td>
-       <td class="data"></td>
-       <td class="data"></td>
-       <td class="data"></td>
+       <td class="data">-</td>
+       <td class="data">-</td>
+       <td class="data">-</td>
      </tr>
      <tr class="secondary">
        <td>Detection Limit (DL):</td>
-       <td class="data"></td>
-       <td class="data"></td>
-       <td class="data"></td>
+       <td class="data">-</td>
+       <td class="data">-</td>
+       <td class="data">-</td>
      </tr>
      <tr class="primary">
        <td>Maximum 1-hour average:</td>
@@ -181,10 +188,10 @@
        <td class="data">Below DL</td>
      </tr>
      <tr class="primary">
-       <td>Total time above health limit:</td>
-       <td class="data">Below DL</td>
-       <td class="data">Below DL</td>
-       <td class="data">Below DL</td>
+       <td>Total time above health limit (HL):</td>
+       <td class="data">Below HL</td>
+       <td class="data">Below HL</td>
+       <td class="data">Below HL</td>
      </tr>
      <tr class="primary">
        <td>Average<sup>2</sup></td>
@@ -207,6 +214,7 @@
    </table>
  </body>
  <footer class="footnote">
+   <br><div class="center">Explore full air quality data at <a href="http://airwatchbayarea.org">airwatchbayarea.org</a></div><br>
     <sup>1</sup>OEHHA chronic reference exposure level for Hydrogen Sulfide.<br>
     <sup>2</sup>Best case scenario assumes periods of non-detection represent ambient concentrations of 0ppb, and worst case scenario assumes that non-detection periods represent ambient concentrations of the detection limit.
   </footer>
@@ -229,15 +237,15 @@
     <table class="data-table">
       <tr class="primary">
         <td>Monitor:</td>
-        <td class="data"></td>
-        <td class="data"></td>
-        <td class="data"></td>
+        <td class="data">-</td>
+        <td class="data">-</td>
+        <td class="data">-</td>
       </tr>
       <tr class="secondary">
         <td>Detection Limit (DL):</td>
-        <td class="data"></td>
-        <td class="data"></td>
-        <td class="data"></td>
+        <td class="data">-</td>
+        <td class="data">-</td>
+        <td class="data">-</td>
       </tr>
       <tr class="primary">
         <td>Maximum 1-hour average:</td>
@@ -270,10 +278,10 @@
         <td class="data">Below DL</td>
       </tr>
       <tr class="primary">
-        <td>Total time above health limit:</td>
-        <td class="data">Below DL</td>
-        <td class="data">Below DL</td>
-        <td class="data">Below DL</td>
+        <td>Total time above health limit (HL):</td>
+        <td class="data">Below HL</td>
+        <td class="data">Below HL</td>
+        <td class="data">Below HL</td>
       </tr>
       <tr class="primary">
         <td>Average<sup>2</sup></td>
@@ -296,6 +304,7 @@
     </table>
   </body>
   <footer class="footnote">
+    <br><div class="center">Explore full air quality data at <a href="http://airwatchbayarea.org">airwatchbayarea.org</a></div><br>
      <sup>1</sup>NAAQS 1-hour reference exposure level for Sulfur Dioxide.<br>
      <sup>2</sup>Best case scenario assumes periods of non-detection represent ambient concentrations of 0ppb, and worst case scenario assumes that non-detection periods represent ambient concentrations of the detection limit.
    </footer>
@@ -318,15 +327,15 @@
      <table class="data-table">
        <tr class="primary">
          <td>Monitor:</td>
-         <td class="data"></td>
-         <td class="data"></td>
-         <td class="data"></td>
+         <td class="data">-</td>
+         <td class="data">-</td>
+         <td class="data">-</td>
        </tr>
        <tr class="secondary">
          <td>Detection Limit (DL):</td>
-         <td class="data"></td>
-         <td class="data"></td>
-         <td class="data"></td>
+         <td class="data">-</td>
+         <td class="data">-</td>
+         <td class="data">-</td>
        </tr>
        <tr class="primary">
          <td>Maximum 1-hour average:</td>
@@ -359,10 +368,10 @@
          <td class="data">Below DL</td>
        </tr>
        <tr class="primary">
-         <td>Total time above health limit:</td>
-         <td class="data">Below DL</td>
-         <td class="data">Below DL</td>
-         <td class="data">Below DL</td>
+         <td>Total time above health limit (HL):</td>
+         <td class="data">Below HL</td>
+         <td class="data">Below HL</td>
+         <td class="data">Below HL</td>
        </tr>
        <tr class="primary">
          <td>Average<sup>2</sup></td>
@@ -385,6 +394,7 @@
      </table>
    </body>
    <footer class="footnote">
+     <br><div class="center">Explore full air quality data at <a href="http://airwatchbayarea.org">airwatchbayarea.org</a></div><br>
       <sup>1</sup>OEHHA chronic reference exposure level for Toluene.<br>
       <sup>2</sup>Best case scenario assumes periods of non-detection represent ambient concentrations of 0ppb, and worst case scenario assumes that non-detection periods represent ambient concentrations of the detection limit.
     </footer>
@@ -407,15 +417,15 @@
       <table class="data-table">
         <tr class="primary">
           <td>Monitor:</td>
-          <td class="data"></td>
-          <td class="data"></td>
-          <td class="data"></td>
+          <td class="data">-</td>
+          <td class="data">-</td>
+          <td class="data">-</td>
         </tr>
         <tr class="secondary">
           <td>Detection Limit (DL):</td>
-          <td class="data"></td>
-          <td class="data"></td>
-          <td class="data"></td>
+          <td class="data">-</td>
+          <td class="data">-</td>
+          <td class="data">-</td>
         </tr>
         <tr class="primary">
           <td>Maximum 1-hour average:</td>
@@ -448,10 +458,10 @@
           <td class="data">Below DL</td>
         </tr>
         <tr class="primary">
-          <td>Total time above health limit:</td>
-          <td class="data">Below DL</td>
-          <td class="data">Below DL</td>
-          <td class="data">Below DL</td>
+          <td>Total time above health limit (HL):</td>
+          <td class="data">Below HL</td>
+          <td class="data">Below HL</td>
+          <td class="data">Below HL</td>
         </tr>
         <tr class="primary">
           <td>Average<sup>2</sup></td>
@@ -474,6 +484,7 @@
       </table>
     </body>
     <footer class="footnote">
+      <br><div class="center">Explore full air quality data at <a href="http://airwatchbayarea.org">airwatchbayarea.org</a></div><br>
        <sup>1</sup>ATSDR chronic reference exposure level for Xylene.<br>
        <sup>2</sup>Best case scenario assumes periods of non-detection represent ambient concentrations of 0ppb, and worst case scenario assumes that non-detection periods represent ambient concentrations of the detection limit.
      </footer>
