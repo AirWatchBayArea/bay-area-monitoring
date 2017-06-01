@@ -4,3 +4,6 @@
 [submodule "assets/data-visualization-tools"]
 	path = assets/data-visualization-tools
 	url = https://github.com/CMU-CREATE-Lab/data-visualization-tools.git
+[submodule "reports/python-utils"]
+	path = reports/python-utils
+	url = https://github.com/CMU-CREATE-Lab/python-utils
