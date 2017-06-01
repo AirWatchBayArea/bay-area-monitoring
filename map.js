@@ -357,9 +357,10 @@ function paintWind(site, epochTime) {
       context.fill();
 
       //show wind speed value on hover
-        var windDirs = ["SW", "NW", "NE", "SE"];
+        var windDirs = [ "S","SSW","SW", "WSW","W", "WNW","NW","NNW","N", "NNE","NE","ENE", "E","ESE","SE", "SSE"];
         var formattedDate = new Date(epochTime * 1000).toString();
-        var contentString = "<div>Wind Speed (mph): " + wind_speed + "</div><div>Wind Direction: " + windDirs[Math.floor(wind_dir/90)] +"</div><div>Time: "+ formattedDate +"</div>";
+        var offsetDegrees = (wind_dir+11.25) % 360; //offset sedecimants so "S" is 0-22.5 degrees instead of 349.75-11.25 degrees
+        var contentString = "<div>Wind Speed (mph): " + wind_speed + "</div><div>Wind Towards: " + windDirs[Math.floor(offsetDegrees/22.5)] +"</div><div>Time: "+ formattedDate +"</div>";
         var infowindow = new google.maps.InfoWindow({
           content: contentString,
           position: rectLatLng
