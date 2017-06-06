@@ -57,6 +57,7 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav">
         <li id="intro" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href=".">Introduction</a></li>
+        <li id="report-air" class="custom-nav-btn"onclick="openReportDialog()"><a class="text-uppercase custom-nav-link">Report Air</a></li>
         <li id="richmond" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=richmond">Richmond</a></li>
         <li id="crockett-rodeo" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=crockett-rodeo">Crockett-Rodeo</a></li>
         <li id="benicia" class="custom-nav-btn"><a class="text-uppercase custom-nav-link" href="dashboard.html#loc=benicia">Benicia</a></li>
@@ -72,6 +73,33 @@
     <a href="reports/yesterday/Rodeo.html" target="_blank">Rodeo</a><br><br>
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
+
+  <div id="reportDialog" title="Report Your Air">
+    <strong>How does your air smell right now?</strong>
+    <form id="report-form">
+       <label><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
+       <br>
+       <label><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
+       <br>
+       <label><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
+       <br>
+       <label><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
+        <br>
+       <label><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
+       <br>
+       <label class='textarea-label'>Describe the smell or source of odor<br>
+         <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
+       </label>
+       <br>
+       <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
+       <br>
+       <label class='textarea-label'>Current Location:<br><input type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley"></label>
+       <br>
+       <label class='textarea-label'>Additional comments:<br><input type="text" name="additional-comments"></label>
+       <br>
+       <input type="submit">
+    </form>
+    </div>
 
   <!-- timelapse things that are staying hidden until we have a functional timelapse feed -->
   <div id="timelapse_parent" style="height: 0px; display:none">

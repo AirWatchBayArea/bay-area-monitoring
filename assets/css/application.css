@@ -84,3 +84,69 @@ button:active {
 #summaryDialog a {
   text-decoration: underline;
 }
+
+#report-form>input, #report-form>label{
+  margin: 3px 0px;
+}
+
+.smell-label{
+  font-weight: normal;
+}
+
+input[name="smell"]{
+  display: none;
+}
+
+input[name="smell"]:checked+.smell-box{
+  border: 3px solid black;
+}
+
+input[value="1"]+.smell-box{
+  background-color: lime;
+}
+
+input[value="2"]+.smell-box{
+  background-color: yellow;
+}
+
+input[value="3"]+.smell-box{
+  background-color: orange;
+}
+
+input[value="4"]+.smell-box{
+  background-color: crimson;
+}
+
+input[value="5"]+.smell-box{
+  background-color: rebeccapurple;
+}
+
+.smell-box{
+  position: relative;
+  display: inline-block;
+  margin-right: 3px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.location-label, .textarea-label, .textarea-label>input{
+  width: 100%;
+}
+
+.smell-label, .textarea-label>input, .location-label>input{
+  font-weight: normal;
+}
+
+.location-label>input[type=button] {
+  font-size: .8em;
+  margin-left: 10px;
+}
+
+.location-label>input[type=text]{
+  width: 100%;
+}
+
+
+
+
