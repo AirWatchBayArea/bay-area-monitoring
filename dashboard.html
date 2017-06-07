@@ -50,6 +50,8 @@
   <script src="feeds.js"></script>
   <script src="assets/data-visualization-tools/js/CanvasLayer.js"></script>
   <script src="summaryDialog.js" type="text/javascript"></script>
+  <script src="md5.js" type="text/javascript"></script>
+  <script src="report.js" type="text/javascript"></script>
   <script src="dashboard.js" type="text/javascript"></script>
 </head>
 <body>
@@ -74,31 +76,31 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
 
-  <div id="reportDialog" title="Report Your Air">
-    <strong>How does your air smell right now?</strong>
-    <form id="report-form">
-       <label><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
-       <br>
-       <label><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
-       <br>
-       <label><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
-       <br>
-       <label><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
-        <br>
-       <label><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
-       <br>
-       <label class='textarea-label'>Describe the smell or source of odor<br>
-         <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
-       </label>
-       <br>
-       <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
-       <br>
-       <label class='textarea-label'>Current Location:<br><input type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley"></label>
-       <br>
-       <label class='textarea-label'>Additional comments:<br><input type="text" name="additional-comments"></label>
-       <br>
-       <input type="submit">
-    </form>
+  <div id="reportDialog" title="Report Smell">
+      <strong>How does your air smell right now?</strong>
+      <form id="report-form">
+         <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
+         <br>
+         <label class="smell-label"><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
+         <br>
+         <label class="smell-label"><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
+         <br>
+         <label class="smell-label"><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
+          <br>
+         <label class="smell-label"><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
+         <br>
+         <label class='textarea-label'>Describe the smell or source of odor<br>
+           <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
+         </label>
+         <br>
+         <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
+         <br>
+         <label class='location-label'>Current Location:<br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
+         <br>
+         <label class='textarea-label'>Additional comments:<br><input type="text" id="additional-comments" name="additional-comments"></label>
+         <br>
+         <input id="report-submit" type="submit">
+      </form>
     </div>
 
   <!-- timelapse things that are staying hidden until we have a functional timelapse feed -->
