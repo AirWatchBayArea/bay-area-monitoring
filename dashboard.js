@@ -817,7 +817,38 @@
   }
 
   window.onhashchange = function() {
-    window.location.reload();
+    plotManager.removeAllPlotContainers();
+    var dateRange = plotManager.getDateAxis().getRange();
+    var cursorPos = plotManager.getDateAxis().getCursorPosition();
+    $('#grapher').html('<tr class=grapher_row id=dateAxisContainer><td class=playContainer> <button class="axesControls custom-button"title="Zoom in the graphs"id=zoomGrapherIn> <span class="glyphicon glyphicon-plus"></span> </button> <button class="axesControls custom-button"title="Zoom out the graphs"id=zoomGrapherOut> <span class="glyphicon glyphicon-minus"></span> </button> <button class="axesControls custom-button"title="Toggle Autoscaling of Y Axes"onclick=toggleYAxisAutoScaling()> <span class="ui-icon ui-icon-locked"id=auto_scale_toggle_button></span> </button> </td> <td id=dateAxis></td> <td class=border> </td>');
+    var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
+
+    var hash = window.location.hash.slice(1).split("&");
+    if(hash[1]) {
+      fromShareLink = true;
+      var timeRange = hash[2].slice(5).split(",");
+      minTimeSecs = timeRange[0];
+      maxTimeSecs = timeRange[1];
+      monitor = hash[1].slice(8).replace(/-/g," ");
+    }
+    else {
+      maxTimeSecs = Date.now() / 1000;
+      minTimeSecs = maxTimeSecs - 8 * 60 * 60;
+    }
+    plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", dateRange.min, dateRange.max);
+    plotManager.getDateAxis().setCursorPosition(cursorPos);
+    $(window).resize(function() {
+      setSizes();
+    });
+    plotManager.setWillAutoResizeWidth(true, function() {
+      return $("#grapher").width() - 34 - 136 - 26;
+    });
+    grapherReady = true;
+
+    var location = hash[0].slice(4);
+    selectArea(location, monitor);
+    refreshChannelPage();
+    google.maps.event.trigger(map, 'resize');
   }
 
   window.grapherLoad = function() {
@@ -1013,6 +1044,7 @@ function toggleGuide() {
       initSmells();
 
       // Initialize Graphs
+
       loadFeeds(feedMap[area.locale]);
       if(fromShareLink) {
         $("#slider").slider("value",85);
