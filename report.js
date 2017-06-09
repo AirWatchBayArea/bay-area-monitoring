@@ -1,6 +1,5 @@
 var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports';
 
-
 function openReportDialog(){
 	$("#reportDialog").dialog("open");
 }
@@ -29,26 +28,32 @@ function serializeForm(geocodeResults){
 	}
 	//latlong
 	var latlng = geocodeResults[0]['geometry']['location'];
-	var data = JSON.stringify(
+	var data = 
 	{
 		"user_hash" : MD5(localStorage.getItem('AWBAuser')),
 	    "latitude" : latlng.lat(),
 	    "longitude" : latlng.lng(),
 	    "smell_value" : parseInt($('input[name=smell]:checked').val()),
-	    "smell_description" : $('input[name=describe-air]').val(),
-	    "feelings_symptoms" : $('input[name=symptoms]').val(),
-	    "submit_achd_form" : false
-	});
+	    "smell_description" : $('input[name=describe-air]').val() ? $('input[name=describe-air]').val() : null,
+	    "feelings_symptoms" : $('input[name=symptoms]').val() ? $('input[name=symptoms]').val() : null,
+	    "additional_comments" : $('input[name=additional-comments]').val()
+	    						? $('input[name=additional-comments]').val() : null
+	};
+
 	postData(data);
 }
 
 function postData(data){
+	console.log(data);
 	$.ajax({
 	  method: 'POST',
 	  url: serverURL,
 	  data: data,
 	}).done(function(msg) {
-	  console.log('huzzah!')
+	  console.log("POST Result:", msg);
+	  if (typeof msg === 'string' || msg instanceof String) {
+	  	reportFailed("there was an error connecting to the server. Please try again later!")
+	  }
 	});
 }
 
