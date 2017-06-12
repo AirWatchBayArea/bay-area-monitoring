@@ -4,13 +4,6 @@ function openReportDialog(){
 	$("#reportDialog").dialog("open");
 }
 
-$(function() {
-  $("#reportDialog").dialog({
-    autoOpen: false,
-    width: "60%"
-  });
-});
-
 function makeid(length){
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -43,7 +36,7 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
-function postData(data){
+function postData(data, successCallback){
 	console.log(data);
 	$.ajax({
 	  method: 'POST',
@@ -53,15 +46,10 @@ function postData(data){
 	  console.log("POST Result:", msg);
 	  if (typeof msg === 'string' || msg instanceof String) {
 	  	reportFailed("there was an error connecting to the server. Please try again later!")
+	  }else{
+	  	$('#report-submit').prop('disabled', true);
+		$('#submit-success').show();
 	  }
-	});
-}
-
-function initGeocode(){
-	var geocoder = new google.maps.Geocoder();
-	$('#report-form').submit(function(event){
-		 event.preventDefault();
-		 geocodeAddress(geocoder, serializeForm);
 	});
 }
 
@@ -87,7 +75,31 @@ function reportFailed(reason){
 	alert('Smell report failed because ' + reason);
 }
 
-$(initGeocode);
+function resetReport(){
+	document.getElementById("report-form").reset();
+  	$('#report-submit').prop('disabled', false);
+  	$('#submit-success').hide();
+}
 
+$(function() {
+  $("#reportDialog").dialog({
+    autoOpen: false,
+    width: "60%"
+  });
+  
+  var geocoder = new google.maps.Geocoder();
+  $('#report-form').submit(function(event){
+		 event.preventDefault();
+		 geocodeAddress(geocoder, serializeForm);
+	});
+
+  $('#submit-another-report').click(resetReport);
+
+  $('#close-report').click(function(event){
+  	$("#reportDialog").dialog('close');
+  });
+
+  $('#reportDialog').on('dialogclose', resetReport);
+});
 
 
