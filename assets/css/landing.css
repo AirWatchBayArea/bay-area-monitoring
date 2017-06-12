@@ -34,7 +34,7 @@
   display: block;
 }
 
-.site-title:before{
+.background-image {
   content: "";
   position: absolute;
   width: 100%;
@@ -44,6 +44,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  transition: background-image 0.5s ease-in-out;
 }
 
 .site-title:after{
@@ -63,7 +64,7 @@
 
 .site-title-text {
   position: relative;
-  padding: 30px;
+  padding: 50px 30px;
   font-size: 5.5em;
   letter-spacing: .2em;
   font-weight: bold;
