@@ -1,4 +1,4 @@
-var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports';
+var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports';
 
 function openReportDialog(){
 	$("#reportDialog").dialog("open");
