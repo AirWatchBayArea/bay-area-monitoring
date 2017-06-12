@@ -34,21 +34,72 @@
   display: block;
 }
 
-.site-title {
+.site-title:before{
+  content: "";
   position: absolute;
-  top: 0px;
+  width: 100%;
   height: 100%;
+  background: url("../images/panorama_refinery.jpg") no-repeat center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.site-title:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.2);
+  transform: translateY(-100%);
+}
+
+.site-title {
+  position: relative;
   width: 100%;
   color: #FFF;
 }
 
 .site-title-text {
-  font-size: 6em;
+  position: relative;
+  padding: 30px;
+  font-size: 5.5em;
   letter-spacing: .2em;
   font-weight: bold;
+  z-index: 100;
+}
+
+#carousel-padding{
   position: relative;
+  height: 30px;
+}
+
+#carousel-buttons{
+  position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 100;
+}
+
+.small-circle {
+  position: relative;
+  float: left;
+  height: 15px;
+  width: 15px;
+  margin: 0px 5px;
+  border-radius: 50%;
+  border: solid 1px white;
+  cursor: pointer;
+}
+
+.small-circle:hover{
+  background: darkgray;
+}
+
+.small-circle.selected{
+  background: white;
 }
 
 @media only screen

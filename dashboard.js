@@ -790,20 +790,20 @@
   }
 
   function toggleYAxisAutoScaling() {
-  var autoScaleToggleButton = $("#auto_scale_toggle_button");
-  var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
-  plotManager.forEachPlotContainer(function (pc) {
-    pc.setAutoScaleEnabled(!isAutoScaleOn, false);
-    if(!isAutoScaleOn) {
-      var channelLabel = getChannelLabel(pc.getElementId()[0]);
-      setMinRangeToHealthLimit(pc, channelLabel);
-    }
-    else {
-      pc.getYAxis().clearMinRangeConstraints();
-    }
-  });
-  autoScaleToggleButton.toggleClass("ui-icon-locked");
-  autoScaleToggleButton.toggleClass("ui-icon-unlocked");
+    var autoScaleToggleButton = $("#auto_scale_toggle_button");
+    var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
+    plotManager.forEachPlotContainer(function (pc) {
+      pc.setAutoScaleEnabled(!isAutoScaleOn, false);
+      if(!isAutoScaleOn) {
+        var channelLabel = getChannelLabel(pc.getElementId()[0]);
+        setMinRangeToHealthLimit(pc, channelLabel);
+      }
+      else {
+        pc.getYAxis().clearMinRangeConstraints();
+      }
+    });
+    autoScaleToggleButton.toggleClass("ui-icon-locked");
+    autoScaleToggleButton.toggleClass("ui-icon-unlocked");
 }
 
   function initialize(fromShareLink, location, monitor) {
@@ -816,11 +816,7 @@
     google.maps.event.trigger(map, 'resize');
   }
 
-  window.onhashchange = function() {
-    plotManager.removeAllPlotContainers();
-    var dateRange = plotManager.getDateAxis().getRange();
-    var cursorPos = plotManager.getDateAxis().getCursorPosition();
-    $('#grapher').html('<tr class=grapher_row id=dateAxisContainer><td class=playContainer> <button class="axesControls custom-button"title="Zoom in the graphs"id=zoomGrapherIn> <span class="glyphicon glyphicon-plus"></span> </button> <button class="axesControls custom-button"title="Zoom out the graphs"id=zoomGrapherOut> <span class="glyphicon glyphicon-minus"></span> </button> <button class="axesControls custom-button"title="Toggle Autoscaling of Y Axes"onclick=toggleYAxisAutoScaling()> <span class="ui-icon ui-icon-locked"id=auto_scale_toggle_button></span> </button> </td> <td id=dateAxis></td> <td class=border> </td>');
+  function processHash(){
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
 
     var hash = window.location.hash.slice(1).split("&");
@@ -835,21 +831,35 @@
       maxTimeSecs = Date.now() / 1000;
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
-    plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", dateRange.min, dateRange.max);
-    plotManager.getDateAxis().setCursorPosition(cursorPos);
-    $(window).resize(function() {
-      setSizes();
-    });
-    plotManager.setWillAutoResizeWidth(true, function() {
-      return $("#grapher").width() - 34 - 136 - 26;
-    });
-    grapherReady = true;
-
     var location = hash[0].slice(4);
-    selectArea(location, monitor);
-    refreshChannelPage();
-    google.maps.event.trigger(map, 'resize');
+    var location = hash[0].split("loc=")[1];
+    $(".active a").removeClass("custom-nav-link-active");
+    $(".active a").addClass("custom-nav-link");
+    $(".active").removeClass("active");
+    if(location){
+      $('#introduction-wrapper').hide();
+      plotManager.removeAllPlotContainers();
+      var dateRange = plotManager.getDateAxis().getRange();
+      var cursorPos = plotManager.getDateAxis().getCursorPosition();
+      $('#grapher').html('<tr class=grapher_row id=dateAxisContainer><td class=playContainer> <button class="axesControls custom-button"title="Zoom in the graphs"id=zoomGrapherIn> <span class="glyphicon glyphicon-plus"></span> </button> <button class="axesControls custom-button"title="Zoom out the graphs"id=zoomGrapherOut> <span class="glyphicon glyphicon-minus"></span> </button> <button class="axesControls custom-button"title="Toggle Autoscaling of Y Axes"onclick=toggleYAxisAutoScaling()> <span class="ui-icon ui-icon-locked"id=auto_scale_toggle_button></span> </button> </td> <td id=dateAxis></td> <td class=border> </td>');
+      plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", dateRange.min, dateRange.max);
+      plotManager.getDateAxis().setCursorPosition(cursorPos);
+      plotManager.setWillAutoResizeWidth(true, function() {
+        return $("#grapher").width() - 34 - 136 - 26;
+      });
+      selectArea(location, monitor);
+      refreshChannelPage();
+      google.maps.event.trigger(map, 'resize');
+     
+    }else{
+      $('#introduction-wrapper').show();
+      window.location.hash = "home";
+      $("#intro").addClass("active");
+      $("#intro" + " a").addClass("custom-nav-link-active");
+    }
   }
+
+  window.onhashchange = processHash;
 
   window.grapherLoad = function() {
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
@@ -868,15 +878,27 @@
     }
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
     $(window).resize(function() {
-      setSizes();
+      var location = window.location.hash.slice(1).split("&")[0].split("loc=")[1];
+      if(location){setSizes();}
     });
     plotManager.setWillAutoResizeWidth(true, function() {
       return $("#grapher").width() - 34 - 136 - 26;
     });
     grapherReady = true;
 
-    var location = hash[0].slice(4);
-    initialize(fromShareLink, location, monitor);
+    var location = hash[0].split("loc=")[1];
+    $(".active a").removeClass("custom-nav-link-active");
+    $(".active a").addClass("custom-nav-link");
+    $(".active").removeClass("active");
+    if(location){
+      $('#introduction-wrapper').hide();
+      initialize(fromShareLink, location, monitor);
+    }else{
+      $('#introduction-wrapper').show();
+      window.location.hash = "home";
+      $("#intro").addClass("active");
+      $("#intro" + " a").addClass("custom-nav-link-active");
+    }
   };
 
   function createTutorialButton(buttonWidth, buttonHeight, appendingDiv) {
