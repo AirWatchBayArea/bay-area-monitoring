@@ -119,47 +119,35 @@
   </div>
   <div id="reportDialog" title="Report Smell">
     <strong>How does your air smell right now?</strong>
-    <form id="report-form" name="report-form">
-      <label class="smell-label">
-        <input checked name="smell" type="radio" value="1">
-        <div class="smell-box"></div>
-        1 Just Fine!
-      </label>
-      <br>
-      <label class="smell-label">
-        <input id="r2" name="smell" type="radio" value="2">
-        <div class="smell-box"></div>
-        2 Barely noticeable
-      </label>
-      <br>
-      <label class="smell-label">
-        <input id="r3" name="smell" type="radio" value="3">
-        <div class="smell-box"></div>
-        3 Definitely noticeable
-      </label>
-      <br>
-      <label class="smell-label">
-        <input id="r4" name="smell" type="radio" value="4">
-        <div class="smell-box"></div>
-        4 It's getting pretty bad
-      </label>
-      <br>
-      <label class="smell-label">
-        <input id="r5" name="smell" type="radio" value="5">
-        <div class="smell-box"></div>
-        5 About as bad as it gets!
-      </label>
-      <br>
-      <label class='textarea-label'>Describe the smell or source of odor<br>
-      <input name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs" type="text"></label><br>
-      <label class='textarea-label'>Any symptoms linked to odor?<br>
-      <input id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation" type="text"></label><br>
-      <label class='location-label'>Current Location:<br>
-      <input id="address" name="location" placeholder="e.g. at the corner of 7th and Hensley" required="" type="text"></label><br>
-      <label class='textarea-label'>Additional comments:<br>
-      <input id="additional-comments" name="additional-comments" type="text"></label><br>
-      <input id="report-submit" type="submit">
+    <form id="report-form">
+       <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
+       <br>
+       <label class="smell-label"><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
+       <br>
+       <label class="smell-label"><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
+       <br>
+       <label class="smell-label"><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
+        <br>
+       <label class="smell-label"><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
+       <br>
+       <label class='textarea-label'>Describe the smell or source of odor<br>
+         <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
+       </label>
+       <br>
+       <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
+       <br>
+       <label class='location-label'>Current Location:<br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
+       <br>
+       <label class='textarea-label'>Additional comments:<br><input type="text" id="additional-comments" name="additional-comments"></label>
+       <br>
+       <input id="report-submit" class="report-button no-highlight" type="submit" >
     </form>
+    <div id="submit-success">
+      <p>Your submissions was a sucess! Thank you for reporting.</p>
+       <p><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">Click here to make a report to the BAAQMD.</a></p>
+      <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
+      <div id="close-report" class="report-button no-highlight">close</div>
+    </div>
   </div>
 
   <div id="introduction-wrapper">

@@ -155,6 +155,52 @@ input[value="5"]+.smell-box{
   width: 100%;
 }
 
+.report-button { 
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: #085b64;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  cursor: pointer;
+}
 
+.report-button:hover{
+  background-color: rgb(50,50,50);
+}
+
+.report-button:active{
+  background-color: rgb(90,90,90);
+}
+
+.report-button:disabled{
+  opacity: .5;
+  background-color: black;
+}
+
+input[type=submit] {
+  border: none;
+  font-size: 1em;
+}
+
+#submit-success{
+  display: none;
+}
+
+#submit-success a:link{color: #337ab7 !important;} 
+#submit-success a:visited{color: purple !important;} 
+
+/*===============
+ * No Highlight
+ *===============*/
+
+.no-highlight {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
+}
 
 
