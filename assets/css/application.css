@@ -8,6 +8,10 @@ html, body {
   color: #47525e;
 }
 
+.ui-widget-content{
+  background-color: white !important;
+}
+
 .custom-nav {
   background-color: #9e9e9e !important;
   border-radius: 0px !important;
