@@ -8,8 +8,9 @@
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
+
+  <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
@@ -150,7 +151,7 @@
     </div>
   </div>
 
-  <div id="introduction-wrapper">
+  <div class="landing" id="introduction-wrapper">
     <!-- <div class="carousel slide" data-ride="carousel" id="pics"> -->
       <!-- <ol class="carousel-indicators">
         <li class="active" data-slide-to="0" data-target="#pics"></li>
@@ -256,7 +257,7 @@
   </div>
   
   <!-- <div id="dashboard-wrapper"> -->
-    <div id="timelapse_parent" style="height: 0px; display:none">
+    <div id="timelapse_parent" class="dashboard" style="height: 0px; display:none">
       <div id="loading"><img alt="loading" height="250" id="loadingImg" src="assets/images/loading.gif" width="358"></div>
       <div id="tutorialDialog" title="A Tour for the Shenango Channel"></div>
       <div class="no-select" id="locationTitle"></div>
@@ -274,7 +275,7 @@
         </div>
       </div>
     </div><!-- end timelapse things -->
-    <div class="container-fluid" style="height:calc(100% - 50px)">
+    <div class="container-fluid dashboard" style="height:calc(100% - 50px)">
       <button class="custom-button" id="help-btn" onclick="openNav()">Help</button>
       <div class="row guide-expanded" id="guide">
         <div class="col-sm-2 guide-col full-height">
