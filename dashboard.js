@@ -403,7 +403,7 @@
 
   function generateShareLink() {
     var range = plotManager.getDateAxis().getRange();
-    var link = PROJ_ROOT_URL + "/dashboard.html#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
+    var link = PROJ_ROOT_URL + "#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
     $("#shareLink").val(link);
     $("#dialog").dialog("open");
   }
@@ -582,6 +582,7 @@
       plotId = seriesIdx + "_plot" + tmpId;
       plotContainerId = seriesIdx + "_plot_container";
       yAxisId = seriesIdx + "_yaxis";
+      console.log("got here", plotContainerId);
       var plotContainer = plotManager.getPlotContainer(plotContainerId);
       plotContainer.addDataSeriesPlot(plotId, datasource, yAxisId);
     } else {
@@ -831,26 +832,13 @@
       maxTimeSecs = Date.now() / 1000;
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
-    var location = hash[0].slice(4);
     var location = hash[0].split("loc=")[1];
     $(".active a").removeClass("custom-nav-link-active");
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
     if(location){
       $('#introduction-wrapper').hide();
-      plotManager.removeAllPlotContainers();
-      var dateRange = plotManager.getDateAxis().getRange();
-      var cursorPos = plotManager.getDateAxis().getCursorPosition();
-      $('#grapher').html('<tr class=grapher_row id=dateAxisContainer><td class=playContainer> <button class="axesControls custom-button"title="Zoom in the graphs"id=zoomGrapherIn> <span class="glyphicon glyphicon-plus"></span> </button> <button class="axesControls custom-button"title="Zoom out the graphs"id=zoomGrapherOut> <span class="glyphicon glyphicon-minus"></span> </button> <button class="axesControls custom-button"title="Toggle Autoscaling of Y Axes"onclick=toggleYAxisAutoScaling()> <span class="ui-icon ui-icon-locked"id=auto_scale_toggle_button></span> </button> </td> <td id=dateAxis></td> <td class=border> </td>');
-      plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", dateRange.min, dateRange.max);
-      plotManager.getDateAxis().setCursorPosition(cursorPos);
-      plotManager.setWillAutoResizeWidth(true, function() {
-        return $("#grapher").width() - 34 - 136 - 26;
-      });
-      selectArea(location, monitor);
-      refreshChannelPage();
-      google.maps.event.trigger(map, 'resize');
-     
+      changeLocale(location, monitor);
     }else{
       $('#introduction-wrapper').show();
       window.location.hash = "home";
