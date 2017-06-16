@@ -571,10 +571,11 @@
     //Add charts
     var channelLabel = feed.channels[channelName].graphMetaData.label;
     var idx = loadedSeries.indexOf(channelLabel);
-    var seriesIdx = series.length;
+    var seriesIdx = (series.length) ? series.length : 1;
     var plotContainerId = seriesIdx + "_plot_container";
     var plotId = seriesIdx + "_plot";
     var yAxisId = seriesIdx + "_yaxis";
+    console.log(series, idx, seriesIdx, plotContainerId);
     if (idx != -1) {
       var tmpId = new Date().getTime();
       loadedSeries.push(channelLabel + tmpId);
@@ -582,7 +583,6 @@
       plotId = seriesIdx + "_plot" + tmpId;
       plotContainerId = seriesIdx + "_plot_container";
       yAxisId = seriesIdx + "_yaxis";
-      console.log("got here", plotContainerId);
       var plotContainer = plotManager.getPlotContainer(plotContainerId);
       plotContainer.addDataSeriesPlot(plotId, datasource, yAxisId);
     } else {
