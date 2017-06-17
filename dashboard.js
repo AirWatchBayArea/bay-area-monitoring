@@ -571,11 +571,10 @@
     //Add charts
     var channelLabel = feed.channels[channelName].graphMetaData.label;
     var idx = loadedSeries.indexOf(channelLabel);
-    var seriesIdx = (series.length) ? series.length : 1;
+    var seriesIdx = series.length;
     var plotContainerId = seriesIdx + "_plot_container";
     var plotId = seriesIdx + "_plot";
     var yAxisId = seriesIdx + "_yaxis";
-    console.log(series, idx, seriesIdx, plotContainerId);
     if (idx != -1) {
       var tmpId = new Date().getTime();
       loadedSeries.push(channelLabel + tmpId);
@@ -714,6 +713,12 @@
     $('#refineryDetectionLimit' + seriesIdx)
         .height(overlayHeight)
         .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
+  }
+
+  function refreshGrapher(){
+    var min_time = plotManager.getDateAxis().getRange().min;
+    var max_time = plotManager.getDateAxis().getRange().max;
+    plotManager.getDateAxis().setRange(min_time - .001, max_time);
   }
 
   function zoomGrapher(scale) {
@@ -976,6 +981,9 @@ function toggleGuide() {
         });
       })(i);
     }
+    // setTimeout(refreshGrapher, 1000);
+    // setTimeout(refreshGrapher, 2000);
+    // setTimeout(refreshGrapher, 3000);
     if (canvasLayer)
     highlightSelectedMonitors();
   }
@@ -1051,11 +1059,13 @@ function toggleGuide() {
       grapherLoadedInterval = null;
 
       // Initialize Smells
-      initSmells();
+      console.log("started smell");
+      initSmells().then(function(result){
+        // Initialize Graphs
+        console.log("started feeds");
+        loadFeeds(feedMap[area.locale]);
+      });
 
-      // Initialize Graphs
-
-      loadFeeds(feedMap[area.locale]);
       if(fromShareLink) {
         $("#slider").slider("value",85);
         playCallback();
