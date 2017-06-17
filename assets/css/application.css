@@ -11,6 +11,9 @@ html, body {
   background-color: #eceff1 !important;
 }
 
+.ui-widget-content{
+  background-color: white !important;
+}
 
 .custom-container {
   color: #47525e;
