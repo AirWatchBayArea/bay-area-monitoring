@@ -1,7 +1,7 @@
 {
     "name": "sufyan/bay-area-monitoring",
     "require": {
-        "samcrosoft/cloudinary": "^1.2"
+        "cloudinary/cloudinary_php": "dev-master"
     },
     "authors": [
         {

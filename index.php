@@ -1,3 +1,9 @@
+<?php
+require 'cloudinary_src/Cloudinary.php';
+require 'cloudinary_src/Uploader.php';
+require 'cloudinary_src/Api.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
