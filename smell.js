@@ -24,11 +24,13 @@ var gwtPopUpText = "";
 var isHighlighting = false;
 var smellLoadingInterval = null;
 
+
 function initSmells() {
   infowindow_smell = new google.maps.InfoWindow({
     pixelOffset: new google.maps.Size(-1, 0)
   });
-  $.ajax({
+  return new Promise(function(resolve, reject){
+    $.ajax({
     url: rootSmellUrl + "/smell_reports?area=BA",
     success: function(json) {
       //remove reports not within a bounding box approximately representing BAAQMD's jurisdiction
@@ -36,7 +38,9 @@ function initSmells() {
         return report.latitude < 38.8286208 && report.latitude > 36.906913 && report.longitude < -121.209588 && report.longitude > -123.017998;
       });
       addSmellReportsToGrapher();
-    }
+      resolve();
+      }
+    });
   });
 }
 

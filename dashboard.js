@@ -403,7 +403,7 @@
 
   function generateShareLink() {
     var range = plotManager.getDateAxis().getRange();
-    var link = PROJ_ROOT_URL + "/dashboard.html#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
+    var link = PROJ_ROOT_URL + "#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
     $("#shareLink").val(link);
     $("#dialog").dialog("open");
   }
@@ -715,6 +715,12 @@
         .css({"max-height": chartHeight, "border-bottom-width": borderVisible});
   }
 
+  function refreshGrapher(){
+    var min_time = plotManager.getDateAxis().getRange().min;
+    var max_time = plotManager.getDateAxis().getRange().max;
+    plotManager.getDateAxis().setRange(min_time - .001, max_time);
+  }
+
   function zoomGrapher(scale) {
     var min_time = plotManager.getDateAxis().getRange().min;
     var max_time = plotManager.getDateAxis().getRange().max;
@@ -790,20 +796,20 @@
   }
 
   function toggleYAxisAutoScaling() {
-  var autoScaleToggleButton = $("#auto_scale_toggle_button");
-  var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
-  plotManager.forEachPlotContainer(function (pc) {
-    pc.setAutoScaleEnabled(!isAutoScaleOn, false);
-    if(!isAutoScaleOn) {
-      var channelLabel = getChannelLabel(pc.getElementId()[0]);
-      setMinRangeToHealthLimit(pc, channelLabel);
-    }
-    else {
-      pc.getYAxis().clearMinRangeConstraints();
-    }
-  });
-  autoScaleToggleButton.toggleClass("ui-icon-locked");
-  autoScaleToggleButton.toggleClass("ui-icon-unlocked");
+    var autoScaleToggleButton = $("#auto_scale_toggle_button");
+    var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
+    plotManager.forEachPlotContainer(function (pc) {
+      pc.setAutoScaleEnabled(!isAutoScaleOn, false);
+      if(!isAutoScaleOn) {
+        var channelLabel = getChannelLabel(pc.getElementId()[0]);
+        setMinRangeToHealthLimit(pc, channelLabel);
+      }
+      else {
+        pc.getYAxis().clearMinRangeConstraints();
+      }
+    });
+    autoScaleToggleButton.toggleClass("ui-icon-locked");
+    autoScaleToggleButton.toggleClass("ui-icon-unlocked");
 }
 
   function initialize(fromShareLink, location, monitor) {
@@ -816,9 +822,37 @@
     google.maps.event.trigger(map, 'resize');
   }
 
-  window.onhashchange = function() {
-    window.location.reload();
+  function processHash(){
+    var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
+
+    var hash = window.location.hash.slice(1).split("&");
+    if(hash[1]) {
+      fromShareLink = true;
+      var timeRange = hash[2].slice(5).split(",");
+      minTimeSecs = timeRange[0];
+      maxTimeSecs = timeRange[1];
+      monitor = hash[1].slice(8).replace(/-/g," ");
+    }
+    else {
+      maxTimeSecs = Date.now() / 1000;
+      minTimeSecs = maxTimeSecs - 8 * 60 * 60;
+    }
+    var location = hash[0].split("loc=")[1];
+    $(".active a").removeClass("custom-nav-link-active");
+    $(".active a").addClass("custom-nav-link");
+    $(".active").removeClass("active");
+    if(location){
+      $('#introduction-wrapper').hide();
+      changeLocale(location, monitor);
+    }else{
+      $('#introduction-wrapper').show();
+      window.location.hash = "home";
+      $("#intro").addClass("active");
+      $("#intro" + " a").addClass("custom-nav-link-active");
+    }
   }
+
+  window.onhashchange = processHash;
 
   window.grapherLoad = function() {
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
@@ -837,15 +871,27 @@
     }
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
     $(window).resize(function() {
-      setSizes();
+      var location = window.location.hash.slice(1).split("&")[0].split("loc=")[1];
+      if(location){setSizes();}
     });
     plotManager.setWillAutoResizeWidth(true, function() {
       return $("#grapher").width() - 34 - 136 - 26;
     });
     grapherReady = true;
 
-    var location = hash[0].slice(4);
-    initialize(fromShareLink, location, monitor);
+    var location = hash[0].split("loc=")[1];
+    $(".active a").removeClass("custom-nav-link-active");
+    $(".active a").addClass("custom-nav-link");
+    $(".active").removeClass("active");
+    if(location){
+      $('#introduction-wrapper').hide();
+      initialize(fromShareLink, location, monitor);
+    }else{
+      $('#introduction-wrapper').show();
+      window.location.hash = "home";
+      $("#intro").addClass("active");
+      $("#intro" + " a").addClass("custom-nav-link-active");
+    }
   };
 
   function createTutorialButton(buttonWidth, buttonHeight, appendingDiv) {
@@ -935,6 +981,9 @@ function toggleGuide() {
         });
       })(i);
     }
+    // setTimeout(refreshGrapher, 1000);
+    // setTimeout(refreshGrapher, 2000);
+    // setTimeout(refreshGrapher, 3000);
     if (canvasLayer)
     highlightSelectedMonitors();
   }
@@ -1010,10 +1059,13 @@ function toggleGuide() {
       grapherLoadedInterval = null;
 
       // Initialize Smells
-      initSmells();
+      console.log("started smell");
+      initSmells().then(function(result){
+        // Initialize Graphs
+        console.log("started feeds");
+        loadFeeds(feedMap[area.locale]);
+      });
 
-      // Initialize Graphs
-      loadFeeds(feedMap[area.locale]);
       if(fromShareLink) {
         $("#slider").slider("value",85);
         playCallback();

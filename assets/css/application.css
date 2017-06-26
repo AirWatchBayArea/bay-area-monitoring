@@ -4,6 +4,17 @@ html, body {
   font-family: 'Lato', sans-serif !important;
 }
 
+#introduction-wrapper{
+  position: absolute;
+  width: 100%;
+  z-index: 5;
+  background-color: #eceff1 !important;
+}
+
+.ui-widget-content{
+  background-color: white !important;
+}
+
 .custom-container {
   color: #47525e;
 }

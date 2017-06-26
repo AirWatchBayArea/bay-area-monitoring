@@ -1,27 +1,28 @@
-.row {
+
+.landing .row {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
   flex-wrap: wrap;
 }
-.row > [class*='col-'] {
+.landing .row > [class*='col-'] {
   display: flex;
   flex-direction: column;
 }
 
-#pics{
+.landing #pics{
   padding-right: 0px !important;
   padding-left: 0px !important;
   background-color: black;
 }
 
-#pics img {
+.landing #pics img {
   opacity: .7;
   min-height: 12em;
 }
 
-.title-tester {
+.landing .title-tester {
   width:100%;
   text-align: center;
   background: transparent;
@@ -29,71 +30,123 @@
   letter-spacing: .2em;
 }
 
-.subheading {
+.landing .subheading {
   font-size: 4rem;
   display: block;
 }
 
-.site-title {
+.landing .background-image {
+  content: "";
   position: absolute;
-  top: 0px;
+  width: 100%;
   height: 100%;
+  background: url("../images/panorama_refinery.jpg") no-repeat center; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.landing .site-title:after{
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.2);
+  transform: translateY(-100%);
+}
+
+.landing .site-title {
+  position: relative;
   width: 100%;
   color: #FFF;
 }
 
-.site-title-text {
-  font-size: 6em;
+.landing .site-title-text {
+  position: relative;
+  padding: 50px 30px;
+  font-size: 5.5em;
   letter-spacing: .2em;
   font-weight: bold;
+  z-index: 5;
+}
+
+.landing #carousel-padding{
   position: relative;
+  height: 30px;
+}
+
+.landing #carousel-buttons{
+  position: absolute;
   top: 50%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  z-index: 5;
+}
+
+.landing .small-circle {
+  position: relative;
+  float: left;
+  height: 15px;
+  width: 15px;
+  margin: 0px 5px;
+  border-radius: 50%;
+  border: solid 1px white;
+  cursor: pointer;
+}
+
+.landing .small-circle:hover{
+  background: darkgray;
+}
+
+.landing .small-circle.selected{
+  background: white;
 }
 
 @media only screen
 and (max-device-width: 768px){
-  .site-title-text {
+.landing .site-title-text {
     font-size: 3em !important;
     letter-spacing: 0.1em !important;
   }
 
-  .subheading {
+.landing .subheading {
     font-size: 0.5em !important;
   }
   }
 
-.panel {
+.landing .panel {
   background-color: rgba(126,217,237,.43) !important;
   padding: 1em;
   height: 100%;
 }
 
-div.panel h3 {
+.landing div.panel h3 {
   font-weight: bold !important;
 }
 
-div.panel img {
+.landing div.panel img {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   border: 7px solid #455a64;
   }
 
-div.panel p {
+.landing div.panel p {
   font-size: 1.1em;
 }
 
-div.panel li {
+.landing div.panel li {
   font-size: 1.1em;
 }
 
-div.panel a {
+.landing div.panel a {
   text-decoration: underline;
   color: inherit;
 }
 
-.scroll-panel {
+.landing .scroll-panel {
   overflow-y: scroll;
   height:90%;
 }
