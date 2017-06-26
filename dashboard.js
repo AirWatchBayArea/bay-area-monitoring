@@ -1,4 +1,11 @@
   "use strict";
+  
+  $(function(){
+     if(window.location.protocol==="https:")
+         alert('Currently this site does not work for https connections, unfortunately. Please change to http://')
+ });
+
+
   jQuery.support.cors = true;
   var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis, dateAxisListener, playInterval;
   var pageLoadDate = cached_breathecam.latest.date;
