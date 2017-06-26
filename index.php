@@ -161,9 +161,9 @@
         <li data-slide-to="2" data-target="#pics"></li>
       </ol>
       <div class="carousel-inner" role="listbox">
-        <div class="item active"><img src="assets/images/panorama_refinery.jpg"></div>
-        <div class="item"><img src="assets/images/Richmond_PAN1.jpg"></div>
-        <div class="item"><img src="assets/images/BENECIA_PAN_2.jpg"></div>
+        <div class="item active"><img src="assets/images/panorama_refinery.JPG"></div>
+        <div class="item"><img src="assets/images/Richmond_PAN1.JPG"></div>
+        <div class="item"><img src="assets/images/BENECIA_PAN_2.JPG"></div>
       </div> -->
       <div class="site-title">
         <div class="background-image"></div>
