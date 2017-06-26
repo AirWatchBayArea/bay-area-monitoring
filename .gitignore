@@ -4,3 +4,5 @@ TimeMachineExplorer.iws
 .idea/
 reports/archived/2017-*
 secret.txt
+
+/vendor/
