@@ -53,7 +53,7 @@
   </script>
   <script src="assets/timemachine-viewer/libs/change-detect/js/ChangeDetectionTool.js" type="text/javascript">
   </script>
-  <script src="http://tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript">
+  <script src="//tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript">
   </script>
   <script src="assets/js/jquery.xdomainrequest.min.js" type="text/javascript">
   </script>
@@ -190,7 +190,7 @@
             <h3>Get Started</h3>
             <p>To <strong>view air pollution in your community</strong>, select the corresponding tab at the top of the page.</p>
             <p>To <strong>report pollution odors</strong> to Air Watch: Bay Area, download our mobile app for <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank">iOS</a> or <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank">Android</a>. You can also file a complaint with the Bay Area Air Quality Management District <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">here</a>.</p>
-            <p>To <strong>print or download a daily air quality summary</strong>, click the "Print Daily Summary" tab above. To subscribe to daily summaries when air quality was worse than average, click <a href="http://groups.google.com/group/airwatchbayarea/boxsubscribe" target="_blank">here</a>.</p>
+            <p>To <strong>print or download a daily air quality summary</strong>, click the "Print Daily Summary" tab above. To subscribe to daily summaries when air quality was worse than average, click <a href="//groups.google.com/group/airwatchbayarea/boxsubscribe" target="_blank">here</a>.</p>
           </div>
           <div class="panel">
             <h3>Capture Incidents</h3><img class="img-responsive" src="assets/images/data-page-scrnshot.jpg"><br>
@@ -201,7 +201,7 @@
           <div class="panel">
             <h3>FAQ</h3>
             <p><strong>Where does the data come from?</strong><br>
-            Most of the data on our site comes from <a href="http://www.fenceline.org" target="_blank">fenceline.org</a> . Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p><br>
+            Most of the data on our site comes from <a href="//www.fenceline.org" target="_blank">fenceline.org</a> . Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p><br>
             <p><strong>Who decides what level of a given chemical constitutes a health hazard?</strong><br>
             Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p><br>
             <p><strong>An air pollution event occurred in my community, but the monitors didn't pick up anything. What happened?</strong><br>
@@ -239,14 +239,14 @@
         <div class="col-sm-7">
           <div class="panel">
             <h3>About Us</h3><img class="img-responsive" src="assets/images/group-photo.jpg"><br>
-            <p>Air Watch is developed and maintained by the <a href="https://www.fairtechcollective.org/" target="_blank">Fair Tech Collective</a> at Drexel University in collaboration with the <a href="http://cmucreatelab.org/" target="_blank">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
+            <p>Air Watch is developed and maintained by the <a href="https://www.fairtechcollective.org/" target="_blank">Fair Tech Collective</a> at Drexel University in collaboration with the <a href="//cmucreatelab.org/" target="_blank">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
             <ul>
               <li>Benicia Good Neighbor Steering Committee</li>
               <li>
                 <a href="https://crockett-rodeo-united.com/" target="_blank">C.R.U.D.E. (Crockett-Rodeo United to Defend the Environment)</a>
               </li>
               <li>
-                <a href="http://laceen.org/" target="_blank">LACEEN</a>
+                <a href="//laceen.org/" target="_blank">LACEEN</a>
               </li>
               <li>
                 <a href="https://csi4health.wordpress.com/" target="_blank">Community Science Institute</a>
@@ -373,7 +373,7 @@
         </div>
       </div>
       <div class="row" id="fencelineInfo">
-        To view our source of real-time air quality data, please visit <a href="http://www.fenceline.org">fenceline.org</a>
+        To view our source of real-time air quality data, please visit <a href="//www.fenceline.org">fenceline.org</a>
       </div>
     </div><!-- The overlay -->
     <div class="overlay" id="myNav">
