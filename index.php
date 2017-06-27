@@ -2,6 +2,7 @@
 require 'cloudinary_src/Cloudinary.php';
 require 'cloudinary_src/Uploader.php';
 require 'cloudinary_src/Api.php';
+include 'cloudinary_settings.php';
 ?>
 
 <!DOCTYPE html>
@@ -91,6 +92,11 @@ require 'cloudinary_src/Api.php';
   </script>
   <script src="dashboard.js" type="text/javascript">
   </script>
+  <script src='jquery.min.js' type='text/javascript'></script>
+  <script src='jquery.ui.widget.js' type='text/javascript'></script>
+  <script src='jquery.iframe-transport.js' type='text/javascript'></script>
+  <script src='jquery.fileupload.js' type='text/javascript'></script>
+  <script src='jquery.cloudinary.js' type='text/javascript'></script>
 </head>
 <body>
   <nav class="navbar navbar-default custom-nav">
