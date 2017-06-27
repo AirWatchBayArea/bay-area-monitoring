@@ -1,10 +1,3 @@
-<?php
-require 'cloudinary_src/Cloudinary.php';
-require 'cloudinary_src/Uploader.php';
-require 'cloudinary_src/Api.php';
-include 'cloudinary_settings.php';
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,10 +85,16 @@ include 'cloudinary_settings.php';
   </script>
   <script src="dashboard.js" type="text/javascript">
   </script>
-  <script src='jquery.ui.widget.js' type='text/javascript'></script>
-  <script src='jquery.iframe-transport.js' type='text/javascript'></script>
-  <script src='jquery.fileupload.js' type='text/javascript'></script>
-  <script src='jquery.cloudinary.js' type='text/javascript'></script>
+  <script src='jquery.ui.widget.js' type='text/javascript'>
+  </script>
+  <script src='jquery.iframe-transport.js' type='text/javascript'>
+  </script>
+  <script src='jquery.fileupload.js' type='text/javascript'>
+  </script>
+  <script src='jquery.cloudinary.js' type='text/javascript'>
+  </script>
+  <script src='upload.js' type='text/javascript'>
+  </script>
 </head>
 <body>
   <nav class="navbar navbar-default custom-nav">
@@ -152,7 +151,16 @@ include 'cloudinary_settings.php';
        <br>
        <label class='location-label'>Current Location:<br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
        <br>
-       <label class='textarea-label'>Additional comments:<br><input type="text" id="additional-comments" name="additional-comments"></label>
+       <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
+       <br>
+       <label>Upload Photo:<br>
+        <input  class="upload_field" type="file" name="file" required>
+       </label>
+       <br>
+       <p class='progress_bar'></p>
+       <div class="thumbnails"></div>
+       <br>
+       <label class='textarea-label'>Describe what's happening in the photo:<br><input type="text" id="photo-description" name="photo-description"></label>
        <br>
        <input id="report-submit" class="report-button no-highlight" type="submit" >
     </form>
