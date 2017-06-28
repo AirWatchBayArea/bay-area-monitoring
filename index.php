@@ -131,7 +131,7 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <strong>How does your air smell right now?</strong>
+    <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
     <form id="report-form">
        <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
        <br>
@@ -149,20 +149,20 @@
        <br>
        <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
        <br>
-       <label class='location-label'>Current Location:<br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
+       <label class='location-label'>Current Location:<span style="color:red"> *</span><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
        <br>
        <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
        <br>
-       <label>Upload Photo:<br>
-        <input  class="upload_field" type="file" name="file" required>
+       <label>Upload Photo (optional):<br>
+        <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
        </label>
        <br>
-       <p class='progress_bar'></p>
+       <p class='num-file-status'></p>
+       <label class='textarea-label'>Describe what's happening in the photo(s):<br><input type="text" id="photo-description" name="photo-description"></label>
+       <br>
        <div class="thumbnails"></div>
-       <br>
-       <label class='textarea-label'>Describe what's happening in the photo:<br><input type="text" id="photo-description" name="photo-description"></label>
-       <br>
        <input id="report-submit" class="report-button no-highlight" type="submit" >
+       <p class='progress_bar'></p>
     </form>
     <div id="submit-success">
       <p>Your submissions was a sucess! Thank you for reporting.</p>

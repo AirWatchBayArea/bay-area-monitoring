@@ -1,4 +1,4 @@
-var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
+var serverURL = 'http://staging.api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 
 function openReportDialog(){
 	$("#reportDialog").dialog("open");
@@ -37,7 +37,6 @@ function serializeForm(geocodeResults){
 }
 
 function postData(data, successCallback){
-	console.log(data);
 	$.ajax({
 	  method: 'POST',
 	  url: serverURL,
@@ -46,9 +45,16 @@ function postData(data, successCallback){
 	  console.log("POST Result:", msg);
 	  if (typeof msg === 'string' || msg instanceof String) {
 	  	reportFailed("there was an error connecting to the server. Please try again later!")
-	  }else{
-	  	$('#report-submit').prop('disabled', true);
-		$('#submit-success').show();
+	  }else {
+	  	try {
+	  		submitImgs(msg);
+	  		$('#report-submit').prop('disabled', true);
+	  		$('#file-upload').prop('disabled', true);
+			$('#submit-success').show();
+	  	}catch(err){
+	  		reportFailed("there was an error uploading the photo(s). Please refresh and try again!");
+	  		console.log(err);
+	  	}
 	  }
 	});
 }
@@ -78,7 +84,12 @@ function reportFailed(reason){
 function resetReport(){
 	document.getElementById("report-form").reset();
   	$('#report-submit').prop('disabled', false);
+  	$('#file-upload').prop('disabled', false);
   	$('#submit-success').hide();
+  	$('.thumbnails').html('');
+  	$('.num-file-status').text('');
+  	$('.progress_bar').text('');
+  	$('#photo-description').parent().hide();
 }
 
 $(function() {
@@ -100,6 +111,7 @@ $(function() {
   });
 
   $('#reportDialog').on('dialogclose', resetReport);
+  resetReport()
 });
 
 

@@ -199,6 +199,39 @@ input[type=submit] {
 #submit-success a:link{color: #337ab7 !important;} 
 #submit-success a:visited{color: purple !important;} 
 
+.thumbnail-wrapper{
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  margin: 5px 0px;
+}
+
+.thumbnail-wrapper img{
+  min-height: 60px;
+}
+
+.delete-me{
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0px;
+  z-index: 100;
+  background: rgba(200,50,50,.5);
+  cursor: pointer;
+}
+
+.delete-me:hover{
+  background: rgba(200,50,50,.85);
+}
+
+.delete-me i{
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
 /*===============
  * No Highlight
  *===============*/
