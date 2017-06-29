@@ -11,6 +11,7 @@
   <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/css/community-resources.css" media="screen" rel="stylesheet" type="text/css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
@@ -118,6 +119,9 @@
         <li class="custom-nav-btn" id="report" onclick="openSummaryDialog()">
           <a class="text-uppercase custom-nav-link">Print Daily Summary</a>
         </li>
+        <li class="custom-nav-btn active" id="community-resources-tab">
+          <a class="text-uppercase custom-nav-link-active" href="#community-resources">Community Resources</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -131,6 +135,7 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
+    <p class="note">Note: Smell reports are not automatically forwarded to BAAQMD, however you can file a separate report <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">here</a>.</p>
     <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
     <form id="report-form">
        <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
@@ -158,9 +163,10 @@
        </label>
        <br>
        <p class='num-file-status'></p>
+       <div class="thumbnails"></div>
+       <label class='textarea-label'>Post Title:<br><input type="text" id="photo-title" name="photo-description"></label>
        <label class='textarea-label'>Describe what's happening in the photo(s):<br><input type="text" id="photo-description" name="photo-description"></label>
        <br>
-       <div class="thumbnails"></div>
        <input id="report-submit" class="report-button no-highlight" type="submit" >
        <p class='progress_bar'></p>
     </form>
@@ -172,7 +178,7 @@
     </div>
   </div>
 
-  <div class="landing" id="introduction-wrapper">
+  <div class="landing full-page" id="introduction-wrapper">
     <!-- <div class="carousel slide" data-ride="carousel" id="pics"> -->
       <!-- <ol class="carousel-indicators">
         <li class="active" data-slide-to="0" data-target="#pics"></li>
@@ -276,16 +282,23 @@
       </div>
     </div>
   </div>
+
+  <div class="full-page full-height" id="community-resources-page">
+    <div id="photos-container" class="resource-container">
+      <h2>User Submitted Photos:</h2>
+      <div id="posts"></div>
+    </div>
+
+  </div>
   
   <!-- <div id="dashboard-wrapper"> -->
     <div id="timelapse_parent" class="dashboard" style="height: 0px; display:none">
-      <div id="loading"><img alt="loading" height="250" id="loadingImg" src="assets/images/loading.gif" width="358"></div>
       <div id="tutorialDialog" title="A Tour for the Shenango Channel"></div>
       <div class="no-select" id="locationTitle"></div>
       <div class="timelapse_feed_embed" id="timelapse_feed">
         <div id="timeMachine" style=""></div>
       </div>
-      <div class="image_feed_embed no-select" id="image_feed">
+      <!-- <div class="image_feed_embed no-select" id="image_feed">
         <div class="image-zoom-wrapper image-zoom-wrapper-embed" id="stitched_image_wrapper">
           <div id="zoom-in" title="Zoom in">
             <p>+</p>
@@ -294,7 +307,7 @@
             <p>_</p>
           </div><img alt="Latest Stitch" class="image-zoom" id="stitched_image" src="#"> <span id="image_feed_timestamp">03/09/2015 03:16 PM</span>
         </div>
-      </div>
+      </div> -->
     </div><!-- end timelapse things -->
     <div class="container-fluid dashboard" style="height:calc(100% - 50px)">
       <button class="custom-button" id="help-btn" onclick="openNav()">Help</button>

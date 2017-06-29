@@ -89,6 +89,7 @@ function resetReport(){
   	$('.thumbnails').html('');
   	$('.num-file-status').text('');
   	$('.progress_bar').text('');
+  	$('#photo-title').parent().hide();
   	$('#photo-description').parent().hide();
 }
 

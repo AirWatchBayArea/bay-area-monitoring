@@ -848,11 +848,22 @@
     $(".active a").removeClass("custom-nav-link-active");
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
+    
     if(location){
+      $('.dashboard').show()
       $('#introduction-wrapper').hide();
+      $('#community-resources-page').hide();
       changeLocale(location, monitor);
+    }else if(hash[0] == "community-resources"){
+      $('.dashboard').hide()
+      $('#introduction-wrapper').hide();
+      $('#community-resources-page').show();
+      $("#community-resources-tab").addClass("active");
+      $("#community-resources-tab" + " a").addClass("custom-nav-link-active");
     }else{
+      $('.dashboard').hide()
       $('#introduction-wrapper').show();
+      $('#community-resources-page').hide();
       window.location.hash = "home";
       $("#intro").addClass("active");
       $("#intro" + " a").addClass("custom-nav-link-active");
@@ -886,19 +897,7 @@
     });
     grapherReady = true;
 
-    var location = hash[0].split("loc=")[1];
-    $(".active a").removeClass("custom-nav-link-active");
-    $(".active a").addClass("custom-nav-link");
-    $(".active").removeClass("active");
-    if(location){
-      $('#introduction-wrapper').hide();
-      initialize(fromShareLink, location, monitor);
-    }else{
-      $('#introduction-wrapper').show();
-      window.location.hash = "home";
-      $("#intro").addClass("active");
-      $("#intro" + " a").addClass("custom-nav-link-active");
-    }
+    processHash();
   };
 
   function createTutorialButton(buttonWidth, buttonHeight, appendingDiv) {

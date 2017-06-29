@@ -1,0 +1,48 @@
+.resource-container{
+	position: relative;
+	width: 90%;
+	margin: 10px 5%;
+	background-color: rgba(126,217,237,.43);
+	padding: 1px;
+}
+
+.resource-container h2{
+	padding: 10px;
+}
+
+.post{
+	position: relative;
+	width: 90%;
+	min-width: 300px;
+	margin: 20px 5%;
+	padding: 15px;
+	background-color: white;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.post .title{
+	display: inline-block;
+}
+
+.post .info {
+	display: inline-block;
+	color: gray;
+}
+
+.post .info:after{
+	content: "\B7";
+    color: #666;
+    margin: 0 5px;
+}
+
+.info.when:before{
+	content: "Submitted: ";
+}
+
+.info.lat:before{
+	content: "Lat: ";
+}
+
+.info.long:before{
+	content: "Lng: ";
+}
