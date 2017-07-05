@@ -1,18 +1,57 @@
-$.cloudinary.config({ cloud_name: 'hpkutahah', api_key: '439228982585447'})
+$.cloudinary.config({ cloud_name: 'hpkutahah' })
 
 var uploader;
+
+var progress = {
+	numUpload:0,
+	numComplete:0,
+	progress:0,
+	initialize: function(numUpload){
+		this.numUpload = numUpload;
+		this.progress = 0;
+		this.numComplete = 0;
+	},
+	uploadComplete: function(){
+		this.numComplete += 1;
+		this.progress = (this.numComplete*100.0)/this.numUpload;
+		if(this.numComplete >= this.numUpload){
+			this.progress = 100.0;
+			this.finallyFinished();
+		} 
+	},
+	updateProgress: function(loadedPercent){
+		if (this.numUpload == 1) {
+			this.progress = loadedPercent;
+		}else if(this.numComplete >= this.numUpload || this.progress >= 100.0){
+			this.progress = 100.0;
+		}else{
+			this.progress += 1;
+		}
+		
+	},
+	getProgress: function(){
+		return this.progress;
+	},
+	showProgress: function(){
+		var percent = Math.round(this.progress);
+	  	$('.progress_bar').css('width', percent + '%');
+	  	$('.progress_wrapper .progress_text').text(percent + '%');
+	},
+	finallyFinished: submissionSuccess,
+}
 
 function uploadInit(){
 
 	uploader = $('.upload_field').unsigned_cloudinary_upload("u87zingl", 
-	  { cloud_name: 'hpkutahah', tags: 'browser_uploads'}, 
-	  { multiple: true, autoUpload: false, replaceFileInput: true}
+	  { cloud_name: 'hpkutahah', tags: 'browser_uploads', context: ''}, 
+	  { multiple: true, autoUpload: false, replaceFileInput: false}
 	).bind('cloudinarydone', function(e, data) {
-	  console.log('Upload to cloudinary complete')
+	  console.log('Upload to cloudinary complete');
+	  progress.uploadComplete();
+	  progress.showProgress();
 	}).bind('cloudinaryprogress', function(e, data) { 
-
-	  $('.progress_bar').text('Upload Progress: ' +  
-	    Math.round((data.loaded * 100.0) / data.total) + '%'); 
+		progress.updateProgress((data.loaded * 100.0) / data.total);
+		progress.showProgress();
 	});
 
 	uploader.bind('fileuploadadd', function (e, data) {
@@ -25,71 +64,55 @@ function uploadInit(){
 			$(event.currentTarget).parent().remove();
 			$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 			if($('.thumbnails img').length){
-				$('#photo-title').parent().show();
-				$('#photo-description').parent().show();
+				$('.photo-upload').show();
+				$('.photo-upload').children('input').prop('required', true);
 			}else{
-				$('#photo-title').parent().hide();
-				$('#photo-description').parent().hide();
+				$('.photo-upload').hide();
+				$('.photo-upload').children('input').prop('required', false);
 			}
 		});
 		thumbnail.prepend(img);
 		$('.thumbnails').append(thumbnail);
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
-		$('#photo-title').parent().show();
-		$('#photo-description').parent().show();
+		$('.photo-upload').show();
+		$('.photo-upload').children('input').prop('required', true);
+		$('#file-upload').val('');
 	});
 }
 
+function convertToPipeDelimited(metadata){
+  	var data = [];
+	for(var key in metadata){
+		data.push(encodeURIComponent(key)+'='+encodeURIComponent(metadata[key]))
+	}
+  	return data.join("|");
+}
 
+function disableImageDelete(){
+	$('.delete-me').hide();
+	$('#file-upload').prop('disabled', true);
+}
+
+function enableImageDelete(){
+	$('.delete-me').show();
+	$('#file-upload').prop('disabled', false);
+}
 
 function submitImgs(metadata){
-	var img2upload = $('.thumbnails img')
-	$(img2upload).each(function(index, elm){
-		$(elm).data('img').submit();
-	});
-}
-
-function getSmellColor(smellVal){
-	switch(parseInt(smellVal)){
-		case 1: 
-			return "lime";
-		break;
-		case 2: 
-			return "yellow";
-		break;
-		case 3: 
-			return "orange";
-		break;
-		case 4: 
-			return "crimson";
-		break;
-		case 5: 
-			return "rebeccapurple";
-		break;
-		default:
-			return "gray";
+	disableImageDelete();
+	if(!($.isEmptyObject(metadata))){
+		uploader.fileupload('option', 'formData').context = convertToPipeDelimited(metadata);
 	}
-}
-
-function escapeHTML(text){
-	return $("<div>").text(text).html()
-}
-
-function generatePost(data){
-	var post = [
-		'<div class="post">',
-        	'<div class="smell-box" style="background-color: ',
-        	(data['smell-val']) ? getSmellColor(escapeHTML(data['smell-val'])) : 'gray',
-        	'"></div>',
-        	'<h3 class="title">',(data['title']) ? escapeHTML(data['title']) : '(No Title)','</h3><br>',
-        	'<p class="info when">',(data['time']) ? escapeHTML(data['time']) : '?','</p>',
-        	'<p class="info lat">',(data['lat']) ? escapeHTML(data['lat']) : '?','</p>',
-        	'<p class="info long">',(data['lng']) ? escapeHTML(data['lng']) : '?','</p>',
-        	'<img src="',(data['src']) ? encodeURI(data['src']) : '/','" width="100%">',
-        	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
-      	'</div>',
-	];
-	$('#posts').append(post.join(""));
+	var img2upload = $('.thumbnails img');
+	progress.initialize(img2upload.length);
+	if(img2upload.length){
+		$(img2upload).each(function(index, elm){
+			$(elm).data('img').submit();
+		});
+	}else{
+		submissionSuccess();
+	}
+	
 }
 
 $(uploadInit);

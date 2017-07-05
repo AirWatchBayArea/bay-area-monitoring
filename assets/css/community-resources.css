@@ -6,13 +6,19 @@
 	padding: 1px;
 }
 
-.resource-container h2{
+.resource-container h2 {
 	padding: 10px;
+}
+
+#photos-container{
+	max-height: 80%;
+	overflow: auto;
 }
 
 .post{
 	position: relative;
 	width: 90%;
+	max-width: 500px;
 	min-width: 300px;
 	margin: 20px 5%;
 	padding: 15px;
@@ -35,8 +41,12 @@
     margin: 0 5px;
 }
 
+.post .info.long:after{
+	content: "" !important;
+}
+
 .info.when:before{
-	content: "Submitted: ";
+	content: "When: ";
 }
 
 .info.lat:before{

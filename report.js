@@ -36,6 +36,19 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
+function submissionSuccess(){
+	if($('#reportDialog').dialog('isOpen')){
+		disableSubmit();
+		$('#submit-success').show();
+	}
+	refreshPosts();
+}
+
+function disableSubmit(){
+	$('#report-submit').prop('disabled', true);
+	$('#file-upload').prop('disabled', true);
+}
+
 function postData(data, successCallback){
 	$.ajax({
 	  method: 'POST',
@@ -47,11 +60,13 @@ function postData(data, successCallback){
 	  	reportFailed("there was an error connecting to the server. Please try again later!")
 	  }else {
 	  	try {
-	  		submitImgs(msg);
-	  		$('#report-submit').prop('disabled', true);
-	  		$('#file-upload').prop('disabled', true);
-			$('#submit-success').show();
-	  	}catch(err){
+	  		submitImgs({
+	  			'smell_report':JSON.stringify(msg),
+	  			'alt':$('#photo-title').val(), 
+	  			'caption':$('#photo-description').val(),
+	  			'when':$('#photo-date').val()
+	  		});	
+		}catch(err){
 	  		reportFailed("there was an error uploading the photo(s). Please refresh and try again!");
 	  		console.log(err);
 	  	}
@@ -81,6 +96,12 @@ function reportFailed(reason){
 	alert('Smell report failed because ' + reason);
 }
 
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,-8);
+});
+
 function resetReport(){
 	document.getElementById("report-form").reset();
   	$('#report-submit').prop('disabled', false);
@@ -88,9 +109,9 @@ function resetReport(){
   	$('#submit-success').hide();
   	$('.thumbnails').html('');
   	$('.num-file-status').text('');
-  	$('.progress_bar').text('');
-  	$('#photo-title').parent().hide();
-  	$('#photo-description').parent().hide();
+  	$('.photo-upload').hide();
+  	$('.photo-upload').children('input').prop('required', false);
+  	$('#photo-date').val(new Date().toDateInputValue());
 }
 
 $(function() {
@@ -102,6 +123,7 @@ $(function() {
   var geocoder = new google.maps.Geocoder();
   $('#report-form').submit(function(event){
 		 event.preventDefault();
+		 disableSubmit();
 		 geocodeAddress(geocoder, serializeForm);
 	});
 

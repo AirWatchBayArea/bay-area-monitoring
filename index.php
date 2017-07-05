@@ -96,6 +96,10 @@
   </script>
   <script src='upload.js' type='text/javascript'>
   </script>
+  <script src='dateFormat.js' type='text/javascript'>
+  </script>
+  <script src='community-resources.js' type='text/javascript'>
+  </script>
 </head>
 <body>
   <nav class="navbar navbar-default custom-nav">
@@ -158,17 +162,18 @@
        <br>
        <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
        <br>
-       <label>Upload Photo (optional):<br>
+       <label>Upload Photo(s) (optional):<br></label>
         <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
-       </label>
        <br>
        <p class='num-file-status'></p>
        <div class="thumbnails"></div>
-       <label class='textarea-label'>Post Title:<br><input type="text" id="photo-title" name="photo-description"></label>
-       <label class='textarea-label'>Describe what's happening in the photo(s):<br><input type="text" id="photo-description" name="photo-description"></label>
-       <br>
+       <label class='textarea-label photo-upload'>Post Title:<span style="color:red"> *</span><br><input type="text" id="photo-title" name="photo-title"></label>
+       <label class='textarea-label photo-upload'>Describe what's happening in the photo(s):<span style="color:red"> *</span><br><input type="text" id="photo-description" name="photo-description"><br></label>
+       <label class='textarea-label photo-upload'>When did this photo occur?<span style="color:red"> *</span><br><input type="datetime-local" id="photo-date" name="photo-date"></label>
        <input id="report-submit" class="report-button no-highlight" type="submit" >
-       <p class='progress_bar'></p>
+       <div class="progress_wrapper photo-upload">
+        <div class="progress_bar"><div class="progress_text"></div></div>
+       </div>
     </form>
     <div id="submit-success">
       <p>Your submissions was a sucess! Thank you for reporting.</p>
