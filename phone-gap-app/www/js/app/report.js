@@ -1,4 +1,4 @@
-var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
+var serverURL = 'http://staging.api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 
 function makeid(length){
     var text = "";
