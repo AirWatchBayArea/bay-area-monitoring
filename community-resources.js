@@ -15,6 +15,7 @@ function getTagList(tag){
 	return new Promise(function(resolve, reject){
 	    $.ajax({
 	    url: makeListURL(tag),
+	    // headers: { 'Access-Control-Allow-Origin': 'http://air-watch-bay-area-backend.herokuapp.com' },
 	    success: function(json) {
 	    	responseList = json;
 	      	resolve(json);
@@ -54,6 +55,7 @@ function generatePostFromResource(resource){
 		postData['alt']=decodeURIComponent(context['alt']);
 		postData['caption']=decodeURIComponent(context['caption']);
 		postData['when']=formatDate(decodeURIComponent(context['when']));
+		postData['additional_comments']=decodeURIComponent(context['additional_comments'] ? context['additional_comments'] : "");
 	}
 	
 	generatePostHTML(postData);
@@ -97,6 +99,7 @@ function generatePostHTML(data){
         	'<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
         	'<img src="',(data['src']) ? encodeURI(data['src']) : '/','" width="100%">',
         	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
+      		(data['additional_comments']) ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
       	'</div>',
 	].join(""));
 }

@@ -11,8 +11,8 @@
 }
 
 #photos-container{
-	max-height: 80%;
-	overflow: auto;
+	/*max-height: 90%;*/
+	/*overflow: auto;*/
 }
 
 .post{
@@ -41,7 +41,7 @@
     margin: 0 5px;
 }
 
-.post .info.long:after{
+.post .info.long:after, .post .info.additional_comments:after{
 	content: "" !important;
 }
 

@@ -65,17 +65,14 @@ function uploadInit(){
 			$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 			if($('.thumbnails img').length){
 				$('.photo-upload').show();
-				$('.photo-upload').children('input').prop('required', true);
 			}else{
 				$('.photo-upload').hide();
-				$('.photo-upload').children('input').prop('required', false);
 			}
 		});
 		thumbnail.prepend(img);
 		$('.thumbnails').append(thumbnail);
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 		$('.photo-upload').show();
-		$('.photo-upload').children('input').prop('required', true);
 		$('#file-upload').val('');
 	});
 }

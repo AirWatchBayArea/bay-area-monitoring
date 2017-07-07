@@ -62,9 +62,10 @@ function postData(data, successCallback){
 	  	try {
 	  		submitImgs({
 	  			'smell_report':JSON.stringify(msg),
-	  			'alt':$('#photo-title').val(), 
+	  			'alt':msg['smell_description'], 
 	  			'caption':$('#photo-description').val(),
-	  			'when':$('#photo-date').val()
+	  			'when':$('#photo-date').val(),
+	  			'additional_comments':msg['additional_comments']
 	  		});	
 		}catch(err){
 	  		reportFailed("there was an error uploading the photo(s). Please refresh and try again!");
@@ -110,7 +111,6 @@ function resetReport(){
   	$('.thumbnails').html('');
   	$('.num-file-status').text('');
   	$('.photo-upload').hide();
-  	$('.photo-upload').children('input').prop('required', false);
   	$('#photo-date').val(new Date().toDateInputValue());
 }
 

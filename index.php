@@ -167,19 +167,18 @@
        <br>
        <p class='num-file-status'></p>
        <div class="thumbnails"></div>
-       <label class='textarea-label photo-upload'>Post Title:<span style="color:red"> *</span><br><input type="text" id="photo-title" name="photo-title"></label>
-       <label class='textarea-label photo-upload'>Describe what's happening in the photo(s):<span style="color:red"> *</span><br><input type="text" id="photo-description" name="photo-description"><br></label>
-       <label class='textarea-label photo-upload'>When did this photo occur?<span style="color:red"> *</span><br><input type="datetime-local" id="photo-date" name="photo-date"></label>
+       <label class='textarea-label photo-upload'>Caption:<br><input type="text" id="photo-description" name="photo-description"><br></label>
+       <label class='textarea-label photo-upload'>When did this photo occur?<br><input type="datetime-local" id="photo-date" name="photo-date"></label>
        <input id="report-submit" class="report-button no-highlight" type="submit" >
        <div class="progress_wrapper photo-upload">
         <div class="progress_bar"><div class="progress_text"></div></div>
        </div>
     </form>
     <div id="submit-success">
-      <p>Your submissions was a sucess! Thank you for reporting.</p>
+      <p>Your submission was a sucess! Thank you for reporting.</p>
        <p><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">Click here to make a report to the BAAQMD.</a></p>
+      <a href="#community-resources"><div id="close-report" class="report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
-      <div id="close-report" class="report-button no-highlight">close</div>
     </div>
   </div>
 
