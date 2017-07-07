@@ -1,0 +1,213 @@
+.app {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.page {
+/*  background: #ffffff;
+  padding: 10px 20px;
+  height: 100%;
+  display: none;
+  position: relative;*/
+}
+.page.current-page {
+  display: block;
+}
+
+button.custom-button {
+  text-transform: uppercase;
+  color: white !important;
+  border: none;
+  box-shadow: 3px 3px #872a2a;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #872a2a !important;
+}
+
+button:active {
+  background-color: #872a2a;
+  box-shadow: 0 0 #872a2a !important;
+  transform: translateY(2px) translateX(2px);
+}
+
+#summaryDialog {
+  background-color: #eceff1;
+  width: 200px;
+  text-align: center;
+}
+
+#summaryDialog a {
+  text-decoration: underline;
+}
+
+#report-form>input, #report-form>label{
+  margin: 3px 0px;
+}
+
+.smell-label{
+  font-weight: normal;
+}
+
+input[name="smell"]{
+  display: none;
+}
+
+input[name="smell"]:checked+.smell-box{
+  border: 3px solid black;
+}
+
+input[value="1"]+.smell-box{
+  background-color: lime;
+}
+
+input[value="2"]+.smell-box{
+  background-color: yellow;
+}
+
+input[value="3"]+.smell-box{
+  background-color: orange;
+}
+
+input[value="4"]+.smell-box{
+  background-color: crimson;
+}
+
+input[value="5"]+.smell-box{
+  background-color: rebeccapurple;
+}
+
+.smell-box{
+  position: relative;
+  display: inline-block;
+  margin-right: 3px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+.location-label, .textarea-label, .textarea-label>input{
+  width: 100%;
+}
+
+.smell-label, .textarea-label>input, .location-label>input{
+  font-weight: normal;
+}
+
+.location-label>input[type=button] {
+  font-size: .8em;
+  margin-left: 10px;
+}
+
+.location-label>input[type=text]{
+  width: 100%;
+}
+
+.report-button { 
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: #085b64;
+  color: white;
+  text-align: center;
+  font-size: 18px;
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  cursor: pointer;
+}
+
+.report-button:hover{
+  background-color: rgb(50,50,50);
+}
+
+.report-button:active{
+  background-color: rgb(90,90,90);
+}
+
+.report-button:disabled{
+  opacity: .5;
+  background-color: black;
+}
+
+input[type=submit] {
+  border: none;
+  font-size: 1em;
+}
+
+#submit-success{
+  display: none;
+}
+
+#report-form a:link{color: #337ab7 !important;} 
+#report-form a:visited{color: purple !important;} 
+
+.thumbnail-wrapper{
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  margin: 5px 0px;
+}
+
+.thumbnail-wrapper img{
+  min-height: 60px;
+}
+
+.delete-me{
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0px;
+  z-index: 100;
+  background: rgba(200,50,50,.5);
+  cursor: pointer;
+}
+
+.delete-me:hover{
+  background: rgba(200,50,50,.85);
+}
+
+.delete-me i{
+  position: absolute;
+  color: white;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.progress_wrapper {
+  display: block;
+  margin: 5px 0;
+  border: 1px;
+  width: 100%;
+  height: 20px;
+  background-color: grey;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+}
+
+.progress_bar {
+  width: 0px;
+  height: 20px;
+  background-color: #085b64;
+  text-align: center;
+  line-height: 21px;
+  border-radius: 5px;
+  font-size: 15px;
+  transition: width .2s;
+}
+
+
+/*===============
+ * No Highlight
+ *===============*/
+
+.no-highlight {
+  -webkit-user-select: none;  /* Chrome all / Safari all */
+  -moz-user-select: none;     /* Firefox all */
+  -ms-user-select: none;      /* IE 10+ */
+  user-select: none;          /* Likely future */      
+}
