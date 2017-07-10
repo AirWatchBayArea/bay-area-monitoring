@@ -4,6 +4,10 @@ html, body {
   font-family: 'Lato', sans-serif !important;
 }
 
+.underline{
+  text-decoration: underline;
+}
+
 .full-page{
   position: absolute;
   width: 100%;
@@ -99,6 +103,21 @@ button:active {
 
 #summaryDialog a {
   text-decoration: underline;
+}
+
+.note{
+  padding: 5px;
+  background-color: white;
+  border: 3px solid darkgray;
+  border-radius: 8px;
+}
+
+.success.note{
+  padding: 5px;
+/*  color: #4F8A10;
+*/  background-color: #DFF2BF;
+  border: 3px solid #4F8A10;
+  border-radius: 8px;
 }
 
 #report-form>input, #report-form>label{

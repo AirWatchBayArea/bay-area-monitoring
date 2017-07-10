@@ -129,7 +129,7 @@ $(function() {
 
   $('#submit-another-report').click(resetReport);
 
-  $('#close-report').click(function(event){
+  $('.close-report').click(function(event){
   	$("#reportDialog").dialog('close');
   });
 

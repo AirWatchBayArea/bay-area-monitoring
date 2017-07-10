@@ -7,6 +7,16 @@
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
+  <!-- Google Analytics -->
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-102327241-1', 'auto');
+  ga('send', 'pageview');
+  </script>
+  <!-- End Google Analytics -->
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
 
@@ -139,18 +149,18 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <p class="note">Note: Smell reports are not automatically forwarded to BAAQMD, however you can file a separate report <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">here</a>.</p>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper trail” of incidents.</a> Having this paper trail enables citizens to hold BAAQMD accountable for acting on persistent problems.</p>
     <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
     <form id="report-form">
-       <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
+       <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 - Just Fine!</label>
        <br>
-       <label class="smell-label"><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
+       <label class="smell-label"><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 - Barely noticeable</label>
        <br>
-       <label class="smell-label"><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
+       <label class="smell-label"><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 - Definitely noticeable</label>
        <br>
-       <label class="smell-label"><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
+       <label class="smell-label"><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 - It's getting pretty bad</label>
         <br>
-       <label class="smell-label"><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
+       <label class="smell-label"><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 - About as bad as it gets!</label>
        <br>
        <label class='textarea-label'>Describe the smell or source of odor<br>
          <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
@@ -169,15 +179,18 @@
        <div class="thumbnails"></div>
        <label class='textarea-label photo-upload'>Caption:<br><input type="text" id="photo-description" name="photo-description"><br></label>
        <label class='textarea-label photo-upload'>When did this photo occur?<br><input type="datetime-local" id="photo-date" name="photo-date"></label>
+       
        <input id="report-submit" class="report-button no-highlight" type="submit" >
+      
        <div class="progress_wrapper photo-upload">
         <div class="progress_bar"><div class="progress_text"></div></div>
        </div>
+       <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).
+       <br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD.</a></p>
     </form>
     <div id="submit-success">
-      <p>Your submission was a sucess! Thank you for reporting.</p>
-       <p><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">Click here to make a report to the BAAQMD.</a></p>
-      <a href="#community-resources"><div id="close-report" class="report-button no-highlight">view submission</div></a>
+      <p class="success note">Your submission was a sucess! Thank you for reporting.</p>
+      <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
   </div>
