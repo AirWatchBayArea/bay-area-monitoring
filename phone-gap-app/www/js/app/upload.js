@@ -56,10 +56,11 @@ function uploadInit(){
 
 	uploader.bind('fileuploadadd', function (e, data) {
 		var img = document.createElement("IMG"); 
+		console.log(URL.createObjectURL(data.files[0]));
 		img.setAttribute("src", URL.createObjectURL(data.files[0])); 
 		img.setAttribute("width", '100%');
 		$.data(img, "img", data);
-		var thumbnail = $('<div class="thumbnail-wrapper"><div class="delete-me"><i class="glyphicon glyphicon-trash"></i></div>');
+		var thumbnail = $('<div class="thumbnail-wrapper"><div class="delete-me"></div>');
 		$(thumbnail).children('.delete-me').click(function(event){
 			$(event.currentTarget).parent().remove();
 			$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');

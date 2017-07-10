@@ -4,13 +4,14 @@
   bottom: 0;
   left: 0;
   right: 0;
+  /*background-color: rgba(230,230,230,.8);*/
+
 }
 .page {
-/*  background: #ffffff;
-  padding: 10px 20px;
-  height: 100%;
-  display: none;
-  position: relative;*/
+  width: 100%;
+  margin: 0;
+  padding: 0;
+
 }
 .page.current-page {
   display: block;
@@ -34,59 +35,80 @@ button:active {
   transform: translateY(2px) translateX(2px);
 }
 
-#summaryDialog {
-  background-color: #eceff1;
-  width: 200px;
-  text-align: center;
+.glyphicon {
+  color: white;
+  height: 100%;
+
 }
 
-#summaryDialog a {
-  text-decoration: underline;
+#report-form{
+  padding: 10px 10px;
 }
 
-#report-form>input, #report-form>label{
-  margin: 3px 0px;
+.note{
+  padding: 5px;
+  background-color: white;
+  border: 3px solid darkgray;
+  border-radius: 8px;
+}
+
+#report-form>label{
+  display: block;
+  margin: 10px 0px;
 }
 
 .smell-label{
+  position: relative;
+  display: inline-block;
+  width: 230px;
+  padding: 15px 5px;
   font-weight: normal;
+  border: solid 3px darkgray;
+  border-radius: 10px;
+  transition: background-color .2s;
 }
+
+.smell-label span{
+  margin-left: 30px;
+}
+
+.smell-box{
+  position: absolute;
+  margin-right: 10px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
 
 input[name="smell"]{
   display: none;
 }
 
-input[name="smell"]:checked+.smell-box{
-  border: 3px solid black;
+input[name="smell"]:checked+.smell-label{
+  background-color: gray;
+  border-color: darkgray;
+  color: white;
 }
 
-input[value="1"]+.smell-box{
+input[value="1"]+.smell-label>.smell-box{
   background-color: lime;
 }
 
-input[value="2"]+.smell-box{
+input[value="2"]+.smell-label>.smell-box{
   background-color: yellow;
 }
 
-input[value="3"]+.smell-box{
+input[value="3"]+.smell-label>.smell-box{
   background-color: orange;
 }
 
-input[value="4"]+.smell-box{
+input[value="4"]+.smell-label>.smell-box{
   background-color: crimson;
 }
 
-input[value="5"]+.smell-box{
+input[value="5"]+.smell-label>.smell-box{
   background-color: rebeccapurple;
-}
-
-.smell-box{
-  position: relative;
-  display: inline-block;
-  margin-right: 3px;
-  height: 20px;
-  width: 20px;
-  border-radius: 50%;
 }
 
 .location-label, .textarea-label, .textarea-label>input{
@@ -174,6 +196,10 @@ input[type=submit] {
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+}
+
+.upload_field {
+  -webkit-appearance: button !important;
 }
 
 .progress_wrapper {

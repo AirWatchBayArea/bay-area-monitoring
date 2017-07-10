@@ -6,10 +6,9 @@
     <meta name="format-detection" content="telephone=no" />
     <meta name="msapplication-tap-highlight" content="no" />
     <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
-    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />\
-
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline' http://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css; media-src *; img-src blob: filesystem: 'self';" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/style.css" />
-
     <title>Air Watch Bay Area</title>
 </head>
 
@@ -17,41 +16,70 @@
     <div class="app">
         <div class="page" id="main">
             <form id="report-form">
-               <label class="smell-label"><input type="radio" name="smell" value="1" checked><div class="smell-box"></div>1 Just Fine!</label>
-               <br>
-               <label class="smell-label"><input type="radio" name="smell" id="r2" value="2"><div class="smell-box"></div>2 Barely noticeable</label>
-               <br>
-               <label class="smell-label"><input type="radio" name="smell" value="3"><div class="smell-box"></div>3 Definitely noticeable</label>
-               <br>
-               <label class="smell-label"><input type="radio" name="smell" value="4"><div class="smell-box"></div>4 It's getting pretty bad</label>
-                <br>
-               <label class="smell-label"><input type="radio" name="smell" value="5"><div class="smell-box"></div>5 About as bad as it gets!</label>
-               <br>
-               <label class='textarea-label'>Describe the smell or source of odor<br>
+              <p class="note"><em>Note:</em> When you report to Air Watch Bay Area, you contribute to a publicly visible “paper trail” of incidents. [link that to the blog-like page]  Having this paper trail enables citizens to hold BAAQMD accountable for acting on persistent problems.</p>
+              <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
+               <label>
+               <input type="radio" name="smell" value="1" checked>
+               <div class="smell-label">
+                <div class="smell-box"></div>
+                <span>1 - Just Fine!</span></div></label>
+
+               <label>
+               <input type="radio" name="smell" value="2">
+               <div class="smell-label">
+               <div class="smell-box"></div>
+               <span>2 - Barely noticeable</span></div></label>
+
+               <label>
+               <input type="radio" name="smell" value="3">
+               <div class="smell-label">
+               <div class="smell-box"></div>
+               <span>3 - Definitely noticeable</span></div></label>
+
+               <label>
+               <input type="radio" name="smell" value="4">
+               <div class="smell-label">
+               <div class="smell-box"></div>
+               <span>4 - It's getting pretty bad</span></div></label>
+
+               <label>
+               <input type="radio" name="smell" value="5">
+               <div class="smell-label">
+               <div class="smell-box"></div>
+               <span>5 - About as bad as it gets!</span></div></label>
+
+               <label class='textarea-label'><strong>Describe the smell or source of odor</strong><br>
                  <input type="text" name="describe-air" placeholder="e.g. industrial, woodsmoke, rotten-eggs">
                </label>
-               <br>
-               <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
-               <br>
-               <label class='location-label'>Current Location:<span style="color:red"> *</span><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
-               <br>
-               <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
-               <br>
-               <label>Upload Photo(s) (optional):<br></label>
+
+               <label class='textarea-label'><strong>Any symptoms linked to odor?</strong><br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation">
+               </label>
+
+               <label class='location-label'><strong>Current Location:</strong><span style="color:red"> *</span><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
+               </label>
+
+               <label class='textarea-label'><strong>Additional comments on smell:</strong><br><input type="text" id="additional-comments" name="additional-comments">
+               </label>
+
+               <label><strong>Upload Photo(s) (optional):</strong><br></label>
                 <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
-               <br>
                <p class='num-file-status'></p>
                <div class="thumbnails"></div>
-               <label class='textarea-label photo-upload'>Caption:<br><input type="text" id="photo-description" name="photo-description"><br></label>
-               <label class='textarea-label photo-upload'>When did this photo occur?<br><input type="datetime-local" id="photo-date" name="photo-date"></label>
+               
+               <label class='textarea-label photo-upload'><strong>Caption:</strong><br><input type="text" id="photo-description" name="photo-description"><br></label>
+               
+               <label class='textarea-label photo-upload'><strong>When did this photo occur?</strong><br><input type="datetime-local" id="photo-date" name="photo-date"></label>
+               
                <input id="report-submit" class="report-button no-highlight" type="submit" >
+               <p>This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their website. (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them.)</p>
+               
                <div class="progress_wrapper photo-upload">
                 <div class="progress_bar"><div class="progress_text"></div></div>
                </div>
             </form>
             <div id="submit-success">
               <p>Your submission was a sucess! Thank you for reporting.</p>
-               <p><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">Click here to make a report to the BAAQMD.</a></p>
+              <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank"><br>Click here to make a report to the BAAQMD.</a>
               <a href="#community-resources"><div id="close-report" class="report-button no-highlight">view submission</div></a>
               <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
             </div>
@@ -68,6 +96,7 @@
     <script type='text/javascript' src='js/jquery/jquery.iframe-transport.js'></script>
     <script type='text/javascript' src='js/jquery/jquery.fileupload.js'></script>
     <script type='text/javascript' src='js/jquery/jquery.cloudinary.js'></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/app/md5.js"></script>
     <script type="text/javascript" src="js/app/report.js"></script>
     <script type="text/javascript" src="js/app/upload.js"></script>
