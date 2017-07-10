@@ -1,6 +1,6 @@
 "use strict";
 
-var PROJ_ROOT_URL = "http://airwatchbayarea.org"
+var PROJ_ROOT_URL = "http://www.airwatchbayarea.org"
 var carouselInterval;
 
 //get json of new posts from server
