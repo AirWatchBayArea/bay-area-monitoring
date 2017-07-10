@@ -20,7 +20,7 @@
   var currentLocation = "shenango1";
   var currentDate;
   var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
-  var PROJ_ROOT_URL = 'http://airwatchbayarea.org';
+  var PROJ_ROOT_URL = 'http://www.airwatchbayarea.org';
   var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
   var fixedCursorPosition;
   var grapherReady = false;
