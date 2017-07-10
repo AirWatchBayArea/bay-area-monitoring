@@ -1,4 +1,4 @@
-var rootCloudinaryListUrl = "http://res.cloudinary.com/hpkutahah/image/list/";
+var rootCloudinaryListUrl = "http://www.res.cloudinary.com/hpkutahah/image/list/";
 var rootCloudianrtFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/";
 
 var responseList;
