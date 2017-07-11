@@ -93,7 +93,7 @@ function generatePostHTML(data){
         	'<div class="smell-box" style="background-color: ',
         	(data['smell_value']) ? getSmellColor(escapeHTML(data['smell_value'])) : 'gray',
         	'"></div>',
-        	'<h3 class="title">',(data['alt']) ? escapeHTML(data['alt']) : '(No Title)','</h3><br>',
+        	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Title)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
         	'<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	'<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',

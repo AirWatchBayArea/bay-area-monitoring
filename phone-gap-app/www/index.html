@@ -16,7 +16,7 @@
     <div class="app">
         <div class="page" id="main">
             <form id="report-form">
-              <p class="note"><em>Note:</em> When you report to Air Watch Bay Area, you contribute to a publicly visible “paper trail” of incidents. [link that to the blog-like page]  Having this paper trail enables citizens to hold BAAQMD accountable for acting on persistent problems.</p>
+               <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper trail” of incidents.</a> Having this paper trail enables citizens to hold BAAQMD accountable for acting on persistent problems.</p>
               <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
                <label>
                <input type="radio" name="smell" value="1" checked>
@@ -71,12 +71,13 @@
                <label class='textarea-label photo-upload'><strong>When did this photo occur?</strong><br><input type="datetime-local" id="photo-date" name="photo-date"></label>
                
                <input id="report-submit" class="report-button no-highlight" type="submit" >
-               <p>This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their website. (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them.)</p>
-               
                <div class="progress_wrapper photo-upload">
                 <div class="progress_bar"><div class="progress_text"></div></div>
                </div>
+               <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their website. (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them.)
+               <br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD.</a></p>
             </form>
+
             <div id="submit-success">
               <p>Your submission was a sucess! Thank you for reporting.</p>
               <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank"><br>Click here to make a report to the BAAQMD.</a>
