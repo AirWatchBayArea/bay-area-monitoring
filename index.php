@@ -152,7 +152,7 @@
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
-        <strong>How does your air smell right now? <span style="color:red">(required)</span></strong>
+        <strong class="required">How does your air smell right now?</strong>
       </label>
       <label>
         <input type="radio" name="smell" value="1" checked>
@@ -186,7 +186,7 @@
       </label>
 
       <label class='location-label'>
-        <strong>Where were you when you detected the odor? <span style="color:red">(required)</span></strong><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
+        <strong class="required">Where were you when you detected the odor?</strong><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
       </label>
 
       <label class='textarea-label'>

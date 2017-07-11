@@ -127,8 +127,13 @@ button:active {
   margin: 10px 0px;
 }
 
-#report-form>label>strong{
+strong.required{
   font-size: 18px;
+}
+
+strong.required:after{
+  content: ' (required)';
+  color: red;
 }
 
 .smell-label{
