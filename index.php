@@ -184,12 +184,9 @@
       <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
        
      <label class='location-label'>Current Location:<span style="color:red"> *</span><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
-     <br>
      <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
-     <br>
      <label>Upload Photo(s) (optional):<br></label>
       <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
-     <br>
      <p class='num-file-status'></p>
      <div class="thumbnails"></div>
      <label class='textarea-label photo-upload'>Caption:<br><input type="text" id="photo-description" name="photo-description"><br></label>

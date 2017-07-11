@@ -45,6 +45,11 @@ button:active {
   padding: 10px 10px;
 }
 
+.success.note{
+  border: 3px solid #4F8A10;
+  background-color: #DFF2BF;
+}
+
 .note{
   padding: 5px;
   background-color: white;

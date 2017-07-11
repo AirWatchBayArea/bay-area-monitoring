@@ -105,11 +105,17 @@ button:active {
   text-decoration: underline;
 }
 
+.success.note{
+  border: 3px solid #4F8A10;
+  background-color: #DFF2BF;
+}
+
 .note{
   padding: 5px;
   background-color: white;
   border: 3px solid darkgray;
   border-radius: 8px;
+  margin: 10px 0px;
 }
 
 #report-form>label{
