@@ -149,46 +149,56 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper trail” of incidents.</a> Having this paper trail enables citizens to hold BAAQMD accountable for acting on persistent problems.</p>
-    <strong>How does your air smell right now?<span style="color:red"> *</span></strong>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <strong>How does your air smell right now? (required)</strong>
     <form id="report-form">
       <label>
       <input type="radio" name="smell" value="1" checked>
       <div class="smell-label">
       <div class="smell-box"></div>
       <span>1 - Just Fine!</span></div></label>
-
+      <br>
       <label>
       <input type="radio" name="smell" value="2">
       <div class="smell-label">
       <div class="smell-box"></div>
       <span>2 - Barely noticeable</span></div></label>
-
+      <br>
       <label>
       <input type="radio" name="smell" value="3">
       <div class="smell-label">
       <div class="smell-box"></div>
       <span>3 - Definitely noticeable</span></div></label>
-
+      <br>
       <label>
       <input type="radio" name="smell" value="4">
       <div class="smell-label">
       <div class="smell-box"></div>
       <span>4 - It's getting pretty bad</span></div></label>
-
+      <br>
       <label>
       <input type="radio" name="smell" value="5">
       <div class="smell-label">
       <div class="smell-box"></div>
       <span>5 - About as bad as it gets!</span></div></label>
+      
+      <label class='location-label'>Where were you when you detected the odor? (required)<br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
+
+      <label class='textarea-label'>
+      <strong>Describe the smell or source of odor</strong>
+      <br>
+       <input type="text" name="describe-air" placeholder="e.g. exhaust, sulfur, wood smoke, rotten-eggs">
+      </label>
+
       <label class='textarea-label'>Any symptoms linked to odor?<br><input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></label>
-       
-     <label class='location-label'>Current Location:<span style="color:red"> *</span><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required></label>
+
      <label class='textarea-label'>Additional comments on smell:<br><input type="text" id="additional-comments" name="additional-comments"></label>
+     
      <label>Upload Photo(s) (optional):<br></label>
       <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
      <p class='num-file-status'></p>
      <div class="thumbnails"></div>
+     
      <label class='textarea-label photo-upload'>Caption:<br><input type="text" id="photo-description" name="photo-description"><br></label>
      <label class='textarea-label photo-upload'>When did this photo occur?<br><input type="datetime-local" id="photo-date" name="photo-date"></label>
      
@@ -199,12 +209,12 @@
      </div>
     </form>
     <div id="submit-success">
-      <p class="success note">Your submission was a sucess! Thank you for reporting.</p>
+      <p class="success note">Your submission was a sucess! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
+      </p>
       <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
-    <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).
-     <br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD.</a></p>
+    <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website. (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).</p>
   </div>
 
   <div class="landing full-page" id="introduction-wrapper">
