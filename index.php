@@ -134,7 +134,7 @@
           <a class="text-uppercase custom-nav-link">Print Daily Summary</a>
         </li>
         <li class="custom-nav-btn active" id="community-resources-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#community-resources">Community Resources</a>
+          <a class="text-uppercase custom-nav-link-active" href="#community-resources">Resources for Action</a>
         </li>
       </ul>
     </div>
