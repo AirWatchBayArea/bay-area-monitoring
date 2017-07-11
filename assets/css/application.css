@@ -118,11 +118,6 @@ button:active {
   margin: 10px 0px;
 }
 
-#report-form>label{
-  display: block;
-  margin: 10px 0px;
-}
-
 .smell-label{
   position: relative;
   display: inline-block;
