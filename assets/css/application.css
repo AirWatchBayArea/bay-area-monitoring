@@ -109,7 +109,6 @@ button:active {
   max-width: 650px;
 }
 
-
 .success.note{
   border: 3px solid #4F8A10;
   background-color: #DFF2BF;
@@ -126,6 +125,10 @@ button:active {
 #report-form>label{
   display: block;
   margin: 10px 0px;
+}
+
+#report-form>label>strong{
+  font-size: 18px;
 }
 
 .smell-label{
