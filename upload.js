@@ -74,6 +74,7 @@ function uploadInit(){
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 		$('.photo-upload').show();
 		$('#file-upload').val('');
+		scrollToElmBottom($('[aria-describedby="reportDialog"]'));
 	});
 }
 

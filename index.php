@@ -197,14 +197,14 @@
      <div class="progress_wrapper photo-upload">
       <div class="progress_bar"><div class="progress_text"></div></div>
      </div>
-     <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).
-     <br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD.</a></p>
     </form>
     <div id="submit-success">
       <p class="success note">Your submission was a sucess! Thank you for reporting.</p>
       <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
+    <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).
+     <br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD.</a></p>
   </div>
 
   <div class="landing full-page" id="introduction-wrapper">

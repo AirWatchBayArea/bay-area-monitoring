@@ -36,10 +36,15 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
+function scrollToElmBottom($elm){
+	$('html,body').animate({scrollTop: $elm.height() - $(window).height()});
+}
+
 function submissionSuccess(){
 	if($('#reportDialog').dialog('isOpen')){
 		disableSubmit();
 		$('#submit-success').show();
+		scrollToElmBottom($('[aria-describedby="reportDialog"]'));
 	}
 	refreshPosts();
 }
