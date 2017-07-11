@@ -105,6 +105,11 @@ button:active {
   text-decoration: underline;
 }
 
+[aria-describedby="reportDialog"]{
+  max-width: 650px;
+}
+
+
 .success.note{
   border: 3px solid #4F8A10;
   background-color: #DFF2BF;
@@ -118,10 +123,15 @@ button:active {
   margin: 10px 0px;
 }
 
+#report-form>label{
+  display: block;
+  margin: 10px 0px;
+}
+
 .smell-label{
   position: relative;
   display: inline-block;
-  width: 270px;
+  width: 100%;
   padding: 15px 5px;
   font-weight: normal;
   border: solid 3px darkgray;

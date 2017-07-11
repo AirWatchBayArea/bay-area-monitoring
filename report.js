@@ -122,7 +122,7 @@ function resetReport(){
 $(function() {
   $("#reportDialog").dialog({
     autoOpen: false,
-    width: "60%"
+    width: "80%"
   });
   
   var geocoder = new google.maps.Geocoder();
