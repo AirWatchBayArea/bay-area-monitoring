@@ -5,6 +5,7 @@
   left: 0;
   right: 0;
   /*background-color: rgba(230,230,230,.8);*/
+  font-family: Verdana,Arial,sans-serif;
 
 }
 .page {
@@ -15,6 +16,18 @@
 }
 .page.current-page {
   display: block;
+}
+
+header{
+  width: 100%;
+  background-color: #085b64;
+  color: white;
+  margin: 0;  
+}
+
+header *{
+  margin: 0px;
+  padding: 20px;
 }
 
 button.custom-button {
@@ -41,8 +54,9 @@ button:active {
 
 }
 
-#report-form{
-  padding: 10px 10px;
+.success.note{
+  border: 3px solid #4F8A10;
+  background-color: #DFF2BF;
 }
 
 .note{
@@ -50,6 +64,12 @@ button:active {
   background-color: white;
   border: 3px solid darkgray;
   border-radius: 8px;
+  margin: 10px 0px;
+}
+
+#report-form{
+  width: 90%;
+  padding: 15px;
 }
 
 #report-form>label{
@@ -57,10 +77,19 @@ button:active {
   margin: 10px 0px;
 }
 
+strong.required{
+  font-size: 18px;
+}
+
+strong.required:after{
+  content: ' (required)';
+  color: red;
+}
+
 .smell-label{
   position: relative;
   display: inline-block;
-  width: 230px;
+  width: 100%;
   padding: 15px 5px;
   font-weight: normal;
   border: solid 3px darkgray;
@@ -111,25 +140,22 @@ input[value="5"]+.smell-label>.smell-box{
   background-color: rebeccapurple;
 }
 
-.location-label, .textarea-label, .textarea-label>input{
+.textarea-label>textarea{
+  height: 5em;
+  font-size: 1em;
+}
+
+.textarea-label, .textarea-label>textarea{
   width: 100%;
 }
 
-.smell-label, .textarea-label>input, .location-label>input{
+.smell-label, .textarea-label>textarea {
   font-weight: normal;
-}
-
-.location-label>input[type=button] {
-  font-size: .8em;
-  margin-left: 10px;
-}
-
-.location-label>input[type=text]{
-  width: 100%;
 }
 
 .report-button { 
   display: inline-block;
+  margin: 5px;
   padding: 5px 20px;
   background-color: #085b64;
   color: white;
@@ -190,7 +216,8 @@ input[type=submit] {
   background: rgba(200,50,50,.85);
 }
 
-.delete-me i{
+.delete-me:after{
+  content: "✕";
   position: absolute;
   color: white;
   top: 50%;

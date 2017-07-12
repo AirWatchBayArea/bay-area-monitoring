@@ -26,13 +26,19 @@
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.post .title{
+.post .smell-box{
+	position: relative;
 	display: inline-block;
+}
+
+.post .title{
+	display: inline;
 }
 
 .post .info {
 	display: inline-block;
 	color: gray;
+	font-size: 1.1em;
 }
 
 .post .info:after{

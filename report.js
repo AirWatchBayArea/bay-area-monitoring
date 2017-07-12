@@ -1,29 +1,31 @@
-var serverURL = 'http://staging.api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
+var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 
 function openReportDialog(){
 	$("#reportDialog").dialog("open");
 }
 
-function makeid(length){
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-    for( var i=0; i < length; i++ )
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-    return text;
+// generate a hash for the user
+function generateUserHash() {
+	var userHash;
+	var bayAreaPrefix = "BA"
+	var random = Math.floor(Math.random()*9007199254740991);
+	var date = new Date();
+	var epoch = ((date.getTime()-date.getMilliseconds())/1000);
+	var input = random + " " + epoch;
+	userHash = bayAreaPrefix + MD5(input);
+	return userHash;
 }
 
 function serializeForm(geocodeResults){
 	//userhash
-	if(!localStorage.getItem('AWBAuser')) {
-  		localStorage.setItem('AWBAuser', makeid(10));
+	if(!localStorage.getItem('AWBAuser') || localStorage.getItem('AWBAuser').substring(0,2) != "BA") {
+  		localStorage.setItem('AWBAuser', generateUserHash());
 	}
 	//latlong
 	var latlng = geocodeResults[0]['geometry']['location'];
 	var data = 
 	{
-		"user_hash" : MD5(localStorage.getItem('AWBAuser')),
+		"user_hash" : localStorage.getItem('AWBAuser'),
 	    "latitude" : latlng.lat(),
 	    "longitude" : latlng.lng(),
 	    "smell_value" : parseInt($('input[name=smell]:checked').val()),
@@ -36,10 +38,15 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
+function scrollToElmBottom($elm){
+	$('html,body').animate({scrollTop: $elm.height() - $(window).height()});
+}
+
 function submissionSuccess(){
 	if($('#reportDialog').dialog('isOpen')){
 		disableSubmit();
 		$('#submit-success').show();
+		scrollToElmBottom($('[aria-describedby="reportDialog"]'));
 	}
 	refreshPosts();
 }
@@ -117,7 +124,7 @@ function resetReport(){
 $(function() {
   $("#reportDialog").dialog({
     autoOpen: false,
-    width: "60%"
+    width: "80%"
   });
   
   var geocoder = new google.maps.Geocoder();
