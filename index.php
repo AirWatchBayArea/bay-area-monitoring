@@ -200,7 +200,7 @@
       </label>
 
       <label class='textarea-label'>
-        <strong>Additional comments on smell:</strong>
+        <strong>Additional comments on odor:</strong>
         <input type="text" id="additional-comments" name="additional-comments">
       </label>
 
@@ -235,7 +235,7 @@
       <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
-    <p class="note">This is not a substitute for reporting to BAAQMD.  We recommend that you also submit a report through their&nbsp;website. (Unfortunately, because of technical obstacles set up by the air district, we cannot relay your report directly to them).</p>
+    <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline" style="color: inherit;">their&nbsp;website.</a></p>
   </div>
 
   <div class="landing full-page" id="introduction-wrapper">
