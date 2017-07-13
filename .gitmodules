@@ -7,3 +7,6 @@
 [submodule "reports/python-utils"]
 	path = reports/python-utils
 	url = https://github.com/CMU-CREATE-Lab/python-utils
+[submodule "air-watch-bay-area-app"]
+	path = air-watch-bay-area-app
+	url = https://github.com/sufyanAbbasi/air-watch-bay-area-app
