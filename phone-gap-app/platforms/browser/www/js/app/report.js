@@ -24,11 +24,11 @@ function serializeForm(geocodeResults){
     "user_hash" : localStorage.getItem('AWBAuser'),
       "latitude" : latlng.lat(),
       "longitude" : latlng.lng(),
-      "smell_value" : parseInt($('input[name=smell]:checked').val()),
-      "smell_description" : $('input[name=describe-air]').val() ? $('input[name=describe-air]').val() : null,
-      "feelings_symptoms" : $('input[name=symptoms]').val() ? $('input[name=symptoms]').val() : null,
-      "additional_comments" : $('input[name=additional-comments]').val()
-                  ? $('input[name=additional-comments]').val() : null
+      "smell_value" : parseInt($('[name=smell]:checked').val()),
+      "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
+      "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
+      "additional_comments" : $('[name=additional-comments]').val()
+                  ? $('[name=additional-comments]').val() : null
   };
 
   postData(data);
@@ -38,7 +38,16 @@ function scrollToElmBottom($elm){
   $('html,body').animate({scrollTop: $elm.height() - $(window).height()});
 }
 
+function scrollToTop(){
+  $('html,body').animate({scrollTop: 0});
+}
+
+function scrollToBottom(){
+  $('html,body').animate({scrollTop: $(document).height()});
+}
+
 function submissionSuccess(){
+  scrollToBottom();
   disableSubmit();
   window.scrollTo(0, window.innerHeight);
   $('#submit-success').show();
@@ -122,6 +131,10 @@ $(function() {
      geocodeAddress(geocoder, serializeForm);
   });
 
-  $('#submit-another-report').click(resetReport);
-  resetReport()
+  $('#submit-another-report').click(function(){
+    scrollToTop();
+    resetReport();
+  });
+  resetReport();
+  // submissionSuccess();
 });

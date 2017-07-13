@@ -25,14 +25,14 @@ function serializeForm(geocodeResults){
 	var latlng = geocodeResults[0]['geometry']['location'];
 	var data = 
 	{
-		"user_hash" : localStorage.getItem('AWBAuser'),
-	    "latitude" : latlng.lat(),
-	    "longitude" : latlng.lng(),
-	    "smell_value" : parseInt($('input[name=smell]:checked').val()),
-	    "smell_description" : $('input[name=describe-air]').val() ? $('input[name=describe-air]').val() : null,
-	    "feelings_symptoms" : $('input[name=symptoms]').val() ? $('input[name=symptoms]').val() : null,
-	    "additional_comments" : $('input[name=additional-comments]').val()
-	    						? $('input[name=additional-comments]').val() : null
+	  "user_hash" : localStorage.getItem('AWBAuser'),
+	  "latitude" : latlng.lat(),
+	  "longitude" : latlng.lng(),
+	  "smell_value" : parseInt($('[name=smell]:checked').val()),
+	  "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
+	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
+	  "additional_comments" : $('[name=additional-comments]').val()
+	              ? $('[name=additional-comments]').val() : null
 	};
 
 	postData(data);

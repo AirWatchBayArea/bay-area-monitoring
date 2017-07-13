@@ -149,7 +149,7 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly&nbsp;visible&nbsp;“paper&nbsp;trail”&nbsp;of&nbsp;incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
         <strong class="required">How does your air smell right now?</strong>

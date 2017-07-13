@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.phonegap.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
-    <name>helloworld</name>
+    <name>Air Watch Bay Area</name>
+    <icon density="mdpi" height="57" src="www/img/airwatch.png" width="57" />
     <description>
-        Hello World sample application that responds to the deviceready event.
+        Air Watch Bay Area app allows users to make smell reports and submit photos.
     </description>
-    <author email="support@phonegap.com" href="http://phonegap.com">
-        PhoneGap Team
+    <author email="airwatchbayarea@gmail.com" href="http://airwatchbayarea.org">
+        Fair Tech Collective
     </author>
     <content src="index.html" />
     <preference name="orientation" value="default" />
@@ -43,7 +44,6 @@
     <plugin name="cordova-plugin-statusbar" spec="~2.1.3" />
     <plugin name="cordova-plugin-spinner" spec="~1.1.0" />
     <plugin name="ionic-plugin-keyboard" spec="~2.2.1" />
-    <icon density="mdpi" height="57" src="www/img/airwatch.png" width="57" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
