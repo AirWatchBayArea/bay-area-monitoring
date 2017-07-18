@@ -21,7 +21,7 @@
   <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="assets/css/community-resources.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
@@ -108,7 +108,7 @@
   </script>
   <script src='dateFormat.js' type='text/javascript'>
   </script>
-  <script src='community-resources.js' type='text/javascript'>
+  <script src='resources-for-action.js' type='text/javascript'>
   </script>
 </head>
 <body>
@@ -133,8 +133,8 @@
         <li class="custom-nav-btn" id="report" onclick="openSummaryDialog()">
           <a class="text-uppercase custom-nav-link">Print Daily Summary</a>
         </li>
-        <li class="custom-nav-btn active" id="community-resources-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#community-resources">Resources for Action</a>
+        <li class="custom-nav-btn active" id="resources-for-action-tab">
+          <a class="text-uppercase custom-nav-link-active" href="#resources-for-action">Resources for Action</a>
         </li>
       </ul>
     </div>
@@ -149,7 +149,7 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
         <strong class="required">How does your air smell right now?</strong>
@@ -232,7 +232,7 @@
     <div id="submit-success">
       <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
       </p>
-      <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
+      <a href="#resources-for-action"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
     <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through their&nbsp;website.</p>
@@ -343,7 +343,7 @@
     </div>
   </div>
 
-  <div class="full-page full-height" id="community-resources-page">
+  <div class="full-page full-height" id="resources-for-action-page">
     <div id="photos-container" class="resource-container">
       <h2>User Submitted Photos:</h2>
       <div id="posts"></div>

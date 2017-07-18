@@ -852,18 +852,18 @@
     if(location){
       $('.dashboard').show()
       $('#introduction-wrapper').hide();
-      $('#community-resources-page').hide();
+      $('#resources-for-action-page').hide();
       changeLocale(location, monitor);
-    }else if(hash[0] == "community-resources"){
+    }else if(hash[0] == "resources-for-action"){
       $('.dashboard').hide()
       $('#introduction-wrapper').hide();
-      $('#community-resources-page').show();
-      $("#community-resources-tab").addClass("active");
-      $("#community-resources-tab" + " a").addClass("custom-nav-link-active");
+      $('#resources-for-action-page').show();
+      $("#resources-for-action-tab").addClass("active");
+      $("#resources-for-action-tab" + " a").addClass("custom-nav-link-active");
     }else{
       $('.dashboard').hide()
       $('#introduction-wrapper').show();
-      $('#community-resources-page').hide();
+      $('#resources-for-action-page').hide();
       window.location.hash = "home";
       $("#intro").addClass("active");
       $("#intro" + " a").addClass("custom-nav-link-active");
