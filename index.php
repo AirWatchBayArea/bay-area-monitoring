@@ -378,7 +378,7 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list-inline quicklinks">
-                        <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
+                        <li><a class="page-scroll" onclick="scrollToTop()" style="color:#f7b733">Back to Top</a>
                         </li>
                     </ul>
                 </div>
