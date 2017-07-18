@@ -108,12 +108,6 @@
     else {
       area.locale = locale;
     }
-    $(".active a").removeClass("custom-nav-link-active");
-    $(".active a").addClass("custom-nav-link");
-    $(".active").removeClass("active");
-
-    $("#" + targetArea).addClass("active");
-    $("#" + targetArea + " a").addClass("custom-nav-link-active");
   }
 
   function changeLocale(targetArea, locale) {
@@ -849,6 +843,8 @@
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
     if(loc){
+      $("#view-air-quality-tab").addClass("active");
+      $("#view-air-quality-tab a").addClass("custom-nav-link-active");
       $("#" + loc + "-tab").addClass("active");
       $("#" + loc + "-tab" + " a").addClass("custom-nav-link-active");
     }else{

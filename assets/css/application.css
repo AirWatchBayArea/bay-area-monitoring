@@ -28,37 +28,37 @@ html, body {
   background-color: white !important;
 }
 
-.custom-nav {
-  background-color: #00bdac !important;
-  border-radius: 0px !important;
-  margin-bottom: 0px !important;
-  border: 0px !important;
-  min-height: 0px !important;
+#site-nav {
+  background-color: #00bdac;
+  border-radius: 0px;
+  margin-bottom: 0px;
+  border: 0px;
+  min-height: 0px;
 }
 
-.custom-nav-btn {
+#site-nav .custom-nav-btn {
   margin: 5px 2px;
   font-size: 14px;
   cursor: pointer;
 }
 
-.custom-nav-btn:hover>.custom-nav-link{
-  color: #f7b733 !important;
+#site-nav .custom-nav-btn:hover > .custom-nav-link{
+  color: #f7b733;
 }
 
-.custom-nav-btn:hover>.custom-nav-link-active{
-  color: white !important;
+#site-nav .custom-nav-btn:hover > .custom-nav-link-active{
+  color: #eceff1;
 }
 
-.custom-nav-link {
-  color: #eceff1 !important;
-  padding: 10px !important;
+#site-nav .custom-nav-link {
+  color: #eceff1;
+  padding: 10px;
   border-radius: 5px;
 }
 
-.custom-nav-link-active {
-  color: white !important;
-  background-color: #f7b733 !important;
+#site-nav .custom-nav-link-active {
+  color: #eceff1;
+  background-color: #f7b733;
 }
 
 .vertical-center {

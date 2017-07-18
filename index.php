@@ -112,7 +112,7 @@
   </script>
 </head>
 <body>
-  <nav class="navbar navbar-default custom-nav">
+  <nav id="site-nav" class="navbar navbar-default">
     <div class="container-fluid">
       <ul class="nav navbar-nav">
         <li class="custom-nav-btn active" id="home-tab">
@@ -364,8 +364,8 @@
       </div> -->
     </div><!-- end timelapse things -->
     <div class="container-fluid dashboard">
-      <nav class="row navbar navbar-default">
-        <ul id="loc-nav-bar" class="nav navbar-nav">
+      <nav id="loc-nav" class="navbar navbar-default">
+        <ul class="nav navbar-nav">
           <li class="custom-nav-btn" id="richmond-tab">
             <a class="text-uppercase custom-nav-link" href="#loc=richmond">Richmond</a>
           </li>

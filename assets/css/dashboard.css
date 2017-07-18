@@ -2,6 +2,33 @@
   width: 100%;
   height: calc(100% - 50px);
 }
+
+.dashboard nav{
+  margin: 0px;
+  border: none;
+  background-color: inherit;
+}
+
+#loc-nav .nav{
+  background-color: #f8f8f8;
+}
+
+#loc-nav .custom-nav-btn>a{
+  color: darkgray;
+}
+
+#loc-nav .custom-nav-btn.active>a{
+  color: inherit;
+}
+
+#loc-nav .custom-nav-btn:hover>a{
+  background-color: #e3e3e3;
+}
+
+#loc-nav .custom-nav-btn.active>a{
+  background-color: #c7c7c7;
+}
+
 .dashboard .error-msg {
   height: 100%;
   width: 100%;
@@ -106,7 +133,7 @@
 
 .dashboard #grapher_toolbar{
   height: 50px;
-  background-color: #00bdac;
+  background-color: #00bd9c;
 }
 
 .dashboard #shareLink {
