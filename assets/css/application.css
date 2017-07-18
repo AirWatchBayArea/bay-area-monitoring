@@ -104,16 +104,13 @@ button:active {
   transform: translateY(2px) translateX(2px);
 }
 
-.center_text{
-  text-align: center;
-}
-
 #daily-summaries-page {
-  
+  text-align: center;
 }
 
 #daily-summaries-page a {
   text-decoration: underline;
+  font-size: 18px;
 }
 
 #report-air-page{
