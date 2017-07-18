@@ -1,3 +1,7 @@
+.dashboard{
+  width: 100%;
+  height: calc(100% - 50px);
+}
 .dashboard .error-msg {
   height: 100%;
   width: 100%;
@@ -12,8 +16,12 @@
   padding: 0px !important;
 }
 
-.dashboard .full-height {
+.full-height {
   height: 100%;
+}
+
+.dashboard .half-height {
+  height: 50%;
 }
 
 .dashboard .border {
@@ -94,6 +102,11 @@
 
 .dashboard #dialog {
   background-color: #eceff1;
+}
+
+.dashboard #grapher_toolbar{
+  height: 50px;
+  background-color: #00bdac;
 }
 
 .dashboard #shareLink {
@@ -206,7 +219,6 @@
   position: absolute !important;
   right: 250px;
   left: 159px;
-  top: 0px;
   height: 40px;
   border: 1px solid black;
   width: 100%;
@@ -216,7 +228,7 @@
 .dashboard .chartTitle {
   /*position: absolute;*/
   left: 0px;
-  width: 136px;
+  width: 150px;
   /*height: 100%;*/
   border: 1px solid black;
   background-color: rgba(126,217,237,.43);

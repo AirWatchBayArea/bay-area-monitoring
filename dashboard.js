@@ -844,29 +844,36 @@
       maxTimeSecs = Date.now() / 1000;
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
-    var location = hash[0].split("loc=")[1];
+    var loc = hash[0].split("loc=")[1];
     $(".active a").removeClass("custom-nav-link-active");
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
+    if(loc){
+      $("#" + loc + "-tab").addClass("active");
+      $("#" + loc + "-tab" + " a").addClass("custom-nav-link-active");
+    }else{
+      $("#" + hash[0] + "-tab").addClass("active");
+      $("#" + hash[0] + "-tab" + " a").addClass("custom-nav-link-active");
+    }
     
-    if(location){
+    if(loc){
       $('.dashboard').show()
       $('#introduction-wrapper').hide();
-      $('#community-resources-page').hide();
-      changeLocale(location, monitor);
-    }else if(hash[0] == "community-resources"){
+      $('#resources-for-action-page').hide();
+      changeLocale(loc, monitor);
+    }else if(hash[0] == "resources-for-action"){
       $('.dashboard').hide()
       $('#introduction-wrapper').hide();
-      $('#community-resources-page').show();
-      $("#community-resources-tab").addClass("active");
-      $("#community-resources-tab" + " a").addClass("custom-nav-link-active");
+      $('#resources-for-action-page').show();
+    }else if(hash[0] == "report-air"){
+      openReportDialog();
+    }else if(hash[0] == "daily-summaries"){
+      openSummaryDialog();
     }else{
       $('.dashboard').hide()
       $('#introduction-wrapper').show();
-      $('#community-resources-page').hide();
+      $('#resources-for-action-page').hide();
       window.location.hash = "home";
-      $("#intro").addClass("active");
-      $("#intro" + " a").addClass("custom-nav-link-active");
     }
   }
 

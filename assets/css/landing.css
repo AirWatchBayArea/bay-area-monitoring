@@ -113,7 +113,7 @@ and (max-device-width: 768px){
 .landing .subheading {
     font-size: 0.5em !important;
   }
-  }
+}
 
 .landing .panel {
   background-color: rgba(126,217,237,.43) !important;

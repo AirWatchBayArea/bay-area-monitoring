@@ -21,7 +21,7 @@
   <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="assets/css/community-resources.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
@@ -108,33 +108,27 @@
   </script>
   <script src='dateFormat.js' type='text/javascript'>
   </script>
-  <script src='community-resources.js' type='text/javascript'>
+  <script src='resources-for-action.js' type='text/javascript'>
   </script>
 </head>
 <body>
   <nav class="navbar navbar-default custom-nav">
     <div class="container-fluid">
       <ul class="nav navbar-nav">
-        <li class="custom-nav-btn active" id="intro">
+        <li class="custom-nav-btn active" id="home-tab">
           <a class="text-uppercase custom-nav-link-active" href="#home">Introduction</a>
         </li>
-        <li class="custom-nav-btn" id="richmond">
-          <a class="text-uppercase custom-nav-link" href="#loc=richmond">Richmond</a>
+        <li class="custom-nav-btn active" id="view-air-quality-tab">
+          <a class="text-uppercase custom-nav-link-active" href="#loc=richmond">View Air Quality</a>
         </li>
-        <li class="custom-nav-btn" id="crockett-rodeo">
-          <a class="text-uppercase custom-nav-link" href="#loc=crockett-rodeo">Crockett-Rodeo</a>
+        <li class="custom-nav-btn" id="report-air-tab">
+          <a class="text-uppercase custom-nav-link" href="#report-air">Report Air</a>
         </li>
-        <li class="custom-nav-btn" id="benicia">
-          <a class="text-uppercase custom-nav-link" href="#loc=benicia">Benicia</a>
+        <li class="custom-nav-btn" id="daily-summaries-tab">
+          <a class="text-uppercase custom-nav-link" href="#daily-summaries">Print Daily Summary</a>
         </li>
-        <li class="custom-nav-btn" id="report-air" onclick="openReportDialog()">
-          <a class="text-uppercase custom-nav-link">Report Smell</a>
-        </li>
-        <li class="custom-nav-btn" id="report" onclick="openSummaryDialog()">
-          <a class="text-uppercase custom-nav-link">Print Daily Summary</a>
-        </li>
-        <li class="custom-nav-btn active" id="community-resources-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#community-resources">Resources for Action</a>
+        <li class="custom-nav-btn active" id="resources-for-action-tab">
+          <a class="text-uppercase custom-nav-link-active" href="#resources-for-action">Resources for Action</a>
         </li>
       </ul>
     </div>
@@ -149,7 +143,7 @@
     Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
   </div>
   <div id="reportDialog" title="Report Smell">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#community-resources" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
         <strong class="required">How does your air smell right now?</strong>
@@ -232,7 +226,7 @@
     <div id="submit-success">
       <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
       </p>
-      <a href="#community-resources"><div class="close-report report-button no-highlight">view submission</div></a>
+      <a href="#resources-for-action"><div class="close-report report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
     <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through their&nbsp;website.</p>
@@ -343,7 +337,7 @@
     </div>
   </div>
 
-  <div class="full-page full-height" id="community-resources-page">
+  <div class="full-page full-height" id="resources-for-action-page">
     <div id="photos-container" class="resource-container">
       <h2>User Submitted Photos:</h2>
       <div id="posts"></div>
@@ -369,112 +363,33 @@
         </div>
       </div> -->
     </div><!-- end timelapse things -->
-    <div class="container-fluid dashboard" style="height:calc(100% - 50px)">
-      <button class="custom-button" id="help-btn" onclick="openNav()">Help</button>
-      <div class="row guide-expanded" id="guide">
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-map-marker guide-icon" style="left:9px"></span>
-          </div>
-          <div class="guide-text">
-            Choose a monitor on the map to see a graph of chemical levels at that location. <a data-content="&lt;ul&gt;&lt;li&gt;The numbers on the right tell you chemical concentrations in ppb unless otherwise noted.&lt;/li&gt; &lt;li&gt;When the line is in the 'red zone' it is above a health-based screening level. &lt;a href='.'&gt;&lt;i&gt;(Where do the levels come from?)&lt;/i&gt;&lt;/a&gt; &lt;/li&gt; &lt;li&gt;When there's no line, chemical levels are below the detection limit of the monitor. &lt;a href='.'&gt;&lt;i&gt;(What does that mean?)&lt;/i&gt;&lt;/a&gt; &lt;/li&gt; &lt;li&gt;When the line is in the 'gray area', chemicals have been detected in the air, and it's difficult to say whether the levels could harm you. &lt;a href='.'&gt;&lt;i&gt;(Why don't we know?)&lt;/i&gt;&lt;/a&gt; &lt;/li&gt;&lt;/ul&gt;" data-html="true" data-placement="bottom" data-toggle="popover" data-trigger="focus" tabindex="0" title="Reading the Graphs &lt;span class='dismiss-popover'&gt;&times;&lt;/span&gt;"><i class=".btn">(more)</i></a>
-          </div><span class="glyphicon glyphicon-menu-right guide-arrow"></span>
-        </div>
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-menu-hamburger guide-icon" style="left:10px"></span>
-          </div>
-          <div class="guide-text">
-            Use the tabs on the right side of the map to open the calendar, animation menu, or legend.
-          </div><span class="glyphicon glyphicon-menu-right guide-arrow"></span>
-        </div>
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-calendar guide-icon" style="left:12px"></span>
-          </div>
-          <div class="guide-text">
-            Choose a date on the calendar to jump to that day and see what was in the air.
-          </div><span class="glyphicon glyphicon-menu-right guide-arrow"></span>
-        </div>
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-hand-up guide-icon" style="left:9px"></span>
-          </div>
-          <div class="guide-text">
-            Click on any peak on the graph to see on the map which direction chemicals were coming from.
-          </div><span class="glyphicon glyphicon-menu-right guide-arrow"></span>
-        </div>
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-play-circle guide-icon" style="left:11px"></span>
-          </div>
-          <div class="guide-text">
-            Click the play button to see how wind direction changes with chemical levels. <a data-content="You can adjust the slider for faster or slower playback" data-html="true" data-placement="bottom" data-toggle="popover" data-trigger="focus" tabindex="0" title="Tip &lt;span class='dismiss-popover'&gt;&times;&lt;/span&gt;"><i>(more)</i></a>
-          </div><span class="glyphicon glyphicon-menu-right guide-arrow"></span>
-        </div>
-        <div class="col-sm-2 guide-col full-height">
-          <div class="guide-icon-circle custom-button">
-            <span class="glyphicon glyphicon-share guide-icon" style="left:12px"></span>
-          </div>
-          <div class="guide-text">
-            See a pollution event? Zoom the graph into it, and share it with our <a onclick="generateShareLink()">custom link generator.</a>
-          </div>
-        </div>
-        <div id="dialog" title="Share a Pollution Incident">
-          To link others to your current view, use this URL: <input id="shareLink" type="text">
-        </div><a class="guide-dismiss" onclick="toggleGuide()">&times;</a> <span class="guide-expand glyphicon glyphicon-option-horizontal" onclick="toggleGuide()"></span>
+    <div class="container-fluid dashboard">
+      <nav class="row navbar navbar-default">
+        <ul id="loc-nav-bar" class="nav navbar-nav">
+          <li class="custom-nav-btn" id="richmond-tab">
+            <a class="text-uppercase custom-nav-link" href="#loc=richmond">Richmond</a>
+          </li>
+          <li class="custom-nav-btn" id="crockett-rodeo-tab">
+            <a class="text-uppercase custom-nav-link" href="#loc=crockett-rodeo">Crockett-Rodeo</a>
+          </li>
+          <li class="custom-nav-btn" id="benicia-tab">
+            <a class="text-uppercase custom-nav-link" href="#loc=benicia">Benicia</a>
+          </li>
+        </ul>
+      </nav>
+      <div id="map_parent" class="row half-height">
+        <div class="full-height" id="map-canvas"></div>
       </div>
-      <div class="row" id="dataRow" style="height:calc(100% - 150px)">
-        <div class="col-md-6 custom-col full-height" id="grapher_parent">
-          <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
-            <tr class="grapher_row" id="dateAxisContainer">
-              <td class="playContainer"><button class="axesControls custom-button" id="zoomGrapherIn" title="Zoom in the graphs"><span class="glyphicon glyphicon-plus"></span></button> <button class="axesControls custom-button" id="zoomGrapherOut" title="Zoom out the graphs"><span class="glyphicon glyphicon-minus"></span></button> <button class="axesControls custom-button" onclick="toggleYAxisAutoScaling()" title="Toggle Autoscaling of Y Axes"><span class="ui-icon ui-icon-locked" id="auto_scale_toggle_button"></span></button></td>
-              <td id="dateAxis"></td>
-              <td class="border"></td>
-            </tr>
-          </table>
-        </div>
-        <div class="col-md-6 custom-col full-height" id="map_parent">
-          <div class="full-height" id="map-canvas"></div>
-          <div class="left-collapse-menu collapsed" id="menuContainer">
-            <div class="control-tab custom-button" onclick="toggleMenu(this,'#calendarMenu')" style="top: 30px">
-              <span class="glyphicon glyphicon-calendar"></span>
-            </div>
-            <div class="control-tab custom-button" onclick="toggleMenu(this,'#playbackMenu')" style="top: 82px">
-              <span class="glyphicon glyphicon-play-circle"></span>
-            </div>
-            <div class="control-tab custom-button" onclick="toggleMenu(this,'#legendMenu')" style="top: 134px">
-              <span class="glyphicon glyphicon-info-sign"></span>
-            </div>
-            <div class="menu" id="calendarMenu">
-              <div class="calendar-controls">
-                <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
-              </div>
-            </div>
-            <div class="menu" id="playbackMenu">
-              <div class="playBackContainer" id="playbackButtons">
-                <button class="playbackBtn custom-button" id="play" style="float:left" title="Play"><span class="glyphicon glyphicon-play" id="playIcon"></span></button>
-                <div id="slider" style="float:right"></div>
-              </div>
-              <div class="playback-help-text">
-                <i>Tip: You can also play and pause using the spacebar</i>
-              </div>
-            </div>
-            <div class="menu" id="legendMenu"></div>
-          </div>
-        </div>
-      </div>
-      <div class="row" id="fencelineInfo">
-        To view our source of real-time air quality data, please visit <a href="http://www.fenceline.org">fenceline.org</a>
-      </div>
-    </div><!-- The overlay -->
-    <div class="overlay" id="myNav">
-      <!-- Button to close the overlay navigation -->
-      <a class="closebtn" href="javascript:void(0)" onclick="closeNav()">&times;</a> <!-- Overlay content -->
-      <div class="overlay-content">
-        <iframe allowfullscreen frameborder="0" height="360" src="https://www.youtube.com/embed/urmohTX7928" width="640"></iframe>
+      <div id="grapher_toolbar" class="row"></div>
+      <div id="grapher_parent" class="row half-height">
+        <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
+          <tr class="grapher_row" id="dateAxisContainer">
+            <!-- <td class="playContainer"><button class="axesControls custom-button" id="zoomGrapherIn" title="Zoom in the graphs"><span class="glyphicon glyphicon-plus"></span></button> <button class="axesControls custom-button" id="zoomGrapherOut" title="Zoom out the graphs"><span class="glyphicon glyphicon-minus"></span></button> <button class="axesControls custom-button" onclick="toggleYAxisAutoScaling()" title="Toggle Autoscaling of Y Axes"><span class="ui-icon ui-icon-locked" id="auto_scale_toggle_button"></span></button></td> -->
+            <td id="dateAxis"></td>
+            <td class="border"></td>
+          </tr>
+        </table>
       </div>
     </div>
-  <!-- </div> -->
 </body>
 </html>

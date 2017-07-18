@@ -188,7 +188,7 @@ function initMap(div) {
   context = canvasLayer.canvas.getContext('2d');
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
-  generateLegend();
+  // generateLegend();
 }
 
 function callback(results, status) {

@@ -29,27 +29,36 @@ html, body {
 }
 
 .custom-nav {
-  background-color: #9e9e9e !important;
+  background-color: #00bdac !important;
   border-radius: 0px !important;
   margin-bottom: 0px !important;
   border: 0px !important;
+  min-height: 0px !important;
 }
 
 .custom-nav-btn {
-  background-color: #085b64;
-  margin-left: 2px;
-  margin-right: 2px;
-  font-size: 20px;
+  margin: 5px 2px;
+  font-size: 14px;
   cursor: pointer;
+}
+
+.custom-nav-btn:hover>.custom-nav-link{
+  color: #f7b733 !important;
+}
+
+.custom-nav-btn:hover>.custom-nav-link-active{
+  color: white !important;
 }
 
 .custom-nav-link {
   color: #eceff1 !important;
+  padding: 10px !important;
+  border-radius: 5px;
 }
 
 .custom-nav-link-active {
-  color: #085b64 !important;
-  background-color: #eceff1 !important;
+  color: white !important;
+  background-color: #f7b733 !important;
 }
 
 .vertical-center {
