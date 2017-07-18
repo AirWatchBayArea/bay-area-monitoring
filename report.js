@@ -1,9 +1,5 @@
 var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 
-function openReportDialog(){
-	$("#reportDialog").dialog("open");
-}
-
 // generate a hash for the user
 function generateUserHash() {
 	var userHash;
@@ -39,16 +35,21 @@ function serializeForm(geocodeResults){
 }
 
 function scrollToElmBottom($elm){
-	$('html,body').animate({scrollTop: $elm.height() - $(window).height()});
+  $('html,body').animate({scrollTop: $elm.height() - $(window).height()});
+}
+
+function scrollToTop(){
+  $('html,body').animate({scrollTop: 0});
+}
+
+function scrollToBottom(){
+  $('html,body').animate({scrollTop: $(document).height()});
 }
 
 function submissionSuccess(){
-	if($('#reportDialog').dialog('isOpen')){
-		disableSubmit();
-		$('#submit-success').show();
-		scrollToElmBottom($('[aria-describedby="reportDialog"]'));
-	}
-	refreshPosts();
+  scrollToBottom();
+  disableSubmit();
+  $('#submit-success').show();
 }
 
 function disableSubmit(){
@@ -111,6 +112,7 @@ Date.prototype.toDateInputValue = (function() {
 });
 
 function resetReport(){
+	scrollToTop();
 	document.getElementById("report-form").reset();
   	$('#report-submit').prop('disabled', false);
   	$('#file-upload').prop('disabled', false);
@@ -122,11 +124,6 @@ function resetReport(){
 }
 
 $(function() {
-  $("#reportDialog").dialog({
-    autoOpen: false,
-    width: "80%"
-  });
-  
   var geocoder = new google.maps.Geocoder();
   $('#report-form').submit(function(event){
 		 event.preventDefault();
@@ -136,11 +133,6 @@ $(function() {
 
   $('#submit-another-report').click(resetReport);
 
-  $('.close-report').click(function(event){
-  	$("#reportDialog").dialog('close');
-  });
-
-  $('#reportDialog').on('dialogclose', resetReport);
   resetReport()
 });
 

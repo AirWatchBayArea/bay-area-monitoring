@@ -104,18 +104,20 @@ button:active {
   transform: translateY(2px) translateX(2px);
 }
 
-#summaryDialog {
-  background-color: #eceff1;
-  width: 200px;
+.center_text{
   text-align: center;
 }
 
-#summaryDialog a {
+#daily-summaries-page {
+  
+}
+
+#daily-summaries-page a {
   text-decoration: underline;
 }
 
-[aria-describedby="reportDialog"]{
-  max-width: 650px;
+#report-air-page{
+  padding: 5px 10px;
 }
 
 .success.note{

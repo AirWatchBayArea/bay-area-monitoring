@@ -851,24 +851,14 @@
       $("#" + hash[0] + "-tab").addClass("active");
       $("#" + hash[0] + "-tab" + " a").addClass("custom-nav-link-active");
     }
-    
+    $('[id*="-page"],[class*="-page"]').hide();
+
     if(loc){
-      $('.dashboard').show()
-      $('#introduction-wrapper').hide();
-      $('#resources-for-action-page').hide();
+      $('.dashboard-page').show()
       changeLocale(loc, monitor);
-    }else if(hash[0] == "resources-for-action"){
-      $('.dashboard').hide()
-      $('#introduction-wrapper').hide();
-      $('#resources-for-action-page').show();
-    }else if(hash[0] == "report-air"){
-      openReportDialog();
-    }else if(hash[0] == "daily-summaries"){
-      openSummaryDialog();
+    }else if($('#'+hash[0]+'-page').length){
+      $('#'+hash[0]+'-page').show();
     }else{
-      $('.dashboard').hide()
-      $('#introduction-wrapper').show();
-      $('#resources-for-action-page').hide();
       window.location.hash = "home";
     }
   }

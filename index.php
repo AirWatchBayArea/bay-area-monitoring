@@ -86,8 +86,6 @@
   </script>
   <script src="assets/data-visualization-tools/js/CanvasLayer.js">
   </script>
-  <script src="summaryDialog.js" type="text/javascript">
-  </script>
   <script src="md5.js" type="text/javascript">
   </script>
   <script src="report.js" type="text/javascript">
@@ -133,17 +131,16 @@
       </ul>
     </div>
   </nav>
-  <div id="summaryDialog" title="Print Daily Summaries">
-    To print or download yesterday's air quality summary, select your community below:<br>
+  <div id="daily-summaries-page" title="Print Daily Summaries">
+    <h3>To print or download yesterday's air quality summary, select your community below:</h3>
     <a href="reports/yesterday/Atchison_Village.html" target="_blank">Atchison Village</a><br>
     <a href="reports/yesterday/Point_Richmond.html" target="_blank">Point Richmond</a><br>
     <a href="reports/yesterday/North_Richmond.html" target="_blank">North Richmond</a><br>
     <a href="reports/yesterday/Rodeo.html" target="_blank">Rodeo</a><br>
-    <br>
-    Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a>
+    <h4>Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a></h4>
   </div>
-  <div id="reportDialog" title="Report Smell">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline close-report">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+  <div id="report-air-page">
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
         <strong class="required">How does your air smell right now?</strong>
@@ -226,13 +223,13 @@
     <div id="submit-success">
       <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
       </p>
-      <a href="#resources-for-action"><div class="close-report report-button no-highlight">view submission</div></a>
+      <a href="#resources-for-action"><div class="report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
     <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through their&nbsp;website.</p>
   </div>
 
-  <div class="landing full-page" id="introduction-wrapper">
+  <div class="landing full-page" id="home-page">
     <!-- <div class="carousel slide" data-ride="carousel" id="pics"> -->
       <!-- <ol class="carousel-indicators">
         <li class="active" data-slide-to="0" data-target="#pics"></li>
@@ -346,12 +343,12 @@
   </div>
   
   <!-- <div id="dashboard-wrapper"> -->
-    <div id="timelapse_parent" class="dashboard" style="height: 0px; display:none">
+    <!-- <div id="timelapse_parent" class="dashboard-page" style="height: 0px; display:none">
       <div id="tutorialDialog" title="A Tour for the Shenango Channel"></div>
       <div class="no-select" id="locationTitle"></div>
       <div class="timelapse_feed_embed" id="timelapse_feed">
         <div id="timeMachine" style=""></div>
-      </div>
+      </div> -->
       <!-- <div class="image_feed_embed no-select" id="image_feed">
         <div class="image-zoom-wrapper image-zoom-wrapper-embed" id="stitched_image_wrapper">
           <div id="zoom-in" title="Zoom in">
@@ -362,8 +359,8 @@
           </div><img alt="Latest Stitch" class="image-zoom" id="stitched_image" src="#"> <span id="image_feed_timestamp">03/09/2015 03:16 PM</span>
         </div>
       </div> -->
-    </div><!-- end timelapse things -->
-    <div class="container-fluid dashboard">
+    <!-- </div> --><!-- end timelapse things -->
+    <div class="container-fluid dashboard-page">
       <nav id="loc-nav" class="navbar navbar-default">
         <ul class="nav navbar-nav">
           <li class="custom-nav-btn" id="richmond-tab">

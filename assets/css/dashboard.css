@@ -1,9 +1,9 @@
-.dashboard{
+.dashboard-page{
   width: 100%;
   height: calc(100% - 50px);
 }
 
-.dashboard nav{
+.dashboard-page nav{
   margin: 0px;
   border: none;
   background-color: inherit;
@@ -29,7 +29,7 @@
   background-color: #c7c7c7;
 }
 
-.dashboard .error-msg {
+.dashboard-page .error-msg {
   height: 100%;
   width: 100%;
   background-color: lightgrey;
@@ -39,7 +39,7 @@
   padding: 40%;
 }
 
-.dashboard .custom-col {
+.dashboard-page .custom-col {
   padding: 0px !important;
 }
 
@@ -47,44 +47,44 @@
   height: 100%;
 }
 
-.dashboard .half-height {
+.dashboard-page .half-height {
   height: 50%;
 }
 
-.dashboard .border {
+.dashboard-page .border {
   border: 1px solid black;
 }
 
-.dashboard .guide-expanded {
+.dashboard-page .guide-expanded {
   min-height: 110px;
 }
 
-.dashboard .guide-collapsed {
+.dashboard-page .guide-collapsed {
   height: 20px;
 }
 
-.dashboard .guide-collapsed span {
+.dashboard-page .guide-collapsed span {
   display: block;
   text-align: center;
   color: darkgrey;
   font-size: 20px;
 }
 
-.dashboard .guide-collapsed div, .guide-collapsed a, .guide-expanded .guide-expand {
+.dashboard-page .guide-collapsed div, .guide-collapsed a, .guide-expanded .guide-expand {
   display: none;
 }
 
-.dashboard .guide-col {
+.dashboard-page .guide-col {
   min-width: 197px;
 }
 
 @media (min-width: 1600px) {
-  .dashboard .guide-col {
+  .dashboard-page .guide-col {
     font-size: 18px;
   }
 }
 
-.dashboard .guide-icon-circle {
+.dashboard-page .guide-icon-circle {
   font-size: 175%;
   border-radius: 50%;
   height: 1.7em;
@@ -93,19 +93,19 @@
   position: absolute;
 }
 
-.dashboard .guide-icon {
+.dashboard-page .guide-icon {
   position: absolute !important;
   line-height: 1.7 !important;
 }
 
-.dashboard .guide-text {
+.dashboard-page .guide-text {
   margin-left: 55px;
   width: 60%;
   min-height: 60px;
   min-width: 100px;
 }
 
-.dashboard .guide-arrow {
+.dashboard-page .guide-arrow {
   color:grey;
   font-size:400%;
   opacity:.5;
@@ -115,50 +115,50 @@
   right: -15px;
 }
 
-.dashboard .guide-dismiss {
+.dashboard-page .guide-dismiss {
   font-size: 40px;
   color: darkgrey;
   position: absolute;
   right: 7px;
 }
 
-.dashboard .dismiss-popover {
+.dashboard-page .dismiss-popover {
   float: right;
   cursor: pointer;
 }
 
-.dashboard #dialog {
+.dashboard-page #dialog {
   background-color: #eceff1;
 }
 
-.dashboard #grapher_toolbar{
+.dashboard-page #grapher_toolbar{
   height: 50px;
   background-color: #00bd9c;
 }
 
-.dashboard #shareLink {
+.dashboard-page #shareLink {
   width: 100%;
   font-size: 11px;
 }
 
-.dashboard #grapher {
+.dashboard-page #grapher {
   width: 100%;
   min-width: 385px;
   min-height: 400px;
 }
 
-.dashboard #grapher * {
+.dashboard-page #grapher * {
   box-sizing: content-box;
   -webkit-box-sizing: content-box;
 }
 
-.dashboard #dateAxisContainer {
+.dashboard-page #dateAxisContainer {
   width: 100%;
   height: 41px;
   position: relative;
 }
 
-.dashboard .annotationContent {
+.dashboard-page .annotationContent {
   position: absolute;
   left: 159px;
   right: 35px;
@@ -167,15 +167,15 @@
   background: white;
 }
 
-.dashboard .annotationChart {
+.dashboard-page .annotationChart {
   height: 35px !important;
   background: #4f5457 !important;
 }
 
-.dashboard .annotationContent canvas {
+.dashboard-page .annotationContent canvas {
   height: 35px !important;
 }
-.dashboard .annotationChartTitle {
+.dashboard-page .annotationChartTitle {
   position: absolute;
   left: 0px;
   width: 136px;
@@ -188,7 +188,7 @@
   padding-right: 11px;
 }
 
-.dashboard .annotationChartAxis {
+.dashboard-page .annotationChartAxis {
   position: absolute !important;
   right: 0px;
   width: 34px;
@@ -196,19 +196,19 @@
   height: 35px !important;
 }
 
-.dashboard .playContainer {
+.dashboard-page .playContainer {
   border-top: 1px solid black;
   width: 159px;
   position: absolute;
 }
 
-.dashboard .playBackContainer {
+.dashboard-page .playBackContainer {
   height:70px;
   margin-top: 50px;
   width: 75%;
 }
 
-.dashboard .playback-help-text {
+.dashboard-page .playback-help-text {
   background-color: rgba(255,255,255,0.6);
   margin-right: 30px;
   margin-left: 30px;
@@ -216,7 +216,7 @@
   border-radius: 4px;
 }
 
-.dashboard #slider {
+.dashboard-page #slider {
   width:90px;
   float: right;
   margin-right: -20px;
@@ -224,7 +224,7 @@
   background: rgba(255,255,255,0.5);
 }
 
-.dashboard .playbackBtn {
+.dashboard-page .playbackBtn {
   border-radius: 4px;
   height: 30px;
   width: 42px;
@@ -232,7 +232,7 @@
   margin-left: 27px;
 }
 
-.dashboard .axesControls {
+.dashboard-page .axesControls {
   border-radius: 4px;
   outline: none;
   height: 30px;
@@ -242,7 +242,7 @@
   margin-top: 3px;
 }
 
-.dashboard #dateAxis {
+.dashboard-page #dateAxis {
   position: absolute !important;
   right: 250px;
   left: 159px;
@@ -252,7 +252,7 @@
   background: white;
 }
 
-.dashboard .chartTitle {
+.dashboard-page .chartTitle {
   /*position: absolute;*/
   left: 0px;
   width: 150px;
@@ -262,7 +262,7 @@
   padding: 11px;
 }
 
-.dashboard .chartContent {
+.dashboard-page .chartContent {
   position: absolute;
   left: 159px;
   right: 35px;
@@ -273,7 +273,7 @@
   z-index: 4 !important;
 }
 
-.dashboard .chartAxis {
+.dashboard-page .chartAxis {
   position: absolute !important;
   right: 0px;
   width: 34px;
@@ -283,7 +283,7 @@
   z-index: 1;
 }
 
-.dashboard .healthDangerBox {
+.dashboard-page .healthDangerBox {
   position: absolute;
   left: 0px;
   width: 100%;
@@ -291,7 +291,7 @@
   z-index: -2;
 }
 
-.dashboard .greyAreaBox {
+.dashboard-page .greyAreaBox {
   position: absolute;
   left: 0px;
   width: 100%;
@@ -300,7 +300,7 @@
   z-index: -3;
 }
 
-.dashboard .refineryDetectionLimit {
+.dashboard-page .refineryDetectionLimit {
   position: absolute;
   left: 0px;
   width: 100%;
@@ -309,7 +309,7 @@
   z-index: -1;
 }
 
-.dashboard .valueHover {
+.dashboard-page .valueHover {
   display: none;
   z-index: 9999;
   font-size: 10pt;
@@ -317,16 +317,16 @@
   float: right;
 }
 
-.dashboard #map_parent {
+.dashboard-page #map_parent {
   overflow-x: hidden;
 }
 
-.dashboard .menu {
+.dashboard-page .menu {
   display: none;
   min-height: 199px;
 }
 
-.dashboard .control-tab {
+.dashboard-page .control-tab {
   position: absolute;
   left: -35px;
   border-top-left-radius: 4px;
@@ -340,15 +340,15 @@
   padding-top: 5px;
 }
 
-.dashboard div.control-tab:hover {
+.dashboard-page div.control-tab:hover {
   background-color: #872a2a !important;
 }
 
-.dashboard .open {
+.dashboard-page .open {
   background-color: #872a2a !important;
 }
 
-.dashboard .left-collapse-menu {
+.dashboard-page .left-collapse-menu {
   width: 214px;
   position: absolute;
   top: 0px;
@@ -356,11 +356,11 @@
   background-color: rgba(126,217,237,.6);
 }
 
-.dashboard .collapsed {
+.dashboard-page .collapsed {
   right: -214px;
 }
 
-.dashboard .collapse-handle {
+.dashboard-page .collapse-handle {
   width: 20px;
   border: 1px solid black;
   position: absolute;
@@ -369,13 +369,13 @@
   cursor: pointer;
 }
 
-.dashboard .collapse-icon {
+.dashboard-page .collapse-icon {
   color: black;
   position: absolute !important;
   top: 175px !important;
 }
 
-.dashboard .calendar-controls {
+.dashboard-page .calendar-controls {
   float: right;
   width: 214px;
   text-align: center;
@@ -383,7 +383,7 @@
   margin-bottom: 15px;
 }
 
-.dashboard .ui-datepicker-inline {
+.dashboard-page .ui-datepicker-inline {
   font-size: 12px;
   height: 200px;
   border-radius: 0;
@@ -396,52 +396,52 @@
   font-family: 'Lato', sans-serif !important;
 }
 
-.dashboard .ui-datepicker-header {
+.dashboard-page .ui-datepicker-header {
   background: #085b64;
   color: white;
 }
 
-.dashboard .ui-datepicker-calendar .ui-state-hover {
+.dashboard-page .ui-datepicker-calendar .ui-state-hover {
   background: rgb(100, 100, 100) !important;
 }
 
-.dashboard .ui-datepicker-inline .date-highlight a {
+.dashboard-page .ui-datepicker-inline .date-highlight a {
   color: white;
   background: rgb(150, 150, 150);
   border: 1px solid rgb(204, 204, 204);
 }
 
-.dashboard .ui-datepicker-inline .ui-state-active {
+.dashboard-page .ui-datepicker-inline .ui-state-active {
   border: 1px solid rgb(204, 204, 204) !important;
   background: #ff5252 !important;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 
-.dashboard .time-button {
+.dashboard-page .time-button {
   width: 75%;
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.dashboard #legend {
+.dashboard-page #legend {
   background: #fff;
   padding: 10px;
   margin: 10px;
   border: 3px solid #000;
 }
-.dashboard #legend h4 {
+.dashboard-page #legend h4 {
   margin-top: 0;
   margin-right: 20px;
 }
-.dashboard #legend img {
+.dashboard-page #legend img {
   vertical-align: middle;
 }
 
-.dashboard .hide {
+.dashboard-page .hide {
   display: none;
 }
 
-.dashboard #fencelineInfo {
+.dashboard-page #fencelineInfo {
   width: 100%;
   height: 20px;
   text-align: center;
@@ -449,7 +449,7 @@
   padding: 0px;
 }
 
-.dashboard #help-btn {
+.dashboard-page #help-btn {
   position: absolute;
   right: 1em;
   top: 0.5em;
