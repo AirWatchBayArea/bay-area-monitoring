@@ -17,8 +17,16 @@
   ga('send', 'pageview');
   </script>
   <!-- End Google Analytics -->
+  <!-- Custom Fonts -->
+  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+  <!-- Theme CSS -->
+  <link href="assets/css/agency.css" rel="stylesheet">
+
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="assets/css/landing.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
@@ -90,8 +98,8 @@
   </script>
   <script src="report.js" type="text/javascript">
   </script>
-  <script src="landing.js" type="text/javascript">
-  </script>
+  <!-- Theme JavaScript -->
+  <script src="agency.min.js"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
   <script src='jquery.ui.widget.js' type='text/javascript'>
@@ -114,19 +122,19 @@
     <div class="container-fluid">
       <ul class="nav navbar-nav">
         <li class="custom-nav-btn active" id="home-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#home">Introduction</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#home">Home</a>
         </li>
         <li class="custom-nav-btn active" id="view-air-quality-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#loc=richmond">View Air Quality</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">View Air Quality</a>
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
-          <a class="text-uppercase custom-nav-link" href="#report-air">Report Air</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Air</a>
         </li>
         <li class="custom-nav-btn" id="daily-summaries-tab">
-          <a class="text-uppercase custom-nav-link" href="#daily-summaries">Print Daily Summary</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Print Daily Summary</a>
         </li>
         <li class="custom-nav-btn active" id="resources-for-action-tab">
-          <a class="text-uppercase custom-nav-link-active" href="#resources-for-action">Resources for Action</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#resources-for-action">Resources for Action</a>
         </li>
       </ul>
     </div>
@@ -140,7 +148,7 @@
     <h4>Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a></h4>
   </div>
   <div id="report-air-page">
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a> Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#resources-for-action" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <label>
         <strong class="required">How does your air smell right now?</strong>
@@ -229,109 +237,154 @@
     <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through their&nbsp;website.</p>
   </div>
 
-  <div class="landing full-page" id="home-page">
-    <!-- <div class="carousel slide" data-ride="carousel" id="pics"> -->
-      <!-- <ol class="carousel-indicators">
-        <li class="active" data-slide-to="0" data-target="#pics"></li>
-        <li data-slide-to="1" data-target="#pics"></li>
-        <li data-slide-to="2" data-target="#pics"></li>
-      </ol>
-      <div class="carousel-inner" role="listbox">
-        <div class="item active"><img src="assets/images/panorama_refinery.jpg"></div>
-        <div class="item"><img src="assets/images/Richmond_PAN1.jpg"></div>
-        <div class="item"><img src="assets/images/BENECIA_PAN_2.jpg"></div>
-      </div> -->
-      <div class="site-title">
-        <div class="background-image"></div>
-        <div class="text-center text-uppercase site-title-text">
-          AIR WATCH
-          <div class="subheading">
-            BAY AREA
-          </div>
+  <div id="home-page">
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="intro-text">
+                <div class="intro-heading">air watch<span style="font-size:70%; color:#f7b733"><br/>bay area</span></div>
+            </div>
         </div>
-        <div id="carousel-padding">
-          <div id="carousel-buttons">
-            <div class="small-circle selected" data-img="assets/images/panorama_refinery.JPG"></div>
-            <div class="small-circle" data-img="assets/images/Richmond_PAN1.jpg"></div>
-            <div class="small-circle" data-img="assets/images/BENECIA_PAN_2.jpg"></div>
-          </div>
+    </header>
+
+    <!-- Intro Section -->    
+    <section style="padding: 50px 0;">
+      <div class="container">
+            <div class="row">
+                <div class="col-lg-7 col-sm-6">                 
+                  <hr class="section-heading-spacer" style="margin-top:0px"/>
+                    <div class="clearfix"></div>
+                    <p class="service-heading" style="font-size:175%">Air Watch Bay Area is an interactive tool for the fenceline communities of the San Francisco Bay Area to explore our air quality data.</p>
+                </div>
+                <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px">
+                    <img class="img-responsive" src="img/appicon.png" style="padding: 5% 35% 0% 35%;"/>
+                    <h4 class="service-heading">view air quality and report smells in our mobile app</h4>
+                    <img class="img-responsive" src="img/appstore.png" width="40%" style="display:inline;padding:0 0 5% 0;margin:0 3% 0 0"/>
+                    <img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline;padding:0 0 5% 0;margin:0 0 0 3%"/>
+                </div>
+            </div>
         </div>
-      </div>
-    <!-- </div> -->
-    <div class="container custom-container">
-      <h2 class="text-center">Air Watch is an interactive tool for the fenceline communities of the San Francisco Bay Area to explore our air quality data.</h2><br>
-      <div class="row">
-        <div class="col-lg-7">
-          <div class="panel">
-            <h3>Get Started</h3>
-            <p>To <strong>view air pollution in your community</strong>, select the corresponding tab at the top of the page.</p>
-            <p>To <strong>report pollution odors</strong> to Air Watch: Bay Area, download our mobile app for <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank">iOS</a> or <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank">Android</a>. You can also file a complaint with the Bay Area Air Quality Management District <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank">here</a>.</p>
-            <p>To <strong>print or download a daily air quality summary</strong>, click the "Print Daily Summary" tab above. To subscribe to daily summaries when air quality was worse than average, click <a href="http://groups.google.com/group/airwatchbayarea/boxsubscribe" target="_blank">here</a>.</p>
-          </div>
-          <div class="panel">
-            <h3>Capture Incidents</h3><img class="img-responsive" src="assets/images/data-page-scrnshot.JPG"><br>
-            <p>All the chemicals monitored on our site are linked with an array of adverse health effects— and are known byproducts of refinery processes. Spikes in the readings of these chemicals, paired with wind blowing from the direction of the refinery, indicate a potentially hazardous pollution event.</p>
-          </div>
+    </section>
+    
+    <!-- Services Section -->
+    <section id="services">
+        <div class="container">
+          <div class="row">
+              <div class="col-lg-7 col-sm-6">                 
+                  <hr class="section-heading-spacer" style="margin-top:0px"/>
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading"><strong>getting started</strong></p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-search
+                   fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">View Air Quality in Your Community</h4>
+                </div>
+                <div class="col-md-3">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Report a Smell to Air Watch</h4>
+                    <p class="text-gettingstarted">Start a report online &rarr;</p>
+                  <hr style="margin:0% 10% 5% 10%;width: 80%;border-top: 3px solid #eeeeee;"/>
+          <p class="text-gettingstarted">File a complaint with the Bay Area Air Quality Management District &rarr;</p>
+                </div>
+                <div class="col-md-3">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Daily Summaries</h4>
+                    <p class="text-gettingstarted">View archive &rarr;</p>
+                  <hr style="margin:0% 10% 5% 10%;width: 80%;border-top: 3px solid #eeeeee;"/>
+          <p class="text-gettingstarted">Subscribe to daily summaries by email &rarr;</p>
+                </div>
+                <div class="col-md-3">
+                    <span class="fa-stack fa-4x">
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                        <i class="fa fa-flag-o fa-stack-1x fa-inverse"></i>
+                    </span>
+                    <h4 class="service-heading">Resources for Action</h4>
+                </div>
+            </div>
         </div>
-        <div class="col-lg-5">
-          <div class="panel">
-            <h3>FAQ</h3>
-            <p><strong>Where does the data come from?</strong><br>
-            Most of the data on our site comes from <a href="http://www.fenceline.org" target="_blank">fenceline.org</a> . Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p><br>
-            <p><strong>Who decides what level of a given chemical constitutes a health hazard?</strong><br>
-            Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p><br>
-            <p><strong>An air pollution event occurred in my community, but the monitors didn't pick up anything. What happened?</strong><br>
-            Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.</p><br>
-            <p><strong>Why are schools included on the map?</strong><br>
-            Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children.</p>
-          </div>
-        </div>
-      </div><!--<div class="row">
-        <div class="col-sm-12">
-          <div class="panel">
-            <!==<div class="row">
-              <div class="col-sm-3 text-center">
-                <h3 class="vertical-center">Stay Connected</h3>
+    </section>
+
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="row">
+              <div class="col-lg-7 col-sm-6">                 
+                  <hr class="section-heading-spacer" style="margin-top:0px"/>
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">faq</p>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5 col-sm-6">
+                  <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Where does the data come from?</h3>
+            <p class="service-heading">Most of the data on our site comes from fenceline.org. Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
+            <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
+            <p class="service-heading">Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p>
               </div>
-              <div class="col-sm-5">
-                <p class="vertical-center">To sign-up for email updates about the latest features and
-                improvements on our site, enter your email address here:</p>
-              </div>
-              <div class="col-sm-4 text-center">
-                <input disabled="true">
-                <span class="label label-danger" style="font-size:15px">Coming Soon!</span>
+              <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+                  <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?</h3>
+            <p class="service-heading">Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.</p>
+            <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Why are schools included on the map?</h3>
+            <p class="service-heading">Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children.</p>
               </div>
             </div>
-          </div>
         </div>
-      </div>-->
-      <div class="row">
-        <div class="col-sm-5">
-          <div class="panel" style="max-height: 650px">
-            <h3>What's New</h3>
-            <div class="scroll-panel" id="newFeaturesContainer"></div>
-          </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+      <div class="container">
+          <div class="row">
+              <div class="col-lg-7 col-sm-6">                 
+                  <hr class="section-heading-spacer" style="margin-top:0px"/>
+                    <div class="clearfix"></div>
+                    <h2 class="section-heading">about</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7 col-sm-6">         
+                    <p class="service-heading">Air Watch is developed and maintained by the Fair Tech Collective at Drexel University in collaboration with the Community Robotics, Education, and Technology Empowerment Lab at Carnegie Mellon University and concerned community members from:</p>
+          <ul style="list-style-type: none; color:#FD9453;line-height:30px">
+            <li>Benicia Good Neighbor Steering Committee →</li>
+            <li>C.R.U.D.E. (Crockett-Rodeo United to Defend the Environment) →</li>
+            <li>LACEEN →</li>
+            <li>Community Science Institute →</li>
+          </ul>
+                </div>
+                <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px;padding:5px;">
+                    <img class="img-responsive" src="http://www.airwatchbayarea.org/assets/images/group-photo.jpg"/>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-7">
-          <div class="panel">
-            <h3>About Us</h3><img class="img-responsive" src="assets/images/group-photo.jpg"><br>
-            <p>Air Watch is developed and maintained by the <a href="https://www.fairtechcollective.org/" target="_blank">Fair Tech Collective</a> at Drexel University in collaboration with the <a href="http://cmucreatelab.org/" target="_blank">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
-            <ul>
-              <li>Benicia Good Neighbor Steering Committee</li>
-              <li>
-                <a href="https://crockett-rodeo-united.com/" target="_blank">C.R.U.D.E. (Crockett-Rodeo United to Defend the Environment)</a>
-              </li>
-              <li>
-                <a href="http://laceen.org/" target="_blank">LACEEN</a>
-              </li>
-              <li>
-                <a href="https://csi4health.wordpress.com/" target="_blank">Community Science Institute</a>
-              </li>
-            </ul>
-          </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="copyright">Copyright &copy; Air Watch Bay Area 2017</span>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline quicklinks">
+                        <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
+    </footer>
   </div>
 
   <div class="full-page full-height" id="resources-for-action-page">
@@ -364,13 +417,13 @@
       <nav id="loc-nav" class="navbar navbar-default">
         <ul class="nav navbar-nav">
           <li class="custom-nav-btn" id="richmond-tab">
-            <a class="text-uppercase custom-nav-link" href="#loc=richmond">Richmond</a>
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Richmond</a>
           </li>
           <li class="custom-nav-btn" id="crockett-rodeo-tab">
-            <a class="text-uppercase custom-nav-link" href="#loc=crockett-rodeo">Crockett-Rodeo</a>
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=crockett-rodeo">Crockett-Rodeo</a>
           </li>
           <li class="custom-nav-btn" id="benicia-tab">
-            <a class="text-uppercase custom-nav-link" href="#loc=benicia">Benicia</a>
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
           </li>
         </ul>
       </nav>

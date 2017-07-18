@@ -28,12 +28,20 @@ html, body {
   background-color: white !important;
 }
 
+#home-page{
+  background-color: white !important;
+}
+
 #site-nav {
   background-color: #00bdac;
   border-radius: 0px;
   margin-bottom: 0px;
   border: 0px;
   min-height: 0px;
+}
+
+#site-nav>div>.navbar-nav{
+  float: right !important;
 }
 
 #site-nav .custom-nav-btn {
