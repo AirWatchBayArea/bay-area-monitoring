@@ -15,7 +15,7 @@ body {
   font-size: 110%;
 }
 .text-primary {
-  color: #f7b733;
+  color: #f7b733 !important;
 }
 p {
   font-size: 14px;
