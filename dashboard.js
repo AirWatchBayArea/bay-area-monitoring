@@ -752,6 +752,17 @@
     plotManager.getDateAxis().setRange(max_time-dayLength,max_time);
   }
 
+  function cursorInBound(){
+    var dateAxis = plotManager.getDateAxis();
+    var dateProperties = dateAxis.getRange();
+    dateProperties.cursorPosition = dateAxis.getCursorPosition();
+    if (dateProperties.cursorPosition < dateProperties.min || !dateProperties.cursorPosition){
+        plotManager.getDateAxis().setCursorPosition(dateProperties.min); 
+    }else if(dateProperties.cursorPosition > dateProperties.max){
+        plotManager.getDateAxis().setCursorPosition(dateProperties.max);
+    }
+  }
+
   function setSizes() {
     var height = $('.chart').height();
     $('.chartContent').height(height - 1);
@@ -993,6 +1004,7 @@ function toggleGuide() {
   }
 
   var playCallback = function() {
+    cursorInBound();
     var icon = $("#play i:nth-child(2)");
     icon.toggleClass("fa-play");
     icon.toggleClass("fa-pause");
@@ -1026,14 +1038,8 @@ function toggleGuide() {
         loadCalendar(cached_breathecam.latest.date);
       }
     }
-
-    // Initialize Map
-    //if (area.id == "benicia") {
-      //$("#map_parent").html("<div class='error-msg'>Map data for Benicia coming soon!</div>");
-    //}
-    //else {
-      initMap('map-canvas');
-    //}
+    
+    initMap('map-canvas');
 
     //Zoom buttons
     $("#zoomGrapherIn").on("click", function(event) {

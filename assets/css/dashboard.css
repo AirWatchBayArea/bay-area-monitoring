@@ -468,18 +468,20 @@ button:active {
   margin-bottom: 10px;
 }
 
-
-
 .dashboard-page #legend {
   background: #fff;
   padding: 10px;
   margin: 10px;
-  border: 3px solid #000;
 }
-.dashboard-page #legend h4 {
-  margin-top: 0;
-  margin-right: 20px;
+.dashboard-page #legend summary {
+  font-weight: bold;
+  font-size: 15px;
 }
+
+.dashboard-page #legend summary:focus{
+  outline: none;
+}
+
 .dashboard-page #legend img {
   vertical-align: middle;
 }

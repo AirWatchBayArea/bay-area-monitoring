@@ -193,7 +193,7 @@ function initMap(div) {
   context = canvasLayer.canvas.getContext('2d');
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
-  // generateLegend();
+  generateLegend();
 }
 
 function callback(results, status) {
@@ -266,16 +266,15 @@ function addMapLabels() {
 }
 
 function generateLegend() {
-  var headerHtml = '<h4>Legend</h4>';
-  $("#legendMenu").append('<div id="legend">' + headerHtml + '</div>');
-  var legend = document.getElementById('legend');
+  var $legend = $('<details id="legend"><summary class="no-highlight">Legend</summary></details>');
   for (var key in icons) {
     var name = key;
     var icon = icons[key];
     var div = document.createElement('div');
     div.innerHTML = '<img src="' + icon + '"> ' + name;
-    legend.appendChild(div);
+    $legend.append(div);
   }
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push($legend[0]);
 }
 
 function setupCanvasLayerProjection() {

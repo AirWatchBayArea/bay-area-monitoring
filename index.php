@@ -183,7 +183,7 @@
         <div class="smell-box"></div>
         <span>5 - About as bad as it gets!</span></div>
       </label>
-
+      
       <label class='location-label'>
         <strong class="required">Where were you when you detected the odor?</strong><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
       </label>
@@ -431,8 +431,8 @@
         <div class="full-height" id="map-canvas"></div>
       </div>
       <div id="calendarMenu" class="calendar-controls">
-            <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
-          </div>
+        <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
+      </div>
       <div id="grapher_toolbar" class="row">
         <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
