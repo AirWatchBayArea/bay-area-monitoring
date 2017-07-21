@@ -18,20 +18,25 @@
   </script>
   <!-- End Google Analytics -->
   <!-- Custom Fonts -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <link href="assets/css/vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <!-- Theme CSS -->
+  <style type="text/css">
+          @font-face { font-family: SanFranciscoText-Semibold; src: url('assets/css/fonts/SanFranciscoText-Semibold.otf'); } 
+      @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); } 
+      @font-face { font-family: SanFranciscoText-Heavy; src: url('assets/css/fonts/SanFranciscoText-Heavy.otf'); } 
+  </style>
   <link href="assets/css/agency.css" rel="stylesheet">
 
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
   </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
@@ -242,7 +247,7 @@
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">air watch<span style="font-size:70%; color:#f7b733"><br/>bay area</span></div>
+                <div class="intro-heading">Air Watch<span style="font-size:70%; color:#f7b733"><br/>Bay Area</span></div>
             </div>
         </div>
     </header>
@@ -254,13 +259,13 @@
                 <div class="col-lg-7 col-sm-6">                 
                   <hr class="section-heading-spacer" style="margin-top:0px"/>
                     <div class="clearfix"></div>
-                    <p class="service-heading" style="font-size:175%">Air Watch Bay Area is an interactive tool for the fenceline communities of the San Francisco Bay Area to explore our air quality data.</p>
+                    <p class="service-heading" style="font-size:175%">Air Watch Bay Area is an interactive tool for the refinery fenceline communities of the San Francisco Bay Area to explore our air quality data.</p>
                 </div>
                 <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px">
                     <img class="img-responsive" src="img/appicon.png" style="padding: 5% 35% 0% 35%;"/>
-                    <h4 class="service-heading">view air quality and report smells in our mobile app</h4>
-                    <img class="img-responsive" src="img/appstore.png" width="40%" style="display:inline;padding:0 0 5% 0;margin:0 3% 0 0"/>
-                    <img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline;padding:0 0 5% 0;margin:0 0 0 3%"/>
+                    <h4 class="service-heading">View air quality and report smells from our app</h4>
+                    <div style="margin:3%;width:100%"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/>
+                    <img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div>
                 </div>
             </div>
         </div>
@@ -273,7 +278,7 @@
               <div class="col-lg-7 col-sm-6">                 
                   <hr class="section-heading-spacer" style="margin-top:0px"/>
                     <div class="clearfix"></div>
-                    <h2 class="section-heading"><strong>getting started</strong></p>
+                    <h2 class="section-heading">getting started</p>
                 </div>
             </div>
             <div class="row text-center">
@@ -284,6 +289,9 @@
                    fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
+                    <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
+                    <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
+                    <a href="#loc=benecia" class="btn btn-xl text-gettingstarted">Benecia &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -291,19 +299,15 @@
                         <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Report a Smell to Air Watch</h4>
-                    <p class="text-gettingstarted">Start a report online &rarr;</p>
-                  <hr style="margin:0% 10% 5% 10%;width: 80%;border-top: 3px solid #eeeeee;"/>
-          <p class="text-gettingstarted">File a complaint with the Bay Area Air Quality Management District &rarr;</p>
+                    <a href="#report-air" class="btn btn-xl text-gettingstarted">Start a report online &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Daily Summaries</h4>
-                    <p class="text-gettingstarted">View archive &rarr;</p>
-                  <hr style="margin:0% 10% 5% 10%;width: 80%;border-top: 3px solid #eeeeee;"/>
-          <p class="text-gettingstarted">Subscribe to daily summaries by email &rarr;</p>
+                    <h4 class="service-heading">User Reports</h4>
+                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View user-submitted reports &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -311,6 +315,7 @@
                         <i class="fa fa-flag-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Resources for Action</h4>
+                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View resources for action &rarr;</a>
                 </div>
             </div>
         </div>
@@ -328,15 +333,15 @@
             </div>
             <div class="row">
               <div class="col-lg-5 col-sm-6">
-                  <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Where does the data come from?</h3>
+                  <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Where does the data come from?</h3>
             <p class="service-heading">Most of the data on our site comes from fenceline.org. Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
-            <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
+            <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
             <p class="service-heading">Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p>
               </div>
               <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-                  <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?</h3>
+                  <h3 style="color: #FD9453; text-transform:none;margin:25px 0">An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?</h3>
             <p class="service-heading">Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.</p>
-            <h3 style="color: #FD9453; text-transform:lowercase;margin:25px 0">Why are schools included on the map?</h3>
+            <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Why are schools included on the map?</h3>
             <p class="service-heading">Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children.</p>
               </div>
             </div>
@@ -378,7 +383,7 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list-inline quicklinks">
-                        <li><a class="page-scroll" onclick="scrollToTop()" style="color:#f7b733">Back to Top</a>
+                        <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
                         </li>
                     </ul>
                 </div>
