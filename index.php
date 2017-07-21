@@ -430,7 +430,30 @@
       <div id="map_parent" class="row half-height">
         <div class="full-height" id="map-canvas"></div>
       </div>
-      <div id="grapher_toolbar" class="row"></div>
+      <div id="calendarMenu" class="calendar-controls">
+            <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
+          </div>
+      <div id="grapher_toolbar" class="row">
+        <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+        </span>
+        <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+        </span>
+        <span id="calendar" title="calendar" class="fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
+        </span>
+        <span id="play" title="play/pause" class="fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-play fa-stack-1x fa-inverse"></i>
+        </span>
+        <div id="slider-wrapper" title="speed">
+          <div id="slider"></div>
+        </div>
+      </div>
       <div id="grapher_parent" class="row half-height">
         <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
           <tr class="grapher_row" id="dateAxisContainer">

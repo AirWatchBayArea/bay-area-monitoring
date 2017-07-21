@@ -132,8 +132,12 @@
 }
 
 .dashboard-page #grapher_toolbar{
-  height: 50px;
   background-color: #00bd9c;
+}
+
+.dashboard-page #grapher_toolbar .fa-stack{
+  margin: 2px;
+  cursor: pointer;
 }
 
 .dashboard-page #shareLink {
@@ -216,12 +220,25 @@
   border-radius: 4px;
 }
 
+#slider-wrapper{
+  width: 130px;
+  display: inline-block;
+  margin: 0px 12px;
+  background-color: #00bd9c;
+}
+
 .dashboard-page #slider {
-  width:90px;
-  float: right;
-  margin-right: -20px;
-  margin-top: 11px;
   background: rgba(255,255,255,0.5);
+}
+
+.ui-slider-handle {
+  background: #f7b733 !important;
+  border: none;
+}
+
+#calendar-menu{
+  position: absolute;
+
 }
 
 .dashboard-page .playbackBtn {
@@ -376,18 +393,21 @@
 }
 
 .dashboard-page .calendar-controls {
-  float: right;
+  position:absolute;
+  left: 0;
   width: 214px;
+  padding-top: 5px;
   text-align: center;
-  padding-top: 7px;
-  margin-bottom: 15px;
+  background-color: #00bd9c;
+  z-index: 100;
+  transform: translateY(-361px);
 }
 
 .dashboard-page .ui-datepicker-inline {
   font-size: 12px;
   height: 200px;
   border-radius: 0;
-  color: #555555;
+  color: #f7b733 !important;
   background: rgb(248, 248, 248);
   border: 1px solid rgb(150, 150, 150);
   margin-right: auto;
@@ -397,31 +417,58 @@
 }
 
 .dashboard-page .ui-datepicker-header {
-  background: #085b64;
+  background: none;
+  border: none;
+  background-color: #00bd9c !important;
   color: white;
 }
 
 .dashboard-page .ui-datepicker-calendar .ui-state-hover {
-  background: rgb(100, 100, 100) !important;
+  background: #c7c7c7 !important;
 }
 
 .dashboard-page .ui-datepicker-inline .date-highlight a {
-  color: white;
-  background: rgb(150, 150, 150);
-  border: 1px solid rgb(204, 204, 204);
+  color: black;
+  background: white;
+  border: 1px solid #f7b733;
+  border-radius: 5px;
 }
 
 .dashboard-page .ui-datepicker-inline .ui-state-active {
-  border: 1px solid rgb(204, 204, 204) !important;
-  background: #ff5252 !important;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+  background: #f7b733 !important;
+  color: black !important;
 }
+
+.custom-button {
+  background-color: #f7b733;
+}
+
+button.custom-button {
+  text-transform: uppercase;
+  color: white !important;
+  border: none;
+  transition: background-color 0.4s;
+  box-shadow: 3px 3px #872a2a !important;
+}
+
+button:hover {
+  background-color: #d59208 !important;
+}
+
+button:active {
+  background-color: #d59208;
+  box-shadow: 0 0 #d59208 !important;
+  transform: translateY(2px) translateX(2px);
+}
+
 
 .dashboard-page .time-button {
   width: 75%;
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+
 
 .dashboard-page #legend {
   background: #fff;

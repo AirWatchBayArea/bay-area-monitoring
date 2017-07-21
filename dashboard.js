@@ -436,6 +436,10 @@
     $(".collapse-icon").toggleClass("glyphicon-menu-left");
   }
 
+  function toggleCalendar(){
+    $('#calendarMenu').animate({width:'toggle', opacity:'toggle'},800, "easeInOutBack");
+  }
+
   function updateCalendarAndToggleUI(startingDate) {
     $(".gwt-PopupPanel").remove();
     locationDivId = currentLocation + "_overlay";
@@ -881,6 +885,7 @@
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
+    plotManager.getDateAxis().constrainRangeTo(1262304000, 1577836800);
     $(window).resize(function() {
       var location = window.location.hash.slice(1).split("&")[0].split("loc=")[1];
       if(location){setSizes();}
@@ -988,10 +993,11 @@ function toggleGuide() {
   }
 
   var playCallback = function() {
-    var icon = $("#playIcon");
-    icon.toggleClass("glyphicon-play");
-    icon.toggleClass("glyphicon-pause");
-    icon.hasClass("glyphicon-pause") ? play() : pause();
+    var icon = $("#play i:nth-child(2)");
+    icon.toggleClass("fa-play");
+    icon.toggleClass("fa-pause");
+    icon.hasClass("fa-pause") ? play() : pause();
+    $('#slider').animate({width:'toggle'},400, "easeInOutBack");
   }
 
   function channelPageSetup(fromShareLink) {
@@ -1030,11 +1036,15 @@ function toggleGuide() {
     //}
 
     //Zoom buttons
-    $("#zoomGrapherIn").on("click", function() {
-      zoomGrapher(0.7);
+    $("#zoomGrapherIn").on("click", function(event) {
+      if(!event.detail || event.detail==1){
+        zoomGrapher(0.7);
+      }
     });
-    $("#zoomGrapherOut").on("click", function() {
-      zoomGrapher(1.3);
+    $("#zoomGrapherOut").on("click", function(event) {
+      if(!event.detail || event.detail==1){
+        zoomGrapher(1.3);
+      }
     });
 
     $('[data-toggle="popover"]').popover();
@@ -1042,8 +1052,16 @@ function toggleGuide() {
 
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-    $("#play").on("click", playCallback);
-    $("#slider").slider();
+    $("#play").on("click", function(){if(!event.detail || event.detail==1) playCallback()});
+    $("#slider").slider().hide();
+    $('#calendar')
+    .on('click',function(ev){
+      if(!event.detail || event.detail==1){
+        toggleCalendar();
+      }
+    });
+    $('#calendarMenu').hide();
+
     window.addEventListener('keydown',playOnSpacebarPress);
 
     var initTime = plotManager.getDateAxis().getRange().min;

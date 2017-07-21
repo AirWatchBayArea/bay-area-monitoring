@@ -4,6 +4,9 @@ html, body {
   font-family: 'Lato', sans-serif !important;
 }
 
+.text-primary {
+  color: #f7b733 !important;
+}
 .underline{
   text-decoration: underline;
 }
@@ -82,34 +85,6 @@ html, body {
   -ms-transform: scale(1.5);
   -webkit-transform: scale(1.5);
   -transform: scale(1.5);
-}
-
-.ui-slider-handle {
-  background: #ff5252 !important;
-  box-shadow: 2px 1.5px #872a2a;
-  border: none;
-}
-
-.custom-button {
-  background-color: #ff5252;
-}
-
-button.custom-button {
-  text-transform: uppercase;
-  color: white !important;
-  border: none;
-  box-shadow: 3px 3px #872a2a;
-  transition-duration: 0.4s;
-}
-
-button:hover {
-  background-color: #872a2a !important;
-}
-
-button:active {
-  background-color: #872a2a;
-  box-shadow: 0 0 #872a2a !important;
-  transform: translateY(2px) translateX(2px);
 }
 
 #daily-summaries-page {

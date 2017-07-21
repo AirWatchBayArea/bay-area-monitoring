@@ -141,9 +141,14 @@ function initMap(div) {
 
   var mapOptions = {
     keyboardShortcuts: false,
-    scaleControl: true,
     zoom: 14,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    streetViewControl:false,
+    mapTypeControl: false,
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_TOP
+    },
     center: new google.maps.LatLng(center.x, center.y),
     styles: styleArray
   };
