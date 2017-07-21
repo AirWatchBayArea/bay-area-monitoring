@@ -3,5 +3,3 @@ TimeMachineExplorer.iws
 .DS_Store
 .idea/
 secret.txt
-cloudinary_settings.php
-/vendor/
