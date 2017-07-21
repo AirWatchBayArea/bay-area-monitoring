@@ -18,7 +18,7 @@
   </script>
   <!-- End Google Analytics -->
   <!-- Custom Fonts -->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="vendor/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
@@ -183,7 +183,7 @@
         <div class="smell-box"></div>
         <span>5 - About as bad as it gets!</span></div>
       </label>
-      
+
       <label class='location-label'>
         <strong class="required">Where were you when you detected the odor?</strong><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
       </label>
