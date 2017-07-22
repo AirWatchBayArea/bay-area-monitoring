@@ -105,8 +105,8 @@ function initMap(div) {
 
   var center = {};
   if(area.id === "richmond") {
-    center.x = 37.931468927073634;
-    center.y = -122.38782797656247;
+    center.x = 37.938407712418034;
+    center.y = -122.36615572772212;
   }
   else if(area.id === "crockett-rodeo") {
     center.x = 38.03885974316995;
@@ -141,7 +141,7 @@ function initMap(div) {
 
   var mapOptions = {
     keyboardShortcuts: false,
-    zoom: 14,
+    zoom: 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl:false,
     mapTypeControl: false,
@@ -170,12 +170,12 @@ function initMap(div) {
     });
 
     infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-      location: new google.maps.LatLng(center.x, center.y),
-      radius: 5000,
-      type: ['school']
-    }, callback);
+    // var service = new google.maps.places.PlacesService(map);
+    // service.nearbySearch({
+    //   location: new google.maps.LatLng(center.x, center.y),
+    //   radius: 5000,
+    //   type: ['school']
+    // }, callback);
 
     // initialize the canvasLayer
   var update = function() {

@@ -1009,7 +1009,6 @@ function toggleGuide() {
     icon.toggleClass("fa-play");
     icon.toggleClass("fa-pause");
     icon.hasClass("fa-pause") ? play() : pause();
-    $('#slider').animate({width:'toggle'},400, "easeInOutBack");
   }
 
   function channelPageSetup(fromShareLink) {
@@ -1058,9 +1057,10 @@ function toggleGuide() {
 
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-    $("#play").on("click", function(){if(!event.detail || event.detail==1) playCallback()});
-    $("#slider").slider().hide();
+    $("#play").unbind().on("click", function(){if(!event.detail || event.detail==1) playCallback()});
+    $("#slider").slider();
     $('#calendar')
+    .unbind()
     .on('click',function(ev){
       if(!event.detail || event.detail==1){
         toggleCalendar();

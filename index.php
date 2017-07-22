@@ -133,7 +133,7 @@
           <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">View Air Quality</a>
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Air</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Smell/Photo</a>
         </li>
         <li class="custom-nav-btn" id="daily-summaries-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Print Daily Summary</a>
@@ -439,30 +439,30 @@
         <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
       </div>
       <div id="grapher_toolbar" class="row">
-        <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
+        <span id="zoomGrapherIn" title="zoom in" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
         </span>
-        <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
+        <span id="zoomGrapherOut" title="zoom out" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
         </span>
-        <span id="calendar" title="calendar" class="fa-stack fa-2x">
+        <span id="calendar" title="calendar" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
         </span>
-        <span id="play" title="play/pause" class="fa-stack fa-2x">
+        <span id="play" title="play/pause" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-play fa-stack-1x fa-inverse"></i>
         </span>
-        <div id="slider-wrapper" title="speed">
+        <div id="slider-wrapper" title="speed" class="grapher-tool-icon">
           <div id="slider"></div>
         </div>
       </div>
       <div id="grapher_parent" class="row half-height">
         <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
           <tr class="grapher_row" id="dateAxisContainer">
-            <!-- <td class="playContainer"><button class="axesControls custom-button" id="zoomGrapherIn" title="Zoom in the graphs"><span class="glyphicon glyphicon-plus"></span></button> <button class="axesControls custom-button" id="zoomGrapherOut" title="Zoom out the graphs"><span class="glyphicon glyphicon-minus"></span></button> <button class="axesControls custom-button" onclick="toggleYAxisAutoScaling()" title="Toggle Autoscaling of Y Axes"><span class="ui-icon ui-icon-locked" id="auto_scale_toggle_button"></span></button></td> -->
+            <td></td>
             <td id="dateAxis"></td>
             <td class="border"></td>
           </tr>
