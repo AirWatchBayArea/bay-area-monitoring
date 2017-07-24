@@ -10,7 +10,7 @@ var projectionScale = 2000;
 var y_scale;
 var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
 
-var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, , 12, 24, 24, 24, 36, 60, 90, 180, 240, 360];
+var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 24, 24, 24, 36, 60, 90, 180, 240, 360];
 
 var iconBase = 'assets/images/';
 var icons = {
@@ -163,19 +163,20 @@ function initMap(div) {
       zIndex: 0
     });
 
-    kmlLayer.addListener('click', function(kmlEvent) {
-      if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
-        changeLocale(area.id, kmlEvent.featureData.description);
-      }
-    });
+  kmlLayer.addListener('click', function(kmlEvent) {
+    if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
+      changeLocale(area.id, kmlEvent.featureData.description);
+    }
+  });
 
-    infowindow = new google.maps.InfoWindow();
-    // var service = new google.maps.places.PlacesService(map);
-    // service.nearbySearch({
-    //   location: new google.maps.LatLng(center.x, center.y),
-    //   radius: 5000,
-    //   type: ['school']
-    // }, callback);
+  infowindow = new google.maps.InfoWindow();
+  
+  // var service = new google.maps.places.PlacesService(map);
+  // service.nearbySearch({
+  //   location: new google.maps.LatLng(center.x, center.y),
+  //   radius: 5000,
+  //   type: ['school']
+  // }, markerCallback);
 
     // initialize the canvasLayer
   var update = function() {
@@ -196,35 +197,41 @@ function initMap(div) {
   generateLegend();
 }
 
-function callback(results, status) {
+function markerCallback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i]);
+      createMarker(results[i].geometry.location, PROJ_ROOT_URL + "/assets/images/school.png", results[i].name);
     }
   }
 }
 
-function createMarker(place) {
-  var placeLoc = place.geometry.location;
+function scaleIcon(marker, iconURL){
+  var icon_size = zoom_level_to_marker_size[map.getZoom()];
+  var icon = {
+    url: iconURL,
+    scaledSize: new google.maps.Size(icon_size,icon_size), // scaled size
+    origin: new google.maps.Point(0,0), // origin
+    anchor: new google.maps.Point(0, 0) // anchor
+  };
+  marker.setIcon(icon);
+}
+
+function createMarker(googLatLng, iconURL, infoContent) {
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location,
-    icon: PROJ_ROOT_URL + "/assets/images/school.png"
+    position: googLatLng,
+    icon: iconURL,
+    content: infoContent,
   });
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
+    infowindow.setContent(infoContent);
     infowindow.open(map, this);
   });
   google.maps.event.addListener(map, 'zoom_changed', function() {
-    var icon_size = zoom_level_to_marker_size[map.getZoom()];
-    var icon = {
-      url: PROJ_ROOT_URL + "/assets/images/school.png",
-      scaledSize: new google.maps.Size(icon_size,icon_size), // scaled size
-      origin: new google.maps.Point(0,0), // origin
-      anchor: new google.maps.Point(0, 0) // anchor
-    };
-    marker.setIcon(icon);
+    scaleIcon(marker, iconURL);
   });
+  scaleIcon(marker, iconURL);
+  return marker;
 }
 
 function addMapLabels() {

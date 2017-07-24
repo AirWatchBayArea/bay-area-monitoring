@@ -61,7 +61,7 @@ function generatePostFromResource(resource){
 	generatePostHTML(postData);
 }
 
-function getSmellColor(smellVal){
+function getSmellColorStr(smellVal){
 	switch(parseInt(smellVal)){
 		case 1: 
 			return "lime";
@@ -91,7 +91,7 @@ function generatePostHTML(data){
 	$('#posts').append([
 		'<div class="post">',
         	'<div class="smell-box" style="background-color: ',
-        	(data['smell_value']) ? getSmellColor(escapeHTML(data['smell_value'])) : 'gray',
+        	(data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray',
         	'"></div>',
         	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Title)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',

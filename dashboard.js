@@ -16,11 +16,12 @@
   var loadedSeries = [];
   var seriesIdx = 0;
   var plotManager;
+  var dateAxisRange;
   var area = {};
   var currentLocation = "shenango1";
   var currentDate;
   var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
-  var PROJ_ROOT_URL = 'http://www.airwatchbayarea.org';
+  var PROJ_ROOT_URL = 'http://air-watch-bay-area-staging.herokuapp.com';
   var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
   var fixedCursorPosition;
   var grapherReady = false;
@@ -191,6 +192,7 @@
   }
 
   function play() {
+    cursorInBound();
     var dateAxis = plotManager.getDateAxis();
     var currentTime = Number(dateAxis.getCursorPosition());
     var range = dateAxis.getRange().max - dateAxis.getRange().min;
@@ -224,16 +226,15 @@
         createTutorialButton(720, 540, "#timeMachine");
         if (canvasLayer)
           repaintCanvasLayer();
-        drawSmellReports();
         // Time Machine Listeners
         timelapse.addTimeChangeListener(function(videoTime) {
           if (dateAxis) {
             fixedCursorPosition = Date.parse(timelapse.getCurrentCaptureTime().replace(/-/g, "/")) / 1000;
             dateAxis.setCursorPosition(fixedCursorPosition);
           }
-          if (canvasLayer)
+          if (canvasLayer){
             repaintCanvasLayer();
-          drawSmellReports();
+          }
         });
         // Override the hashchange event
         /*window.onhashchange = null;
@@ -782,10 +783,13 @@
   var dateAxisListener = function(event) {
     var timeInSecs = event.cursorPosition;
     var dateAxis = plotManager.getDateAxis();
-    var range = dateAxis.getRange();
-    if (timeInSecs > range.max) {
-      timeInSecs = range.min;
-      dateAxis.setCursorPosition(range.min);
+    if(!dateAxisRange || dateAxisRange.min != dateAxis.getRange().min || dateAxisRange.max != dateAxis.getRange().max){
+        drawSmellReports(dateAxis.getRange());
+    }
+    dateAxisRange = dateAxis.getRange();
+    if (timeInSecs > dateAxisRange.max) {
+      timeInSecs = dateAxisRange.min;
+      dateAxis.setCursorPosition(dateAxisRange.min);
     }
     var d = new Date(timeInSecs * 1000);
     var pad = function(num) {
@@ -797,7 +801,6 @@
       $("#datepicker").datepicker("setDate",dateString);
     }
     repaintCanvasLayer(timeInSecs);
-    drawSmellReports(timeInSecs);
   };
 
   function setGraphTimeRange(date) {

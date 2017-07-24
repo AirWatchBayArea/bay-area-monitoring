@@ -1,6 +1,4 @@
 "use strict";
-
-var infowindow_smell
 var previous_icon_size;
 var smell_value_text = ["Just fine!", "Barely noticeable", "Definitely noticeable",
   "It's getting pretty bad", "About as bad as it gets!"
@@ -10,7 +8,7 @@ var rootSmellUrl = "http://api.smellpittsburgh.org/api/v1";
 var ratingColors = ["rgb(0,255,0)", "rgb(248,229,64)", "rgb(218,136,0)", "rgb(235,38,103)", "rgb(95,14,54)"];
 var tweleveHoursInSecs = 43200;
 var smellReports = [];
-var smellMarkers = {};
+var smellMarkers = [];
 var commentDataByRating = {
     "1" : [],
     "2" : [],
@@ -21,12 +19,13 @@ var commentDataByRating = {
 var commentData = [];
 var smellReportPrependText = " out of 5 rating. ";
 var gwtPopUpText = "";
-var isHighlighting = false;
 var smellLoadingInterval = null;
 
 
 function initSmells() {
-  infowindow_smell = new google.maps.InfoWindow({
+  smellReports.length = 0;
+  smellMarkers.length = 0;
+  infowindow = new google.maps.InfoWindow({
     pixelOffset: new google.maps.Size(-1, 0)
   });
   return new Promise(function(resolve, reject){
@@ -38,6 +37,7 @@ function initSmells() {
         return report.latitude < 38.8286208 && report.latitude > 36.906913 && report.longitude < -121.209588 && report.longitude > -123.017998;
       });
       addSmellReportsToGrapher();
+      processSmellReportsForMap();
       resolve();
       }
     });
@@ -66,13 +66,12 @@ function zoomMapToClickedReport(pointData) {
     var latLngArray = selectedPoint[selectedPoint.length - 1].split(",");
     var latLng = new google.maps.LatLng(latLngArray[0], latLngArray[1]);
     map.panTo(latLng);
-    map.setZoom(12);
-    Object.keys(smellMarkers).forEach( function(i) {
+    for (var i = smellMarkers.length - 1; i >= 0; i--) {
       if (smellMarkers[i].position.equals(latLng)) {
-        infowindow_smell.setContent(smellMarkers[i].content);
-        infowindow_smell.open(map,smellMarkers[i]);
+        infowindow.setContent(smellMarkers[i].content);
+        infowindow.open(map,smellMarkers[i]);
       }
-    });
+    }
   }
 }
 
@@ -154,33 +153,30 @@ function addSmellReportsToGrapher() {
       series[smellPlotIndex].p = plots;
     })(rating);
   }
+}
+
+function processSmellReportsForMap(){
+  smellMarkers.length = 0;
+
+  for (var j = 0; j < smellReports.length; j++) {
+    smellMarkers[j] = drawSingleSmellReport(smellReports[j]);
+  }
   drawSmellReports();
 }
 
-function drawSmellReports(epochTime) {
-  if (!epochTime) {
-    epochTime = plotManager.getDateAxis().getCursorPosition();
+function drawSmellReports(range) {
+  if (!range) {
+    range = plotManager.getDateAxis().getRange();
   }
 
-  if (!smellReports) return;
-  for (var j = 0; j < smellReports.length; j++) {
-    var report = smellReports[j];
-    var smellTime = report.created_at;
-    if (epochTime >= smellTime && epochTime <= (smellTime + tweleveHoursInSecs) && !smellMarkers.hasOwnProperty(j)) {
-      drawSingleSmellReport(report, j);
-    }
-  }
   for (var markerKey in smellMarkers) {
     var marker = smellMarkers[markerKey];
     var smellTime = marker.created_date / 1000;
-    if (epochTime < smellTime || epochTime > smellTime + tweleveHoursInSecs) {
-      marker.setMap(null);
-      delete smellMarkers[markerKey];
-    }
+    marker.setVisible(smellTime >= range.min && smellTime <= range.max);
   }
  }
 
- function drawSingleSmellReport(report_i, index) {
+ function drawSingleSmellReport(report_i) {
    var latlng = {"lat": report_i.latitude, "lng": report_i.longitude};
 
    // Add marker
@@ -189,50 +185,55 @@ function drawSmellReports(epochTime) {
    var smell_value = report_i.smell_value;
    var feelings_symptoms = report_i.feelings_symptoms ? report_i.feelings_symptoms : "No data.";
    var smell_description = report_i.smell_description ? report_i.smell_description : "No data.";
-   var icon_size = zoom_level_to_smell_icon_size[map.getZoom()];
-   previous_icon_size = icon_size;
-   var icon_size_half = icon_size / 2;
-   var marker = new google.maps.Marker({
-     position: latlng,
-     map: map,
-     created_date: date.getTime(),
-     smell_value: report_i.smell_value,
-     content: '<b>Date:</b> ' + date_str + '<br>'
-       + '<b>Smell Rating:</b> ' + smell_value + " (" + smell_value_text[smell_value - 1] + ")" + '<br>'
-       + '<b>Symptoms:</b> ' + feelings_symptoms + '<br>'
-       + '<b>Smell Description:</b> ' + smell_description,
-     icon: {
-       url: getSmellColor(report_i.smell_value - 1),
-       scaledSize: new google.maps.Size(icon_size, icon_size),
-       size: new google.maps.Size(icon_size, icon_size),
-       origin: new google.maps.Point(0, 0),
-       anchor: new google.maps.Point(icon_size_half, icon_size_half)
-     },
-     zIndex: report_i.smell_value,
-     opacity: 0.85
-   });
+   // var icon_size = zoom_level_to_smell_icon_size[map.getZoom()];
+   // previous_icon_size = icon_size;
+   // var icon_size_half = icon_size / 2;
+   // var marker = new google.maps.Marker({
+   //   position: latlng,
+   //   map: map,
+   //   created_date: date.getTime(),
+   //   smell_value: report_i.smell_value,
+   //   content: ['<b>Date:</b> ',date_str,'<br>',
+   //                '<b>Smell Rating:</b> ',smell_value," (",smell_value_text[smell_value - 1],")",'<br>',
+   //                '<b>Symptoms:</b> ',feelings_symptoms,'<br>',
+   //                '<b>Smell Description:</b> ',smell_description].join(''),
+   //   icon: {
+   //     url: getSmellColor(report_i.smell_value - 1),
+   //     scaledSize: new google.maps.Size(icon_size, icon_size),
+   //     size: new google.maps.Size(icon_size, icon_size),
+   //     origin: new google.maps.Point(0, 0),
+   //     anchor: new google.maps.Point(icon_size_half, icon_size_half)
+   //   },
+   //   zIndex: report_i.smell_value,
+   //   opacity: 0.85
+   // });
 
-   // Add marker event
-   marker.addListener("click", function () {
-     infowindow_smell.setContent(this.content);
-     infowindow_smell.open(map, this);
-   });
+   var content = ['<b>Date:</b> ',date_str,'<br>',
+                  '<b>Smell Rating:</b> ',smell_value," (",smell_value_text[smell_value - 1],")",'<br>',
+                  '<b>Symptoms:</b> ',feelings_symptoms,'<br>',
+                  '<b>Smell Description:</b> ',smell_description].join('');
+   var marker = createMarker(latlng, 
+                              getSmellColor(report_i.smell_value - 1),
+                              content);
 
-   // Save markers
-   smellMarkers[index] = marker;
+   marker.setZIndex(report_i.smell_value);
+   marker.created_date = date.getTime();
+
+   return marker;
  }
 
  function getSmellColor(idx) {
-   var path = "assets/images/";
+   var path = PROJ_ROOT_URL + "/assets/images/";
    var smell_color = ["smell_1.png", "smell_2.png", "smell_3.png", "smell_4.png", "smell_5.png"];
    var smell_color_med = ["smell_1_med.png", "smell_2_med.png", "smell_3_med.png", "smell_4_med.png", "smell_5_med.png"];
    var smell_color_big = ["smell_1_big.png", "smell_2_big.png", "smell_3_big.png", "smell_4_big.png", "smell_5_big.png"];
-   var map_zoom = map.getZoom();
-   if (map_zoom >= 20) {
-     return path + smell_color_big[idx];
-   } else if (map_zoom < 20 && map_zoom >= 17) {
-     return path + smell_color_med[idx];
-   } else {
-     return path + smell_color[idx];
-   }
+   // var map_zoom = map.getZoom();
+   // if (map_zoom >= 20) {
+   //   return path + smell_color_big[idx];
+   // } else if (map_zoom < 20 && map_zoom >= 17) {
+   //   return path + smell_color_med[idx];
+   // } else {
+   //   return path + smell_color[idx];
+   // }
+   return path + smell_color[idx];
  }
