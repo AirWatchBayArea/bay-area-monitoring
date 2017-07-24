@@ -612,7 +612,7 @@
           </coordinates>
         </Point>
       </Placemark>
-      <!-- <Placemark>
+      <Placemark>
         <name>Freeway</name>
         <description>Benzene, Toluene, Ethylbenzene, Xylene and Particulate Matter</description>
         <styleUrl>#line-424242-5</styleUrl>
@@ -626,7 +626,7 @@
             -122.3662376,37.9268676,0
           </coordinates>
         </LineString>
-      </Placemark> -->
+      </Placemark>
       <Placemark>
         <name>Waste Water Treatment Facility</name>
         <description>Hydrogen Sulfide</description>

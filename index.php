@@ -130,13 +130,13 @@
           <a class="text-uppercase custom-nav-link no-highlight" href="#home">Home</a>
         </li>
         <li class="custom-nav-btn active" id="view-air-quality-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">View Air Quality</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Air Quality</a>
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Smell/Photo</a>
         </li>
         <li class="custom-nav-btn" id="daily-summaries-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Print Daily Summary</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
         </li>
         <li class="custom-nav-btn active" id="resources-for-action-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#resources-for-action">Resources for Action</a>
