@@ -5,7 +5,8 @@ var smell_value_text = ["Just fine!", "Barely noticeable", "Definitely noticeabl
 ];
 var zoom_level_to_smell_icon_size = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 36, 60, 90, 180, 240, 360];
 var rootSmellUrl = "http://api.smellpittsburgh.org/api/v1";
-var ratingColors = ["rgb(0,255,0)", "rgb(248,229,64)", "rgb(218,136,0)", "rgb(235,38,103)", "rgb(95,14,54)"];
+//                     lime               yellow            orange           crimson       rebeccapurple
+var ratingColors = ["rgb(0,255,0)", "rgb(255,255,0)", "rgb(255,165,0)", "rgb(255,0,0)", "rgb(102,51,153)"];
 var tweleveHoursInSecs = 43200;
 var smellReports = [];
 var smellMarkers = [];
@@ -223,17 +224,12 @@ function drawSmellReports(range) {
  }
 
  function getSmellColor(idx) {
-   var path = PROJ_ROOT_URL + "/assets/images/";
-   var smell_color = ["smell_1.png", "smell_2.png", "smell_3.png", "smell_4.png", "smell_5.png"];
-   var smell_color_med = ["smell_1_med.png", "smell_2_med.png", "smell_3_med.png", "smell_4_med.png", "smell_5_med.png"];
-   var smell_color_big = ["smell_1_big.png", "smell_2_big.png", "smell_3_big.png", "smell_4_big.png", "smell_5_big.png"];
-   // var map_zoom = map.getZoom();
-   // if (map_zoom >= 20) {
-   //   return path + smell_color_big[idx];
-   // } else if (map_zoom < 20 && map_zoom >= 17) {
-   //   return path + smell_color_med[idx];
-   // } else {
-   //   return path + smell_color[idx];
-   // }
-   return path + smell_color[idx];
+   return {
+            path: google.maps.SymbolPath.CIRCLE,
+            fillColor: ratingColors[idx],
+            strokeColor: 'white',
+            strokeWeight: 3,
+            scale: 9,
+            fillOpacity: 1.0,
+          };
  }

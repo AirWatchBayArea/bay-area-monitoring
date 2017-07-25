@@ -1002,8 +1002,9 @@ function toggleGuide() {
     // setTimeout(refreshGrapher, 1000);
     // setTimeout(refreshGrapher, 2000);
     // setTimeout(refreshGrapher, 3000);
-    if (canvasLayer)
-    highlightSelectedMonitors();
+    // if (canvasLayer){
+    //   highlightSelectedMonitors();
+    // }
   }
 
   var playCallback = function() {

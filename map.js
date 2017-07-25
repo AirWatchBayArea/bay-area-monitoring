@@ -19,7 +19,14 @@ var icons = {
   "Community Monitor": iconBase + 'community-monitor-pin.png',
   "BAAQMD Monitor": iconBase + 'baaqmd-monitor-pin.png',
   "Selected Monitors": iconBase + 'highlight.png',
-  "Pollution Source": iconBase + 'pollution-marker-grey-circle.png',
+  "Pollution Source": {
+                        path: "M 50,10 90,75 10,75 z",
+                        fillColor: 'dimgray',
+                        strokeColor: 'gray',
+                        strokeWeight: 3,
+                        scale: .3,
+                        fillOpacity: 1.0,
+                      },
   "School": iconBase + "school.png"
 }
 
@@ -99,6 +106,54 @@ var refineries = {
   }
 }
 
+var pollutionSources = {
+  "Nu Star Energy (ST Shore Terminals)":{
+    description: "Organic gas",
+    lat: 38.0482938,
+    lng: -122.2480488,
+  },
+  "Crockett Cogeneration":{
+    description: "NOx, Particulate Matter, Organic Gas, SOx, CO",
+    lat: 38.057135,
+    lng:-122.2156852,
+  },
+  "Dutra Materials":{
+    description: "",
+    lat: 37.9359054,
+    lng:-122.4065781,
+  },
+  "Loading Terminal":{
+    description: "Sulfur Dioxide, Benzene, Toluene, Ethylbenzene, Xylene, and Particulate Matter",
+    lat: 37.9229069,
+    lng:-122.4107838,
+  },
+  "Waste Water Treatment Facility":{
+    description: "Hydrogen Sulfide",
+    lat: 37.9201139,
+    lng:-122.3788977,
+  },
+  "Kinder Morgan and BP Loading Dock":{
+    description: "Benzene, Toluene, Ethylbenzene, Xylene, and VOCs",
+    lat: 37.9194538,
+    lng:-122.3664522,
+  },
+  "General Chemical":{
+    description: "Hydrogen Sulfide and Sulfur Dioxide",
+    lat: 37.9397469,
+    lng:-122.3778248,
+  },
+  "Phillips 66 Carbon Plant":{
+    description: "SOx, NOx, Particulate Matter",
+    lat: 38.0161306,
+    lng:-122.2365718,
+  },
+  "C&H Sugar":{
+    description: "",
+    lat: 38.0561213,
+    lng:-122.2187912,
+  },
+}
+
 function initMap(div) {
   // Initialize Google Map
   resolutionScale = window.devicePixelRatio || 1;
@@ -156,20 +211,28 @@ function initMap(div) {
 
   //import KML with monitor and fence line locations
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
-  var kmlLayer = new google.maps.KmlLayer({
-      map: map,
-      url: PROJ_ROOT_URL + "/assets/kmz/map12.kmz",
-      preserveViewport: true,
-      zIndex: 0
-    });
+  // var kmlLayer = new google.maps.KmlLayer({
+  //     map: map,
+  //     url: PROJ_ROOT_URL + "/assets/kmz/map12.kmz",
+  //     preserveViewport: true,
+  //     zIndex: 0
+  //   });
 
-  kmlLayer.addListener('click', function(kmlEvent) {
-    if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
-      changeLocale(area.id, kmlEvent.featureData.description);
-    }
-  });
+  // kmlLayer.addListener('click', function(kmlEvent) {
+  //   if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
+  //     changeLocale(area.id, kmlEvent.featureData.description);
+  //   }
+  // });
 
   infowindow = new google.maps.InfoWindow();
+
+  //add Pollution Sources
+  for(var key in pollutionSources) {
+    var pollutionSource = pollutionSources[key];
+    var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
+    var icon = icons['Pollution Source'];
+    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setVisible(true);
+  }
   
   // var service = new google.maps.places.PlacesService(map);
   // service.nearbySearch({
@@ -197,40 +260,43 @@ function initMap(div) {
   generateLegend();
 }
 
+function createInfoWindowContent(title, description){
+  return ['<h4>',title,'</h4>',
+          '<p>',description,'</p>'].join('');
+}
+
 function markerCallback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i].geometry.location, PROJ_ROOT_URL + "/assets/images/school.png", results[i].name);
+      createMarker(results[i].geometry.location, {url: PROJ_ROOT_URL + "/assets/images/school.png"}, results[i].name);
     }
   }
 }
 
-function scaleIcon(marker, iconURL){
+function scaleIcon(marker, icon){
   var icon_size = zoom_level_to_marker_size[map.getZoom()];
-  var icon = {
-    url: iconURL,
-    scaledSize: new google.maps.Size(icon_size,icon_size), // scaled size
-    origin: new google.maps.Point(0,0), // origin
-    anchor: new google.maps.Point(0, 0) // anchor
-  };
+  icon.scaledSize = new google.maps.Size(icon_size,icon_size);
+  icon.origin = new google.maps.Point(0,0), // origin
+  icon.anchor = new google.maps.Point(0, 0) // anchor
   marker.setIcon(icon);
 }
 
-function createMarker(googLatLng, iconURL, infoContent) {
+function createMarker(googLatLng, icon, infoContent) {
   var marker = new google.maps.Marker({
     map: map,
     position: googLatLng,
-    icon: iconURL,
+    icon: icon,
     content: infoContent,
+    animation: google.maps.Animation.DROP,
   });
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(infoContent);
     infowindow.open(map, this);
   });
   google.maps.event.addListener(map, 'zoom_changed', function() {
-    scaleIcon(marker, iconURL);
+    scaleIcon(marker, icon);
   });
-  scaleIcon(marker, iconURL);
+  scaleIcon(marker, icon);
   return marker;
 }
 
