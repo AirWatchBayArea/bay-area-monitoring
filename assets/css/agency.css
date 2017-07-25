@@ -48,7 +48,7 @@ h4,
 h5,
 h6 {letter-spacing: -0.05em;
 	font-family: SanFranciscoText-Bold, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   font-weight: 700;
 }
 .img-centered {

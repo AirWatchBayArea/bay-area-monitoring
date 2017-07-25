@@ -8,6 +8,7 @@ var resolutionScale;
 var mapProjection;
 var projectionScale = 2000;
 var y_scale;
+var minZoom = 5;
 var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
 
 var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 24, 24, 24, 36, 60, 90, 180, 240, 360];
@@ -20,36 +21,65 @@ var icons = {
   "BAAQMD Monitor": iconBase + 'baaqmd-monitor-pin.png',
   "Selected Monitors": iconBase + 'highlight.png',
   "Pollution Source": {
-                        path: "M 50,10 90,75 10,75 z",
+                        path: "M 50,8 90,75 10,75 z",
                         fillColor: 'dimgray',
                         strokeColor: 'gray',
                         strokeWeight: 3,
-                        scale: .3,
+                        scale: .25,
                         fillOpacity: 1.0,
                       },
-  "School": iconBase + "school.png"
+  "Fenceline Monitor": {
+                        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                        fillColor: 'deeppink',
+                        strokeColor: 'lightpink',
+                        strokeWeight: 3,
+                        scale: 5.5,
+                        fillOpacity: 1.0,
+                      },
+  "BAAQMD Monitor": {
+                      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                      fillColor: 'royalblue',
+                      strokeColor: 'skyblue',
+                      strokeWeight: 3,
+                      scale: 5.5,
+                      fillOpacity: 1.0,
+                    },
+  "Community Monitor": {
+                      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                      fillColor: 'mediumspringgreen',
+                      strokeColor: '#A6FDDC',
+                      strokeWeight: 3,
+                      scale: 5.5,
+                      fillOpacity: 1.0,
+                    },
+  // "School": iconBase + "school.png"
 }
 
-var sourceTowers = {
+var fencelineMonitors = {
   "Atchison Village": {
     lat:   37.935014,
-    lng: -122.384772
+    lng: -122.384772,
+    description: "Fenceline Monitor"
   },
   "North Richmond": {
     lat: 37.952750,
-    lng: -122.375425
+    lng: -122.375425,
+    description: "Fenceline Monitor"
   },
   "Point Richmond": {
     lat:  37.933972,
-    lng: -122.392989
+    lng: -122.392989,
+    description: "Fenceline Monitor"
   },
   "North Rodeo": {
     lat: 38.04756,
-    lng: -122.25207
+    lng: -122.25207,
+    description: "Fenceline Monitor"
   },
   "South Rodeo": {
     lat: 38.03426,
-    lng: -122.25467
+    lng: -122.25467,
+    description: "Fenceline Monitor"
   }
 };
 
@@ -67,42 +97,118 @@ var receivers = {
 var communityMonitors = {
   "Atchison Village": {
     lat:   37.93447,
-    lng: -122.37166
+    lng: -122.37166,
+    description: "Community Monitor"
   },
   "North Richmond": {
     lat: 37.94799,
-    lng: -122.36477
+    lng: -122.36477,
+    description: "Community Monitor"
   },
   "Point Richmond": {
     lat:  37.92423,
-    lng: -122.38215
+    lng: -122.38215,
+    description: "Community Monitor"
   },
+  "Benicia":{
+    lat:  38.060852,
+    lng: -122.1277356,
+    description: "Community Monitor"
+  }
+}
+
+var BAAQMDMonitors = {
   "North Rodeo": {
     lat: 38.05492,
-    lng: -122.2332
+    lng: -122.2332,
+    description: "BAAQMD Monitor"
   },
   "South Rodeo": {
     lat: 38.03433,
-    lng: -122.27033
+    lng: -122.27033,
+    description: "BAAQMD Monitor"
   }
 }
 
 var refineries = {
   "Phillips 66 Refinery": {
     lat: 38.04221,
-    lng: -122.25405
+    lng: -122.25405,
+    boundCoords:[
+      { lat: 38.0410951, lng:-122.260623  },
+      { lat: 38.0380531, lng:-122.2553873 },
+      { lat: 38.0354166, lng:-122.255559  },
+      { lat: 38.034673,  lng:-122.2544432 },
+      { lat: 38.0358222, lng:-122.2531557 },
+      { lat: 38.0354166, lng:-122.2522116 },
+      { lat: 38.0379855, lng:-122.2496367 },
+      { lat: 38.041771,  lng:-122.2448301 },
+      { lat: 38.0483952, lng:-122.2533274 },
+      { lat: 38.0515043, lng:-122.2580481 },
+      { lat: 38.0513692, lng:-122.2609663 },
+      { lat: 38.0491387, lng:-122.2625113 },
+      { lat: 38.042447,  lng:-122.2603655 },
+      { lat: 38.0410951, lng:-122.260623  },
+    ]
   },
   "Chevron Process Units": {
     lat: 37.95076,
-    lng: -122.39687
+    lng: -122.39687,
+    boundCoords:[
+      { lat: 37.9412699, lng: -122.393682  },
+      { lat: 37.9395777, lng: -122.3908925 },
+      { lat: 37.9405253, lng: -122.388103  },
+      { lat: 37.9420484, lng: -122.3887897 },
+      { lat: 37.9442821, lng: -122.39012   },
+      { lat: 37.9470234, lng: -122.3924374 },
+      { lat: 37.9492782, lng: -122.3935369 },
+      { lat: 37.9525481, lng: -122.3984991 },
+      { lat: 37.9531445, lng: -122.4043196 },
+      { lat: 37.9511013, lng: -122.4055052 },
+      { lat: 37.9460419, lng: -122.3974586 },
+      { lat: 37.9412699, lng: -122.393682  },
+    ]
   },
   "Chevron Tank Farm": {
     lat: 37.93952,
-    lng: -122.40237
+    lng: -122.40237,
+    boundCoords: [
+      { lat: 37.9411346, lng: -122.4028015 },
+      { lat: 37.9395777, lng: -122.403059  },
+      { lat: 37.9376485, lng: -122.4022007 },
+      { lat: 37.9369716, lng: -122.3948193 },
+      { lat: 37.9391039, lng: -122.393961  },
+      { lat: 37.9405592, lng: -122.3947334 },
+      { lat: 37.9410669, lng: -122.3960209 },
+      { lat: 37.94171,   lng: -122.39748   },
+      { lat: 37.9452128, lng: -122.3985099 },
+      { lat: 37.949367,  lng: -122.4036383 },
+      { lat: 37.9496335, lng: -122.4048078 },
+      { lat: 37.9486478, lng: -122.4072432 },
+      { lat: 37.9477722, lng: -122.4063688 },
+      { lat: 37.9473026, lng: -122.4050652 },
+      { lat: 37.94597,   lng: -122.403075  },
+      { lat: 37.9445423, lng: -122.4016079 },
+      { lat: 37.9441298, lng: -122.4032307 },
+      { lat: 37.9411346, lng: -122.4028015 },
+    ]
   },
   "Valero Benicia Refinery": {
     lat: 38.071614,
-    lng: -122.139319
+    lng: -122.139319,
+    boundCoords:[
+      { lat: 38.0787372, lng: -122.1405888 },
+      { lat: 38.0780616, lng: -122.1423054 },
+      { lat: 38.0742779, lng: -122.1452236 },
+      { lat: 38.0727915, lng: -122.1448374 },
+      { lat: 38.0695481, lng: -122.143507  },
+      { lat: 38.0696157, lng: -122.1423054 },
+      { lat: 38.0654937, lng: -122.1368122 },
+      { lat: 38.0667776, lng: -122.1325207 },
+      { lat: 38.0697508, lng: -122.1321774 },
+      { lat: 38.079548,  lng: -122.1380138 },
+      { lat: 38.0787372, lng: -122.1405888 },
+    ]
   }
 }
 
@@ -205,6 +311,7 @@ function initMap(div) {
         position: google.maps.ControlPosition.LEFT_TOP
     },
     center: new google.maps.LatLng(center.x, center.y),
+
     styles: styleArray
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
@@ -231,7 +338,46 @@ function initMap(div) {
     var pollutionSource = pollutionSources[key];
     var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
     var icon = icons['Pollution Source'];
-    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setVisible(true);
+    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description));
+  }
+
+  //add Fenceline Monitors
+  for(var key in fencelineMonitors) {
+    var fencelineMonitor = fencelineMonitors[key];
+    var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
+    var icon = icons['Fenceline Monitor'];
+    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description));
+  }
+
+  //add Community Monitors
+  for(var key in communityMonitors) {
+    var communityMonitor = communityMonitors[key];
+    var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
+    var icon = icons['Community Monitor'];
+    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description));
+  }
+
+  //add BAAQMD Monitors
+  for(var key in BAAQMDMonitors) {
+    var BAAQMDMonitor = BAAQMDMonitors[key];
+    var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
+    var icon = icons['BAAQMD Monitor'];
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description));
+  }
+
+  //draw refineries
+  //add BAAQMD Monitors
+  for(var key in refineries) {
+    var refinery = refineries[key];
+    var refineryBounds = new google.maps.Polygon({
+      paths: refinery.boundCoords,
+      strokeColor: 'rebeccapurple',
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: 'rebeccapurple',
+      fillOpacity: 0.35
+    });
+    refineryBounds.setMap(map);
   }
   
   // var service = new google.maps.places.PlacesService(map);
@@ -268,7 +414,7 @@ function createInfoWindowContent(title, description){
 function markerCallback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i].geometry.location, {url: PROJ_ROOT_URL + "/assets/images/school.png"}, results[i].name);
+      createMarker(results[i].geometry.location, icons['School'], results[i].name);
     }
   }
 }
@@ -302,28 +448,28 @@ function createMarker(googLatLng, icon, infoContent) {
 
 function addMapLabels() {
   var labels = [];
-  for(var coord in sourceTowers) {
-    //position labels around other map features
-    var align = coord.indexOf("Point Richmond") != -1 ? 'right' : 'left';
-    var lat = coord.indexOf("Atchison") != -1 ? sourceTowers[coord].lat + .0041 : sourceTowers[coord].lat;
-    var label = new MapLabel({
-      text: coord,
-      map: map,
-      position: new google.maps.LatLng(lat + 0.0011, sourceTowers[coord].lng),
-      align: align
-    });
-    labels.push(label);
-  }
+  // for(var coord in fencelineMonitors) {
+  //   //position labels around other map features
+  //   var align = coord.indexOf("Point Richmond") != -1 ? 'right' : 'left';
+  //   var lat = coord.indexOf("Atchison") != -1 ? fencelineMonitors[coord].lat + .0041 : fencelineMonitors[coord].lat;
+  //   var label = new MapLabel({
+  //     text: coord,
+  //     map: map,
+  //     position: new google.maps.LatLng(lat + 0.0011, fencelineMonitors[coord].lng),
+  //     align: align
+  //   });
+  //   labels.push(label);
+  // }
 
-  for(var coord in communityMonitors) {
-    var label = new MapLabel({
-      text: coord,
-      map: map,
-      position: new google.maps.LatLng(communityMonitors[coord].lat, communityMonitors[coord].lng),
-      align: 'left'
-    });
-    labels.push(label);
-  }
+  // for(var coord in communityMonitors) {
+  //   var label = new MapLabel({
+  //     text: coord,
+  //     map: map,
+  //     position: new google.maps.LatLng(communityMonitors[coord].lat, communityMonitors[coord].lng),
+  //     align: 'left'
+  //   });
+  //   labels.push(label);
+  // }
 
   for (var coord in refineries) {
     var label = new MapLabel({
@@ -333,9 +479,6 @@ function addMapLabels() {
     });
     labels.push(label);
   }
-  google.maps.event.addListener(map, 'zoom_changed', function() {
-    //for (var label of labels:
-  });
 }
 
 function generateLegend() {
@@ -537,10 +680,10 @@ function highlightSelectedMonitors() {
     if(feed.indexOf("Fence") > 0) {
       var fencelineCoords;
       if(area.id === "richmond") {
-        fencelineCoords = [coords, sourceTowers[area.locale]];
+        fencelineCoords = [coords, fencelineMonitors[area.locale]];
       }
       else {
-        fencelineCoords = [receivers[area.locale], sourceTowers[area.locale]];
+        fencelineCoords = [receivers[area.locale], fencelineMonitors[area.locale]];
       }
       fencelineMonitor = new google.maps.Polyline({
         map: map,

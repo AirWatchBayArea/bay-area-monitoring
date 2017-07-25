@@ -200,13 +200,15 @@
 
 }
 
+.dashboard-page #grapher_parent{
+  height: 60%;
+}
+
 .dashboard-page #grapher {
   width: 100%;
   min-width: 385px;
   min-height: 400px;
 }
-
-
 
 .dashboard-page #grapher * {
   box-sizing: content-box;
@@ -379,6 +381,7 @@
 
 .dashboard-page #map_parent {
   overflow-x: hidden;
+  height: 40%;
 }
 
 .dashboard-page .menu {
