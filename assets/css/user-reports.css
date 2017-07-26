@@ -1,8 +1,7 @@
 .resource-container{
 	position: relative;
-	width: 90%;
-	margin: 10px 5%;
-	background-color: rgba(126,217,237,.43);
+	margin: 20px 3%;
+	background-color: #ddd;
 	padding: 1px;
 }
 
@@ -18,12 +17,15 @@
 .post{
 	position: relative;
 	width: 90%;
-	max-width: 500px;
-	min-width: 300px;
 	margin: 20px 5%;
 	padding: 15px;
 	background-color: white;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+#posts .post{
+	max-width: 500px;
+	min-width: 300px;
 }
 
 .post .smell-box{

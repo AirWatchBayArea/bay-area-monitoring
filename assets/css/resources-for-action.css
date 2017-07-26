@@ -1,5 +1,33 @@
-#resources-for-action-page section {
-	padding: 20px 20px;
+#resources-for-action-page  section, 
+#resources-for-action-page nav{
+	padding: 10px;
+}
+
+.back-to-top {
+	position: fixed;
+	bottom: 3px;
+	right: 3px;
+	z-index: 100;
+	font-size: 13px;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.table-of-contents ul{
+	padding: 0;
+    list-style-type: none;
+    text-align: center;
+}
+
+.table-of-contents li{
+	margin: 5px 0px;
+	font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#resources-for-action-page .post{
+	padding: 20px;
 }
 
 .resource-title{
@@ -13,4 +41,13 @@
 	display: inline;
 	font-size: 15px;
 	color: gray;
+}
+
+.resource-title ~ ul {
+	margin: 10px 0px;
+}
+
+.resource-title ~ ul > li,
+.resource-title ~ ul > li > a{
+	margin: 3px 0px;
 }

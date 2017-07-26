@@ -876,6 +876,7 @@
       changeLocale(loc, monitor);
     }else if($('#'+hash[0]+'-page').length){
       $('#'+hash[0]+'-page').show();
+      scrollToTop();
     }else{
       window.location.hash = "home";
     }

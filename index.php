@@ -134,7 +134,7 @@
           <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Air Quality</a>
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Document Odor</a>
+          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Pollution</a>
         </li>
         <!-- <li class="custom-nav-btn" id="daily-summaries-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
@@ -159,79 +159,80 @@
   <div id="report-air-page">
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
-      <label>
-        <strong class="required">How does your air smell right now?</strong>
-      </label>
-      <label>
-        <input type="radio" name="smell" value="1" checked>
-        <div class="smell-label">
-        <div class="smell-box"></div>
-        <span>1 - Just Fine!</span></div>
-      </label>
-      <label>
-        <input type="radio" name="smell" value="2">
-        <div class="smell-label">
-        <div class="smell-box"></div>
-        <span>2 - Barely noticeable</span></div>
-      </label>
-      <label>
-        <input type="radio" name="smell" value="3">
-        <div class="smell-label">
-        <div class="smell-box"></div>
-        <span>3 - Definitely noticeable</span></div>
-      </label>
-      <label>
-        <input type="radio" name="smell" value="4">
-        <div class="smell-label">
-        <div class="smell-box"></div>
-        <span>4 - It's getting pretty bad</span></div>
-      </label>
-      <label>
-        <input type="radio" name="smell" value="5">
-        <div class="smell-label">
-        <div class="smell-box"></div>
-        <span>5 - About as bad as it gets!</span></div>
-      </label>
+      <div class="report-form-section">
+        <label>
+          <strong class="emphasis">Upload Photo(s) (optional):</strong>
+        </label>
+        <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
+        <p class='num-file-status'></p>
+        <div class="thumbnails"></div>
 
-      <label class='location-label'>
-        <strong class="required">Where were you when you detected the odor?</strong><br><input id="address" type="text" name="location" placeholder="e.g. at the corner of 7th and Hensley" required>
-      </label>
+        <label class='textarea-label photo-upload'>
+          <strong>Caption:</strong>
+          <textarea id="photo-description" name="photo-description"></textarea>
+        </label>
 
-      <label class='textarea-label'>
-        <strong>Describe the smell or source of odor</strong>
-        <input type="text" name="describe-air" placeholder="e.g. exhaust, sulfur, wood smoke, rotten-eggs">
-      </label>
+        <label class='textarea-label photo-upload'>
+          <strong>When did this photo occur?</strong>
+          <input type="datetime-local" id="photo-date" name="photo-date">
+        </label>
+      </div>
+      <div class="report-form-section">
+        <label>
+          <strong class="emphasis required">How does your air smell right now?</strong>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="1" checked>
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>1 - Just Fine!</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="2">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>2 - Barely noticeable</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="3">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>3 - Definitely noticeable</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="4">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>4 - It's getting pretty bad</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="5">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>5 - About as bad as it gets!</span></div>
+        </label>
 
-      <label class='textarea-label'>
-        <strong>Any symptoms linked to odor?</strong>
-        <input type="text" id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation">
-      </label>
+        <label class='location-label'>
+          <strong class="emphasis required">Where were you when you detected the odor?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
+        </label>
 
-      <label class='textarea-label'>
-        <strong>Additional comments on odor:</strong>
-        <input type="text" id="additional-comments" name="additional-comments">
-      </label>
+        <label class='textarea-label'>
+          <strong>Describe the smell or source of odor</strong>
+          <textarea name="describe-air" placeholder="e.g. exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
+        </label>
 
-      <label>
-        <strong>Upload Photo(s) (optional):</strong>
-      </label>
-      <input id="file-upload" class="upload_field report-button no-highlight" type="file" name="file" style="color:transparent;">
-     <p class='num-file-status'></p>
-     <div class="thumbnails"></div>
+        <label class='textarea-label'>
+          <strong>Any symptoms linked to odor?</strong>
+          <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></textarea>
+        </label>
 
-    <label class='textarea-label photo-upload'>
-      <strong>Caption:</strong>
-      <input type="text" id="photo-description" name="photo-description">
-    </label>
-
-    <label class='textarea-label photo-upload'>
-      <strong>When did this photo occur?</strong>
-      <input type="datetime-local" id="photo-date" name="photo-date">
-    </label>
-     
-     <input id="report-submit" class="report-button no-highlight" type="submit" >
-
-     <div class="progress_wrapper photo-upload">
+        <label class='textarea-label'>
+          <strong>Additional comments on odor:</strong>
+          <textarea id="additional-comments" name="additional-comments"></textarea>
+        </label>
+      </div>
+      <input id="report-submit" class="report-button no-highlight" type="submit" >
+      <div class="progress_wrapper photo-upload">
       <div class="progress_bar">
         <div class="progress_text">
       </div></div></div>
@@ -319,7 +320,7 @@
                         <i class="fa fa-flag-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Resources for Action</h4>
-                    <a href="#resoureces-for-action" class="btn btn-xl text-gettingstarted">View resources for action &rarr;</a>
+                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View resources for action &rarr;</a>
                 </div>
             </div>
         </div>
@@ -387,8 +388,8 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list-inline quicklinks">
-                        <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
-                        </li>
+                      <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
+                      </li>
                     </ul>
                 </div>
             </div>
@@ -474,239 +475,156 @@
     </div>
 
     <div class="full-page full-height" id="resources-for-action-page">
-      <section>
-        <h3 class="resource-title">Connect with Bay Area community organizations, campaigns, and resources</h3>
-        <p>to advocate for cleaner air, particularly in frontline communities.</p>
-        <ul>
-          <a href="http://350bayarea.org" target="_blank">
-            <li>350 Bay Area</li>
-          </a>
-          <a href="http://apen4ej.org" target="_blank">
-            <li>Asian Pacific Environmental Network</li>
-          </a>
-          <a href="http://safebenicia.org" target="_blank">
-            <li>Benicians for a Safe and Healthy Community</li>
-          </a>
-          <a href="http://ggjalliance.org/ourpowercampaign" target="_blank">
-            <li>Climate Justice Alliance & Our Power Campaign</li>
-          </a>
-          <a href="http://www.cbecal.org" target="_blank">
-            <li>Communities for a Better Environment</li>
-          </a>
-          <a href="https://csi4health.wordpress.com" target="_blank">
-            <li>Community Science Institute</li>
-          </a>
-          <a href="https://crockett-rodeo-united.com" target="_blank">
-            <li>Crockett-Rodeo United to Defend the Environment</li>
-          </a>
-          <a href="http://fossilfreeca.org" target="_blank">
-            <li>Fossil Free California</li>
-          </a>
-          <a href="http://www.refineryhealingwalks.com/" target="_blank">
-            <li>Refinery Healing Walks</li>
-          </a>
-          <a href="http://www.richmondprogressivealliance.net/" target="_blank">
-            <li>Richmond Progressive Alliance </li>
-          </a>
-          <a href="http://rootedinresilience.org" target="_blank">
-            <li>Rooted in Resilience</li>
-          </a>
-          <a href="http://www.sierraclub.org/san-francisco-bay/environmental-justice" target="_blank">
-            <li>Sierra Club, San Francisco Bay Chapter</li>
-          </a>
-          <a href="http://www.sunflower-alliance.org" target="_blank">
-            <li>Sunflower Alliance</li>
-          </a>
+      <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
+      <div class="resource-container">
+        <h2>Resources for Action</h2>
+      <nav role="navigation" class="table-of-contents">
+          <!-- Sorry... I know I shouldn't embed javascript here but didn't
+               want to create a whole new file for it -->
+          <script type="text/javascript">
+            function jumpToIndex(elm){
+              var index = $(elm).parent().index();
+              scrollToElmMiddle($('section.post').eq(index));
+            }
+          </script>
+         <ul>
+          <li><a onclick="jumpToIndex(this)">Grow the community</a></li>
+          <li><a onclick="jumpToIndex(this)">Please send us feedback! What other resources do you suggest?</a></li>
+          <li><a onclick="jumpToIndex(this)">Connect with Bay Area community organizations, campaigns, and resources</a></li>
+          <li><a onclick="jumpToIndex(this)">Connect with elected officials and regulators</a></li>
+          <li><a onclick="jumpToIndex(this)">Learn about Bay Area oil refinery politics and policies</a></li>
+          <li><a onclick="jumpToIndex(this)">Learn about California oil refinery politics and policies</a></li>
+          <li><a onclick="jumpToIndex(this)">Explore environmental health and health equity research</a></li>
+          <li><a onclick="jumpToIndex(this)">Investigate community-based science, participatory design, and data politics</a></li>
+          <li><a onclick="jumpToIndex(this)">Climate Justice Educational Resources</a></li>
         </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Connect with elected officials and regulators</h3>
-        <p>responsible for Bay Area air quality and protecting public health.</p>
-        <ul>
-          <a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/06/AQMD-Board-Members-Contact-info.pdf  " target="_blank">
-            <li>Bay Area Air Quality Management District (BAAQMD) Board of Directors</li>
-          </a>
-          <a href="http://www.baaqmd.gov/online-services/air-pollution-complaints " target="_blank">
-            <li>BAAQMD Air Pollution Complaints</li>
-          </a>
-          <a href="https://www.arb.ca.gov/board/members.htm " target="_blank">
-            <li>California Air Resources Board (CARB) members</li>
-          </a>
-          <a href="https://www.arb.ca.gov/enf/complaints/complaints.htm " target="_blank">
-            <li>CARB Air Pollution Complaints</li>
-          </a>
-          <a href="http://www.climatechange.ca.gov/climate_action_team/health.html " target="_blank">
-            <li>California Public Health Working Group for the Climate Action Team</li>
-          </a>
-          <a href="http://findyourrep.legislature.ca.gov/ " target="_blank">
-            <li>California Legislators</li>
-          </a>
-          <a href="http://www.counties.org/legislative-tracking " target="_blank">
-            <li>California Legislative Tracking (by subject area)</li>
-          </a>
-          <a href="http://www.leginfo.ca.gov/bilinfo.html  " target="_blank">
-            <li>California Legislative Bill Information (“The full text of bills, resolutions, and constitutional amendments, and their
-            status, history, votes, analyses, and veto messages.”)</li>
-          </a>
-          <a href="http://www.legislature.ca.gov/the_state_legislature/calendar_and_schedules/audio_tv.html " target="_blank">
-            <li>California Legislative Meeting Videos & Agendas</li>
-          </a>
-          <a href="https://govapps.gov.ca.gov/gov39mail/index.php " target="_blank">
-            <li>Governor Jerry Brown</li>
-          </a>
-        </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Learn about Bay Area oil refinery politics and policies</h3>
-        <p>&mdash;especially, the push to refine heavier crude oils in West Contra Costa and Solano counties. Refining heavier, more carbon-intensive oil would lead to higher levels of pollution and greater impacts on public health and environmental justice.</p>
-        <ul>
-          <a href="http://www.baaqmd.gov/rules-and-compliance/current-rules " target="_blank">
-            <li>BAAQMD Current Rules (Rule 12-15 requires oil refinery emissions tracking)</li>
-          </a>
-          <a href="http://www.baaqmd.gov/rules-and-compliance/rule-development/rules-under-development " target="_blank">
-            <li>BAAQMD Rules Under Development (Rule 12-16 would cap oil refinery emissions)</li>
-          </a>
-          <a href="http://www.sunflower-alliance.org/we-need-real-ghg-caps-not-allowances-for-increased-refinery-emissions/ " target="_blank">
-            <li>“We Need Real GHG Caps, Not Allowances for Increased Refinery Emissions” (Sunflower Alliance)</li>
-          </a>
-          <a href="http://berkeleymonthly.com/feature1704.html " target="_blank">
-            <li>“Stopping the Tar-Sands Invasion: East Bay groups are attempting to prevent the region from playing a major role in a climate disaster,” Will Parrish, East Bay Monthly (April 2017)</li>
-          </a>
-          <a href="http://www.resilience.org/stories/2017-07-03/reality-check-end-growth-tar-sands-now/ " target="_blank">
-            <li>“Reality Check: The End of Growth in the Tar Sands. So Now What?” Hannah McKinnon, Common Dreams (July 3, 2017)</li>
-          </a>
-          <a href="http://www.cbecal.org/wp-content/uploads/2012/05/Combustion-Emissions-from-Refining-Lower-Quality-Oil.pdf " target="_blank">
-            <li>“Combustion Emissions from Refining Lower-Quality Oil: What is the Global Warming Potential?” Greg Karras, Environmental Science and Technology (2010)</li>
-          </a>
-        </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Learn about California oil refinery politics and policies</h3>
-        <p>&mdash;especially, the ongoing influence of Big Oil and its emphasis on cap-and-trade pollution markets, to the detriment of frontline communities. Even as California aspires to climate leadership, these politics often undermine policies to address climate change, public health, and environmental justice.</p>
-        <ul>
-          <a href="http://climatehawksvote.com/news/press-releases/california-broad-coalition-environmental-justice-climate-groups-oppose-cap-trade-bill" target="_blank">
-            <li>“California: Broad Coalition of Environmental Justice, Climate Groups Oppose Cap and Trade Bill” (re: AB 398, July 13, 2017)</li>
-          </a>
-          <a href="https://www.thenation.com/article/big-oils-grip-on-california" target="_blank">
-            <li>“Big Oil’s Grip on California: ﻿In America’s greenest state, the industry has spent $122 million in the past six years to shape regulation and legislation,” Michael J. Mishak, The Nation (February 13, 2017)</li>
-          </a>
-          <a href="http://www.salon.com/2017/06/25/californias-double-edged-climate-leadership-behind-the-big-talk-a-cozy-relationship-with-big-oil" target="_blank">
-            <li>“California’s double-edged ‘climate leadership’: Behind the big talk, a cozy relationship with Big Oil: Gov. Jerry Brown positions himself as an anti-Trump leader on climate issues. But Big Oil hasn't gone away,” Paul Rosenberg, Salon (June 25, 2017)</li>
-          </a>
-          <a href="http://www.willparrishreports.com/2017/03/208" target="_blank">
-            <li>“How California’s Oil Refining Sector Became, Proportionately, the Most Carbon-Intensive in the World,” Will Parrish blog post (March 31, 2017)</li>
-          </a>
-          <a href="http://www.sequoiaforestkeeper.org/pdfs/climate_change/2017-04-10%20scoping%20plan%20comments%20AMENDED%20FINAL%20with%20Exhibits.pdf " target="_blank">
-            <li>Critiquing CA Cap-and-Trade: “Comments on 2017 Climate Change Scoping Plan Update” (from environmental justice, public health, and allied organizations)</li>
-          </a>
-          <a href="https://www.arb.ca.gov/cc/ejac/meetings/02142017/20170215ca-ej-declaration-on-carbon-pricing-reform-approved.pdf" target="_blank">
-            <li>The California Environmental Justice Advisory Committee’s Declaration in Support of Carbon Pricing Reform in California (including a critique of CA’s Cap-and-Trade system)</li>
-          </a>
-          <a href="http://caleja.org" target="_blank">
-            <li>California Environmental Justice Alliance</li>
-          </a>
-          <a href="http://laceen.org" target="_blank">
-            <li>L.A. Community Environmental Enforcement Network (LACEEN)</li>
-          </a>
-          <a href="http://www.climatehawksvote.com" target="_blank">
-            <li>California Climate Hawks</li>
-          </a>
-        </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Explore environmental health and health equity research</h3>
-        <p>pertaining to air pollution, public health, greenhouse gases (GHGs), and environmental justice.</p>
-        <ul>
-          <a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/05/HealthReviewDraftEIRRule12-16_5_8_17_5PM.pdf " target="_blank">
-            <li>Public health and health equity impacts of BAAQMD proposed Rule 12-16</li>
-          </a>
-          <a href="http://www.npr.org/sections/health-shots/2017/06/28/534594373/u-s-air-pollution-still-kills-thousands-every-year-study-concludes " target="_blank">
-            <li>“U.S. Air Pollution Still Kills Thousands Every Year, Study Concludes,” Rob Stein, National Public Radio (June 28, 2017)</li>
-          </a>
-          <a href="http://escholarship.org/uc/item/4nh830b7 " target="_blank">
-            <li>“The haves, the have-nots, and the health of everyone: the relationship between social inequality and environmental quality,” Cushing L., Morello-Frosch R., Wander M., Pastor M., Annual Review of Public Health (March 2015)</li>
-          </a>
-          <a href="https://dornsife.usc.edu/pere/climategap/  " target="_blank">
-            <li>“The Climate Gap: Inequalities in How Climate Change Hurts Americans & How to Close the Gap,” Rachel Morello-Frosch, Manuel Pastor, Jim Sadd, and Seth Shonkoff (May 2009)</li>
-          </a>
-          <a href="http://barhii.org/ " target="_blank">
-            <li>Bay Area Regional Health Inequities Initiative (BARHII)</li>
-          </a>
-          <a href="http://baehc.org/ " target="_blank">
-            <li>Bay Area Environmental Health Collaborative (BAEHC)</li>
-          </a>
-          <a href="https://www.zotero.org/groups/248773/pse_study_citation_database/items " target="_blank">
-            <li>Physicians, Scientists, and Engineers for Healthy Energy research database</li>
-          </a>
-          <a href="https://www.ncbi.nlm.nih.gov/pubmed/ " target="_blank">
-            <li>PubMed research portal</li>
-          </a>
-        </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Investigate community-based science, participatory design, and data politics</h3>
-        <p>including collaborations among scientists, engineers, programmers, and community activists like Air Watch Bay Area.</p>
-        <ul>
-          <a href="https://sites.google.com/view/indigenous-science-letter " target="_blank">
-            <li>“Let Our Indigenous Voices Be Heard: Indigenous Science, March for Science Letter”</li>
-          </a>
-          <a href="https://scienceforthepeople.org/2017/04/18/which-way-for-science/ " target="_blank">
-            <li>“Which Way for Science?” (Science for the People editorial team statement re: the March for Science, April 18, 2017)</li>
-          </a>
-          <a href="https://publiclab.org/wiki/air-quality " target="_blank">
-            <li>Public Lab: “a community and non-profit democratizing science to address environmental issues that affect people,” including air quality</li>
-          </a>
-          <a href="http://issues.org/32-2/citizen-engineers-at-the-fenceline/ " target="_blank">
-            <li>“Citizen Engineers at the Fenceline,” Gwen Ottinger, Issues in Science and Technology (Winter 2016)</li>
-          </a> 
-          <a href="https://www.earthworksaction.org/files/publications/Air_Monitoring_White_Paper_March_2016_(1).pdf " target="_blank">
-            <li>“Community Air Monitoring of Oil and Gas Pollution: A Survey of Issues and Technologies,” Nadia Steinzor, Earthworks white paper (March 2016)</li>
-          </a> 
-          <a href="http://dl.acm.org/citation.cfm?doid=2662155.2662188 " target="_blank">
-            <li>“Research at the margin: participatory design and community based participatory research,” Robert Racadio, Emma J. Rose, and Beth E. Kolko, Proceedings of the 13th Participatory Design Conference (October 2014)</li>
-          </a>
-          <a href="https://www.exploratorium.edu/environmental-field-station " target="_blank">
-            <li>San Francisco Exploratorium Environmental Field Station&mdash;featuring a Data Explorer web app to access and explore environmental data gathered at the Exploratorium’s Bay waterfront location</li>
-          </a>
-          <a href="https://www.theguardian.com/technology/2014/jul/20/rise-of-data-death-of-politics-evgeny-morozov-algorithmic-regulation " target="_blank">
-            <li>“The rise of data and the death of politics,” Evgeny Morozov, The Guardian (July 20, 2014)</li>
-          </a>
-        </ul>
-      </section>
-      <section>
-        <h3 class="resource-title">Climate Justice Educational Resources</h3>
-        <ul>
-          <a href="http://breakthroughcommunities.info/publications-re-metro-equity-issues/climate-justice-book/  " target="_blank">
-            <li>Climate Justice: Frontline Stories from Groundbreaking Coalitions in California, edited by M. Paloma Pavel, PhD, with the Breakthrough Communities Team; Foreword by Carl Anthony (July 2017)</li>
-          </a>
-          <a href="http://steveearly.org/ " target="_blank">
-            <li>Refinery Town: Big Oil, Big Money, and the Remaking of an American City, Steve Early (2017)</li>
-          </a> 
-          <a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">
-            <li>Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016). In this 34-page comic book for both youth and adults, 10-year-old Gabe Sanchez of East Oakland tells the story of how he and his grandfather time-travel 50 years into the future. His 60-year-old self tells him the story of how climate change has shaped his life: the superstorm that destroyed his home and livelihood, the collapse of California agriculture, and more. But 60-year-old Gabe also shows the many ways people today are fighting to stop fossil fuels and build a green economy. Gabe and Grandpa return to 2016 determined to join the movement for climate justice.</li>
-          </a>
-          <a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">
-            <li>Video: “Why We Need to Keep Fossil Fuels in the Ground” (The Guardian)</li>
-          </a>
-        </ul>
-      </section>
-      <section>
+      </nav>
+      <section class="post">
         <h3 class="resource-title">Grow the community</h3>
         <p>of people engaged with Bay Area air quality, environmental justice, participatory design, and health equity advocacy.</p>
         <ul>
-          <a href="https://www.facebook.com/Air-Watch-Bay-Area-277863656023214/  " target="_blank">
-            <li>Facebook: Air Watch Bay Area</li>
-          </a>
+          <li><a href="https://www.facebook.com/Air-Watch-Bay-Area-277863656023214/  " target="_blank">Facebook: Air Watch Bay Area</a></li>
         </ul>
       </section>
-      <section>
+      <section class="post">
         <h3 class="resource-title">Please send us feedback! What other resources do you suggest? </h3>
         <ul>
-          <a href="mailto:info@fairtechcollective.org?subject=AWBA Resources to Add">
-            <li>Email: info@fairtechcollective.org</li>
-          </a>
+          <li><a href="mailto:info@fairtechcollective.org?subject=AWBA Resources to Add">Email: info@fairtechcollective.org</a></li>
         </ul>
       </section>
+      <section class="post">
+        <h3 class="resource-title">Connect with Bay Area community organizations, campaigns, and resources</h3>
+        <p>to advocate for cleaner air, particularly in frontline communities.</p>
+        <ul>
+          <li><a href="http://350bayarea.org" target="_blank">350 Bay Area</a></li>
+          <li><a href="http://apen4ej.org" target="_blank">Asian Pacific Environmental Network</a></li>
+          <li><a href="http://safebenicia.org" target="_blank">Benicians for a Safe and Healthy Community</a></li>
+          <li><a href="http://ggjalliance.org/ourpowercampaign" target="_blank">Climate Justice Alliance & Our Power Campaign</a></li>
+          <li><a href="http://www.cbecal.org" target="_blank">Communities for a Better Environment</a></li>
+          <li><a href="https://csi4health.wordpress.com" target="_blank">Community Science Institute</a></li>
+          <li><a href="https://crockett-rodeo-united.com" target="_blank">Crockett-Rodeo United to Defend the Environment</a></li>
+          <li><a href="http://fossilfreeca.org" target="_blank">Fossil Free California</a></li>
+          <li><a href="http://www.refineryhealingwalks.com/" target="_blank">Refinery Healing Walks</a></li>
+          <li><a href="http://www.richmondprogressivealliance.net/" target="_blank">Richmond Progressive Alliance </a></li>
+          <li><a href="http://rootedinresilience.org" target="_blank">Rooted in Resilience</a></li>
+          <li><a href="http://www.sierraclub.org/san-francisco-bay/environmental-justice" target="_blank">Sierra Club, San Francisco Bay Chapter</a></li>
+          <li><a href="http://www.sunflower-alliance.org" target="_blank">Sunflower Alliance</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Connect with elected officials and regulators</h3>
+        <p>responsible for Bay Area air quality and protecting public health.</p>
+        <ul>
+          <li><a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/06/AQMD-Board-Members-Contact-info.pdf  " target="_blank">Bay Area Air Quality Management District (BAAQMD) Board of Directors</a></li>
+          <li><a href="http://www.baaqmd.gov/online-services/air-pollution-complaints " target="_blank">BAAQMD Air Pollution Complaints</a></li>
+          <li><a href="https://www.arb.ca.gov/board/members.htm " target="_blank">California Air Resources Board (CARB) members</a></li>
+          <li><a href="https://www.arb.ca.gov/enf/complaints/complaints.htm " target="_blank">CARB Air Pollution Complaints</a></li>
+          <li><a href="http://www.climatechange.ca.gov/climate_action_team/health.html " target="_blank">California Public Health Working Group for the Climate Action Team</a></li>
+          <li><a href="http://findyourrep.legislature.ca.gov/ " target="_blank">California Legislators</a></li>
+          <li><a href="http://www.counties.org/legislative-tracking " target="_blank">California Legislative Tracking (by subject area)</a></li>
+          <li><a href="http://www.leginfo.ca.gov/bilinfo.html  " target="_blank">California Legislative Bill Information</a>
+            <ul>
+              <li>(“The full text of bills, resolutions, and constitutional amendments, and their
+            status, history, votes, analyses, and veto messages.”)</li>
+            </ul>
+          </li>
+          <li><a href="http://www.legislature.ca.gov/the_state_legislature/calendar_and_schedules/audio_tv.html " target="_blank">California Legislative Meeting Videos & Agendas</a></li>
+          <li><a href="https://govapps.gov.ca.gov/gov39mail/index.php " target="_blank">Governor Jerry Brown</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Learn about Bay Area oil refinery politics and policies</h3>
+        <p>&mdash;especially, the push to refine heavier crude oils in West Contra Costa and Solano counties. Refining heavier, more carbon-intensive oil would lead to higher levels of pollution and greater impacts on public health and environmental justice.</p>
+        <ul>
+          <li><a href="http://www.baaqmd.gov/rules-and-compliance/current-rules " target="_blank">BAAQMD Current Rules</a></li>
+          <li><a href="http://www.baaqmd.gov/rules-and-compliance/rule-development/rules-under-development " target="_blank">BAAQMD Rules Under Development</a>
+          <ul>
+            <li>Rule 12-16 would cap oil refinery emissions</li>
+          </ul>
+          </li>
+          <li><a href="http://www.sunflower-alliance.org/we-need-real-ghg-caps-not-allowances-for-increased-refinery-emissions/ " target="_blank">“We Need Real GHG Caps, Not Allowances for Increased Refinery Emissions” (Sunflower Alliance)</a></li>
+          <li><a href="http://berkeleymonthly.com/feature1704.html " target="_blank">“Stopping the Tar-Sands Invasion: East Bay groups are attempting to prevent the region from playing a major role in a climate disaster,” Will Parrish, East Bay Monthly (April 2017)</a></li>
+          <li><a href="http://www.resilience.org/stories/2017-07-03/reality-check-end-growth-tar-sands-now/ " target="_blank">“Reality Check: The End of Growth in the Tar Sands. So Now What?” Hannah McKinnon, Common Dreams (July 3, 2017)</a></li>
+          <li><a href="http://www.cbecal.org/wp-content/uploads/2012/05/Combustion-Emissions-from-Refining-Lower-Quality-Oil.pdf " target="_blank">“Combustion Emissions from Refining Lower-Quality Oil: What is the Global Warming Potential?” Greg Karras, Environmental Science and Technology (2010)</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Learn about California oil refinery politics and policies</h3>
+        <p>&mdash;especially, the ongoing influence of Big Oil and its emphasis on cap-and-trade pollution markets, to the detriment of frontline communities. Even as California aspires to climate leadership, these politics often undermine policies to address climate change, public health, and environmental justice.</p>
+        <ul>
+          <li><a href="http://climatehawksvote.com/news/press-releases/california-broad-coalition-environmental-justice-climate-groups-oppose-cap-trade-bill" target="_blank">“California: Broad Coalition of Environmental Justice, Climate Groups Oppose Cap and Trade Bill” (re: AB 398, July 13, 2017)</a></li>
+          <li><a href="https://www.thenation.com/article/big-oils-grip-on-california" target="_blank">“Big Oil’s Grip on California: ﻿In America’s greenest state, the industry has spent $122 million in the past six years to shape regulation and legislation,” Michael J. Mishak, The Nation (February 13, 2017)</a></li>
+          <li><a href="http://www.salon.com/2017/06/25/californias-double-edged-climate-leadership-behind-the-big-talk-a-cozy-relationship-with-big-oil" target="_blank">“California’s double-edged ‘climate leadership’: Behind the big talk, a cozy relationship with Big Oil: Gov. Jerry Brown positions himself as an anti-Trump leader on climate issues. But Big Oil hasn't gone away,” Paul Rosenberg, Salon (June 25, 2017)</a></li>
+          <li><a href="http://www.willparrishreports.com/2017/03/208" target="_blank">“How California’s Oil Refining Sector Became, Proportionately, the Most Carbon-Intensive in the World,” Will Parrish blog post (March 31, 2017)</a></li>
+          <li><a href="http://www.sequoiaforestkeeper.org/pdfs/climate_change/2017-04-10%20scoping%20plan%20comments%20AMENDED%20FINAL%20with%20Exhibits.pdf " target="_blank">Critiquing CA Cap-and-Trade: “Comments on 2017 Climate Change Scoping Plan Update” (from environmental justice, public health, and allied organizations)</a></li>
+          <li><a href="https://www.arb.ca.gov/cc/ejac/meetings/02142017/20170215ca-ej-declaration-on-carbon-pricing-reform-approved.pdf" target="_blank">The California Environmental Justice Advisory Committee’s Declaration in Support of Carbon Pricing Reform in California (including a critique of CA’s Cap-and-Trade system)</a></li>
+          <li><a href="http://caleja.org" target="_blank">California Environmental Justice Alliance</a></li>
+          <li><a href="http://laceen.org" target="_blank">L.A. Community Environmental Enforcement Network (LACEEN)</a></li>
+          <li><a href="http://www.climatehawksvote.com" target="_blank">California Climate Hawks</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Explore environmental health and health equity research</h3>
+        <p>pertaining to air pollution, public health, greenhouse gases (GHGs), and environmental justice.</p>
+        <ul>
+          <li><a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/05/HealthReviewDraftEIRRule12-16_5_8_17_5PM.pdf " target="_blank">Public health and health equity impacts of BAAQMD proposed Rule 12-16</a></li>
+          <li><a href="http://www.npr.org/sections/health-shots/2017/06/28/534594373/u-s-air-pollution-still-kills-thousands-every-year-study-concludes " target="_blank">“U.S. Air Pollution Still Kills Thousands Every Year, Study Concludes,” Rob Stein, National Public Radio (June 28, 2017)</a></li>
+          <li><a href="http://escholarship.org/uc/item/4nh830b7 " target="_blank">“The haves, the have-nots, and the health of everyone: the relationship between social inequality and environmental quality,” Cushing L., Morello-Frosch R., Wander M., Pastor M., Annual Review of Public Health (March 2015)</a></li>
+          <li><a href="https://dornsife.usc.edu/pere/climategap/  " target="_blank">“The Climate Gap: Inequalities in How Climate Change Hurts Americans & How to Close the Gap,” Rachel Morello-Frosch, Manuel Pastor, Jim Sadd, and Seth Shonkoff (May 2009)</a></li>
+          <li><a href="http://barhii.org/ " target="_blank">Bay Area Regional Health Inequities Initiative (BARHII)</a></li>
+          <li><a href="http://baehc.org/ " target="_blank">Bay Area Environmental Health Collaborative (BAEHC)</a></li>
+          <li><a href="https://www.zotero.org/groups/248773/pse_study_citation_database/items " target="_blank">Physicians, Scientists, and Engineers for Healthy Energy research database</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pubmed/ " target="_blank">PubMed research portal</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Investigate community-based science, participatory design, and data politics</h3>
+        <p>including collaborations among scientists, engineers, programmers, and community activists like Air Watch Bay Area.</p>
+        <ul>
+          <li><a href="https://sites.google.com/view/indigenous-science-letter " target="_blank">“Let Our Indigenous Voices Be Heard: Indigenous Science, March for Science Letter”</a></li>
+          <li><a href="https://scienceforthepeople.org/2017/04/18/which-way-for-science/ " target="_blank">“Which Way for Science?” (Science for the People editorial team statement re: the March for Science, April 18, 2017)</a></li>
+          <li><a href="https://publiclab.org/wiki/air-quality " target="_blank">Public Lab: “a community and non-profit democratizing science to address environmental issues that affect people,” including air quality</a></li>
+          <li><a href="http://issues.org/32-2/citizen-engineers-at-the-fenceline/ " target="_blank">“Citizen Engineers at the Fenceline,” Gwen Ottinger, Issues in Science and Technology (Winter 2016)</a></li> 
+          <li><a href="https://www.earthworksaction.org/files/publications/Air_Monitoring_White_Paper_March_2016_(1).pdf " target="_blank">“Community Air Monitoring of Oil and Gas Pollution: A Survey of Issues and Technologies,” Nadia Steinzor, Earthworks white paper (March 2016)</a></li> 
+          <li><a href="http://dl.acm.org/citation.cfm?doid=2662155.2662188 " target="_blank">“Research at the margin: participatory design and community based participatory research,” Robert Racadio, Emma J. Rose, and Beth E. Kolko, Proceedings of the 13th Participatory Design Conference (October 2014)</a></li>
+          <li><a href="https://www.exploratorium.edu/environmental-field-station " target="_blank">San Francisco Exploratorium Environmental Field Station&mdash;featuring a Data Explorer web app to access and explore environmental data gathered at the Exploratorium’s Bay waterfront location</a></li>
+          <li><a href="https://www.theguardian.com/technology/2014/jul/20/rise-of-data-death-of-politics-evgeny-morozov-algorithmic-regulation " target="_blank">“The rise of data and the death of politics,” Evgeny Morozov, The Guardian (July 20, 2014)</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Climate Justice Educational Resources</h3>
+        <ul>
+          <li><a href="http://breakthroughcommunities.info/publications-re-metro-equity-issues/climate-justice-book/  " target="_blank">Climate Justice: Frontline Stories from Groundbreaking Coalitions in California, edited by M. Paloma Pavel, PhD, with the Breakthrough Communities Team; Foreword by Carl Anthony (July 2017)</a></li>
+          <li><a href="http://steveearly.org/ " target="_blank">Refinery Town: Big Oil, Big Money, and the Remaking of an American City, Steve Early (2017)</a></li> 
+          <li><a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016).</a>
+            <ul>
+              <li>In this 34-page comic book for both youth and adults, 10-year-old Gabe Sanchez of East Oakland tells the story of how he and his grandfather time-travel 50 years into the future. His 60-year-old self tells him the story of how climate change has shaped his life: the superstorm that destroyed his home and livelihood, the collapse of California agriculture, and more. But 60-year-old Gabe also shows the many ways people today are fighting to stop fossil fuels and build a green economy. Gabe and Grandpa return to 2016 determined to join the movement for climate justice.</li>
+            </ul>
+          </li>
+          <li><a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">Video: “Why We Need to Keep Fossil Fuels in the Ground” (The Guardian)</a></li>
+        </ul>
+      </section>
+      </div>
     </div>
 </body>
 </html>

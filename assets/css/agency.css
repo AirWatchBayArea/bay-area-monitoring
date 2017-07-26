@@ -32,15 +32,15 @@ a:active,
 a.active {
   outline: none;
 }
-a {
+/*a {
   color: #f7b733;
-}
-a:hover,
+}*/
+/*a:hover,
 a:focus,
 a:active,
 a.active {
   color: #f7b733;
-}
+}*/
 h1,
 h2,
 h3,

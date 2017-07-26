@@ -34,6 +34,22 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
+function scrollToElmMiddle($elm){
+  var elOffset = $elm.offset().top;
+  var elHeight = $elm.height();
+  var windowHeight = $(window).height();
+  var offset;
+
+  if (elHeight < windowHeight) {
+  	offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
+  }
+  else {
+  	offset = elOffset;
+  }
+  $('html,body').animate({scrollTop: offset});
+  return false;
+}
+
 function scrollToElmBottom($elm){
   $('html,body').animate({scrollTop: $elm.height() - $(window).height()});
 }

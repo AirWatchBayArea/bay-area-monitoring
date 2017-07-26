@@ -15,11 +15,7 @@ var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
 
 var iconBase = 'assets/images/';
 var icons = {
-  "Wind": iconBase + 'wind-arrow.png',
-  "Fenceline Monitor": iconBase + 'fenceline.png',
-  "Community Monitor": iconBase + 'community-monitor-pin.png',
-  "BAAQMD Monitor": iconBase + 'baaqmd-monitor-pin.png',
-  "Selected Monitors": iconBase + 'highlight.png',
+  "Wind": {legendIcon: iconBase + 'wind-arrow.png'},
   "Pollution Source": {
                         path: "M 50,8 90,75 10,75 z",
                         fillColor: 'dimgray',
@@ -27,6 +23,7 @@ var icons = {
                         strokeWeight: 3,
                         scale: .25,
                         fillOpacity: 1.0,
+                        legendIcon: iconBase + "pollution-source.png"
                       },
   "Fenceline Monitor": {
                         path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -35,6 +32,7 @@ var icons = {
                         strokeWeight: 3,
                         scale: 5.5,
                         fillOpacity: 1.0,
+                        legendIcon: iconBase + "fenceline.png"
                       },
   "BAAQMD Monitor": {
                       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -43,6 +41,7 @@ var icons = {
                       strokeWeight: 3,
                       scale: 5.5,
                       fillOpacity: 1.0,
+                      legendIcon: iconBase + "baaqmd-monitor-pin.png" 
                     },
   "Community Monitor": {
                       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -51,8 +50,11 @@ var icons = {
                       strokeWeight: 3,
                       scale: 5.5,
                       fillOpacity: 1.0,
+                      legendIcon: iconBase + "community-monitor.png" 
                     },
-  // "School": iconBase + "school.png"
+  "School": {url: iconBase + "school.png",
+            legendIcon: iconBase + "school.png",
+          }
 }
 
 var fencelineMonitors = {
@@ -380,12 +382,12 @@ function initMap(div) {
     refineryBounds.setMap(map);
   }
   
-  // var service = new google.maps.places.PlacesService(map);
-  // service.nearbySearch({
-  //   location: new google.maps.LatLng(center.x, center.y),
-  //   radius: 5000,
-  //   type: ['school']
-  // }, markerCallback);
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: new google.maps.LatLng(center.x, center.y),
+    radius: 5000,
+    type: ['school']
+  }, markerCallback);
 
     // initialize the canvasLayer
   var update = function() {
@@ -487,7 +489,7 @@ function generateLegend() {
     var name = key;
     var icon = icons[key];
     var div = document.createElement('div');
-    div.innerHTML = '<img src="' + icon + '"> ' + name;
+    div.innerHTML = '<img src="' + icon.legendIcon + '"> ' + name;
     $legend.append(div);
   }
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push($legend[0]);

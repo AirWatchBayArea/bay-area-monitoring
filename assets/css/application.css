@@ -43,10 +43,6 @@ html, body {
   min-height: 0px;
 }
 
-#site-nav>div>.navbar-nav{
-  float: right !important;
-}
-
 #site-nav .custom-nav-btn {
   margin: 5px 2px;
   font-size: 14px;
@@ -114,13 +110,25 @@ html, body {
   margin: 10px 0px;
 }
 
-#report-form>label{
+.report-form-section{
+  width: 100%;
+  border: 3px solid rgb(200,200,200);
+  border-radius: 8px;
+  margin: 10px 0px;
+  padding: 10px;
+}
+
+#report-form strong{
+  font-size: 18px;
+}
+
+#report-form label{
   display: block;
   margin: 10px 0px;
 }
 
-strong.required{
-  font-size: 18px;
+strong.emphasis{
+  font-size: 20px;
 }
 
 strong.required:after{
@@ -136,6 +144,7 @@ strong.required:after{
   font-weight: normal;
   border: solid 3px darkgray;
   border-radius: 10px;
+  background-color: white;
   transition: background-color .2s;
 }
 
@@ -182,11 +191,16 @@ input[value="5"]+.smell-label>.smell-box{
   background-color: rebeccapurple;
 }
 
-.location-label, .textarea-label, .textarea-label>input{
+textarea { 
+  resize: vertical; 
+  border: none;
+}
+
+.location-label, .textarea-label, .textarea-label>input, .textarea-label>textarea{
   width: 100%;
 }
 
-.smell-label, .textarea-label>input, .location-label>input{
+.smell-label, .textarea-label>input, .location-label>input, .textarea-label>textarea{
   font-weight: normal;
 }
 
@@ -195,14 +209,14 @@ input[value="5"]+.smell-label>.smell-box{
   margin-left: 10px;
 }
 
-.location-label>input[type=text]{
+.location-label>input[type=text],.location-label>textarea{
   width: 100%;
 }
 
 .report-button { 
   display: inline-block;
   padding: 5px 20px;
-  background-color: #085b64;
+  background-color: #00bdac;
   color: white;
   text-align: center;
   font-size: 18px;
