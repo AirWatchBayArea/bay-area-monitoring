@@ -3,6 +3,10 @@
 	padding: 10px;
 }
 
+.resource-container h2{
+	text-align: center;
+}
+
 .back-to-top {
 	position: fixed;
 	bottom: 3px;

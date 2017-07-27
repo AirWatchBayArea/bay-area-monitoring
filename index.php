@@ -500,19 +500,6 @@
         </ul>
       </nav>
       <section class="post">
-        <h3 class="resource-title">Grow the community</h3>
-        <p>of people engaged with Bay Area air quality, environmental justice, participatory design, and health equity advocacy.</p>
-        <ul>
-          <li><a href="https://www.facebook.com/Air-Watch-Bay-Area-277863656023214/  " target="_blank">Facebook: Air Watch Bay Area</a></li>
-        </ul>
-      </section>
-      <section class="post">
-        <h3 class="resource-title">Please send us feedback! What other resources do you suggest? </h3>
-        <ul>
-          <li><a href="mailto:info@fairtechcollective.org?subject=AWBA Resources to Add">Email: info@fairtechcollective.org</a></li>
-        </ul>
-      </section>
-      <section class="post">
         <h3 class="resource-title">Connect with Bay Area community organizations, campaigns, and resources</h3>
         <p>to advocate for cleaner air, particularly in frontline communities.</p>
         <ul>
@@ -622,6 +609,19 @@
             </ul>
           </li>
           <li><a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">Video: “Why We Need to Keep Fossil Fuels in the Ground” (The Guardian)</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Grow the community</h3>
+        <p>of people engaged with Bay Area air quality, environmental justice, participatory design, and health equity advocacy.</p>
+        <ul>
+          <li><a href="https://www.facebook.com/Air-Watch-Bay-Area-277863656023214/  " target="_blank">Facebook: Air Watch Bay Area</a></li>
+        </ul>
+      </section>
+      <section class="post">
+        <h3 class="resource-title">Please send us feedback! What other resources do you suggest? </h3>
+        <ul>
+          <li><a href="mailto:airwatchbayarea@gmail.com?subject=AWBA Resources to Add">Email: airwatchbayarea@gmail.com</a></li>
         </ul>
       </section>
       </div>
