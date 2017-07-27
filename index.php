@@ -488,8 +488,6 @@
             }
           </script>
          <ul>
-          <li><a onclick="jumpToIndex(this)">Grow the community</a></li>
-          <li><a onclick="jumpToIndex(this)">Please send us feedback! What other resources do you suggest?</a></li>
           <li><a onclick="jumpToIndex(this)">Connect with Bay Area community organizations, campaigns, and resources</a></li>
           <li><a onclick="jumpToIndex(this)">Connect with elected officials and regulators</a></li>
           <li><a onclick="jumpToIndex(this)">Learn about Bay Area oil refinery politics and policies</a></li>
@@ -497,6 +495,8 @@
           <li><a onclick="jumpToIndex(this)">Explore environmental health and health equity research</a></li>
           <li><a onclick="jumpToIndex(this)">Investigate community-based science, participatory design, and data politics</a></li>
           <li><a onclick="jumpToIndex(this)">Climate Justice Educational Resources</a></li>
+          <li><a onclick="jumpToIndex(this)">Grow the community</a></li>
+          <li><a onclick="jumpToIndex(this)">Please send us feedback! What other resources do you suggest?</a></li>
         </ul>
       </nav>
       <section class="post">
