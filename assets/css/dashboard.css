@@ -382,6 +382,7 @@
 .dashboard-page #map_parent {
   overflow-x: hidden;
   height: 40%;
+  min-height: 365px;
 }
 
 .dashboard-page .menu {

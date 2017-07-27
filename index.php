@@ -296,7 +296,7 @@
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
-                    <a href="#loc=benecia" class="btn btn-xl text-gettingstarted">Benecia &rarr;</a>
+                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
