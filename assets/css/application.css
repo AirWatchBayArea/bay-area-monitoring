@@ -64,6 +64,14 @@ html, body {
   transition: background-color .3s;
 }
 
+#site-nav .custom-nav-link:hover, #site-nav .custom-nav-link:focus{
+  background-color: inherit;
+}
+
+#site-nav .custom-nav-link-active:hover, #site-nav .custom-nav-link-active:focus{
+  background-color: #f7b733;
+}
+
 #site-nav .custom-nav-link-active {
   color: #eceff1;
   background-color: #f7b733;
