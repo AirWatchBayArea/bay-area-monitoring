@@ -217,7 +217,7 @@ function drawSmellReports(range) {
                               getSmellColor(report_i.smell_value - 1),
                               content);
 
-   marker.setZIndex(report_i.smell_value);
+   marker.setZIndex(report_i.smell_value*100);
    marker.created_date = date.getTime();
 
    return marker;

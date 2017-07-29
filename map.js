@@ -52,7 +52,7 @@ var icons = {
                       fillOpacity: 1.0,
                       legendIcon: iconBase + "community-monitor.png" 
                     },
-  "School": {url: iconBase + "school.png",
+  "School/Day Care": {url: iconBase + "school.png",
             legendIcon: iconBase + "school.png",
           }
 }
@@ -340,7 +340,7 @@ function initMap(div) {
     var pollutionSource = pollutionSources[key];
     var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
     var icon = icons['Pollution Source'];
-    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description));
+    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
   }
 
   //add Fenceline Monitors
@@ -348,7 +348,7 @@ function initMap(div) {
     var fencelineMonitor = fencelineMonitors[key];
     var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
     var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description));
+    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description)).setZIndex(1);
   }
 
   //add Community Monitors
@@ -356,7 +356,7 @@ function initMap(div) {
     var communityMonitor = communityMonitors[key];
     var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
     var icon = icons['Community Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description));
+    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description)).setZIndex(1);
   }
 
   //add BAAQMD Monitors
@@ -364,7 +364,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description));
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description)).setZIndex(1);
   }
 
   //draw refineries
@@ -416,7 +416,7 @@ function createInfoWindowContent(title, description){
 function markerCallback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i].geometry.location, icons['School'], results[i].name);
+      createMarker(results[i].geometry.location, icons["School/Day Care"], results[i].name);
     }
   }
 }

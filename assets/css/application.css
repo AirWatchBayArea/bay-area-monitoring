@@ -69,6 +69,10 @@ html, body {
   background-color: #f7b733;
 }
 
+#site-nav .dropdown-menu{
+  background-color: #00bdac;
+}
+
 .vertical-center {
   margin-top: auto !important;
   margin-bottom: auto !important;

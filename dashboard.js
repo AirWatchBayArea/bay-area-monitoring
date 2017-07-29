@@ -862,7 +862,7 @@
     $(".active").removeClass("active");
     if(loc){
       $("#view-air-quality-tab").addClass("active");
-      $("#view-air-quality-tab a").addClass("custom-nav-link-active");
+      $("#view-air-quality-tab>a").addClass("custom-nav-link-active");
       $("#" + loc + "-tab").addClass("active");
       $("#" + loc + "-tab" + " a").addClass("custom-nav-link-active");
     }else{

@@ -124,26 +124,32 @@
   </script>
 </head>
 <body>
-  <nav id="site-nav" class="navbar navbar-default">
+  <nav id="site-nav" class="navbar">
     <div class="container-fluid">
-      <ul class="nav navbar-nav">
+      <ul class="nav navbar-nav" id="navbarNav">
         <li class="custom-nav-btn" id="home-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#home">Home</a>
+          <a class="custom-nav-link text-uppercase no-highlight" href="#home">Home</a>
         </li>
-        <li class="custom-nav-btn" id="view-air-quality-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Air Quality</a>
+        <li class="dropdown custom-nav-btn" id="view-air-quality-tab">
+          <a class="dropdown-toggle custom-nav-link text-uppercase" data-toggle="dropdown" href="#">Air Quality
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=richmond"> Richmond </a></li>
+            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
+            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=benicia">Benicia</a></li>
+          </ul>
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#report-air">Report Pollution</a>
+          <a class="custom-nav-link text-uppercase no-highlight" href="#report-air">Report Pollution</a>
         </li>
         <!-- <li class="custom-nav-btn" id="daily-summaries-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
         </li> -->
         <li class="custom-nav-btn" id="user-reports-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#user-reports">User Reports</a>
+          <a class="custom-nav-link text-uppercase no-highlight" href="#user-reports">User Reports</a>
         </li>
         <li class="custom-nav-btn" id="resources-for-action-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#resources-for-action">Resources for Action</a>
+          <a class="custom-nav-link text-uppercase no-highlight" href="#resources-for-action">Resources for Action</a>
         </li>
       </ul>
     </div>
