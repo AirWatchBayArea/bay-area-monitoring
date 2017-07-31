@@ -406,7 +406,9 @@
   function generateShareLink() {
     var range = plotManager.getDateAxis().getRange();
     var link = PROJ_ROOT_URL + "#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
-    $("#shareLink").val(link);
+    $("#shareLink")
+    .text(link)
+    .attr('href',link);;
     $("#dialog").dialog("open");
   }
 
@@ -736,19 +738,19 @@
   }
 
   function grapherZoomToMonth() {
-    var max_time = plotManager.getDateAxis().getRange().max;
+    var max_time = Date.now()/1000;
     var length = 2487540;
     plotManager.getDateAxis().setRange(max_time-length,max_time);
   }
 
   function grapherZoomToWeek() {
-    var max_time = plotManager.getDateAxis().getRange().max;
+    var max_time = Date.now()/1000;
     var weekLength = 590707;
     plotManager.getDateAxis().setRange(max_time-weekLength,max_time);
   }
 
   function grapherZoomToDay() {
-    var max_time = plotManager.getDateAxis().getRange().max;
+    var max_time = Date.now()/1000;
     var dayLength = 82918;
     plotManager.getDateAxis().setRange(max_time-dayLength,max_time);
   }
@@ -1058,7 +1060,7 @@ function toggleGuide() {
     });
 
     $('[data-toggle="popover"]').popover();
-    $("#dialog").dialog({ autoOpen: false });
+    $("#dialog").dialog({ autoOpen: false , width: '60%'});
 
     //Initialize playback things
     plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);

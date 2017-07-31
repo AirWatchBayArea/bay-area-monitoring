@@ -124,10 +124,11 @@ html, body {
 
 .report-form-section{
   width: 100%;
-  border: 3px solid rgb(200,200,200);
+  border: 3px solid rgb(180,180,180);
   border-radius: 8px;
   margin: 10px 0px;
   padding: 10px;
+  background-color: rgb(235,235,235);
 }
 
 #report-form strong{

@@ -29,6 +29,13 @@ function initSmells() {
   infowindow = new google.maps.InfoWindow({
     pixelOffset: new google.maps.Size(-1, 0)
   });
+  return updateSmellList(function(){
+    addSmellReportsToGrapher();
+    processSmellReportsForMap();
+  });
+}
+
+function updateSmellList(callback){
   return new Promise(function(resolve, reject){
     $.ajax({
     url: rootSmellUrl + "/smell_reports?area=BA",
@@ -37,10 +44,14 @@ function initSmells() {
       smellReports = json.filter(function(report) {
         return report.latitude < 38.8286208 && report.latitude > 36.906913 && report.longitude < -121.209588 && report.longitude > -123.017998;
       });
-      addSmellReportsToGrapher();
-      processSmellReportsForMap();
-      resolve();
+      if(callback){
+        callback();
       }
+      resolve(json);
+    },
+    error: function(err){
+      reject(err);
+     }
     });
   });
 }

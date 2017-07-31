@@ -153,9 +153,9 @@
 #slider-wrapper:after{
   content: "speed";
   position: absolute;
-  left: inherit;
+  left: 50px;
   transform: inherit;
-  line-height: 42px;
+  line-height: 15px;
 }
 
 #zoomGrapherIn:after{
@@ -172,6 +172,14 @@
 
 #play:after{
   content: "play";
+}
+
+#share:after{
+  content: "share";
+}
+
+#help:after{
+  content: "help";
 }
 
 .dashboard-page #shareLink {

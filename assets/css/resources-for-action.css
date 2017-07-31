@@ -1,5 +1,4 @@
-#resources-for-action-page  section, 
-#resources-for-action-page nav{
+#resources-for-action-page  section{
 	padding: 10px;
 }
 
@@ -24,7 +23,7 @@
 }
 
 .table-of-contents li{
-	margin: 5px 0px;
+	margin: 10px;
 	font-size: 17px;
     font-weight: bold;
     cursor: pointer;

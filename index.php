@@ -162,12 +162,13 @@
     <a href="reports/yesterday/Rodeo.html" target="_blank">Rodeo</a><br>
     <h4>Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a></h4>
   </div>
-  <div id="report-air-page">
+  <div id="report-air-page" class="resource-container">
+    <h2>Report a smell or pollution incident</h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <div class="report-form-section">
         <label>
-          <strong class="emphasis">Upload Photo(s) (optional):</strong>
+          <strong class="emphasis">Upload Photo of Incident (optional)</strong>
         </label>
         <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
         <p class='num-file-status'></p>
@@ -185,7 +186,7 @@
       </div>
       <div class="report-form-section">
         <label>
-          <strong class="emphasis required">How does your air smell right now?</strong>
+          <strong class="emphasis required">How bad is the odor?</strong>
         </label>
         <label>
           <input type="radio" name="smell" value="1" checked>
@@ -219,21 +220,21 @@
         </label>
 
         <label class='location-label'>
-          <strong class="emphasis required">Where were you when you detected the odor?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
+          <strong class="emphasis required">Where were you when you experienced the incident or odor?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
         </label>
 
         <label class='textarea-label'>
-          <strong>Describe the smell or source of odor</strong>
+          <strong>Describe the source of odor or location of incident:</strong>
           <textarea name="describe-air" placeholder="e.g. exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
         </label>
 
         <label class='textarea-label'>
-          <strong>Any symptoms linked to odor?</strong>
+          <strong>What health symptoms are you experiencing, if any? </strong>
           <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></textarea>
         </label>
 
         <label class='textarea-label'>
-          <strong>Additional comments on odor:</strong>
+          <strong>Additional comments:</strong>
           <textarea id="additional-comments" name="additional-comments"></textarea>
         </label>
       </div>
@@ -405,7 +406,14 @@
 
   <div class="full-page full-height" id="user-reports-page">
     <div id="photos-container" class="resource-container">
-      <h2>User Submitted Photos:</h2>
+      <h2>User Reports:</h2>
+      <label>
+        Sort by:
+        <select name="sort">
+          <option value="post">Posted Date</option>
+          <option value="when">When It Occured</option>
+        </select>
+      </label>
       <div id="posts"></div>
     </div>
   </div>
@@ -449,6 +457,10 @@
         <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
       </div>
       <div id="grapher_toolbar" class="row">
+        <span id="play" title="play/pause" class="grapher-tool-icon fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-play fa-stack-1x fa-inverse"></i>
+        </span>
         <span id="zoomGrapherIn" title="zoom in" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
@@ -461,18 +473,25 @@
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
         </span>
-        <span id="play" title="play/pause" class="grapher-tool-icon fa-stack fa-2x">
+        <span id="share" title="share" class="grapher-tool-icon fa-stack fa-2x"
+              onclick="generateShareLink()">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-play fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-share-square-o fa-stack-1x fa-inverse"></i>
         </span>
-        <div id="slider-wrapper" title="speed" class="grapher-tool-icon">
-          <div id="slider"></div>
+        <div id="dialog" title="Share a Pollution Incident">
+          To link others to your current view, use this URL:<br><a id="shareLink" href="#"></a>
         </div>
+        <a href="https://docs.google.com/document/d/1-QokSz-eLUHQkHug4TsiQ_XyQrbRgadF_mr5AIpmPvE/pub" target="_blank"><span id="help" title="help" class="grapher-tool-icon fa-stack fa-2x">
+            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+            <i class="fa fa-question fa-stack-1x fa-inverse"></i>
+        </span></a>
       </div>
       <div id="grapher_parent" class="row">
         <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
           <tr class="grapher_row" id="dateAxisContainer">
-            <td></td>
+            <td><div id="slider-wrapper" title="speed" class="grapher-tool-icon">
+          <div id="slider"></div>
+        </div></td>
             <td id="dateAxis"></td>
             <td class="border"></td>
           </tr>

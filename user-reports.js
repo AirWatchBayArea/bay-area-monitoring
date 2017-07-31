@@ -1,8 +1,8 @@
 var rootCloudinaryListUrl = "http://www.res.cloudinary.com/hpkutahah/image/list/";
 var rootCloudianrtFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/";
 
+var postList = [];
 var responseList;
-
 function makeListURL(tag){
 	return rootCloudinaryListUrl + tag + ".json?context=true";
 }
@@ -24,7 +24,13 @@ function getTagList(tag){
 	     	reject(err);
 	     }
 	    });
-	  });
+	});
+}
+
+function generateSmellPosts(json){
+	for (var i = 0; i < json.length; i++) {
+		generatePostFromSmell(json[i]);
+	}
 }
 
 function generatePostsFromList(json){
@@ -39,7 +45,7 @@ function roundLatLng(val){
 }
 
 function formatDate(dateStr){
-	return dateFormat(Date.parse(dateStr), "mmmm d, yyyy, h:MMtt");
+	return dateFormat(dateStr, "mmmm d, yyyy, h:MMtt");
 }
 
 function generatePostFromResource(resource){
@@ -54,11 +60,33 @@ function generatePostFromResource(resource){
 		postData['smell_value']=decodeURIComponent(smell_report['smell_value']);
 		postData['alt']=decodeURIComponent(context['alt']);
 		postData['caption']=decodeURIComponent(context['caption']);
-		postData['when']=formatDate(decodeURIComponent(context['when']));
+		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
 	}
-	
-	generatePostHTML(postData);
+	postList.push({
+		html: generatePostHTML(postData), 
+		when: Date.parse(decodeURIComponent(context['when'])), 
+		post: Date.parse(resource['created_at']), 
+		smell_report: smell_report,
+	});
+}
+
+function generatePostFromSmell(smell_report){
+	var postData = {
+		'latitude': roundLatLng(smell_report['latitude']),
+		'longitude':roundLatLng(smell_report['longitude']),
+		'smell_value':smell_report['smell_value'],
+		'alt': smell_report['smell_description'],
+		'caption':smell_report['feelings_symptoms'],
+		'when': formatDate(smell_report['created_at']*1000),
+		'additional_comments': smell_report['additional_comments'],
+	}
+	postList.push({
+		html: generatePostHTML(postData), 
+		when: smell_report['created_at'],
+		post: smell_report['created_at'],
+		smell_report: smell_report,
+	});
 }
 
 function getSmellColorStr(smellVal){
@@ -88,25 +116,46 @@ function escapeHTML(text){
 }
 
 function generatePostHTML(data){
-	$('#posts').append([
+	return [
 		'<div class="post">',
         	'<div class="smell-box" style="background-color: ',
         	(data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray',
         	'"></div>',
-        	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Title)','</h3><br>',
+        	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Description)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
         	'<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	'<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
-        	'<img src="',(data['src']) ? encodeURI(data['src']) : '/','" width="100%">',
+        	(data['src']) ? '<img src="'+ encodeURI(data['src'])+'" width="100%">' : "",
         	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
       		(data['additional_comments'] && data['additional_comments'] != "null") ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
       	'</div>',
-	].join(""));
+	].join("")
+}
+
+function appendPosts(){
+	for (var i = 0; i < postList.length; i++) {
+		$('#posts').append(postList[i].html);
+	}
 }
 
 function refreshPosts(){
-	$('#posts').html('');
-	getTagList('browser_uploads').then(generatePostsFromList);
+	postList.length = 0;
+	Promise.all([getTagList('browser_uploads'), updateSmellList()]).then(function(response){
+		generatePostsFromList(response[0]);
+		generateSmellPosts(response[1])
+		sortPostBy($("select option:selected" ).val())
+	});
 }
 
-$(refreshPosts);
+function sortPostBy(key){
+	$('#posts').html('');
+	postList.sort(function(a,b){return b[key] - a[key]});
+	appendPosts();
+}
+
+$(function(){
+	refreshPosts();
+	$('select[name=sort]').change(function(ev){
+		sortPostBy(ev.target.value);
+	});
+});
