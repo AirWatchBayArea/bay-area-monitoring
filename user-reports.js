@@ -83,8 +83,8 @@ function generatePostFromSmell(smell_report){
 	}
 	postList.push({
 		html: generatePostHTML(postData), 
-		when: smell_report['created_at'],
-		post: smell_report['created_at'],
+		when: new Date(0).setUTCSeconds(smell_report['created_at']),
+		post: new Date(0).setUTCSeconds(smell_report['created_at']),
 		smell_report: smell_report,
 	});
 }
