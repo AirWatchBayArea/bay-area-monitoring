@@ -205,7 +205,7 @@
       </ul>
     </div>
   </nav> -->
-  
+
   <div id="report-air-page" class="resource-container">
     <h2>Report a smell or pollution incident</h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
@@ -360,12 +360,12 @@
       <div class="container">
             <div class="row">
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
-                  <div class="col-lg-4" style="margin:auto; width:80%">
-                    <img class="img-responsive" src="img/appicon.png" style="padding: 10px; min-width: 130px; max-width: 200px; margin: auto"/>
+                  <div class="col-lg-4" style="margin:0 5%; width:90%;">
+                    <img class="img-responsive" src="img/appicon.png" style="padding: 5% 35% 0% 35%;"/>
                     <h4 class="service-heading">View local air quality on the go and report pollution when you encounter it</h4>
                     <div style="margin:3%;width:100%">
-                      <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline; min-width: 130px; max-width: 200px"/></a>
-                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline; min-width: 130px; max-width: 200px"/></a>
+                      <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline; min-width: 130px; max-width: 182px;"/></a>
+                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline; min-width: 150px; max-width: 200px"/></a>
                     </div>
                   </div>
                 </div>
