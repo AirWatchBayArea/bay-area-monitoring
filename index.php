@@ -105,7 +105,7 @@
   <script src="report.js" type="text/javascript">
   </script>
   <!-- Theme JavaScript -->
-  <script src="agency.min.js"></script>
+  <script src="agency.js"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
   <script src='jquery.ui.widget.js' type='text/javascript'>
@@ -122,11 +122,62 @@
   </script>
   <script src='user-reports.js' type='text/javascript'>
   </script>
+   <!-- Sorry... I know I shouldn't embed javascript here but didn't
+               want to create a whole new file for it -->
+  <script type="text/javascript">
+    function jumpToIndex(elm){
+      var index = $(elm).parent().index();
+      scrollToElmMiddle($('section.post').eq(index));
+    }
+    function jumpToGetStarted(){
+      scrollToElmMiddle($('#services span').eq(1));
+    }
+  </script>
 </head>
 <body>
-  <nav id="site-nav" class="navbar">
+  <nav id="site-nav" class="navbar navbar-custom">
     <div class="container-fluid">
-      <ul class="nav navbar-nav" id="navbarNav">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" data-target="#myNavbar">
+          <span style="color: white">Menu</span>                      
+        </button>
+         <a class="navbar-brand page-scroll" href="#page-top"><img src="img/logo.svg" style="margin:0:padding:0;height:100%;display:inline"/>&nbsp;Air Watch <span style="color:#f7b733">Bay Area</span></a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li id="home-tab">
+            <a class="text-uppercase no-highlight" href="#home">Home</a>
+          </li>
+          <li class="dropdown" id="view-air-quality-tab">
+            <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li class=""><a class="" href="#loc=richmond"> Richmond </a></li>
+              <li class=""><a class="" href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
+              <li class=""><a class="" href="#loc=benicia">Benicia</a></li>
+            </ul>
+          </li>
+          <li class="" id="report-air-tab">
+            <a class="text-uppercase no-highlight" href="#report-air">Report Pollution</a>
+          </li>
+          <li class="" id="user-reports-tab">
+            <a class="text-uppercase no-highlight" href="#user-reports">User Reports</a>
+          </li>
+          <li class="" id="resources-for-action-tab">
+            <a class="text-uppercase no-highlight" href="#resources-for-action">Resources for Action</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- <nav id="site-nav" class="navbar navbar-toggler-md">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="container-fluid collapse" id="navbarNav">
+      <ul class="nav navbar-nav">
         <li class="custom-nav-btn" id="home-tab">
           <a class="custom-nav-link text-uppercase no-highlight" href="#home">Home</a>
         </li>
@@ -141,11 +192,11 @@
         </li>
         <li class="custom-nav-btn" id="report-air-tab">
           <a class="custom-nav-link text-uppercase no-highlight" href="#report-air">Report Pollution</a>
-        </li>
+        </li> -->
         <!-- <li class="custom-nav-btn" id="daily-summaries-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
         </li> -->
-        <li class="custom-nav-btn" id="user-reports-tab">
+        <!-- <li class="custom-nav-btn" id="user-reports-tab">
           <a class="custom-nav-link text-uppercase no-highlight" href="#user-reports">User Reports</a>
         </li>
         <li class="custom-nav-btn" id="resources-for-action-tab">
@@ -153,7 +204,7 @@
         </li>
       </ul>
     </div>
-  </nav>
+  </nav> -->
   <div id="daily-summaries-page" title="Print Daily Summaries">
     <h3>To print or download yesterday's air quality summary, select your community below:</h3>
     <a href="reports/yesterday/Atchison_Village.html" target="_blank">Atchison Village</a><br>
@@ -255,44 +306,22 @@
   </div>
 
   <div id="home-page">
+   <!-- Header -->
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-heading">Air Watch<span style="font-size:70%; color:#f7b733"><br/>Bay Area</span></div>
+                <div class="intro-lead-in">Air Watch Bay Area is an interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality data.</div>
+                <div class="intro-heading" style="width:50%;margin:0 25%"></div>
+                <a class="page-scroll btn btn-xl" onclick="jumpToGetStarted()" style="border-color: rgba(247,183,51,.8); background-color: rgba(247,183,51,.8); color: white;padding:15px 25px; letter-spacing: 1px;;
+">GET STARTED</a>
             </div>
         </div>
     </header>
-
-    <!-- Intro Section -->    
-    <section style="padding: 50px 0;">
-      <div class="container">
-            <div class="row">
-                <div class="col-lg-7 col-sm-6">                 
-                  <hr class="section-heading-spacer" style="margin-top:0px"/>
-                    <div class="clearfix"></div>
-                    <p class="service-heading" style="font-size:175%">Air Watch Bay Area is an interactive tool for the refinery fenceline communities of the San Francisco Bay Area to explore our air quality data.</p>
-                </div>
-                <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px">
-                    <img class="img-responsive" src="img/appicon.png" style="padding: 5% 35% 0% 35%;"/>
-                    <h4 class="service-heading">View air quality and report smells from our app</h4>
-                    <div style="margin:3%;width:100%"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/>
-                    <img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div>
-                </div>
-            </div>
-        </div>
-    </section>
     
     <!-- Services Section -->
     <section id="services">
         <div class="container">
-          <div class="row">
-              <div class="col-lg-7 col-sm-6">                 
-                  <hr class="section-heading-spacer" style="margin-top:0px"/>
-                    <div class="clearfix"></div>
-                    <h2 class="section-heading">getting started</p>
-                </div>
-            </div>
             <div class="row text-center">
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -303,7 +332,7 @@
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
-                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
+                    <a href="#loc=benecia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -319,7 +348,7 @@
                         <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">User Reports</h4>
-                    <a href="#user-reports" class="btn btn-xl text-gettingstarted">View user-submitted reports &rarr;</a>
+                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View user-submitted reports &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -333,6 +362,24 @@
         </div>
     </section>
 
+    <!-- Intro Section -->    
+    <section style="padding: 50px 0;">
+      <div class="container">
+            <div class="row">
+                <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
+                  <div class="col-lg-4" style="margin:auto; width:80%">
+                    <img class="img-responsive" src="img/appicon.png" style="padding: 10px; min-width: 130px; max-width: 200px; margin: auto"/>
+                    <h4 class="service-heading">View local air quality on the go and report pollution when you encounter it</h4>
+                    <div style="margin:3%;width:100%">
+                      <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline; min-width: 130px; max-width: 200px"/></a>
+                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline; min-width: 130px; max-width: 200px"/></a>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+   
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container">
@@ -372,12 +419,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-7 col-sm-6">         
-                    <p class="service-heading">Air Watch is developed and maintained by the Fair Tech Collective at Drexel University in collaboration with the Community Robotics, Education, and Technology Empowerment Lab at Carnegie Mellon University and concerned community members from:</p>
-          <ul style="list-style-type: none; color:#FD9453;line-height:30px">
-            <li>Benicia Good Neighbor Steering Committee →</li>
-            <li>C.R.U.D.E. (Crockett-Rodeo United to Defend the Environment) →</li>
-            <li>LACEEN →</li>
-            <li>Community Science Institute →</li>
+                    <p class="service-heading">Air Watch is developed and maintained by the <a class="text-gettingstarted" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> at Drexel University in collaboration with the <a class="text-gettingstarted" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
+          <ul style="padding:0;list-style-type:none;color:#FD9453;line-height:30px">
+            <li><a style="margin-bottom: 0" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
+            <li><a style="margin-bottom: 0" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN →</a></li>
+            <li><a style="margin-bottom: 0" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">C.R.U.D.E. <span style="font-size: .95em">(Crockett-Rodeo United to Defend the Environment)</span> →</a></li>
+            <li><a style="margin-bottom: 0" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute →</a></li>
           </ul>
                 </div>
                 <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px;padding:5px;">
@@ -395,8 +442,8 @@
                 </div>
                 <div class="col-md-6">
                     <ul class="list-inline quicklinks">
-                      <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
-                      </li>
+                        <li><a class="page-scroll" href="#page-top" style="color:#f7b733">Back to Top</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -405,6 +452,7 @@
   </div>
 
   <div class="full-page full-height" id="user-reports-page">
+    <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
     <div id="photos-container" class="resource-container">
       <h2>User Reports:</h2>
       <label>
@@ -412,6 +460,7 @@
         <select name="sort">
           <option value="post">Posted Date</option>
           <option value="when">When It Occured</option>
+          <option value="type">Pictures Top</option>
         </select>
       </label>
       <div id="posts"></div>
@@ -504,14 +553,6 @@
       <div class="resource-container">
         <h2>Resources for Action</h2>
       <nav role="navigation" class="table-of-contents">
-          <!-- Sorry... I know I shouldn't embed javascript here but didn't
-               want to create a whole new file for it -->
-          <script type="text/javascript">
-            function jumpToIndex(elm){
-              var index = $(elm).parent().index();
-              scrollToElmMiddle($('section.post').eq(index));
-            }
-          </script>
          <ul>
           <li><a onclick="jumpToIndex(this)">Connect with Bay Area community organizations, campaigns, and resources</a></li>
           <li><a onclick="jumpToIndex(this)">Connect with elected officials and regulators</a></li>

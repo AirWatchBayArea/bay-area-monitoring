@@ -3,6 +3,7 @@ var rootCloudianrtFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/"
 
 var postList = [];
 var responseList;
+var defaultKey = "when";
 function makeListURL(tag){
 	return rootCloudinaryListUrl + tag + ".json?context=true";
 }
@@ -28,14 +29,14 @@ function getTagList(tag){
 }
 
 function generateSmellPosts(json){
-	for (var i = 0; i < json.length; i++) {
+	for (var i = json.length - 1; i >= 0; i--) {
 		generatePostFromSmell(json[i]);
 	}
 }
 
 function generatePostsFromList(json){
 	var resources = json.resources;
-	for (var i = 0; i < resources.length; i++) {
+	for (var i = resources.length - 1; i >= 0; i--) {
 		generatePostFromResource(resources[i]);
 	}
 }
@@ -68,6 +69,7 @@ function generatePostFromResource(resource){
 		when: Date.parse(decodeURIComponent(context['when'])), 
 		post: Date.parse(resource['created_at']), 
 		smell_report: smell_report,
+		type: 1,
 	});
 }
 
@@ -86,6 +88,7 @@ function generatePostFromSmell(smell_report){
 		when: new Date(0).setUTCSeconds(smell_report['created_at']),
 		post: new Date(0).setUTCSeconds(smell_report['created_at']),
 		smell_report: smell_report,
+		type: 0,
 	});
 }
 
@@ -111,21 +114,71 @@ function getSmellColorStr(smellVal){
 	}
 }
 
+function componentToHex(c) {
+    var hex = c.toString(16);
+    return hex.length == 1 ? "0" + hex : hex;
+}
+
+function rgbToHex(r, g, b) {
+    return "0x" + componentToHex(r) + componentToHex(g) + componentToHex(b);
+}
+
+function getMapSmellColorStr(smellVal){
+	switch(parseInt(smellVal)){
+		case 1: 
+			return rgbToHex(0,255,0)//"lime";
+		break;
+		case 2: 
+			return rgbToHex(255,255,0)//"yellow";
+		break;
+		case 3: 
+			return rgbToHex(255,165,0)//"orange";
+		break;
+		case 4: 
+			return rgbToHex(255,0,0)//"crimson";
+		break;
+		case 5: 
+			return rgbToHex(102,51,153)//"rebeccapurple";
+		break;
+		default:
+			return rgbToHex(100,100,100)//"gray";
+	}
+}
+
 function escapeHTML(text){
 	return $("<div>").text(text).html()
 }
 
+function generateStaticMapURL(lat, lng, smellVal){
+	return [
+			"https://maps.googleapis.com/maps/api/staticmap?",
+			"center=",
+			"&zoom=13",
+			"&scale=false",
+			"&size=500x300",
+			"&maptype=roadmap",
+			"&format=png",
+			"&visual_refresh=true",
+			"&markers=size:mid%7Ccolor:",
+			getMapSmellColorStr(smellVal),
+			"%7Clabel:%7C",
+			lat, ",", "+", lng,
+			"&key:AIzaSyB-ulEHYKuuYGfuCbeh8GdGwfol1sqBT88",
+			].join('');
+}
+
 function generatePostHTML(data){
+	var smellColorStr = (data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray';
 	return [
 		'<div class="post">',
         	'<div class="smell-box" style="background-color: ',
-        	(data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray',
+        	smellColorStr,
         	'"></div>',
         	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Description)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
         	'<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	'<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
-        	(data['src']) ? '<img src="'+ encodeURI(data['src'])+'" width="100%">' : "",
+        	'<img src="', data['src'] ? encodeURI(data['src']) : generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
       		(data['additional_comments'] && data['additional_comments'] != "null") ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
       	'</div>',
@@ -149,7 +202,9 @@ function refreshPosts(){
 
 function sortPostBy(key){
 	$('#posts').html('');
-	postList.sort(function(a,b){return b[key] - a[key]});
+	postList.sort(function(a,b){
+		return b[key] - a[key] ? b[key] - a[key] : b[defaultKey] - a[defaultKey];
+	});
 	appendPosts();
 }
 

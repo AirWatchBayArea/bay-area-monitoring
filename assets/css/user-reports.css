@@ -27,6 +27,7 @@
 #posts .post{
 	max-width: 500px;
 	min-width: 300px;
+	-webkit-transform: translateZ(0);
 }
 
 .post .smell-box{

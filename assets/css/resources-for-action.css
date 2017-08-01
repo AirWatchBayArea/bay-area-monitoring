@@ -9,7 +9,7 @@
 .back-to-top {
 	position: fixed;
 	bottom: 3px;
-	right: 3px;
+	right: 3%;
 	z-index: 100;
 	font-size: 13px;
 	border-radius: 5px;
