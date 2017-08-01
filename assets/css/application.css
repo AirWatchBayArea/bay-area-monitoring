@@ -1,7 +1,7 @@
 html, body {
   height:100%;
   background-color: #eceff1 !important;
-  font-family: 'Lato', sans-serif !important;
+  font-family: SanFranciscoText-Regular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 .text-primary {
@@ -307,7 +307,7 @@ input[type=submit] {
 .progress_bar {
   width: 0px;
   height: 20px;
-  background-color: #085b64;
+  background-color: #00bdac;
   text-align: center;
   line-height: 21px;
   border-radius: 5px;

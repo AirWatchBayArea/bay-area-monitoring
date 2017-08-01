@@ -27,9 +27,9 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <!-- Theme CSS -->
   <style type="text/css">
-          @font-face { font-family: SanFranciscoText-Semibold; src: url('assets/css/fonts/SanFranciscoText-Semibold.otf'); } 
+      @font-face { font-family: SanFranciscoText-Semibold; src: url('assets/css/fonts/SanFranciscoText-Semibold.otf'); } 
       @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); } 
-      @font-face { font-family: SanFranciscoText-Heavy; src: url('assets/css/fonts/SanFranciscoText-Heavy.otf'); } 
+      @font-face { font-family: SanFranciscoText-Regular; src: url('assets/css/fonts/SanFranciscoText-Regular.otf'); }
   </style>
   <link href="assets/css/agency.css" rel="stylesheet">
 
@@ -86,6 +86,8 @@
   </script>
   <script src="Promise.js">
   </script>
+  <script src='spin.min.js' type='text/javascript'>
+  </script>
   <script src="assets/js/maplabel-compiled.js" type="text/javascript">
   </script>
   <script src="assets/grapher.min.js" type="text/javascript">
@@ -130,7 +132,7 @@
       scrollToElmMiddle($('section.post').eq(index));
     }
     function jumpToGetStarted(){
-      scrollToElmMiddle($('#services span').eq(1));
+      scrollToElmTop($('#services'));
     }
   </script>
 </head>
@@ -141,10 +143,10 @@
         <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" data-target="#myNavbar">
           <span style="color: white">Menu</span>                      
         </button>
-         <a class="navbar-brand page-scroll" href="#page-top"><img src="img/logo.svg" style="margin:0:padding:0;height:100%;display:inline"/>&nbsp;Air Watch <span style="color:#f7b733">Bay Area</span></a>
+         <a class="navbar-brand page-scroll" href="#home"><img src="img/logo.svg" style="margin:0:padding:0;height:100%;display:inline"/>&nbsp;Air Watch <span style="color:#f7b733">Bay Area</span></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav navbar-right">
           <li id="home-tab">
             <a class="text-uppercase no-highlight" href="#home">Home</a>
           </li>
@@ -206,107 +208,15 @@
     </div>
   </nav> -->
 
-  <div id="report-air-page" class="resource-container">
-    <h2>Report a smell or pollution incident</h2>
-    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
-    <form id="report-form">
-      <div class="report-form-section">
-        <label>
-          <strong class="emphasis">Upload Photo of Incident (optional)</strong>
-        </label>
-        <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
-        <p class='num-file-status'></p>
-        <div class="thumbnails"></div>
-
-        <label class='textarea-label photo-upload'>
-          <strong>Caption:</strong>
-          <textarea id="photo-description" name="photo-description"></textarea>
-        </label>
-
-        <label class='textarea-label photo-upload'>
-          <strong>When did this photo occur?</strong>
-          <input type="datetime-local" id="photo-date" name="photo-date">
-        </label>
-      </div>
-      <div class="report-form-section">
-        <label>
-          <strong class="emphasis required">How bad is the odor?</strong>
-        </label>
-        <label>
-          <input type="radio" name="smell" value="1" checked>
-          <div class="smell-label">
-          <div class="smell-box"></div>
-          <span>1 - Just Fine!</span></div>
-        </label>
-        <label>
-          <input type="radio" name="smell" value="2">
-          <div class="smell-label">
-          <div class="smell-box"></div>
-          <span>2 - Barely noticeable</span></div>
-        </label>
-        <label>
-          <input type="radio" name="smell" value="3">
-          <div class="smell-label">
-          <div class="smell-box"></div>
-          <span>3 - Definitely noticeable</span></div>
-        </label>
-        <label>
-          <input type="radio" name="smell" value="4">
-          <div class="smell-label">
-          <div class="smell-box"></div>
-          <span>4 - It's getting pretty bad</span></div>
-        </label>
-        <label>
-          <input type="radio" name="smell" value="5">
-          <div class="smell-label">
-          <div class="smell-box"></div>
-          <span>5 - About as bad as it gets!</span></div>
-        </label>
-
-        <label class='location-label'>
-          <strong class="emphasis required">Where were you when you experienced the incident or odor?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
-        </label>
-
-        <label class='textarea-label'>
-          <strong>Describe the source of odor or location of incident:</strong>
-          <textarea name="describe-air" placeholder="e.g. exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
-        </label>
-
-        <label class='textarea-label'>
-          <strong>What health symptoms are you experiencing, if any? </strong>
-          <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></textarea>
-        </label>
-
-        <label class='textarea-label'>
-          <strong>Additional comments:</strong>
-          <textarea id="additional-comments" name="additional-comments"></textarea>
-        </label>
-      </div>
-      <input id="report-submit" class="report-button no-highlight" type="submit" >
-      <div class="progress_wrapper photo-upload">
-      <div class="progress_bar">
-        <div class="progress_text">
-      </div></div></div>
-    </form>
-
-    <div id="submit-success">
-      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
-      </p>
-      <a href="#user-reports"><div class="report-button no-highlight">view submission</div></a>
-      <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
-    </div>
-    <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">their&nbsp;website</a>.</p>
-  </div>
-
   <div id="home-page">
    <!-- Header -->
     <!-- Header -->
     <header>
         <div class="container">
             <div class="intro-text">
-                <div class="intro-lead-in">Air Watch Bay Area is an interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality data.</div>
+                <div class="intro-lead-in">Air Watch Bay Area is an interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
                 <div class="intro-heading" style="width:50%;margin:0 25%"></div>
-                <a class="page-scroll btn btn-xl" onclick="jumpToGetStarted()" style="border-color: rgba(247,183,51,.8); background-color: rgba(247,183,51,.8); color: white;padding:15px 25px; letter-spacing: 1px;;
+                <a class="page-scroll btn btn-xl" onclick="jumpToGetStarted()" style="border-color: rgba(247,183,51,.8); background-color: rgba(247,183,51,.8); color: white;padding:15px 25px; letter-spacing: 1px;
 ">GET STARTED</a>
             </div>
         </div>
@@ -332,7 +242,7 @@
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Report a Smell to Air Watch</h4>
+                    <h4 class="service-heading">Report Pollution</h4>
                     <a href="#report-air" class="btn btn-xl text-gettingstarted">Start a report online &rarr;</a>
                 </div>
                 <div class="col-md-3">
@@ -341,7 +251,7 @@
                         <i class="fa fa-file-text-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">User Reports</h4>
-                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View user-submitted reports &rarr;</a>
+                    <a href="#user-reports" class="btn btn-xl text-gettingstarted">View user-submitted reports &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -360,12 +270,12 @@
       <div class="container">
             <div class="row">
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
-                  <div class="col-lg-4" style="margin:0 5%; width:90%;">
-                    <img class="img-responsive" src="img/appicon.png" style="padding: 5% 35% 0% 35%;"/>
+                  <div class="col-lg-4" style="margin:0 33%; width:34%">
+                    <img class="img-responsive" src="img/logo.svg" style="padding: 5% 35% 0% 35%;"/>
                     <h4 class="service-heading">View local air quality on the go and report pollution when you encounter it</h4>
                     <div style="margin:3%;width:100%">
-                      <a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline; min-width: 130px; max-width: 182px;"/></a>
-                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline; min-width: 150px; max-width: 200px"/></a>
+                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
+                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></a>
                     </div>
                   </div>
                 </div>
@@ -385,8 +295,8 @@
             </div>
             <div class="row">
               <div class="col-lg-5 col-sm-6">
-                  <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Where does the data come from?</h3>
-            <p class="service-heading">Most of the data on our site comes from fenceline.org. Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
+                  <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Where do the data come from?</h3>
+            <p class="service-heading">Most of the data on our site come from <a href="www.fencline.org" target="_blank">fenceline.org</a>. Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
             <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
             <p class="service-heading">Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p>
               </div>
@@ -444,22 +354,118 @@
     </footer>
   </div>
 
+  <div id="report-air-page" class="resource-container">
+    <h2>Report Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
+    <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+    <form id="report-form">
+      <div class="report-form-section">
+        <label>
+          <strong class="emphasis">Upload Photo of Incident (optional)</strong>
+        </label>
+        <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
+        <p class='num-file-status'></p>
+        <div class="thumbnails"></div>
+
+        <label class='textarea-label photo-upload'>
+          <strong>Caption:</strong>
+          <textarea id="photo-description" name="photo-description"></textarea>
+        </label>
+
+        <label class='textarea-label photo-upload'>
+          <strong>When did this photo occur?</strong>
+          <input type="datetime-local" id="photo-date" name="photo-date">
+        </label>
+      </div>
+      <div class="report-form-section">
+        <label>
+          <strong class="emphasis required">How bad is the odor, if any?</strong>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="1" checked>
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>1 - Just Fine!</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="2">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>2 - Barely noticeable</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="3">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>3 - Definitely noticeable</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="4">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>4 - It's getting pretty bad</span></div>
+        </label>
+        <label>
+          <input type="radio" name="smell" value="5">
+          <div class="smell-label">
+          <div class="smell-box"></div>
+          <span>5 - About as bad as it gets!</span></div>
+        </label>
+
+        <label class='location-label'>
+          <strong class="emphasis required">Where were you when you experienced the odor or incident?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
+        </label>
+
+        <label class='textarea-label'>
+          <strong>Describe the odor or incident:</strong>
+          <textarea name="describe-air" placeholder="e.g. flaring, residue, exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
+        </label>
+
+        <label class='textarea-label'>
+          <strong>What health symptoms are you experiencing, if any? </strong>
+          <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></textarea>
+        </label>
+
+        <label class='textarea-label'>
+          <strong>Additional comments:</strong>
+          <textarea id="additional-comments" name="additional-comments"></textarea>
+        </label>
+      </div>
+      <input id="report-submit" class="report-button no-highlight" type="submit" >
+      <div class="progress_wrapper photo-upload">
+      <div class="progress_bar">
+        <div class="progress_text">
+      </div></div></div>
+    </form>
+
+    <div id="submit-success">
+      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
+      </p>
+      <a href="#user-reports"><div class="report-button no-highlight">view submission</div></a>
+      <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
+    </div>
+    <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">their&nbsp;website</a>.</p>
+  </div>
+
   <div class="full-page full-height" id="user-reports-page">
     <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
     <div id="photos-container" class="resource-container">
       <h2>User Reports:</h2>
-      <label>
-        Sort by:
-        <select name="sort">
-          <option value="post">Posted Date</option>
-          <option value="when">When It Occured</option>
-          <option value="type">Pictures Top</option>
-        </select>
-      </label>
+      <div id="reports-toolbar">
+        <label>
+          Sort by:
+          <select name="sort">
+            <option value="post">Posted Date</option>
+            <option value="when">When It Occured</option>
+            <option value="type">Pictures Top</option>
+            <option value="smell_value">Smell Value</option>
+          </select>
+        </label>
+      </div>
       <div id="posts"></div>
+      <div id="spinner"></div>
     </div>
   </div>
-  
+
   <!-- <div id="dashboard-wrapper"> -->
     <!-- <div id="timelapse_parent" class="dashboard-page" style="height: 0px; display:none">
       <div id="tutorialDialog" title="A Tour for the Shenango Channel"></div>

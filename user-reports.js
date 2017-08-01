@@ -4,6 +4,10 @@ var rootCloudianrtFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/"
 var postList = [];
 var responseList;
 var defaultKey = "when";
+var postsPerPage = 5;
+var appendMoreTimer;
+var spinner;
+
 function makeListURL(tag){
 	return rootCloudinaryListUrl + tag + ".json?context=true";
 }
@@ -49,6 +53,16 @@ function formatDate(dateStr){
 	return dateFormat(dateStr, "mmmm d, yyyy, h:MMtt");
 }
 
+function makePostItem(htmlStr, when, post, smell_report, type){
+	return {
+		html: generatePostHTML(htmlStr),
+		when: when,
+		post: post,
+		smell_value: smell_report['smell_value'],
+		type: type,
+	}
+}
+
 function generatePostFromResource(resource){
 	var postData = {
 		src:makeFetchURL(resource['public_id'], resource['format']),
@@ -64,13 +78,12 @@ function generatePostFromResource(resource){
 		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
 	}
-	postList.push({
-		html: generatePostHTML(postData), 
-		when: Date.parse(decodeURIComponent(context['when'])), 
-		post: Date.parse(resource['created_at']), 
-		smell_report: smell_report,
-		type: 1,
-	});
+	postList.push(makePostItem(
+			postData,
+			Date.parse(decodeURIComponent(context['when'])),
+			Date.parse(resource['created_at']),
+			smell_report,
+			1));
 }
 
 function generatePostFromSmell(smell_report){
@@ -83,13 +96,13 @@ function generatePostFromSmell(smell_report){
 		'when': formatDate(smell_report['created_at']*1000),
 		'additional_comments': smell_report['additional_comments'],
 	}
-	postList.push({
-		html: generatePostHTML(postData), 
-		when: new Date(0).setUTCSeconds(smell_report['created_at']),
-		post: new Date(0).setUTCSeconds(smell_report['created_at']),
-		smell_report: smell_report,
-		type: 0,
-	});
+	postList.push(makePostItem(
+		postData, 
+		new Date(0).setUTCSeconds(smell_report['created_at']),
+		new Date(0).setUTCSeconds(smell_report['created_at']),
+		smell_report,
+		0,
+	));
 }
 
 function getSmellColorStr(smellVal){
@@ -150,6 +163,7 @@ function escapeHTML(text){
 }
 
 function generateStaticMapURL(lat, lng, smellVal){
+	// return ""
 	return [
 			"https://maps.googleapis.com/maps/api/staticmap?",
 			"center=",
@@ -185,10 +199,14 @@ function generatePostHTML(data){
 	].join("")
 }
 
-function appendPosts(){
-	for (var i = 0; i < postList.length; i++) {
+function appendMorePosts(){
+	var i = $('#posts .post').length;
+	var numAppended = postsPerPage;
+	while(i < postList.length && numAppended--){
 		$('#posts').append(postList[i].html);
+		i++;
 	}
+	spinner.stop();
 }
 
 function refreshPosts(){
@@ -205,12 +223,28 @@ function sortPostBy(key){
 	postList.sort(function(a,b){
 		return b[key] - a[key] ? b[key] - a[key] : b[defaultKey] - a[defaultKey];
 	});
-	appendPosts();
+	appendMorePosts();
 }
 
 $(function(){
 	refreshPosts();
 	$('select[name=sort]').change(function(ev){
 		sortPostBy(ev.target.value);
+	});
+	spinner = new Spinner({
+		top: '100.2%',
+		radius: 8,
+		color: "#666",
+		opacity: .4,
+		trail: 45,
+	}).spin()
+	$(window).scroll(function() {
+   		if(window.location.hash == "#user-reports" && $(window).scrollTop() + $(window).height() == $(document).height()) {
+	      console.log("got to bottom");
+	      clearTimeout(appendMoreTimer);
+	      spinner.spin();
+	      document.getElementById('spinner').appendChild(spinner.el)
+	      appendMoreTimer = setTimeout(appendMorePosts, 1000);
+	   }
 	});
 });

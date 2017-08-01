@@ -34,6 +34,12 @@ function serializeForm(geocodeResults){
 	postData(data);
 }
 
+function scrollToElmTop($elm){
+  var elOffset = $elm.offset().top;
+  $('html,body').animate({scrollTop: elOffset});
+  return false;
+}
+
 function scrollToElmMiddle($elm){
   var elOffset = $elm.offset().top;
   var elHeight = $elm.height();

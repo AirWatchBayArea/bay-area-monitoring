@@ -132,7 +132,7 @@
 }
 
 .dashboard-page #grapher_toolbar{
-  background-color: #00bd9c;
+  background-color: #222;
 }
 
 .dashboard-page .grapher-tool-icon{
@@ -191,7 +191,6 @@
   width: 130px;
   display: inline-block;
   margin: 0px 12px;
-  background-color: #00bd9c;
 }
 
 .dashboard-page #slider {
@@ -224,7 +223,7 @@
 }
 
 .dashboard-page #dateAxisContainer td:first-child{
-  background-color: #00bd9c;
+  background-color: #222;
 }
 
 .dashboard-page #dateAxisContainer {
@@ -453,7 +452,7 @@
   width: 214px;
   padding-top: 5px;
   text-align: center;
-  background-color: #00bd9c;
+  background-color: #222;
   z-index: 100;
   transform: translateY(-361px);
 }
@@ -474,7 +473,7 @@
 .dashboard-page .ui-datepicker-header {
   background: none;
   border: none;
-  background-color: #00bd9c !important;
+  background-color: #222 !important;
   color: white;
 }
 
