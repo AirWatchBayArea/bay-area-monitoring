@@ -205,14 +205,7 @@
       </ul>
     </div>
   </nav> -->
-  <div id="daily-summaries-page" title="Print Daily Summaries">
-    <h3>To print or download yesterday's air quality summary, select your community below:</h3>
-    <a href="reports/yesterday/Atchison_Village.html" target="_blank">Atchison Village</a><br>
-    <a href="reports/yesterday/Point_Richmond.html" target="_blank">Point Richmond</a><br>
-    <a href="reports/yesterday/North_Richmond.html" target="_blank">North Richmond</a><br>
-    <a href="reports/yesterday/Rodeo.html" target="_blank">Rodeo</a><br>
-    <h4>Or you can browse archived air quality summaries by day <a href="reports/archived/" target="_blank">here</a></h4>
-  </div>
+  
   <div id="report-air-page" class="resource-container">
     <h2>Report a smell or pollution incident</h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
