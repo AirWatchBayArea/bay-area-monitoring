@@ -49,8 +49,8 @@ function roundLatLng(val){
 	return Math.floor(val*1000+0.5)/1000;
 }
 
-function formatDate(dateStr){
-	return dateFormat(dateStr, "mmmm d, yyyy, h:MMtt");
+function formatDate(d){
+	return dateFormat(d, "mmmm d, yyyy, h:MMtt");
 }
 
 function makePostItem(htmlStr, when, post, smell_report, type){

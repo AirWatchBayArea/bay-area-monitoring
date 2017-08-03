@@ -143,7 +143,7 @@
         <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" data-target="#myNavbar">
           <span style="color: white">Menu</span>                      
         </button>
-         <a class="navbar-brand page-scroll" href="#home"><img src="img/logo.svg" style="margin:0:padding:0;height:100%;display:inline"/>&nbsp;Air Watch <span style="color:#f7b733">Bay Area</span></a>
+         <a class="navbar-brand page-scroll" href="#home">Air Watch <span style="color:#f7b733">Bay Area</span></a>
       </div>
       <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav navbar-right">
@@ -159,8 +159,8 @@
               <li class=""><a class="" href="#loc=benicia">Benicia</a></li>
             </ul>
           </li>
-          <li class="" id="report-air-tab">
-            <a class="text-uppercase no-highlight" href="#report-air">Report Pollution</a>
+          <li class="" id="report-pollution-tab">
+            <a class="text-uppercase no-highlight" href="#report-pollution">Report Pollution</a>
           </li>
           <li class="" id="user-reports-tab">
             <a class="text-uppercase no-highlight" href="#user-reports">User Reports</a>
@@ -192,8 +192,8 @@
             <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=benicia">Benicia</a></li>
           </ul>
         </li>
-        <li class="custom-nav-btn" id="report-air-tab">
-          <a class="custom-nav-link text-uppercase no-highlight" href="#report-air">Report Pollution</a>
+        <li class="custom-nav-btn" id="report-pollution-tab">
+          <a class="custom-nav-link text-uppercase no-highlight" href="#report-pollution">Report Pollution</a>
         </li> -->
         <!-- <li class="custom-nav-btn" id="daily-summaries-tab">
           <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
@@ -211,12 +211,14 @@
   <div id="home-page">
    <!-- Header -->
     <!-- Header -->
+    <!-- Header -->
+    <!-- Header -->
     <header>
         <div class="container">
-            <div class="intro-text">
-                <div class="intro-lead-in">Air Watch Bay Area is an interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
-                <div class="intro-heading" style="width:50%;margin:0 25%"></div>
-                <a class="page-scroll btn btn-xl" onclick="jumpToGetStarted()" style="border-color: rgba(247,183,51,.8); background-color: rgba(247,183,51,.8); color: white;padding:15px 25px; letter-spacing: 1px;
+            <div class="intro-text" style="width:76%; margin: 0 12%">
+              <img style="margin-bottom: 5%" src="img/logo+text.svg" class="img-reponsive"/>
+                <div style="text-shadow: 0px 0px 20px #162946" class="intro-lead-in">An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
+                <a onclick="jumpToGetStarted()" class="page-scroll btn btn-xl" style="border-color: #f7b733; background-color: #f7b733; color: white;padding:15px 25px; letter-spacing: 1px;;
 ">GET STARTED</a>
             </div>
         </div>
@@ -235,15 +237,15 @@
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
-                    <a href="#loc=benecia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
+                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa fa-exclamation fa-stack-1x fa-inverse"></i>
                     </span>
-                    <h4 class="service-heading">Report Pollution</h4>
-                    <a href="#report-air" class="btn btn-xl text-gettingstarted">Start a report online &rarr;</a>
+                    <h4 class="service-heading">Report Pollution to Air Watch</h4>
+                    <a href="#report-pollution" class="btn btn-xl text-gettingstarted">Start a report online &rarr;</a>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -272,11 +274,9 @@
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
                   <div class="col-lg-4" style="margin:0 33%; width:34%">
                     <img class="img-responsive" src="img/logo.svg" style="padding: 5% 35% 0% 35%;"/>
-                    <h4 class="service-heading">View local air quality on the go and report pollution when you encounter it</h4>
-                    <div style="margin:3%;width:100%">
-                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
-                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></a>
-                    </div>
+                    <h4 class="service-heading">Report pollution incidents through our app right when you experience them</h4>
+                    <div style="margin:3%;width:100%"><a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
+                    <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div></a>
                   </div>
                 </div>
             </div>
@@ -296,7 +296,7 @@
             <div class="row">
               <div class="col-lg-5 col-sm-6">
                   <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Where do the data come from?</h3>
-            <p class="service-heading">Most of the data on our site come from <a href="www.fencline.org" target="_blank">fenceline.org</a>. Unlike fenceline.org, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
+            <p class="service-heading">Most of the data on our site come from <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>. Unlike <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
             <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
             <p class="service-heading">Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p>
               </div>
@@ -322,16 +322,16 @@
             </div>
             <div class="row">
                 <div class="col-lg-7 col-sm-6">         
-                    <p class="service-heading">Air Watch is developed and maintained by the <a class="text-gettingstarted" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> at Drexel University in collaboration with the <a class="text-gettingstarted" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
-          <ul style="padding:0;list-style-type:none;color:#FD9453;line-height:30px">
-            <li><a style="margin-bottom: 0" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
-            <li><a style="margin-bottom: 0" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN →</a></li>
-            <li><a style="margin-bottom: 0" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">C.R.U.D.E. <span style="font-size: .95em">(Crockett-Rodeo United to Defend the Environment)</span> →</a></li>
-            <li><a style="margin-bottom: 0" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute →</a></li>
+                    <p class="service-heading">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
+          <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
+            <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment →</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN →</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute →</a></li>
           </ul>
                 </div>
-                <div class="col-lg-4 col-lg-offset-1 col-sm-6 bg-light-gray" style="text-align: center;border-radius: 5px;padding:5px;">
-                    <img class="img-responsive" src="http://www.airwatchbayarea.org/assets/images/group-photo.jpg"/>
+                <div class="col-lg-4 col-lg-offset-1 col-sm-6" style="border-radius: 5px;background: no-repeat url('img/group-photo.jpg') 50% / 100%;">
+                    <img class="img-responsive" style="vertical-align: top;width: 100%;opacity: 0;" src="img/group-photo.jpg"/>
                 </div>
             </div>
         </div>
@@ -354,8 +354,8 @@
     </footer>
   </div>
 
-  <div id="report-air-page" class="resource-container">
-    <h2>Report Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
+  <div id="report-pollution-page" class="resource-container">
+    <h2>Report a Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <div class="report-form-section">
