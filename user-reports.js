@@ -177,7 +177,7 @@ function generateStaticMapURL(lat, lng, smellVal){
 			getMapSmellColorStr(smellVal),
 			"%7Clabel:%7C",
 			lat, ",", "+", lng,
-			"&key:AIzaSyB-ulEHYKuuYGfuCbeh8GdGwfol1sqBT88",
+			"&key=AIzaSyACnBtr47XRPi-D7l4jl5rPKMIOeZxXgSc",
 			].join('');
 }
 
