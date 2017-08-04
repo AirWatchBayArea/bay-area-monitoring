@@ -368,7 +368,6 @@ function initMap(div) {
   }
 
   //draw refineries
-  //add BAAQMD Monitors
   for(var key in refineries) {
     var refinery = refineries[key];
     var refineryBounds = new google.maps.Polygon({
@@ -408,6 +407,12 @@ function initMap(div) {
   generateLegend();
 }
 
+function makeClosure(key){
+  return (function(){
+
+  })
+}
+
 function createInfoWindowContent(title, description){
   return ['<h4>',title,'</h4>',
           '<p>',description,'</p>'].join('');
@@ -429,7 +434,7 @@ function scaleIcon(marker, icon){
   marker.setIcon(icon);
 }
 
-function createMarker(googLatLng, icon, infoContent) {
+function createMarker(googLatLng, icon, infoContent, clickCallback) {
   var marker = new google.maps.Marker({
     map: map,
     position: googLatLng,
@@ -440,6 +445,9 @@ function createMarker(googLatLng, icon, infoContent) {
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(infoContent);
     infowindow.open(map, this);
+    if(clickCallback){
+      clickCallback();
+    }
   });
   google.maps.event.addListener(map, 'zoom_changed', function() {
     scaleIcon(marker, icon);

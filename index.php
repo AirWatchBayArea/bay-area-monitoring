@@ -155,7 +155,7 @@
             <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class=""><a class="" href="#loc=richmond"> Richmond </a></li>
+              <li class=""><a class="" href="#loc=richmond">Richmond</a></li>
               <li class=""><a class="" href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
               <li class=""><a class="" href="#loc=benicia">Benicia</a></li>
             </ul>
@@ -170,7 +170,7 @@
             <a class="text-uppercase no-highlight" href="#resources-for-action">Resources for Action</a>
           </li>
           <li class="" id="help-tab">
-            <a class="text-uppercase no-highlight" href="">Help</a>
+            <a class="text-uppercase no-highlight" href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank">Help</a>
           </li>
         </ul>
       </div>
@@ -585,7 +585,7 @@
         <div id="dialog" title="Share a Pollution Incident">
           To link others to your current view, use this URL:<br><a id="shareLink" href="#"></a>
         </div>
-        <a href="https://docs.google.com/document/d/1-QokSz-eLUHQkHug4TsiQ_XyQrbRgadF_mr5AIpmPvE/pub" target="_blank"><span id="help" title="help" class="grapher-tool-icon fa-stack fa-2x">
+        <a href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank"><span id="help" title="help" class="grapher-tool-icon fa-stack fa-2x">
             <i class="fa fa-circle fa-stack-2x text-primary"></i>
             <i class="fa fa-question fa-stack-1x fa-inverse"></i>
         </span></a>
