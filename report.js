@@ -1,5 +1,6 @@
+// var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports'
 var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
-
+var isSubmissionSuccess = false;
 // generate a hash for the user
 function generateUserHash() {
 	var userHash;
@@ -71,7 +72,9 @@ function scrollToBottom(){
 function submissionSuccess(){
   scrollToBottom();
   disableSubmit();
+  refreshPosts();
   $('#submit-success').show();
+  isSubmissionSuccess = true;
 }
 
 function disableSubmit(){
@@ -95,7 +98,11 @@ function postData(data, successCallback){
 	  			'alt':msg['smell_description'], 
 	  			'caption':$('#photo-description').val(),
 	  			'when':$('#photo-date').val(),
-	  			'additional_comments':msg['additional_comments']
+	  			'additional_comments':msg['additional_comments'],
+	  			"tag": 
+	  				$('[name=tag]:checked').val() != "other" 
+	  				? $('[name=tag]:checked').val() : $('[name=tag-other]').val() 
+	  				? $('[name=tag-other]').val() : null,
 	  		});	
 		}catch(err){
 	  		reportFailed("there was an error uploading the photo(s). Please refresh and try again!");
@@ -134,6 +141,7 @@ Date.prototype.toDateInputValue = (function() {
 });
 
 function resetReport(){
+	isSubmissionSuccess = false;
 	scrollToTop();
 	document.getElementById("report-form").reset();
   	$('#report-submit').prop('disabled', false);
@@ -143,17 +151,41 @@ function resetReport(){
   	$('.num-file-status').text('');
   	$('.photo-upload').hide();
   	$('#photo-date').val(new Date().toDateInputValue());
+  	$('.required-error').removeClass('required-error');
 }
 
 $(function() {
   var geocoder = new google.maps.Geocoder();
   $('#report-form').submit(function(event){
-		 event.preventDefault();
-		 disableSubmit();
-		 geocodeAddress(geocoder, serializeForm);
-	});
+    var required = $('[required]'); 
+    var error = false;
+
+    for(var i = 0; i <= (required.length - 1);i++){
+      if(required[i].value == '') {
+          $(required[i]).parent().addClass('required-error')
+          scrollToElmMiddle($(required[i]));
+          error = true; 
+      }
+    }
+
+    if(error){
+      return false; // stop the form from being submitted.
+    }else{
+      event.preventDefault();
+      disableSubmit();
+      geocodeAddress(geocoder, serializeForm);
+    }
+  });
 
   $('#submit-another-report').click(resetReport);
+
+  $('[name=tag-other]').focus(function(ev){
+  	$('[name=tag][value=other]').prop("checked", true);
+  })
+
+  $('[name=tag][value=other]').parent().click(function(ev){
+  	$('[name=tag-other]').focus();
+  })
 
   resetReport()
 });

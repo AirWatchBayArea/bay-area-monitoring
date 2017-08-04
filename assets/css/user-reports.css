@@ -15,6 +15,10 @@
 	margin: 20px 5%;
 }
 
+.result-count:before{
+	content: "Showing ";
+}
+
 .post{
 	position: relative;
 	width: 90%;
@@ -51,12 +55,16 @@
     margin: 0 5px;
 }
 
-.post .info.long:after, .post .info.additional_comments:after{
+.post .info.tag:after, .post .info.additional_comments:after{
 	content: "" !important;
 }
 
 .info.when:before{
 	content: "When: ";
+}
+
+.info.tag:before{
+	content: "Category: ";
 }
 
 .info.lat:before{

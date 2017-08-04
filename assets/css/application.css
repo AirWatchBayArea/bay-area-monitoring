@@ -51,20 +51,21 @@ html, body {
 }
 
 .navbar-custom{
-  background-color: #222222 !important;
+  background-color: #222 !important;
   color: white !important;
 }
 
 #site-nav .dropdown-menu{
-  background-color: #222222;
+  background-color: #222;
 }
 
-#site-nav .nav>li>a:focus, #site-nav .nav>li>a:hover{
-  background-color: #222222;
+#site-nav .nav>li>a:focus, #site-nav .nav>li>a:hover, #site-nav .nav>li>a:active{
+  background-color: #222;
 }
 
-#site-nav .nav>li>a:focus, #site-nav .nav>li>a:hover{
-  background-color: #222222;
+.nav .open>a, .nav .open>a:focus, .nav .open>a:hover {
+  background-color: #222;
+  color: #f7b733;
 }
 
 .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus {
@@ -128,7 +129,7 @@ html, body {
 
 #report-form label{
   display: block;
-  margin: 10px 0px;
+  margin: 5px 0px;
 }
 
 strong.emphasis{
@@ -138,6 +139,33 @@ strong.emphasis{
 strong.required:after{
   content: ' (required)';
   color: red;
+}
+
+.required-error{
+  border: 3px solid lightcoral;
+}
+
+.tag-label{
+  position: relative;
+  display: inline-block;
+  min-width: 80px;
+  padding: 10px;
+  border: solid 3px darkgray;
+  border-radius: 10px;
+  background-color: white;
+  transition: background-color .2s;
+  font-weight: normal;
+  text-align: center
+}
+
+input[type='radio']:checked+.tag-label{
+  background-color: gray;
+  border-color: darkgray;
+  color: white;
+}
+
+input[type='radio']:checked+.tag-label input{
+  color: black;
 }
 
 .smell-label{
@@ -165,7 +193,7 @@ strong.required:after{
 }
 
 
-input[name="smell"]{
+input[type="radio"]{
   display: none;
 }
 

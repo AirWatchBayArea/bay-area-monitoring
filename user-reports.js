@@ -2,6 +2,7 @@ var rootCloudinaryListUrl = "http://www.res.cloudinary.com/hpkutahah/image/list/
 var rootCloudianrtFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/";
 
 var postList = [];
+var showList = [];
 var responseList;
 var defaultKey = "when";
 var postsPerPage = 5;
@@ -53,13 +54,14 @@ function formatDate(d){
 	return dateFormat(d, "mmmm d, yyyy, h:MMtt");
 }
 
-function makePostItem(htmlStr, when, post, smell_report, type){
+function makePostItem(htmlStr, when, post, smell_report, type, tag){
 	return {
 		html: generatePostHTML(htmlStr),
 		when: when,
 		post: post,
 		smell_value: smell_report['smell_value'],
 		type: type,
+		tag: tag,
 	}
 }
 
@@ -77,13 +79,15 @@ function generatePostFromResource(resource){
 		postData['caption']=decodeURIComponent(context['caption']);
 		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
+		postData['tag']=decodeURIComponent(context['tag']);
 	}
 	postList.push(makePostItem(
 			postData,
 			Date.parse(decodeURIComponent(context['when'])),
 			Date.parse(resource['created_at']),
 			smell_report,
-			1));
+			1,
+			postData['tag']));
 }
 
 function generatePostFromSmell(smell_report){
@@ -95,6 +99,7 @@ function generatePostFromSmell(smell_report){
 		'caption':smell_report['feelings_symptoms'],
 		'when': formatDate(smell_report['created_at']*1000),
 		'additional_comments': smell_report['additional_comments'],
+		'tag':'odor',
 	}
 	postList.push(makePostItem(
 		postData, 
@@ -102,6 +107,7 @@ function generatePostFromSmell(smell_report){
 		new Date(0).setUTCSeconds(smell_report['created_at']),
 		smell_report,
 		0,
+		"odor",
 	));
 }
 
@@ -181,6 +187,10 @@ function generateStaticMapURL(lat, lng, smellVal){
 			].join('');
 }
 
+function checkFalseyString(str){
+	return (str != "null" || str != "undefined");
+}
+
 function generatePostHTML(data){
 	var smellColorStr = (data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray';
 	return [
@@ -190,20 +200,22 @@ function generatePostHTML(data){
         	'"></div>',
         	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Description)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
-        	'<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
-        	'<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
+        	// '<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
+        	// '<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
+        	'<p class="info tag">',(data['tag'] && checkFalseyString(data['tag'])) ? escapeHTML(data['tag']) : '?','</p>',
         	'<img src="', data['src'] ? encodeURI(data['src']) : generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
-      		(data['additional_comments'] && data['additional_comments'] != "null") ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
+      		(data['additional_comments'] && checkFalseyString(data['additional_comments'])) ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
       	'</div>',
-	].join("")
+	].join("");
 }
 
-function appendMorePosts(){
+function appendMorePosts(showList){
+	showList = showList || postList;
 	var i = $('#posts .post').length;
 	var numAppended = postsPerPage;
-	while(i < postList.length && numAppended--){
-		$('#posts').append(postList[i].html);
+	while(i < showList.length && numAppended--){
+		$('#posts').append(showList[i].html);
 		i++;
 	}
 	spinner.stop();
@@ -213,23 +225,50 @@ function refreshPosts(){
 	postList.length = 0;
 	Promise.all([getTagList('browser_uploads'), updateSmellList()]).then(function(response){
 		generatePostsFromList(response[0]);
-		generateSmellPosts(response[1])
-		sortPostBy($("select option:selected" ).val())
+		generateSmellPosts(response[1]);
+		showList = postList;
+		filterPostsBy($("[name=filter]:checked").val())
+		sortPostsBy($("select option:selected").val())
+		resetToShowList();
 	});
 }
 
-function sortPostBy(key){
-	$('#posts').html('');
-	postList.sort(function(a,b){
+function sortPostsBy(key){
+	showList = showList || postList;
+	showList.sort(function(a,b){
 		return b[key] - a[key] ? b[key] - a[key] : b[defaultKey] - a[defaultKey];
 	});
-	appendMorePosts();
+}
+
+function filterPostsBy(tag){
+	$('#posts').html('');
+	var tagList = $('[name=tag]').map(function (i,cb) { return cb.value} ).get();
+	showList = tag ? 
+		postList.filter(function(obj){
+			if(tag=="other"){
+				//returns -1 if not in array
+				return $.inArray(obj.tag, tagList) == -1;
+			}else{
+				return obj.tag == tag;
+			}
+		}) : postList;
+	$('.result-count').text(showList.length + ' of ' + postList.length);
+}
+
+function resetToShowList(){
+	$('#posts').html('');
+	appendMorePosts(showList);
 }
 
 $(function(){
 	refreshPosts();
+	$("[name=filter]").change(function(ev){
+		filterPostsBy(ev.target.value);
+		resetToShowList();
+	});
 	$('select[name=sort]').change(function(ev){
-		sortPostBy(ev.target.value);
+		sortPostsBy(ev.target.value);
+		resetToShowList();
 	});
 	spinner = new Spinner({
 		top: '100.2%',
@@ -239,7 +278,7 @@ $(function(){
 		trail: 45,
 	}).spin()
 	$(window).scroll(function() {
-   		if(window.location.hash == "#user-reports" && $(window).scrollTop() + $(window).height() == $(document).height()) {
+   		if(window.location.hash == "#user-reports" && postList.length > $('#posts .post').length && $(window).scrollTop() + $(window).height() == $(document).height()) {
 	      console.log("got to bottom");
 	      clearTimeout(appendMoreTimer);
 	      spinner.spin();

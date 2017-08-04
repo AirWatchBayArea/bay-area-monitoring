@@ -169,6 +169,9 @@
           <li class="" id="resources-for-action-tab">
             <a class="text-uppercase no-highlight" href="#resources-for-action">Resources for Action</a>
           </li>
+          <li class="" id="help-tab">
+            <a class="text-uppercase no-highlight" href="">Help</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -360,13 +363,13 @@
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     <form id="report-form">
       <div class="report-form-section">
+
         <label>
           <strong class="emphasis">Upload Photo of Incident (optional)</strong>
         </label>
         <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
         <p class='num-file-status'></p>
         <div class="thumbnails"></div>
-
         <label class='textarea-label photo-upload'>
           <strong>Caption:</strong>
           <textarea id="photo-description" name="photo-description"></textarea>
@@ -375,6 +378,29 @@
         <label class='textarea-label photo-upload'>
           <strong>When did this photo occur?</strong>
           <input type="datetime-local" id="photo-date" name="photo-date">
+        </label>
+        <label>
+          <strong class="emphasis">Indicate the category of incident you are reporting:</strong>
+        </label>
+        <label style="display: inline-block;">
+          <input type="radio" name="tag" value="odor" checked>
+          <div class="tag-label">Odor</div>
+        </label>
+        <label style="display: inline-block;">
+          <input type="radio" name="tag" value="flaring">
+          <div class="tag-label">Flaring</div>
+        </label>
+        <label style="display: inline-block;">
+          <input type="radio" name="tag" value="residue">
+          <div class="tag-label">Residue</div>
+        </label>
+        <label style="display: inline-block;">
+          <input type="radio" name="tag" value="health">
+          <div class="tag-label">Health</div>
+        </label>
+        <label style="display: inline-block;">
+          <input type="radio" name="tag" value="other">
+          <div class="tag-label">Other: <input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
       </div>
       <div class="report-form-section">
@@ -458,9 +484,38 @@
             <option value="post">Posted Date</option>
             <option value="when">When It Occured</option>
             <option value="type">Pictures Top</option>
-            <option value="smell_value">Smell Value</option>
+            <option value="smell_value">Severity</option>
           </select>
         </label>
+        <br>
+        <label>
+          Show:
+        </label>
+        <label>
+          <input type="radio" name="filter" value="" checked>
+          <div class="tag-label">All</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="odor">
+          <div class="tag-label">Odor</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="flaring">
+          <div class="tag-label">Flaring</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="residue">
+          <div class="tag-label">Residue</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="health">
+          <div class="tag-label">Health</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="other">
+          <div class="tag-label">Other​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
+        </label>
+        <h5 class="result-count">0 of 0</h5>
       </div>
       <div id="posts"></div>
       <div id="spinner"></div>

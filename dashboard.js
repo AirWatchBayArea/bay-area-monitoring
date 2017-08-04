@@ -863,6 +863,8 @@
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
     if(loc){
+      console.log('haha');
+      plotManager.getDateAxis().setCursorPosition(Date.now()/1000);
       $("#view-air-quality-tab").addClass("active");
       $("#view-air-quality-tab>a").addClass("custom-nav-link-active");
       $("#" + loc + "-tab").addClass("active");
@@ -873,12 +875,15 @@
     }
     $('[id*="-page"],[class*="-page"]').hide();
 
+    scrollToTop();
+    if(isSubmissionSuccess){
+      resetReport();
+    }
     if(loc){
       $('.dashboard-page').show()
       changeLocale(loc, monitor);
     }else if($('#'+hash[0]+'-page').length){
       $('#'+hash[0]+'-page').show();
-      scrollToTop();
     }else{
       window.location.hash = "home";
     }

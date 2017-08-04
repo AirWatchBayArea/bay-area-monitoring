@@ -55,6 +55,7 @@ function uploadInit(){
 	});
 
 	uploader.bind('fileuploadadd', function (e, data) {
+		e.preventDefault();
 		var img = document.createElement("IMG"); 
 		img.setAttribute("src", URL.createObjectURL(data.files[0])); 
 		img.setAttribute("width", '100%');
