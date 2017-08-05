@@ -118,17 +118,18 @@ function resetReport(){
 }
 
 function formValidate(){
-	var required = $('[required]'); 
-    var error = false;
+	// var required = $('[required]'); 
+ //    var error = false;
 
-    for(var i = 0; i <= (required.length - 1);i++){
-      if(required[i].value == '') {
-          $(required[i]).parent().addClass('required-error')
-          scrollToElmMiddle($(required[i]));
-          error = true; 
-      }
-    }
-    return !error;
+ //    for(var i = 0; i <= (required.length - 1);i++){
+ //      if(required[i].value == '') {
+ //          $(required[i]).parent().addClass('required-error')
+ //          scrollToElmMiddle($(required[i]));
+ //          error = true; 
+ //      }
+ //    }
+ //    return !error;
+ 	return true;
 }
 
 function submissionUploading(){
@@ -202,6 +203,7 @@ $(function() {
 		if(!(formValidate())){
 			return false;
 		}
+		submissionUploading();
 		disableSubmit();
 		geocodeAddress(geocoder, serializeForm);
 	})
