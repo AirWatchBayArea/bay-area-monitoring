@@ -19,6 +19,12 @@ function getCategoryList(){
 	}).get();
 }
 
+function getCaptionList(){
+	return $('[name=photo-description]').map(function () {
+		return this.value;
+	}).get();
+}
+
 function serializeForm(geocodeResults){
 	//userhash
 	if(!localStorage.getItem('AWBAuser') || localStorage.getItem('AWBAuser').substring(0,2) != "BA") {
