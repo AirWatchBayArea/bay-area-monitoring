@@ -490,7 +490,7 @@
           <input type="radio" name="filter" value="other">
           <div class="tag-label">Other​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
-        <h5 class="result-count">0 of 0</h5>
+        <h5 class="result-count"># of #</h5>
       </div>
       <div id="posts"></div>
       <div id="spinner"></div>

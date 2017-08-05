@@ -261,7 +261,6 @@ function resetToShowList(){
 }
 
 $(function(){
-	$('.result-count').text('# of #');
 	refreshPosts();
 	$("[name=filter]").change(function(ev){
 		filterPostsBy(ev.target.value);

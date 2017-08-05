@@ -137,18 +137,16 @@ function resetReport(){
 }
 
 function formValidate(){
-	// var required = $('[required]'); 
- //    var error = false;
+	var required = $('[required]'); 
 
- //    for(var i = 0; i <= (required.length - 1);i++){
- //      if(required[i].value == '') {
- //          $(required[i]).parent().addClass('required-error')
- //          scrollToElmMiddle($(required[i]));
- //          error = true; 
- //      }
- //    }
- //    return !error;
- 	return true;
+    for(var i = 0; i <= (required.length - 1);i++){
+      if(required[i].value == '') {
+          $(required[i]).parent().addClass('required-error')
+          scrollToElmMiddle($(required[i]));
+          return false; 
+      }
+    }
+    return true;
 }
 
 function submissionUploading(){
@@ -200,6 +198,7 @@ $(function() {
 	      return false;
 	    }
 	  });
+
 	//polyfill report form
 	$('#report-form').form();
 
@@ -218,7 +217,7 @@ $(function() {
   	$('#report-form').submit(function(){
 		console.log("submit pressed");
 		event.preventDefault();
-		if(!(formValidate())){
+		if(!formValidate()){
 			return false;
 		}
 		submissionUploading();
