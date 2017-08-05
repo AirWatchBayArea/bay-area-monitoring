@@ -289,6 +289,6 @@ $(function(){
 	   }
 	});
 	}catch(err){
-		alert(err);
+		reportFailed(err);
 	}
 });
