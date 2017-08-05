@@ -78,11 +78,11 @@ function uploadInit(){
 		          '<strong>Caption:</strong>'+
 		          '<input type="text" id="photo-description" name="photo-description"/>'+
 		        '</label>'+
-		        '<label class="textarea-label photo-upload">'+
+		        '<div class="textarea-label photo-upload">'+
 		          '<strong>When did this photo occur?</strong>'+
 		          '<br><label style="display:inline"><strong>Date:&ensp;</strong> <input type="date" id="photo-date" name="photo-date"></label>'+
 		          '&emsp;<label style="display:inline"><strong>Time:&ensp;</strong> <input type="time" id="photo-date" name="photo-date"></label>'+
-		        '<br></label></div>');
+		        '<br></div></div>');
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 		$('.photo-upload').show();
 		$('#file-upload').val('');

@@ -110,6 +110,8 @@
   </script>
   <script src="md5.js" type="text/javascript">
   </script>
+  <script src='user-reports.js' type='text/javascript'>
+  </script>
   <script src="report.js" type="text/javascript">
   </script>
   <!-- Theme JavaScript -->
@@ -127,8 +129,6 @@
   <script src='upload.js' type='text/javascript'>
   </script>
   <script src='dateFormat.js' type='text/javascript'>
-  </script>
-  <script src='user-reports.js' type='text/javascript'>
   </script>
 </head>
 <body>
