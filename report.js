@@ -142,7 +142,6 @@ function submissionUploading(){
 
 function submissionSuccess(){
   scrollToBottom();
-  refreshPosts();
   $('#uploading').hide();
   $('#submit-success').show();
   $('#upload-error').hide();
