@@ -205,7 +205,7 @@ $(function() {
 		}
 		submissionUploading();
 		disableSubmit();
-		// geocodeAddress(geocoder, serializeForm);
+		geocodeAddress(geocoder, serializeForm);
 	})
 
 	$('#submit-another-report').click(resetReport);
