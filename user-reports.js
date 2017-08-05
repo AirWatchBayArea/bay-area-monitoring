@@ -261,7 +261,9 @@ function resetToShowList(){
 }
 
 $(function(){
-	refreshPosts();
+	try{
+		refreshPosts();
+	
 	$("[name=filter]").change(function(ev){
 		filterPostsBy(ev.target.value);
 		resetToShowList();
@@ -286,4 +288,7 @@ $(function(){
 	      appendMoreTimer = setTimeout(appendMorePosts, 1000);
 	   }
 	});
+	}catch(err){
+		alert(err);
+	}
 });

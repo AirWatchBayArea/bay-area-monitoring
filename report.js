@@ -210,12 +210,7 @@ $(function() {
 		}
 		submissionUploading();
 		disableSubmit();
-		try{
-			geocodeAddress(geocoder, serializeForm);
-		}catch(err){
-			reportFailed(err, 'See Sufyan.');
-		}
-		
+		geocodeAddress(geocoder, serializeForm);
 	})
 
 	$('#submit-another-report').click(resetReport);
