@@ -32,6 +32,7 @@
       @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); } 
       @font-face { font-family: SanFranciscoText-Regular; src: url('assets/css/fonts/SanFranciscoText-Regular.otf'); }
   </style>
+  <link rel="stylesheet" href="jquery.form.min.css"/>
   <link href="assets/css/agency.css" rel="stylesheet">
 
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
@@ -87,7 +88,11 @@
   </script>
   <script src="Promise.js">
   </script>
+  <script src="jquery.form.min.js">
+  </script>
   <script src='spin.min.js' type='text/javascript'>
+  </script>
+  <script src="globalFunctions.js" type="text/javascript">
   </script>
   <script src="assets/js/maplabel-compiled.js" type="text/javascript">
   </script>
@@ -124,17 +129,6 @@
   <script src='dateFormat.js' type='text/javascript'>
   </script>
   <script src='user-reports.js' type='text/javascript'>
-  </script>
-   <!-- Sorry... I know I shouldn't embed javascript here but didn't
-               want to create a whole new file for it -->
-  <script type="text/javascript">
-    function jumpToIndex(elm){
-      var index = $(elm).parent().index();
-      scrollToElmMiddle($('section.post').eq(index));
-    }
-    function jumpToGetStarted(){
-      scrollToElmTop($('#services'));
-    }
   </script>
 </head>
 <body>
@@ -176,41 +170,6 @@
       </div>
     </div>
   </nav>
-
-
-  <!-- <nav id="site-nav" class="navbar navbar-toggler-md">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="true" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="container-fluid collapse" id="navbarNav">
-      <ul class="nav navbar-nav">
-        <li class="custom-nav-btn" id="home-tab">
-          <a class="custom-nav-link text-uppercase no-highlight" href="#home">Home</a>
-        </li>
-        <li class="dropdown custom-nav-btn" id="view-air-quality-tab">
-          <a class="dropdown-toggle custom-nav-link text-uppercase" data-toggle="dropdown" href="#">Air Quality
-          <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=richmond"> Richmond </a></li>
-            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
-            <li class="custom-nav-btn"><a class="custom-nav-link" href="#loc=benicia">Benicia</a></li>
-          </ul>
-        </li>
-        <li class="custom-nav-btn" id="report-pollution-tab">
-          <a class="custom-nav-link text-uppercase no-highlight" href="#report-pollution">Report Pollution</a>
-        </li> -->
-        <!-- <li class="custom-nav-btn" id="daily-summaries-tab">
-          <a class="text-uppercase custom-nav-link no-highlight" href="#daily-summaries">Data Summaries</a>
-        </li> -->
-        <!-- <li class="custom-nav-btn" id="user-reports-tab">
-          <a class="custom-nav-link text-uppercase no-highlight" href="#user-reports">User Reports</a>
-        </li>
-        <li class="custom-nav-btn" id="resources-for-action-tab">
-          <a class="custom-nav-link text-uppercase no-highlight" href="#resources-for-action">Resources for Action</a>
-        </li>
-      </ul>
-    </div>
-  </nav> -->
 
   <div id="home-page">
    <!-- Header -->
@@ -306,8 +265,8 @@
               </div>
               <div class="col-lg-5 col-lg-offset-2 col-sm-6">
                   <h3 style="color: #FD9453; text-transform:none;margin:25px 0">An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?</h3>
-            <p class="service-heading">Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.</p>
-            <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Why are schools included on the map?</h3>
+            <p class="service-heading">Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event. <!-- "In some cases, human senses are the best monitors, so we collect our senses through the reporting app. Your personal experience is important to add to the body of data." --></p>
+            <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Why are schools and daycares included on the map?</h3>
             <p class="service-heading">Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children.</p>
               </div>
             </div>
@@ -330,6 +289,7 @@
           <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
             <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment →</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://rodeocitizensassociation.org/" class="btn btn-xl text-gettingstarted">Rodeo Citizens Association →</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN →</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute →</a></li>
           </ul>
@@ -361,16 +321,17 @@
   <div id="report-pollution-page" class="resource-container">
     <h2>Report a Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
+
     <form id="report-form">
       <div class="report-form-section">
-
         <label>
           <strong class="emphasis">Upload Photo of Incident (optional)</strong>
         </label>
         <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
         <p class='num-file-status'></p>
         <div class="thumbnails"></div>
-        <label class='textarea-label photo-upload'>
+
+        <!-- <label class='textarea-label photo-upload'>
           <strong>Caption:</strong>
           <textarea id="photo-description" name="photo-description"></textarea>
         </label>
@@ -378,28 +339,30 @@
         <label class='textarea-label photo-upload'>
           <strong>When did this photo occur?</strong>
           <input type="datetime-local" id="photo-date" name="photo-date">
-        </label>
+        </label> -->
+
         <label>
-          <strong class="emphasis">Indicate the category of incident you are reporting:</strong>
+          <strong class="emphasis">Indicate the category of incident you are reporting (check all that apply):</strong>
         </label>
         <label style="display: inline-block;">
-          <input type="radio" name="tag" value="odor" checked>
+          <input type="checkbox" name="tag" value="odor">
           <div class="tag-label">Odor</div>
         </label>
         <label style="display: inline-block;">
-          <input type="radio" name="tag" value="flaring">
+          <input type="checkbox" name="tag" value="flaring">
           <div class="tag-label">Flaring</div>
         </label>
         <label style="display: inline-block;">
-          <input type="radio" name="tag" value="residue">
+          <input type="checkbox" name="tag" value="residue">
           <div class="tag-label">Residue</div>
         </label>
         <label style="display: inline-block;">
-          <input type="radio" name="tag" value="health">
+          <input type="checkbox" name="tag" value="health">
           <div class="tag-label">Health</div>
         </label>
+        <br>
         <label style="display: inline-block;">
-          <input type="radio" name="tag" value="other">
+          <input type="checkbox" name="tag" value="other" style="display: inline-block;">
           <div class="tag-label">Other: <input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
       </div>
@@ -439,11 +402,11 @@
         </label>
 
         <label class='location-label'>
-          <strong class="emphasis required">Where were you when you experienced the odor or incident?</strong><br><textarea id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required></textarea>
+          <strong class="emphasis required">What is the cross street or address of the odor or incident?</strong><br><input type="text" id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required/>
         </label>
 
         <label class='textarea-label'>
-          <strong>Describe the odor or incident:</strong>
+          <strong>Describe the odor and/or incident:</strong>
           <textarea name="describe-air" placeholder="e.g. flaring, residue, exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
         </label>
 
@@ -464,6 +427,17 @@
       </div></div></div>
     </form>
 
+    <div id="uploading" class="uploading note">
+      Uploading your report...
+      <div id="upload-spinner"></div>
+    </div>
+
+    <div id="upload-error" class="error note">
+      <p id="upload-error-message"></p>
+      <p id="error-resolution"></p>
+      <p>If you cannot resolve this error, please take screenshots of your entire report and email <a href="mailto:airwatchbayarea@gmail.com?Subject=AWBA Error Report" target="_top">airwatchbayarea@gmail.com</a> and we will get back to you shortly!</p>
+    </div>
+
     <div id="submit-success">
       <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
       </p>
@@ -483,8 +457,8 @@
           <select name="sort">
             <option value="post">Posted Date</option>
             <option value="when">When It Occured</option>
-            <option value="type">Pictures Top</option>
-            <option value="smell_value">Severity</option>
+            <option value="type">Pictures On Top</option>
+            <option value="smell_value">Odor Severity</option>
           </select>
         </label>
         <br>

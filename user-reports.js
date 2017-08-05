@@ -17,7 +17,7 @@ function makeFetchURL(tag, ext){
 	return rootCloudianrtFetchUrl + tag + "." + ext;
 }
 
-function getTagList(tag){
+function getCloudinaryTagList(tag){
 	return new Promise(function(resolve, reject){
 	    $.ajax({
 	    url: makeListURL(tag),
@@ -79,7 +79,7 @@ function generatePostFromResource(resource){
 		postData['caption']=decodeURIComponent(context['caption']);
 		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
-		postData['tag']=decodeURIComponent(context['tag']);
+		postData['tag']=decodeURIComponent(context['tag']).split('|');
 	}
 	postList.push(makePostItem(
 			postData,
@@ -107,7 +107,7 @@ function generatePostFromSmell(smell_report){
 		new Date(0).setUTCSeconds(smell_report['created_at']),
 		smell_report,
 		0,
-		"odor",
+		["odor"],
 	));
 }
 
@@ -223,7 +223,7 @@ function appendMorePosts(showList){
 
 function refreshPosts(){
 	postList.length = 0;
-	Promise.all([getTagList('browser_uploads'), updateSmellList()]).then(function(response){
+	Promise.all([getCloudinaryTagList('browser_uploads'), updateSmellList()]).then(function(response){
 		generatePostsFromList(response[0]);
 		generateSmellPosts(response[1]);
 		showList = postList;

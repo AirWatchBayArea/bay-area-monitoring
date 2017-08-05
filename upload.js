@@ -44,7 +44,7 @@ function uploadInit(){
 
 	uploader = $('.upload_field').unsigned_cloudinary_upload("u87zingl", 
 	  { cloud_name: 'hpkutahah', tags: 'browser_uploads', context: ''}, 
-	  { multiple: true, autoUpload: false, replaceFileInput: false}
+	  { multiple: false, autoUpload: false, replaceFileInput: false}
 	).bind('cloudinarydone', function(e, data) {
 	  console.log('Upload to cloudinary complete');
 	  progress.uploadComplete();
@@ -62,6 +62,7 @@ function uploadInit(){
 		$.data(img, "img", data);
 		var thumbnail = $('<div class="thumbnail-wrapper"><div class="delete-me"><i class="glyphicon glyphicon-trash"></i></div>');
 		$(thumbnail).children('.delete-me').click(function(event){
+			$(event.currentTarget).parent().next().remove();
 			$(event.currentTarget).parent().remove();
 			$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 			if($('.thumbnails img').length){
@@ -71,7 +72,17 @@ function uploadInit(){
 			}
 		});
 		thumbnail.prepend(img);
-		$('.thumbnails').append(thumbnail);
+		$('.thumbnails')
+		.append(thumbnail)
+		.append('<div class="report-form-section"><label class="textarea-label photo-upload">'+
+		          '<strong>Caption:</strong>'+
+		          '<input type="text" id="photo-description" name="photo-description"/>'+
+		        '</label>'+
+		        '<label class="textarea-label photo-upload">'+
+		          '<strong>When did this photo occur?</strong>'+
+		          '<br><label style="display:inline"><strong>Date:&ensp;</strong> <input type="date" id="photo-date" name="photo-date"></label>'+
+		          '&emsp;<label style="display:inline"><strong>Time:&ensp;</strong> <input type="time" id="photo-date" name="photo-date"></label>'+
+		        '<br></label></div>');
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 		$('.photo-upload').show();
 		$('#file-upload').val('');

@@ -101,9 +101,35 @@ html, body {
   padding: 5px 10px;
 }
 
+#submit-success, #uploading, #upload-error{
+  display: none;
+}
+
+#upload-error-message:before{
+  content: 'Report failed to upload because: ';
+}
+
+#error-resolution:before{
+  content: 'Resolve by: ';
+}
+
+.uploading{
+  min-height: 55px;
+}
+
 .success.note{
-  border: 3px solid #4F8A10;
+  border: 4px solid #4F8A10;
   background-color: #DFF2BF;
+}
+
+.uploading.note{
+  border: 4px solid gold;
+  background-color: lightyellow;
+}
+
+.error.note{
+  border: 4px solid red;
+  background-color: lightcoral;
 }
 
 .note{
@@ -158,13 +184,13 @@ strong.required:after{
   text-align: center
 }
 
-input[type='radio']:checked+.tag-label{
+input[type='radio']:checked+.tag-label, input[type='checkbox']:checked+.tag-label{
   background-color: gray;
   border-color: darkgray;
   color: white;
 }
 
-input[type='radio']:checked+.tag-label input{
+input[type='radio']:checked+.tag-label input, input[type='checkbox']:checked+.tag-label input{
   color: black;
 }
 
@@ -193,7 +219,7 @@ input[type='radio']:checked+.tag-label input{
 }
 
 
-input[type="radio"]{
+input[type="radio"], input[type="checkbox"]{
   display: none;
 }
 
@@ -283,10 +309,6 @@ textarea {
 
 input[type=submit] {
   border: none;
-}
-
-#submit-success{
-  display: none;
 }
 
 #report-form a:link{color: #337ab7 !important;} 

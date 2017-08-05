@@ -1,5 +1,5 @@
-// var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports'
-var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
+var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports'
+// var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 var isSubmissionSuccess = false;
 // generate a hash for the user
 function generateUserHash() {
@@ -11,6 +11,12 @@ function generateUserHash() {
 	var input = random + " " + epoch;
 	userHash = bayAreaPrefix + MD5(input);
 	return userHash;
+}
+
+function getCategoryList(){
+	return $('[name=tag]:checked').map(function () {
+		return (this.value == "other") ? $('[name=tag-other]').val() : this.value;
+	}).get();
 }
 
 function serializeForm(geocodeResults){
@@ -28,58 +34,10 @@ function serializeForm(geocodeResults){
 	  "smell_value" : parseInt($('[name=smell]:checked').val()),
 	  "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
 	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
-	  "additional_comments" : $('[name=additional-comments]').val()
-	              ? $('[name=additional-comments]').val() : null
+	  "additional_comments" : ($('[name=additional-comments]').val() || !($.isEmptyObject(getCategoryList())))
+	              				? $('[name=additional-comments]').val() + " [categories: " + getCategoryList().join(',') + "]" : null,
 	};
-
 	postData(data);
-}
-
-function scrollToElmTop($elm){
-  var elOffset = $elm.offset().top;
-  $('html,body').animate({scrollTop: elOffset});
-  return false;
-}
-
-function scrollToElmMiddle($elm){
-  var elOffset = $elm.offset().top;
-  var elHeight = $elm.height();
-  var windowHeight = $(window).height();
-  var offset;
-
-  if (elHeight < windowHeight) {
-  	offset = elOffset - ((windowHeight / 2) - (elHeight / 2));
-  }
-  else {
-  	offset = elOffset;
-  }
-  $('html,body').animate({scrollTop: offset});
-  return false;
-}
-
-function scrollToElmBottom($elm){
-  $('html,body').animate({scrollTop: $elm.height() - $(window).height()});
-}
-
-function scrollToTop(){
-  $('html,body').animate({scrollTop: 0});
-}
-
-function scrollToBottom(){
-  $('html,body').animate({scrollTop: $(document).height()});
-}
-
-function submissionSuccess(){
-  scrollToBottom();
-  disableSubmit();
-  refreshPosts();
-  $('#submit-success').show();
-  isSubmissionSuccess = true;
-}
-
-function disableSubmit(){
-	$('#report-submit').prop('disabled', true);
-	$('#file-upload').prop('disabled', true);
 }
 
 function postData(data, successCallback){
@@ -87,28 +45,31 @@ function postData(data, successCallback){
 	  method: 'POST',
 	  url: serverURL,
 	  data: data,
-	}).done(function(msg) {
-	  console.log("POST Result:", msg);
-	  if (typeof msg === 'string' || msg instanceof String) {
-	  	reportFailed("there was an error connecting to the server. Please try again later!")
-	  }else {
-	  	try {
-	  		submitImgs({
-	  			'smell_report':JSON.stringify(msg),
-	  			'alt':msg['smell_description'], 
-	  			'caption':$('#photo-description').val(),
-	  			'when':$('#photo-date').val(),
-	  			'additional_comments':msg['additional_comments'],
-	  			"tag": 
-	  				$('[name=tag]:checked').val() != "other" 
-	  				? $('[name=tag]:checked').val() : $('[name=tag-other]').val() 
-	  				? $('[name=tag-other]').val() : null,
-	  		});	
-		}catch(err){
-	  		reportFailed("there was an error uploading the photo(s). Please refresh and try again!");
-	  		console.log(err);
-	  	}
-	  }
+	  success:function(msg){
+	  	console.log("POST Result:", msg);
+		  if (msg.error) {
+		  	reportFailed(msg.error, "checking that all of the required fields are entered.");
+		  }else {
+		  	try {
+		  		submitImgs({
+		  			'smell_report':JSON.stringify(msg),
+		  			'alt':msg['smell_description'], 
+		  			'caption':$('#photo-description').val(),
+		  			'when':$('#photo-date').val(),
+		  			'additional_comments':msg['additional_comments'],
+		  			"tag": 
+		  				getCategoryList().join('|'),
+		  		});	
+			}catch(err){
+		  		reportFailed(err, "checking your internet connection or see below.");
+		  		console.log(err);
+		  	}
+		  }
+	 },
+	 error:function(err){
+	 	reportFailed("err", "checking your internet connection or see below.");
+		console.log(err);
+	 }
 	});
 }
 
@@ -130,10 +91,6 @@ function geocodeAddress(geocoder, callback) {
 	});
 }
 
-function reportFailed(reason){
-	alert('Smell report failed because ' + reason);
-}
-
 Date.prototype.toDateInputValue = (function() {
     var local = new Date(this);
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
@@ -147,6 +104,8 @@ function resetReport(){
   	$('#report-submit').prop('disabled', false);
   	$('#file-upload').prop('disabled', false);
   	$('#submit-success').hide();
+  	$('#uploading').hide();
+  	$('#upload-error').hide();
   	$('.thumbnails').html('');
   	$('.num-file-status').text('');
   	$('.photo-upload').hide();
@@ -154,40 +113,97 @@ function resetReport(){
   	$('.required-error').removeClass('required-error');
 }
 
+function formValidate(){
+	return true;
+}
+
+function submissionUploading(){
+  scrollToBottom();
+  disableSubmit();
+  $('#uploading').show();
+  $('#submit-success').hide();
+  $('#upload-error').hide();
+}
+
+function submissionSuccess(){
+  scrollToBottom();
+  refreshPosts();
+  $('#uploading').hide();
+  $('#submit-success').show();
+  $('#upload-error').hide();
+  isSubmissionSuccess = true;
+}
+
+function reportFailed(reason, resolution){
+	$('#submit-success').hide();
+  	$('#uploading').hide();
+	$('#upload-error-message').text(reason);
+	$('#error-resolution').text(resolution);
+	$('#upload-error').show();
+	enableSubmit();
+	alert('Failed to upload because ' + reason + '\n\nResolve by:' + resolution);
+	scrollToBottom();
+}
+
+function disableSubmit(){
+	$('#report-submit').prop('disabled', true);
+	$('#file-upload').prop('disabled', true);
+}
+
+function enableSubmit(){
+	$('#report-submit').prop('disabled', false);
+	$('#file-upload').prop('disabled', false);
+}
+
 $(function() {
-  var geocoder = new google.maps.Geocoder();
-  $('#report-form').submit(function(event){
-    var required = $('[required]'); 
-    var error = false;
+	//prevent submission on ENTER key
+	$(window).keydown(function(event){
+	    if(event.keyCode == 13) {
+	      event.preventDefault();
+	      return false;
+	    }
+	  });
+	//polyfill report form
+	$('#report-form').form();
 
-    for(var i = 0; i <= (required.length - 1);i++){
-      if(required[i].value == '') {
-          $(required[i]).parent().addClass('required-error')
-          scrollToElmMiddle($(required[i]));
-          error = true; 
-      }
-    }
+	//init geocoder
+	var geocoder = new google.maps.Geocoder();
+	//default bounds set to Bay Area
+	var defaultBounds = new google.maps.LatLngBounds(
+		new google.maps.LatLng(36.906913, -123.017998),
+		new google.maps.LatLng(38.8286208, -121.209588));
+	var input = $('[name=location]').get(0);
+	var options = {
+	  bounds: defaultBounds,
+	};
+	//sets up
+	autocomplete = new google.maps.places.Autocomplete(input, options);
+  	$('#report-form').submit(function(){
+		console.log("submit pressed");
+		event.preventDefault();
+		if(!(formValidate())){
+			return false;
+		}
+		disableSubmit();
+		geocodeAddress(geocoder, serializeForm);
+	})
 
-    if(error){
-      return false; // stop the form from being submitted.
-    }else{
-      event.preventDefault();
-      disableSubmit();
-      geocodeAddress(geocoder, serializeForm);
-    }
-  });
+	$('#submit-another-report').click(resetReport);
 
-  $('#submit-another-report').click(resetReport);
+	$('[name=tag-other]').focus(function(ev){
+		$('[name=tag][value=other]').prop("checked", true);
+	})
 
-  $('[name=tag-other]').focus(function(ev){
-  	$('[name=tag][value=other]').prop("checked", true);
-  })
+	upload_spinner = new Spinner({
+		position:'relative',
+		radius: 8,
+		color: "#666",
+		opacity: .4,
+		trail: 45,
+	}).spin();
+	document.getElementById('upload-spinner').appendChild(upload_spinner.el)
 
-  $('[name=tag][value=other]').parent().click(function(ev){
-  	$('[name=tag-other]').focus();
-  })
-
-  resetReport()
+  	resetReport();
 });
 
 
