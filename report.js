@@ -26,11 +26,14 @@ function getCaptionList(){
 }
 
 function covertDateTime(dateVal, timeVal){
-	
+
 }
 
 function getDateTimeList(){
-	return $('[name=photo-description]').map(function () {
+	var dates = $('[name=photo-date]').map(function () {
+		return this.value;
+	}).get();
+	var times = $('[name=photo-times]').map(function () {
 		return this.value;
 	}).get();
 }
@@ -237,7 +240,6 @@ $(function() {
 		trail: 45,
 	}).spin();
 	document.getElementById('upload-spinner').appendChild(upload_spinner.el)
-
   	resetReport();
 });
 
