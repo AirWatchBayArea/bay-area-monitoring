@@ -34,8 +34,7 @@ function serializeForm(geocodeResults){
 	  "smell_value" : parseInt($('[name=smell]:checked').val()),
 	  "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
 	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
-	  "additional_comments" : ($('[name=additional-comments]').val() || !($.isEmptyObject(getCategoryList())))
-	              				? $('[name=additional-comments]').val() + " [categories: " + getCategoryList().join(',') + "]" : null,
+	  "additional_comments" : $('[name=additional-comments]').val() ? $('[name=additional-comments]').val() : null,
 	};
 	postData(data);
 }
@@ -83,10 +82,15 @@ function geocodeAddress(geocoder, callback) {
 	  if (status === 'OK') {
 	    callback(results);
 	  } else if (status === 'ZERO_RESULTS'){
-	    reportFailed('address to coordinate conversion failed.\nPlease be more exact in your location description.');
+	    reportFailed('address to coordinate conversion failed.', 'being more exact in your location description.');
+	  }else if (status === 'OVER_QUERY_LIMIT'){
+	    reportFailed('address to coordinate conversion failed because of too much traffic to the site', 'trying again later (sorry about that!)');
+	  }else if (status === 'REQUEST_DENIED'){
+	    reportFailed('address to coordinate conversion failed because Google denied your request for some reason ('+results.error_message+')', "taking screenshots and sending them to the email below.");
+	  }else if (status === "INVALID_REQUEST"){
+	    reportFailed('address to coordinate conversion failed because of an invalid request on our side. ('+results.error_message+')', "taking screenshots and sending them to the email below.");
 	  }else{
-	  	reportFailed('of internal error. The error will be reported.');
-	  	//REPORT ERROR HERE
+	  	reportFailed('address to coordinate conversion failed because of Google internal error (' + status + results.error_message + ')', "trying again (that's what Google says to do).");
 	  }
 	});
 }
@@ -114,7 +118,17 @@ function resetReport(){
 }
 
 function formValidate(){
-	return true;
+	var required = $('[required]'); 
+    var error = false;
+
+    for(var i = 0; i <= (required.length - 1);i++){
+      if(required[i].value == '') {
+          $(required[i]).parent().addClass('required-error')
+          scrollToElmMiddle($(required[i]));
+          error = true; 
+      }
+    }
+    return !error;
 }
 
 function submissionUploading(){
@@ -135,12 +149,16 @@ function submissionSuccess(){
 }
 
 function reportFailed(reason, resolution){
+	ga('send', 'exception', {
+	    'exDescription': reason,
+	    'exFatal': false
+	  });
 	$('#submit-success').hide();
   	$('#uploading').hide();
 	$('#upload-error-message').text(reason);
 	$('#error-resolution').text(resolution);
 	$('#upload-error').show();
-	enableSubmit();
+	enableSubmit();f
 	alert('Failed to upload because ' + reason + '\n\nResolve by:' + resolution);
 	scrollToBottom();
 }

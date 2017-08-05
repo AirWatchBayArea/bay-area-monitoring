@@ -326,6 +326,7 @@
       <div class="report-form-section">
         <label>
           <strong class="emphasis">Upload Photo of Incident (optional)</strong>
+          <p>Please select multiple photos one at a time.</p>
         </label>
         <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
         <p class='num-file-status'></p>
@@ -344,24 +345,24 @@
         <label>
           <strong class="emphasis">Indicate the category of incident you are reporting (check all that apply):</strong>
         </label>
-        <label style="display: inline-block;">
-          <input type="checkbox" name="tag" value="odor">
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="odor" checked>
           <div class="tag-label">Odor</div>
         </label>
-        <label style="display: inline-block;">
+        <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="flaring">
           <div class="tag-label">Flaring</div>
         </label>
-        <label style="display: inline-block;">
+        <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="residue">
           <div class="tag-label">Residue</div>
         </label>
-        <label style="display: inline-block;">
+        <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="health">
           <div class="tag-label">Health</div>
         </label>
         <br>
-        <label style="display: inline-block;">
+        <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="other" style="display: inline-block;">
           <div class="tag-label">Other: <input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
