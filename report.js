@@ -20,22 +20,53 @@ function getCategoryList(){
 }
 
 function getCaptionList(){
-	return $('[name=photo-description]').map(function () {
+	return $('[name=caption]').map(function () {
 		return this.value;
 	}).get();
-}
-
-function covertDateTime(dateVal, timeVal){
-
 }
 
 function getDateTimeList(){
 	var dates = $('[name=photo-date]').map(function () {
 		return this.value;
 	}).get();
-	var times = $('[name=photo-times]').map(function () {
+	var times = $('[name=photo-time]').map(function () {
 		return this.value;
 	}).get();
+	var dateTimeList = [];
+	for(var i = 0; i < dates.length; i++){
+		dateTimeList.push(dates[i]+"T"+times[i]);
+	}
+	return dateTimeList;
+}
+
+function geocodeAddress(geocoder) {
+	var address = document.getElementById('address').value;
+	return new Promise(function (resolve, reject){
+		geocoder.geocode({'address': address, 'bounds': 
+		new google.maps.LatLngBounds(
+			new google.maps.LatLng(37.851624286540286, -122.56790076098628), 
+			new google.maps.LatLng(38.14975803797967,-121.97875891528315))
+		 }, function(results, status) {
+		  if (status === 'OK') {
+		    resolve(results);
+		  } else if (status === 'ZERO_RESULTS'){
+		    reportFailed('address to coordinate conversion failed.', 'being more exact in your location description, as if you were locating it on a map.');
+		    reject(status);
+		  }else if (status === 'OVER_QUERY_LIMIT'){
+		    reportFailed('address to coordinate conversion failed because of too much traffic to the site', 'trying again later (sorry about that!)');
+		    reject(status);
+		  }else if (status === 'REQUEST_DENIED'){
+		    reportFailed('address to coordinate conversion failed because Google denied your request for some reason (' + status + ': ' + results.error_message + ')', "taking screenshots and sending them to the email below.");
+		    reject(status);
+		  }else if (status === "INVALID_REQUEST"){
+		    reportFailed('address to coordinate conversion failed because of an invalid request on our side. (' + status + ': ' + results.error_message + ')', "taking screenshots and sending them to the email below.");
+		    reject(status);
+		  }else{
+		  	reportFailed('address to coordinate conversion failed because of Google internal error (' + status + ': ' + results.error_message + ')', "trying again (that's what Google says to do).");
+		  	reject(status);
+		  }
+		});
+	});
 }
 
 function serializeForm(geocodeResults){
@@ -55,70 +86,44 @@ function serializeForm(geocodeResults){
 	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
 	  "additional_comments" : $('[name=additional-comments]').val() ? $('[name=additional-comments]').val() : null,
 	};
-	postData(data);
+	return data;
 }
 
-function postData(data, successCallback){
-	$.ajax({
-	  method: 'POST',
-	  url: serverURL,
-	  data: data,
-	  success:function(msg){
-	  	console.log("POST Result:", msg);
-		  if (msg.error) {
-		  	reportFailed(msg.error, "checking that all of the required fields are entered.");
-		  }else {
-		  	try {
-		  		submitImgs({
-		  			'smell_report':JSON.stringify(msg),
-		  			'alt':msg['smell_description'], 
-		  			'caption':$('#photo-description').val(),
-		  			'when':$('#photo-date').val(),
-		  			'additional_comments':msg['additional_comments'],
-		  			"tag": 
-		  				getCategoryList().join('|'),
-		  		});	
-			}catch(err){
-		  		reportFailed(err, "checking your internet connection or see below.");
-		  		console.log(err);
-		  	}
-		  }
-	 },
-	 error:function(err){
-	 	reportFailed("err", "checking your internet connection or see below.");
-		console.log(err);
-	 }
+function postData(data){
+	return new Promise(function (resolve, reject){
+		$.ajax({
+			method: 'POST',
+			url: serverURL,
+			data: data,
+			success:function(msg){
+				console.log("POST Result:", msg);
+				if (msg.error) {
+				  	reportFailed(msg.error, "checking that all of the required fields are entered.");
+				  	reject(msg.error);
+				}else {
+				  	resolve(msg);
+				}
+			},
+			error:function(err){
+				reject(err);
+				reportFailed(err, "checking your internet connection or see below.");			}
+		});
 	});
 }
 
-function geocodeAddress(geocoder, callback) {
-	var address = document.getElementById('address').value;
-	geocoder.geocode({'address': address, 'bounds': 
-		new google.maps.LatLngBounds(
-			new google.maps.LatLng(37.851624286540286, -122.56790076098628), 
-			new google.maps.LatLng(38.14975803797967,-121.97875891528315))
-	 }, function(results, status) {
-	  if (status === 'OK') {
-	    callback(results);
-	  } else if (status === 'ZERO_RESULTS'){
-	    reportFailed('address to coordinate conversion failed.', 'being more exact in your location description.');
-	  }else if (status === 'OVER_QUERY_LIMIT'){
-	    reportFailed('address to coordinate conversion failed because of too much traffic to the site', 'trying again later (sorry about that!)');
-	  }else if (status === 'REQUEST_DENIED'){
-	    reportFailed('address to coordinate conversion failed because Google denied your request for some reason ('+results.error_message+')', "taking screenshots and sending them to the email below.");
-	  }else if (status === "INVALID_REQUEST"){
-	    reportFailed('address to coordinate conversion failed because of an invalid request on our side. ('+results.error_message+')', "taking screenshots and sending them to the email below.");
-	  }else{
-	  	reportFailed('address to coordinate conversion failed because of Google internal error (' + status + results.error_message + ')', "trying again (that's what Google says to do).");
-	  }
+function processImgSubmissions(msg){
+	return new Promise(function(resolve,reject){
+		submitImgs(resolve, reject, {
+			'smell_report':JSON.stringify(msg),
+			'alt':msg['smell_description'], 
+			'caption':getCaptionList(),
+			'when':getDateTimeList(),
+			'additional_comments':msg['additional_comments'],
+			"tag": 
+				getCategoryList().join(','),
+		});	
 	});
 }
-
-Date.prototype.toDateInputValue = (function() {
-    var local = new Date(this);
-    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
-    return local.toJSON().slice(0,-8);
-});
 
 function resetReport(){
 	isSubmissionSuccess = false;
@@ -132,21 +137,7 @@ function resetReport(){
   	$('.thumbnails').html('');
   	$('.num-file-status').text('');
   	$('.photo-upload').hide();
-  	$('#photo-date').val(new Date().toDateInputValue());
   	$('.required-error').removeClass('required-error');
-}
-
-function formValidate(){
-	var required = $('[required]'); 
-
-    for(var i = 0; i <= (required.length - 1);i++){
-      if(required[i].value == '') {
-          $(required[i]).parent().addClass('required-error')
-          scrollToElmMiddle($(required[i]));
-          return false; 
-      }
-    }
-    return true;
 }
 
 function submissionUploading(){
@@ -166,18 +157,13 @@ function submissionSuccess(){
 }
 
 function reportFailed(reason, resolution){
-	ga('send', 'exception', {
-	    'exDescription': reason,
-	    'exFatal': false
-	  });
 	$('#submit-success').hide();
   	$('#uploading').hide();
 	$('#upload-error-message').text(reason);
 	$('#error-resolution').text(resolution);
 	$('#upload-error').show();
-	enableSubmit();f
-	alert('Failed to upload because ' + reason + '\n\nResolve by:' + resolution);
-	scrollToBottom();
+	enableSubmit();
+	alert('Report failed to upload: ' + reason + '\n\nResolve by: ' + resolution);
 }
 
 function disableSubmit(){
@@ -188,6 +174,53 @@ function disableSubmit(){
 function enableSubmit(){
 	$('#report-submit').prop('disabled', false);
 	$('#file-upload').prop('disabled', false);
+}
+
+function formValidate(){
+	var required = $('input.required'); 
+
+    for(var i = 0; i <= (required.length - 1);i++){
+      if(required[i].value == '') {
+          $(required[i]).parent().addClass('required-error')
+          scrollToElmMiddle($(required[i]));
+          return false; 
+      }
+    }
+    return true;
+}
+
+function submitForm(){
+	console.log("submit pressed");
+	event.preventDefault();
+	if(!formValidate()){
+		return false;
+	}
+	submissionUploading();
+	disableSubmit();
+	geocodeAddress(geocoder).then(function(results) {
+		return postData(serializeForm(results));
+	}).then(function(results){
+		return processImgSubmissions(results);
+	}).then(function(results){
+		try{
+			refreshPosts();
+		}catch(err){
+			console.log("Why does this fail????", err);
+			ga('send', 'exception', {
+			    'exDescription': err,
+			    'exFatal': false,
+			  });
+		}finally{
+			submissionSuccess();
+		}
+	}).catch(function(err){
+		console.log(err);
+		formValidate();
+		ga('send', 'exception', {
+		    'exDescription': err,
+		    'exFatal': true,
+		  });
+	});
 }
 
 $(function() {
@@ -203,7 +236,7 @@ $(function() {
 	$('#report-form').form();
 
 	//init geocoder
-	var geocoder = new google.maps.Geocoder();
+	geocoder = new google.maps.Geocoder();
 	//default bounds set to Bay Area
 	var defaultBounds = new google.maps.LatLngBounds(
 		new google.maps.LatLng(36.906913, -123.017998),
@@ -215,24 +248,18 @@ $(function() {
 	//sets up
 	autocomplete = new google.maps.places.Autocomplete(input, options);
   	$('#report-form').submit(function(){
-		console.log("submit pressed");
-		event.preventDefault();
-		if(!formValidate()){
-			return false;
-		}
-		submissionUploading();
-		disableSubmit();
-		geocodeAddress(geocoder, serializeForm);
-	})
-
+  		event.preventDefault();
+  	});
+	$('#report-submit').click(submitForm);
 	$('#submit-another-report').click(resetReport);
 
 	$('[name=tag-other]').focus(function(ev){
 		$('[name=tag][value=other]').prop("checked", true);
-	})
+	});
 
 	upload_spinner = new Spinner({
 		position:'relative',
+		left:' 90%',
 		radius: 8,
 		color: "#666",
 		opacity: .4,

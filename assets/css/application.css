@@ -106,7 +106,7 @@ html, body {
 }
 
 #upload-error-message:before{
-  content: 'Report failed to upload because: ';
+  content: 'Report failed to upload: ';
 }
 
 #error-resolution:before{
@@ -210,7 +210,7 @@ input[type='radio']:checked+.tag-label input, input[type='checkbox']:checked+.ta
   margin-left: 30px;
 }
 
-.smell-box{
+.radio-circle, .smell-box{
   position: absolute;
   margin-right: 10px;
   height: 20px;
@@ -276,6 +276,7 @@ textarea {
 
 .report-button { 
   display: inline-block;
+  /*width: 100%;*/
   padding: 10px;
   margin: 15px 0px;
   background-color: #00bdac;
@@ -286,8 +287,9 @@ textarea {
   transition: background-color .3s;
   cursor: pointer;
   border: none;
+  border-radius: 10px;
   -webkit-appearance: none;
-  -webkit-border-radius: 0;
+  -webkit-border-radius: 10px;
 }
 
 #report-pollution-page .report-button{
@@ -305,6 +307,12 @@ textarea {
 .report-button:disabled{
   opacity: .5;
   background-color: black;
+}
+
+.now-button{
+  max-width: 200px;
+  padding: 5px 10px;
+  margin: 5px 10px 5px 0px;
 }
 
 input[type=submit] {

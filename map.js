@@ -116,6 +116,11 @@ var communityMonitors = {
     lat:  38.060852,
     lng: -122.1277356,
     description: "Community Monitor"
+  },
+  "South Rodeo":{
+    lat:  38.031616,
+    lng: -122.263651,
+    description: "Community Monitor"
   }
 }
 
@@ -348,7 +353,7 @@ function initMap(div) {
     var fencelineMonitor = fencelineMonitors[key];
     var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
     var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description)).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key)).setZIndex(1);
   }
 
   //add Community Monitors
@@ -356,7 +361,7 @@ function initMap(div) {
     var communityMonitor = communityMonitors[key];
     var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
     var icon = icons['Community Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description)).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key)).setZIndex(1);
   }
 
   //add BAAQMD Monitors
@@ -364,7 +369,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description)).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key)).setZIndex(1);
   }
 
   //draw refineries
@@ -409,7 +414,7 @@ function initMap(div) {
 
 function makeClosure(key){
   return (function(){
-
+    changeLocale(area.id, key);
   })
 }
 
@@ -442,11 +447,16 @@ function createMarker(googLatLng, icon, infoContent, clickCallback) {
     content: infoContent,
     animation: google.maps.Animation.DROP,
   });
-  google.maps.event.addListener(marker, 'click', function() {
+  google.maps.event.addListener(marker, 'mouseover', function() {
     infowindow.setContent(infoContent);
     infowindow.open(map, this);
+  });
+  google.maps.event.addListener(marker, 'mouseout', function() {
+    infowindow.close();
+  });
+  google.maps.event.addListener(marker, 'click', function() {
     if(clickCallback){
-      clickCallback();
+      clickCallback.bind(this, marker, infoContent)();
     }
   });
   google.maps.event.addListener(map, 'zoom_changed', function() {

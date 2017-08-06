@@ -334,16 +334,15 @@
 
         <!-- <label class='textarea-label photo-upload'>
           <strong>Caption:</strong>
-          <textarea id="photo-description" name="photo-description"></textarea>
+          <textarea id="caption" name="caption"></textarea>
         </label>
 
         <label class='textarea-label photo-upload'>
           <strong>When did this photo occur?</strong>
           <input type="datetime-local" id="photo-date" name="photo-date">
         </label> -->
-
         <label>
-          <strong class="emphasis">Indicate the category of incident you are reporting (check all that apply):</strong>
+          <strong class="emphasis">Indicate the categories of the incident you are reporting (<i> beta </i>):</strong>
         </label>
         <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="odor" checked>
@@ -364,7 +363,7 @@
         <br>
         <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="other" style="display: inline-block;">
-          <div class="tag-label">Other: <input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
+          <div class="tag-label">Other:<input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
       </div>
       <div class="report-form-section">
@@ -403,7 +402,7 @@
         </label>
 
         <label class='location-label'>
-          <strong class="emphasis required">What is the cross street or address of the odor or incident?</strong><br><input type="text" id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required/>
+          <strong class="emphasis required">What is the cross street or address of the odor or incident?</strong><br><input class="required" type="text" id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required/>
         </label>
 
         <label class='textarea-label'>
@@ -490,7 +489,7 @@
           <input type="radio" name="filter" value="other">
           <div class="tag-label">Other​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
         </label>
-        <h5 class="result-count"># of #</h5>
+        <h5 class="result-count">0 of 0 (loading...)</h5>
       </div>
       <div id="posts"></div>
       <div id="spinner"></div>

@@ -188,7 +188,7 @@ function generateStaticMapURL(lat, lng, smellVal){
 }
 
 function checkFalseyString(str){
-	return (str != "null" || str != "undefined");
+	return (str != "null" && str != "undefined");
 }
 
 function generatePostHTML(data){
@@ -198,7 +198,7 @@ function generatePostHTML(data){
         	'<div class="smell-box" style="background-color: ',
         	smellColorStr,
         	'"></div>',
-        	'<h3 class="title">',(data['alt'] && data['alt'] != "null") ? escapeHTML(data['alt']) : '(No Description)','</h3><br>',
+        	'<h3 class="title">',(data['alt'] && checkFalseyString(data['alt'])) ? escapeHTML(data['alt']) : '(No Description)','</h3><br>',
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
         	// '<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	// '<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
