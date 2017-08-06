@@ -638,12 +638,17 @@
         <h3 class="resource-title">Learn about Bay Area oil refinery politics and policies</h3>
         <p>&mdash;especially, the push to refine heavier crude oils in West Contra Costa and Solano counties. Refining heavier, more carbon-intensive oil would lead to higher levels of pollution and greater impacts on public health and environmental justice.</p>
         <ul>
-          <li><a href="http://www.baaqmd.gov/rules-and-compliance/current-rules " target="_blank">BAAQMD Current Rules</a></li>
+          <li><a href="http://www.baaqmd.gov/rules-and-compliance/current-rules " target="_blank">BAAQMD Current Rules</a>
+            <ul>
+              <li>Rule 12-15 requires oil refinery emissions tracking</li>
+            </ul>
+          </li>
           <li><a href="http://www.baaqmd.gov/rules-and-compliance/rule-development/rules-under-development " target="_blank">BAAQMD Rules Under Development</a>
           <ul>
             <li>Rule 12-16 would cap oil refinery emissions</li>
           </ul>
           </li>
+          <li><a href="https://www.fractracker.org/2017/05/tracking-refinery-emissions-in-californias-bay-area-refinery-corridor" target="_blank">“Tracking Refinery Emissions in California’s Bay Area Refinery Corridor,” Kyle Ferrar, FracTracker Alliance (May 10, 2017)</a></li>
           <li><a href="http://www.sunflower-alliance.org/we-need-real-ghg-caps-not-allowances-for-increased-refinery-emissions/ " target="_blank">“We Need Real GHG Caps, Not Allowances for Increased Refinery Emissions” (Sunflower Alliance)</a></li>
           <li><a href="http://berkeleymonthly.com/feature1704.html " target="_blank">“Stopping the Tar-Sands Invasion: East Bay groups are attempting to prevent the region from playing a major role in a climate disaster,” Will Parrish, East Bay Monthly (April 2017)</a></li>
           <li><a href="http://www.resilience.org/stories/2017-07-03/reality-check-end-growth-tar-sands-now/ " target="_blank">“Reality Check: The End of Growth in the Tar Sands. So Now What?” Hannah McKinnon, Common Dreams (July 3, 2017)</a></li>
@@ -655,6 +660,7 @@
         <p>&mdash;especially, the ongoing influence of Big Oil and its emphasis on cap-and-trade pollution markets, to the detriment of frontline communities. Even as California aspires to climate leadership, these politics often undermine policies to address climate change, public health, and environmental justice.</p>
         <ul>
           <li><a href="http://climatehawksvote.com/news/press-releases/california-broad-coalition-environmental-justice-climate-groups-oppose-cap-trade-bill" target="_blank">“California: Broad Coalition of Environmental Justice, Climate Groups Oppose Cap and Trade Bill” (re: AB 398, July 13, 2017)</a></li>
+          <li><a href="http://www.cbecal.org/wp-content/uploads/2017/07/California27s-Gift-to-Big-Oil%E2%80%94CBE-rpt-Jul17.pdf" target="_blank">“State Gift to Big Oil Keeps Pollution Profitable Under ‘Cap-and-Trade,’” Greg Karras and Bahram Fazeli, Communities for a Better Environment (July 2017)</a></li>
           <li><a href="https://www.thenation.com/article/big-oils-grip-on-california" target="_blank">“Big Oil’s Grip on California: ﻿In America’s greenest state, the industry has spent $122 million in the past six years to shape regulation and legislation,” Michael J. Mishak, The Nation (February 13, 2017)</a></li>
           <li><a href="http://www.salon.com/2017/06/25/californias-double-edged-climate-leadership-behind-the-big-talk-a-cozy-relationship-with-big-oil" target="_blank">“California’s double-edged ‘climate leadership’: Behind the big talk, a cozy relationship with Big Oil: Gov. Jerry Brown positions himself as an anti-Trump leader on climate issues. But Big Oil hasn't gone away,” Paul Rosenberg, Salon (June 25, 2017)</a></li>
           <li><a href="http://www.willparrishreports.com/2017/03/208" target="_blank">“How California’s Oil Refining Sector Became, Proportionately, the Most Carbon-Intensive in the World,” Will Parrish blog post (March 31, 2017)</a></li>
@@ -663,6 +669,7 @@
           <li><a href="http://caleja.org" target="_blank">California Environmental Justice Alliance</a></li>
           <li><a href="http://laceen.org" target="_blank">L.A. Community Environmental Enforcement Network (LACEEN)</a></li>
           <li><a href="http://www.climatehawksvote.com" target="_blank">California Climate Hawks</a></li>
+          <li><a href="http://priceofoil.org" target="_blank">Oil Change International: Exposing the true costs of fossil fuels</a></li>
         </ul>
       </section>
       <section class="post">
@@ -670,6 +677,7 @@
         <p>pertaining to air pollution, public health, greenhouse gases (GHGs), and environmental justice.</p>
         <ul>
           <li><a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/05/HealthReviewDraftEIRRule12-16_5_8_17_5PM.pdf " target="_blank">Public health and health equity impacts of BAAQMD proposed Rule 12-16</a></li>
+          <li><a href="https://www.fractracker.org/2016/04/air-pollution-refinery-corridor" target="_blank">“Air Pollution in the Bay Area’s Refinery Corridor,” Kyle Ferrar, FracTracker Alliance (April 29, 2016)</a></li>
           <li><a href="http://www.npr.org/sections/health-shots/2017/06/28/534594373/u-s-air-pollution-still-kills-thousands-every-year-study-concludes " target="_blank">“U.S. Air Pollution Still Kills Thousands Every Year, Study Concludes,” Rob Stein, National Public Radio (June 28, 2017)</a></li>
           <li><a href="http://escholarship.org/uc/item/4nh830b7 " target="_blank">“The haves, the have-nots, and the health of everyone: the relationship between social inequality and environmental quality,” Cushing L., Morello-Frosch R., Wander M., Pastor M., Annual Review of Public Health (March 2015)</a></li>
           <li><a href="https://dornsife.usc.edu/pere/climategap/  " target="_blank">“The Climate Gap: Inequalities in How Climate Change Hurts Americans & How to Close the Gap,” Rachel Morello-Frosch, Manuel Pastor, Jim Sadd, and Seth Shonkoff (May 2009)</a></li>
