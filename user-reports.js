@@ -222,6 +222,7 @@ function appendMorePosts(showList){
 }
 
 function refreshPosts(){
+	console.log("refreshing posts.");
 	postList.length = 0;
 	Promise.all([getCloudinaryTagList('browser_uploads'), updateSmellList()]).then(function(response){
 		generatePostsFromList(response[0]);
@@ -283,7 +284,7 @@ $(function(){
 	      clearTimeout(appendMoreTimer);
 	      spinner.spin();
 	      document.getElementById('spinner').appendChild(spinner.el)
-	      appendMoreTimer = setTimeout(appendMorePosts, 1000);
+	      appendMoreTimer = setTimeout(function(){appendMorePosts(showList)}, 1000);
 	   }
 	});
 });

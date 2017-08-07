@@ -84,9 +84,9 @@ function uploadInit(){
 		        '</label>'+
 		        '<div class="textarea-label photo-upload">'+
 		          '<strong class="required">When did this photo occur?</strong>'+
-		          '<br><button class="report-button now-button">Now</button>'+
+		          '<br><button class="report-button now-button">I just took it</button>'+
 		          '<br><label style="display:inline"><strong>Date:&ensp;</strong> <input class="required" type="date" name="photo-date" required></label>'+
-		          '&emsp;<label style="display:inline"><strong>Time:&ensp;</strong> <input class="required" type="time" name="photo-time" required></label>'+
+		          '<br><label style="display:inline"><strong>Time:&ensp;</strong> <input class="required" type="time" name="photo-time" required></label>'+
 		        '<br></div></div>');		
 		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
 		$('.photo-upload').show();

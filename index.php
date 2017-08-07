@@ -321,7 +321,11 @@
   <div id="report-pollution-page" class="resource-container">
     <h2>Report a Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible “paper&nbsp;trail” of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
-    <p class="note error">THIS IS THE STAGING SITE! Reports without photos will go to a fake server so feel free to test away. Pictures will be uploaded, however, but email <a href="mailto:sufy.abbasi@gmail.com">sufy.abbasi@gmail.com</a> and we will remove it for you!</p>
+    
+    <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
+      <?php echo $_SERVER['HTTP_HOST']; ?>
+      <p class="note error">THIS IS THE STAGING SITE! Reports without photos will go to a fake server so feel free to test away. Pictures will be uploaded, however, but email <a href="mailto:sufy.abbasi@gmail.com">sufy.abbasi@gmail.com</a> and we will remove it for you!</p>
+    <?php endif; ?>
 
     <form id="report-form">
       <div class="report-form-section">
@@ -342,30 +346,32 @@
           <strong>When did this photo occur?</strong>
           <input type="datetime-local" id="photo-date" name="photo-date">
         </label> -->
-        <label>
-          <strong class="emphasis">Indicate the categories of the incident you are reporting (<i> beta </i>):</strong>
-        </label>
-        <label class="no-highlight" style="display: inline-block;">
-          <input type="checkbox" name="tag" value="odor" checked>
-          <div class="tag-label">Odor</div>
-        </label>
-        <label class="no-highlight" style="display: inline-block;">
-          <input type="checkbox" name="tag" value="flaring">
-          <div class="tag-label">Flaring</div>
-        </label>
-        <label class="no-highlight" style="display: inline-block;">
-          <input type="checkbox" name="tag" value="residue">
-          <div class="tag-label">Residue</div>
-        </label>
-        <label class="no-highlight" style="display: inline-block;">
-          <input type="checkbox" name="tag" value="health">
-          <div class="tag-label">Health</div>
-        </label>
-        <br>
-        <label class="no-highlight" style="display: inline-block;">
-          <input type="checkbox" name="tag" value="other" style="display: inline-block;">
-          <div class="tag-label">Other:<input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
-        </label>
+        <div class="photo-upload">
+          <label>
+            <strong class="emphasis">Indicate the categories of the incident you are reporting (<i>check all that apply</i>):</strong>
+          </label>
+          <label class="no-highlight" style="display: inline-block;">
+            <input type="checkbox" name="tag" value="odor" checked>
+            <div class="tag-label">Odor</div>
+          </label>
+          <label class="no-highlight" style="display: inline-block;">
+            <input type="checkbox" name="tag" value="flaring">
+            <div class="tag-label">Flaring</div>
+          </label>
+          <label class="no-highlight" style="display: inline-block;">
+            <input type="checkbox" name="tag" value="residue">
+            <div class="tag-label">Residue</div>
+          </label>
+          <label class="no-highlight" style="display: inline-block;">
+            <input type="checkbox" name="tag" value="health">
+            <div class="tag-label">Health</div>
+          </label>
+          <br>
+          <label class="no-highlight" style="display: inline-block;">
+            <input type="checkbox" name="tag" value="other" style="display: inline-block;">
+            <div class="tag-label">Other:<input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
+          </label>
+        </div>
       </div>
       <div class="report-form-section">
         <label>

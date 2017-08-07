@@ -877,6 +877,7 @@
 
     scrollToTop();
     if(isSubmissionSuccess){
+      refreshPosts();
       resetReport();
     }
     if(loc){
