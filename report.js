@@ -1,5 +1,5 @@
-// var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports'
-var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
+var serverURL = 'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports'
+// var serverURL = 'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA';
 var isSubmissionSuccess = false;
 // generate a hash for the user
 function generateUserHash() {
