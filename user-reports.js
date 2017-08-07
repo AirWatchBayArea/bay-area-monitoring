@@ -79,8 +79,9 @@ function generatePostFromResource(resource){
 		postData['caption']=decodeURIComponent(context['caption']);
 		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
-		postData['tag']=decodeURIComponent(context['tag']).split('|');
+		postData['tag']=decodeURIComponent(context['tag']).split(',');
 	}
+
 	postList.push(makePostItem(
 			postData,
 			Date.parse(decodeURIComponent(context['when'])),
@@ -202,7 +203,7 @@ function generatePostHTML(data){
         	'<p class="info when">',(data['when']) ? escapeHTML(data['when']) : '?','</p>',
         	// '<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	// '<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
-        	'<p class="info tag">',(data['tag'] && checkFalseyString(data['tag'])) ? escapeHTML(data['tag']) : '?','</p>',
+        	'<p class="info tag">',(data['tag'] && checkFalseyString(data['tag'])) ? escapeHTML(data['tag']).split(',').join(', ') : '?','</p>',
         	'<img src="', data['src'] ? encodeURI(data['src']) : generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	'<h4 class="caption">',(data['caption']) ? escapeHTML(data['caption']) : "(No Caption)",'</h4>',
       		(data['additional_comments'] && checkFalseyString(data['additional_comments'])) ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
@@ -248,9 +249,19 @@ function filterPostsBy(tag){
 		postList.filter(function(obj){
 			if(tag=="other"){
 				//returns -1 if not in array
-				return $.inArray(obj.tag, tagList) == -1;
+				for (var i = obj.tag.length - 1; i >= 0; i--) {
+					if($.inArray(obj.tag[i], tagList) == -1){
+						return true;
+					};
+				}
+				return false;
 			}else{
-				return obj.tag == tag;
+				for (var i = obj.tag.length - 1; i >= 0; i--) {
+					if(obj.tag[i] == tag){
+						return true;
+					};
+				}
+				return false;
 			}
 		}) : postList;
 	$('.result-count').text(showList.length + ' of ' + postList.length);
