@@ -182,8 +182,8 @@ function generatePostHTML(data){
 		$($img).attr("src",src);
 		$($img).attr("width",'100%');
 		imgElms.push(
-					 '<p class="info when">',(imgData['when']) ? escapeHTML(dateFormat(Date.parse(imgData['when']))) : '?','</p>',
 					 '<h4 class="caption">',(imgData['caption']) ? escapeHTML(imgData['caption']) : "(no caption)",'</h4>',
+					 '<p class="info when">',(imgData['when']) ? escapeHTML(dateFormat(Date.parse(imgData['when']))) : '?','</p>',
 					 $($img).prop('outerHTML'));
 	}
 	return [
