@@ -1,7 +1,7 @@
 var postList = [];
 var showList = [];
 var responseList;
-var defaultKey = "when";
+var defaultKey = "posted";
 var postsPerPage = 5;
 var appendMoreTimer;
 var spinner;
@@ -55,7 +55,7 @@ function generatePostFromSmell(smell_report){
 		'longitude':roundLatLng(escapeHTML(smell_report['longitude'])),
 		'smell_value':parseInt(escapeHTML(smell_report['smell_value'])),
 		'smell_description': escapeHTML(smell_report['smell_description']),
-		'posted':formatDate(Date.parse(escapeHTML(smell_report['created_at']))),
+		'posted':formatDate(smell_report['created_at']*1000),
 		'feelings_symptoms':escapeHTML(smell_report['feelings_symptoms']),
 		'img':safe_imgs,
 		'additional_comments': escapeHTML(decodeURIComponent(additionalCommentsData['additional_comments'])),
@@ -182,9 +182,9 @@ function generatePostHTML(data){
 		$($img).attr("src",src);
 		$($img).attr("width",'100%');
 		imgElms.push(
-					 $($img).prop('outerHTML'),
 					 '<p class="info when">',(imgData['when']) ? escapeHTML(dateFormat(Date.parse(imgData['when']))) : '?','</p>',
-					 '<h4 class="caption">',(imgData['caption']) ? escapeHTML(imgData['caption']) : "(no caption)",'</h4>');
+					 '<h4 class="caption">',(imgData['caption']) ? escapeHTML(imgData['caption']) : "(no caption)",'</h4>',
+					 $($img).prop('outerHTML'));
 	}
 	return [
 		'<div class="post">',
@@ -196,8 +196,8 @@ function generatePostHTML(data){
         	// '<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	// '<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
         	'<p class="info tag">',(data['tags'] && checkFalseyString(data['tags'])) ? escapeHTML(data['tags']).split(',').join(', ') : '?','</p>',
-        	'<img src="', generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	'<h4 class="caption symptoms">',((data['feelings_symptoms']) && checkFalseyString(data['feelings_symptoms'])) ? escapeHTML(data['feelings_symptoms']) : "(no symptoms)",'</h4>',
+        	'<img src="', generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	imgElms.join(""),
       		(data['additional_comments'] && checkFalseyString(data['additional_comments'])) ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",
       	'</div>'
