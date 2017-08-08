@@ -35,20 +35,26 @@ var spinner;
 
 function generatePostFromSmell(smell_report){
 	var additionalCommentsData = JSON.parse(smell_report['additional_comments']);
-	var unsafe_imgs = additionalCommentsData.img;
-	var safe_imgs = {};
-	for(var unsafe_src in unsafe_imgs){
-		var safe_src = escapeHTML(decodeURIComponent(unsafe_src));
-		safe_imgs[safe_src] = {};
-		for(var img_meta in unsafe_imgs[unsafe_src]){
-			safe_img_meta = escapeHTML(decodeURIComponent(unsafe_imgs[unsafe_src][img_meta]));
-			safe_imgs[safe_src][escapeHTML(img_meta)] = safe_img_meta;
+	var safe_imgs;
+	if(additionalCommentsData){
+		var unsafe_imgs = additionalCommentsData.img;
+		var safe_imgs = {};
+		for(var unsafe_src in unsafe_imgs){
+			var safe_src = escapeHTML(decodeURIComponent(unsafe_src));
+			safe_imgs[safe_src] = {};
+			for(var img_meta in unsafe_imgs[unsafe_src]){
+				safe_img_meta = escapeHTML(decodeURIComponent(unsafe_imgs[unsafe_src][img_meta]));
+				safe_imgs[safe_src][escapeHTML(img_meta)] = safe_img_meta;
+			}
 		}
-	}
-	var unsafe_tags = additionalCommentsData['tags'];
-	var safe_tags = [];
-	for (var i = unsafe_tags.length - 1; i >= 0; i--) {
-		safe_tags.push(escapeHTML(decodeURIComponent(unsafe_tags[i])));
+		var unsafe_tags = additionalCommentsData['tags'];
+		var safe_tags = [];
+		for (var i = unsafe_tags.length - 1; i >= 0; i--) {
+			safe_tags.push(escapeHTML(decodeURIComponent(unsafe_tags[i])));
+		}
+	}else{
+		additionalCommentsData = {'additional_comments': escapeHTML(decodeURIComponent(smell_report['additional_comments']))};
+		safe_imgs = {};
 	}
 	var postData = {
 		'latitude': roundLatLng(escapeHTML(smell_report['latitude'])),
