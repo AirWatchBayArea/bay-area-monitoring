@@ -3,6 +3,7 @@ var serverURL = (window.location.hostname == "www.airwatchbayarea.org") ?
 					'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports';
 
 var isSubmissionSuccess = false;
+var geocoder;
 // generate a hash for the user
 function generateUserHash() {
 	var userHash;
@@ -15,33 +16,7 @@ function generateUserHash() {
 	return userHash;
 }
 
-function getCategoryList(){
-	return $('[name=tag]:checked').map(function () {
-		return (this.value == "other") ? $('[name=tag-other]').val() : this.value;
-	}).get();
-}
-
-function getCaptionList(){
-	return $('[name=caption]').map(function () {
-		return this.value;
-	}).get();
-}
-
-function getDateTimeList(){
-	var dates = $('[name=photo-date]').map(function () {
-		return this.value;
-	}).get();
-	var times = $('[name=photo-time]').map(function () {
-		return this.value;
-	}).get();
-	var dateTimeList = [];
-	for(var i = 0; i < dates.length; i++){
-		dateTimeList.push(dates[i]+"T"+times[i]);
-	}
-	return dateTimeList;
-}
-
-function geocodeAddress(geocoder) {
+function geocodeAddress() {
 	var address = document.getElementById('address').value;
 	return new Promise(function (resolve, reject){
 		geocoder.geocode({'address': address, 'bounds': 
@@ -71,13 +46,55 @@ function geocodeAddress(geocoder) {
 	});
 }
 
-function serializeForm(geocodeResults){
+function getCategoryList(){
+	return $('[name=tag]:checked').map(function () {
+		return encodeURIComponent((this.value == "other") ? $('[name=tag-other]').val() : this.value);
+	}).get();
+}
+
+function getCaptionList(){
+	return $('[name=caption]').map(function () {
+		return encodeURIComponent(this.value);
+	}).get();
+}
+
+function getDateTimeList(){
+	var dates = $('[name=photo-date]').map(function () {
+		return encodeURIComponent(this.value);
+	}).get();
+	var times = $('[name=photo-time]').map(function () {
+		return encodeURIComponent(this.value);
+	}).get();
+	var dateTimeList = [];
+	for(var i = 0; i < dates.length; i++){
+		dateTimeList.push(dates[i]+"T"+times[i]);
+	}
+	return dateTimeList;
+}
+
+function serializeForm(geocodeResults, img_src_array){
 	//userhash
 	if(!localStorage.getItem('AWBAuser') || localStorage.getItem('AWBAuser').substring(0,2) != "BA") {
   		localStorage.setItem('AWBAuser', generateUserHash());
 	}
 	//latlong
 	var latlng = geocodeResults[0]['geometry']['location'];
+	var dateTimeList = getDateTimeList();
+	var captionList = getCaptionList();
+	assert(img_src_array.length == captionList.length && img_src_array.length == dateTimeList.length, "public_id, datetime, and category lists should all be the same size (something really weird happened)");
+	var imgData = {};
+	for(var i = img_src_array.length - 1; i >= 0; i--) {
+		imgData[img_src_array[i]] = {
+			'caption':captionList[i],
+			'when':dateTimeList[i]
+		}
+	}
+	var additionalCommentsData = {
+		"additional_comments": $('[name=additional-comments]').val() ? encodeURIComponent($('[name=additional-comments]').val()) : null,
+		"tags": getCategoryList(),
+		"img": imgData
+	};
+
 	var data = 
 	{
 	  "user_hash" : localStorage.getItem('AWBAuser'),
@@ -86,7 +103,7 @@ function serializeForm(geocodeResults){
 	  "smell_value" : parseInt($('[name=smell]:checked').val()),
 	  "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
 	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
-	  "additional_comments" : $('[name=additional-comments]').val() ? $('[name=additional-comments]').val() : null,
+	  "additional_comments" : JSON.stringify(additionalCommentsData),
 	};
 	return data;
 }
@@ -113,17 +130,9 @@ function postData(data){
 	});
 }
 
-function processImgSubmissions(msg){
+function processImgSubmissions(){
 	return new Promise(function(resolve,reject){
-		submitImgs(resolve, reject, {
-			'smell_report':JSON.stringify(msg),
-			'alt':msg['smell_description'], 
-			'caption':getCaptionList(),
-			'when':getDateTimeList(),
-			'additional_comments':msg['additional_comments'],
-			"tag": 
-				getCategoryList().join(','),
-		});	
+		submitImgs(resolve, reject);	
 	});
 }
 
@@ -199,10 +208,12 @@ function submitForm(){
 	}
 	submissionUploading();
 	disableSubmit();
-	geocodeAddress(geocoder).then(function(results) {
-		return postData(serializeForm(results));
-	}).then(function(results){
-		return processImgSubmissions(results);
+	var geocodeResults;
+	geocodeAddress().then(function(results){
+		geocodeResults = results;
+		return processImgSubmissions();
+	}).then(function(img_src_array){
+		return postData(serializeForm(geocodeResults, img_src_array));
 	}).then(function(results){
 		try{
 			refreshPosts();

@@ -1,3 +1,21 @@
+function assert(condition, message) {
+    if (!condition) {
+        message = message || "Assertion failed";
+        if (typeof Error !== "undefined") {
+            throw new Error(message);
+        }
+        throw message; // Fallback
+    }
+}
+
+function roundLatLng(val){
+  return Math.floor(val*1000+0.5)/1000;
+}
+
+function formatDate(d){
+  return dateFormat(d, "mmmm d, yyyy, h:MMtt");
+}
+
 function scrollToElmTop($elm){
   var elOffset = $elm.offset().top;
   $('html,body').animate({scrollTop: elOffset});

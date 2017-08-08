@@ -47,7 +47,7 @@ function updateSmellList(callback){
       if(callback){
         callback();
       }
-      resolve(json);
+      resolve(smellReports);
     },
     error: function(err){
       reject(err);

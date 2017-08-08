@@ -92,6 +92,8 @@
   </script>
   <script src='spin.min.js' type='text/javascript'>
   </script>
+  <script src='dateFormat.js' type='text/javascript'>
+  </script>
   <script src="globalFunctions.js" type="text/javascript">
   </script>
   <script src="assets/js/maplabel-compiled.js" type="text/javascript">
@@ -110,11 +112,8 @@
   </script>
   <script src="md5.js" type="text/javascript">
   </script>
-  <script src='user-reports.js' type='text/javascript'>
-  </script>
   <script src="report.js" type="text/javascript">
   </script>
-  <!-- Theme JavaScript -->
   <script src="agency.js"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
@@ -128,7 +127,7 @@
   </script>
   <script src='upload.js' type='text/javascript'>
   </script>
-  <script src='dateFormat.js' type='text/javascript'>
+  <script src='user-reports.js' type='text/javascript'>
   </script>
 </head>
 <body>
@@ -345,32 +344,30 @@
           <strong>When did this photo occur?</strong>
           <input type="datetime-local" id="photo-date" name="photo-date">
         </label> -->
-        <div class="photo-upload">
-          <label>
-            <strong class="emphasis">Indicate the categories of the incident you are reporting (<i>check all that apply</i>):</strong>
-          </label>
-          <label class="no-highlight" style="display: inline-block;">
-            <input type="checkbox" name="tag" value="odor" checked>
-            <div class="tag-label">Odor</div>
-          </label>
-          <label class="no-highlight" style="display: inline-block;">
-            <input type="checkbox" name="tag" value="flaring">
-            <div class="tag-label">Flaring</div>
-          </label>
-          <label class="no-highlight" style="display: inline-block;">
-            <input type="checkbox" name="tag" value="residue">
-            <div class="tag-label">Residue</div>
-          </label>
-          <label class="no-highlight" style="display: inline-block;">
-            <input type="checkbox" name="tag" value="health">
-            <div class="tag-label">Health</div>
-          </label>
-          <br>
-          <label class="no-highlight" style="display: inline-block;">
-            <input type="checkbox" name="tag" value="other" style="display: inline-block;">
-            <div class="tag-label">Other:<input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
-          </label>
-        </div>
+        <label>
+          <strong class="emphasis">Indicate the categories of the incident you are reporting (<i>check all that apply</i>):</strong>
+        </label>
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="odor" checked>
+          <div class="tag-label">Odor</div>
+        </label>
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="flaring">
+          <div class="tag-label">Flaring</div>
+        </label>
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="residue">
+          <div class="tag-label">Residue</div>
+        </label>
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="health">
+          <div class="tag-label">Health</div>
+        </label>
+        <br>
+        <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="other" style="display: inline-block;">
+          <div class="tag-label">Other:<input type="text" name="tag-other" />​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​</div>
+        </label>
       </div>
       <div class="report-form-section">
         <label>
@@ -461,8 +458,8 @@
         <label>
           Sort by:
           <select name="sort">
-            <option value="post">Posted Date</option>
-            <option value="when">When It Occured</option>
+            <option value="posted">Posted Date</option>
+            <!-- <option value="when">When It Occured</option> -->
             <option value="type">Pictures On Top</option>
             <option value="smell_value">Odor Severity</option>
           </select>
