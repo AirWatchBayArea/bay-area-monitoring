@@ -5,11 +5,11 @@
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="google-site-verification" content="tTjpNm-VuCKD_LkM9Rql7ybgPVxCPhYUgqK1XMlk3bQ" />
-  <meta property="og:url" content="http://www.airwatchbayarea.org" />
+  <meta property="og:image" content="http://www.airwatchbayarea.org/img/logo_with_background.png" />
+  <meta property="og:url" content="http://airwatchbayarea.org" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Air Watch Bay Area" />
   <meta property="og:description" content="An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality." />
-  <meta property="og:image" content="img/logo_with_background.png" />
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
