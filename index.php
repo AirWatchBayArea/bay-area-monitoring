@@ -5,6 +5,11 @@
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="google-site-verification" content="tTjpNm-VuCKD_LkM9Rql7ybgPVxCPhYUgqK1XMlk3bQ" />
+  <meta property="og:url" content="www.airwatchbayarea.org" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Air Watch Bay Area" />
+  <meta property="og:description" content="An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality." />
+  <meta property="og:image" content="img/logo_with_background.png" />
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
   <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
@@ -258,7 +263,7 @@
             <div class="row">
               <div class="col-lg-5 col-sm-6">
                   <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Where do the data come from?</h3>
-            <p class="service-heading">Most of the data on our site come from <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>. Unlike <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>, however, our site displays archived data as far back as May 2015. The rest comes from BAAQMD monitors or inexpensive monitors set up by community members.</p>
+            <p class="service-heading">Most of the data on our site come from <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>. Unlike <a style="color: #FD9453;" href="http://fenceline.org">fenceline.org</a>, however, our site displays archived data from as far back as May 2015. The rest come from BAAQMD monitors or inexpensive monitors set up by community members.</p>
             <h3 style="color: #FD9453; text-transform:none;margin:25px 0">Who decides what level of a given chemical constitutes a health hazard?</h3>
             <p class="service-heading">Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.</p>
               </div>
@@ -710,11 +715,7 @@
         <ul>
           <li><a href="http://breakthroughcommunities.info/publications-re-metro-equity-issues/climate-justice-book/  " target="_blank">Climate Justice: Frontline Stories from Groundbreaking Coalitions in California, edited by M. Paloma Pavel, PhD, with the Breakthrough Communities Team; Foreword by Carl Anthony (July 2017)</a></li>
           <li><a href="http://steveearly.org/ " target="_blank">Refinery Town: Big Oil, Big Money, and the Remaking of an American City, Steve Early (2017)</a></li> 
-          <li><a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016).</a>
-            <ul>
-              <li>In this 34-page comic book for both youth and adults, 10-year-old Gabe Sanchez of East Oakland tells the story of how he and his grandfather time-travel 50 years into the future. His 60-year-old self tells him the story of how climate change has shaped his life: the superstorm that destroyed his home and livelihood, the collapse of California agriculture, and more. But 60-year-old Gabe also shows the many ways people today are fighting to stop fossil fuels and build a green economy. Gabe and Grandpa return to 2016 determined to join the movement for climate justice.</li>
-            </ul>
-          </li>
+          <li><a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016).</a></li>
           <li><a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">Video: “Why We Need to Keep Fossil Fuels in the Ground” (The Guardian)</a></li>
         </ul>
       </section>
