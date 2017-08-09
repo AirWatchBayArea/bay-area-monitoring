@@ -634,7 +634,7 @@
         <ul>
           <li><a href="http://www.baaqmd.gov/in-your-community" target="_blank">Bay Area Air Quality Management District (BAAQMD) Community Engagement</a>
             <ul>
-              <li>"Learn about the Air District activities in your community, view interactive maps of permitted facilities and current air quality, and explore local outreach and Health Risk evaluation programs"</li>
+              <li>Learn about the Air District activities in your community, view interactive maps of permitted facilities and current air quality, and explore local outreach and Health Risk evaluation programs</li>
             </ul>
           </li>
           <li><a href="http://www.sunflower-alliance.org/wp-content/uploads/2017/06/AQMD-Board-Members-Contact-info.pdf" target="_blank">BAAQMD Board of Directors</a></li>
@@ -650,7 +650,7 @@
             status, history, votes, analyses, and veto messages."</li>
             </ul>
           </li>
-          <li><a href="http://www.legislature.ca.gov/the_state_legislature/calendar_and_schedules/audio_tv.html " target="_blank">California Legislative Meeting Videos & Agendas</a></li>
+          <li><a href="http://www.legislature.ca.gov/the_state_legislature/calendar_and_schedules/audio_tv.html " target="_blank">California Legislative Meeting Videos &amp; Agendas</a></li>
           <li><a href="https://govapps.gov.ca.gov/gov39mail/index.php " target="_blank">Governor Jerry Brown</a></li>
         </ul>
       </section>
