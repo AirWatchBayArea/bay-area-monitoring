@@ -4,6 +4,14 @@ html, body {
   font-family: SanFranciscoText-Regular, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
+.x-center{
+  position: absolute; 
+  left: 50%; 
+  -webkit-transform: translateX(-50%); /* Ch <36, Saf 5.1+, iOS < 9.2, An =<4.4.4 */
+      -ms-transform: translateX(-50%); /* IE 9 */
+          transform: translateX(-50%); /* IE 10, Fx 16+, Op 12.1+ */
+}
+
 .text-primary {
   color: #f7b733 !important;
 }

@@ -239,11 +239,11 @@
       <div class="container">
             <div class="row">
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
-                  <div class="col-lg-4" style="margin:0 33%; width:34%">
+                  <div class="col-lg-4" style="margin:auto; padding: 10px; float: none; width: 80%">
                     <img class="img-responsive" src="img/logo.svg" style="padding: 5% 35% 0% 35%;"/>
                     <h4 class="service-heading">Report pollution incidents through our app right when you experience them</h4>
-                    <div style="margin:3%;width:100%"><a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
-                    <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div></a>
+                    <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px; background-color: #eee;"><a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
+                    <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div></a>
                   </div>
                 </div>
             </div>
@@ -447,7 +447,7 @@
     </div>
 
     <div id="submit-success">
-      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">Click here to make a report to the BAAQMD site.</a>
+      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline">Click here to make a report to the BAAQMD site.</a>
       </p>
       <a href="#user-reports"><div class="report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>

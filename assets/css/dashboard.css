@@ -174,6 +174,10 @@
   content: "play";
 }
 
+.pause:after{
+  content: "pause" !important;
+}
+
 #share:after{
   content: "share";
 }
@@ -473,7 +477,7 @@
 .dashboard-page .ui-datepicker-header {
   background: none;
   border: none;
-  background-color: #222 !important;
+  background-color: #f7b733 !important;
   color: white;
 }
 

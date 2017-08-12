@@ -4,6 +4,7 @@ var serverURL = (window.location.hostname == "www.airwatchbayarea.org") ?
 
 var isSubmissionSuccess = false;
 var geocoder;
+var formValidateTimer;
 // generate a hash for the user
 function generateUserHash() {
 	var userHash;
@@ -189,12 +190,15 @@ function enableSubmit(){
 
 function formValidate(){
 	var required = $('input.required'); 
-
+	clearTimeout(formValidateTimer);
     for(var i = 0; i <= (required.length - 1);i++){
       if(required[i].value == '') {
-          $(required[i]).parent().addClass('required-error')
-          scrollToElmMiddle($(required[i]));
-          return false; 
+	      $(required[i]).parent().addClass('required-error');
+	      formValidateTimer = setTimeout(function(){
+	        $(required[i]).parent().removeClass('required-error');
+	      }, 2000);
+	      scrollToElmMiddle($(required[i]));
+	      return false; 
       }
     }
     return true;
@@ -266,9 +270,16 @@ $(function() {
 	$('#report-submit').click(submitForm);
 	$('#submit-another-report').click(resetReport);
 
-	$('[name=tag-other]').focus(function(ev){
+	$('[name=tag-other]').click(function(ev){
+		ev.preventDefault();
 		$('[name=tag][value=other]').prop("checked", true);
 	});
+
+  $('[name=tag][value=other]').click(function(ev){
+    if($('[name=tag][value=other]').prop("checked")){
+      $('[name=tag-other]').focus();
+    }
+  });
 
 	upload_spinner = new Spinner({
 		position:'relative',

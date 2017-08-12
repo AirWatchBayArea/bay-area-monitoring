@@ -1021,6 +1021,7 @@ function toggleGuide() {
     var icon = $("#play i:nth-child(2)");
     icon.toggleClass("fa-play");
     icon.toggleClass("fa-pause");
+    icon.hasClass("fa-pause") ? $('#play').addClass('pause') : $('#play').removeClass('pause');
     icon.hasClass("fa-pause") ? play() : pause();
   }
 
