@@ -5,7 +5,6 @@
          alert('Currently this site does not work for https connections, unfortunately. Please change to http://')
  });
 
-
   jQuery.support.cors = true;
   var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis, dateAxisListener, playInterval;
   var pageLoadDate = cached_breathecam.latest.date;
@@ -41,7 +40,7 @@
     "Point Richmond" : [4913, 4914],
     "North Rodeo" : [4902, 4903, 4850],
     "South Rodeo" : [4901, 4903, 4846, 10011],
-    "Benicia": [8421]
+    "Benicia": [12201]
   };
 
 
@@ -75,7 +74,6 @@
   };
 
   //switch these maps to a matrix with feeds on the rows and chemicals on the columns?
-
   if (showSmokeDetection) {
     esdr_feeds.Smoke_Detection = {
       feed_id: 5494,
