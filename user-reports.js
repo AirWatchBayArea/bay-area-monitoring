@@ -1,3 +1,5 @@
+//NOTE: Smell report = incident report, keeping smell language for legacy support
+
 var postList = [];
 var showList = [];
 var responseList;
@@ -6,39 +8,16 @@ var postsPerPage = 5;
 var appendMoreTimer;
 var spinner;
 
-
-// function generatePostFromResource(resource){
-// 	var postData = {
-// 		src:makeFetchURL(resource['public_id'], resource['format']),
-// 	}
-// 	if(resource['context']){
-// 		var context = resource['context']['custom'];
-// 		var smell_report = JSON.parse(decodeURIComponent(context['smell_report']));
-// 		postData['latitude']=roundLatLng(decodeURIComponent(smell_report['latitude']));
-// 		postData['longitude']=roundLatLng(decodeURIComponent(smell_report['longitude']));
-// 		postData['smell_value']=decodeURIComponent(smell_report['smell_value']);
-// 		postData['alt']=decodeURIComponent(context['alt']);
-// 		postData['caption']=decodeURIComponent(context['caption']);
-// 		postData['when']=formatDate(Date.parse(decodeURIComponent(context['when'])));
-// 		postData['additional_comments']=decodeURIComponent(context['additional_comments']);
-// 		postData['tags']=decodeURIComponent(context['tags']).split(',');
-// 	}
-
-// 	postList.push(makePostItem(
-// 			postData,
-// 			Date.parse(decodeURIComponent(context['when'])),
-// 			Date.parse(resource['created_at']),
-// 			smell_report,
-// 			1,
-// 			postData['tags']));
-// }
-
+//generates a post from a given smell report
 function generatePostFromSmell(smell_report){
+	//parse the additional comments JSON from smell report
 	var additionalCommentsData = JSON.parse(smell_report['additional_comments']);
 	var safe_imgs;
 	if(additionalCommentsData){
+		//IMPORTANT! Checks if JSON was parsed correctly (legacy support for non-stringified submissions)
 		var unsafe_imgs = additionalCommentsData.img;
 		var safe_imgs = {};
+		//safely decode img source and caption/dates
 		for(var unsafe_src in unsafe_imgs){
 			var safe_src = escapeHTML(decodeURIComponent(unsafe_src));
 			safe_imgs[safe_src] = {};
@@ -47,15 +26,18 @@ function generatePostFromSmell(smell_report){
 				safe_imgs[safe_src][escapeHTML(img_meta)] = safe_img_meta;
 			}
 		}
+		//safely decode tags into list
 		var unsafe_tags = additionalCommentsData['tags'];
 		var safe_tags = [];
 		for (var i = unsafe_tags.length - 1; i >= 0; i--) {
 			safe_tags.push(escapeHTML(decodeURIComponent(unsafe_tags[i])));
 		}
 	}else{
+		//if JSON didn't successfully parse, we have a legacy submission (non-JSON additional comment)
 		additionalCommentsData = {'additional_comments': escapeHTML(decodeURIComponent(smell_report['additional_comments']))};
 		safe_imgs = {};
 	}
+
 	var postData = {
 		'latitude': roundLatLng(escapeHTML(smell_report['latitude'])),
 		'longitude':roundLatLng(escapeHTML(smell_report['longitude'])),
@@ -76,22 +58,17 @@ function generatePostFromSmell(smell_report){
 	));
 }
 
+//for each retrieved report, generate post
 function generateIncidentPosts(json){
 	for (var i = json.length - 1; i >= 0; i--) {
 		generatePostFromSmell(json[i]);
 	}
 }
 
-// function generatePostsFromList(json){
-// 	var resources = json.resources;
-// 	for (var i = resources.length - 1; i >= 0; i--) {
-// 		generatePostFromResource(resources[i]);
-// 	}
-// }
-
-function makePostItem(htmlStr, posted, smell_value, type, tag){
+//make a post meta object
+function makePostItem(data, posted, smell_value, type, tag){
 	return {
-		html: generatePostHTML(htmlStr),
+		html: generatePostHTML(data),
 		posted: posted,
 		smell_value: smell_value,
 		type: type,
@@ -99,6 +76,7 @@ function makePostItem(htmlStr, posted, smell_value, type, tag){
 	}
 }
 
+//get smell color name from value
 function getSmellColorStr(smellVal){
 	switch(parseInt(smellVal)){
 		case 1: 
@@ -121,15 +99,7 @@ function getSmellColorStr(smellVal){
 	}
 }
 
-function componentToHex(c) {
-    var hex = c.toString(16);
-    return hex.length == 1 ? "0" + hex : hex;
-}
-
-function rgbToHex(r, g, b) {
-    return "0x" + componentToHex(r) + componentToHex(g) + componentToHex(b);
-}
-
+//get hex color for map icon thumbnail
 function getMapSmellColorStr(smellVal){
 	switch(parseInt(smellVal)){
 		case 1: 
@@ -152,10 +122,7 @@ function getMapSmellColorStr(smellVal){
 	}
 }
 
-function escapeHTML(text){
-	return $("<div>").text(text).html()
-}
-
+//generate a src for map thumbnail
 function generateStaticMapURL(lat, lng, smellVal){
 	// return ""
 	return [
@@ -175,10 +142,7 @@ function generateStaticMapURL(lat, lng, smellVal){
 			].join('');
 }
 
-function checkFalseyString(str){
-	return (str != "null" && str != "undefined");
-}
-
+//generate post HTML based on available data
 function generatePostHTML(data){
 	var smellColorStr = (data['smell_value']) ? getSmellColorStr(escapeHTML(data['smell_value'])) : 'gray';
 	var imgElms = [];
@@ -210,6 +174,7 @@ function generatePostHTML(data){
 	].join("");
 }
 
+//append more posts off the show list
 function appendMorePosts(showList){
 	showList = showList || postList;
 	var i = $('#posts .post').length;
@@ -221,6 +186,7 @@ function appendMorePosts(showList){
 	spinner.stop();
 }
 
+//sort show list by key in post meta object
 function sortPostsBy(key){
 	showList = showList || postList;
 	showList.sort(function(a,b){
@@ -228,6 +194,7 @@ function sortPostsBy(key){
 	});
 }
 
+//filter show list based on what tag is available
 function filterPostsBy(tag){
 	$('#posts').html('');
 	var tagList = $('[name=tag]').map(function (i,cb) { return cb.value} ).get();
@@ -253,11 +220,13 @@ function filterPostsBy(tag){
 	$('.result-count').text(showList.length + ' of ' + postList.length);
 }
 
+//reset posts to show list
 function resetToShowList(){
 	$('#posts').html('');
 	appendMorePosts(showList);
 }
 
+//refresh posts
 function refreshPosts(){
 	console.log("refreshing posts.");
 	postList.length = 0;

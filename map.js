@@ -10,10 +10,16 @@ var projectionScale = 2000;
 var y_scale;
 var minZoom = 5;
 var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
-
-var zoom_level_to_marker_size = [12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12, 24, 24, 24, 36, 60, 90, 180, 240, 360];
-
 var iconBase = 'assets/images/';
+var countryPointSizePixels = 7; 
+var blockPointSizePixels = 70; 
+//defines the icons to be drawn for each marker type
+//key-value:
+//  legendIcon: path/to/legend/icon
+//  path: svg
+//or 
+//  url: path/to/icon
+var iconScale = 4.25;
 var icons = {
   "Wind": {legendIcon: iconBase + 'wind-arrow.png'},
   "Pollution Source": {
@@ -21,7 +27,7 @@ var icons = {
                         fillColor: 'dimgray',
                         strokeColor: 'gray',
                         strokeWeight: 3,
-                        scale: .25,
+                        scale: .2,
                         fillOpacity: 1.0,
                         legendIcon: iconBase + "pollution-source.png"
                       },
@@ -30,7 +36,7 @@ var icons = {
                         fillColor: 'deeppink',
                         strokeColor: 'lightpink',
                         strokeWeight: 3,
-                        scale: 5.5,
+                        scale: iconScale,
                         fillOpacity: 1.0,
                         legendIcon: iconBase + "fenceline.png"
                       },
@@ -39,7 +45,7 @@ var icons = {
                       fillColor: 'royalblue',
                       strokeColor: 'skyblue',
                       strokeWeight: 3,
-                      scale: 5.5,
+                      scale: iconScale,
                       fillOpacity: 1.0,
                       legendIcon: iconBase + "baaqmd-monitor-pin.png" 
                     },
@@ -48,7 +54,7 @@ var icons = {
                       fillColor: 'mediumspringgreen',
                       strokeColor: '#A6FDDC',
                       strokeWeight: 3,
-                      scale: 5.5,
+                      scale: iconScale,
                       fillOpacity: 1.0,
                       legendIcon: iconBase + "community-monitor.png" 
                     },
@@ -56,7 +62,7 @@ var icons = {
             legendIcon: iconBase + "school.png",
           }
 }
-
+//defines where to draw fenceline monitors
 var fencelineMonitors = {
   "Atchison Village": {
     lat:   37.935014,
@@ -85,17 +91,19 @@ var fencelineMonitors = {
   }
 };
 
-var receivers = {
-  "North Rodeo": {
-    lat: 38.04228,
-    lng: -122.24378
-  },
-  "South Rodeo": {
-    lat: 38.03996,
-    lng: -122.26076
-  }
-}
+//defines where to draw fenceline highlight (deprecated)
+// var receivers = {
+//   "North Rodeo": {
+//     lat: 38.04228,
+//     lng: -122.24378
+//   },
+//   "South Rodeo": {
+//     lat: 38.03996,
+//     lng: -122.26076
+//   }
+// }
 
+//defines where to draw community monitors
 var communityMonitors = {
   "Atchison Village": {
     lat:   37.93447,
@@ -124,6 +132,7 @@ var communityMonitors = {
   }
 }
 
+//defines where to draw BAAQMDMonitors
 var BAAQMDMonitors = {
   "North Rodeo": {
     lat: 38.05492,
@@ -137,6 +146,7 @@ var BAAQMDMonitors = {
   }
 }
 
+//Defines where to draw refineries
 var refineries = {
   "Phillips 66 Refinery": {
     lat: 38.04221,
@@ -219,6 +229,7 @@ var refineries = {
   }
 }
 
+//defines where to draw pollution sources
 var pollutionSources = {
   "Nu Star Energy (ST Shore Terminals)":{
     description: "Organic gas",
@@ -267,23 +278,40 @@ var pollutionSources = {
   },
 }
 
+var mapCenters = {
+  "richmond":{
+    x : 37.938407712418034,
+    y : -122.36615572772212,
+    zoom: 13
+  },
+  "crockett-rodeo":{
+    x : 38.03885974316995,
+    y : -122.23290213427731,
+    zoom: 13
+  },
+  "benicia":{
+    x : 38.06830801346868,
+    y : -122.1451339240234,
+    zoom: 13
+  },
+  "vallejo":{
+    x : 38.08776629286048,
+    y : -122.24761576606441,
+    zoom: 13
+  },
+  "bay-area":{
+    x : 37.87450048188688,
+    y : -122.33979792548824,
+    zoom: 9
+  }
+}
+
+//initializes the google map and draws markers/bounds
 function initMap(div) {
   // Initialize Google Map
   resolutionScale = window.devicePixelRatio || 1;
-
-  var center = {};
-  if(area.id === "richmond") {
-    center.x = 37.938407712418034;
-    center.y = -122.36615572772212;
-  }
-  else if(area.id === "crockett-rodeo") {
-    center.x = 38.03885974316995;
-    center.y = -122.23290213427731;
-  }
-  else if(area.id === "benicia") {
-    center.x = 38.06830801346868;
-    center.y = -122.1451339240234;
-  }
+  var isBigPicture = area.id === "bay-area";
+  var center = mapCenters[area.id] || mapCenters['richmond'];
 
   var styleArray = [
     {
@@ -309,7 +337,7 @@ function initMap(div) {
 
   var mapOptions = {
     keyboardShortcuts: false,
-    zoom: 13,
+    zoom: center.zoom || 13,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     streetViewControl:false,
     mapTypeControl: false,
@@ -339,14 +367,6 @@ function initMap(div) {
   // });
 
   infowindow = new google.maps.InfoWindow();
-
-  //add Pollution Sources
-  for(var key in pollutionSources) {
-    var pollutionSource = pollutionSources[key];
-    var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
-    var icon = icons['Pollution Source'];
-    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
-  }
 
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
@@ -385,13 +405,22 @@ function initMap(div) {
     });
     refineryBounds.setMap(map);
   }
-  
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: new google.maps.LatLng(center.x, center.y),
-    radius: 5000,
-    type: ['school']
-  }, markerCallback);
+
+  if(!isBigPicture){
+    //add Pollution Sources
+    for(var key in pollutionSources) {
+      var pollutionSource = pollutionSources[key];
+      var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
+      var icon = icons['Pollution Source'];
+      createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
+    }
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+      location: new google.maps.LatLng(center.x, center.y),
+      radius: 5000,
+      type: ['school']
+    }, drawSchoolMarkers);
+  }
 
     // initialize the canvasLayer
   var update = function() {
@@ -412,18 +441,21 @@ function initMap(div) {
   generateLegend();
 }
 
+//used for binding event for marker onclick
 function makeClosure(key){
   return (function(){
     changeLocale(area.id, key);
   })
 }
 
+//creates info window content based on title and description
 function createInfoWindowContent(title, description){
   return ['<h4>',title,'</h4>',
           '<p>',description,'</p>'].join('');
 }
 
-function markerCallback(results, status) {
+//draws school markers based on Google Places results
+function drawSchoolMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
       createMarker(results[i].geometry.location, icons["School/Day Care"], results[i].name);
@@ -431,14 +463,16 @@ function markerCallback(results, status) {
   }
 }
 
+//scales icons based on zoom level array at top
 function scaleIcon(marker, icon){
-  var icon_size = zoom_level_to_marker_size[map.getZoom()];
+  var icon_size = .75 * countryPointSizePixels * Math.pow(blockPointSizePixels / countryPointSizePixels, (map.getZoom() - 4) / (18 - 4));
   icon.scaledSize = new google.maps.Size(icon_size,icon_size);
   icon.origin = new google.maps.Point(0,0), // origin
   icon.anchor = new google.maps.Point(0, 0) // anchor
   marker.setIcon(icon);
 }
 
+//creates a marker with given infoContent HTML and function callback on click
 function createMarker(googLatLng, icon, infoContent, clickCallback) {
   var marker = new google.maps.Marker({
     map: map,
@@ -466,6 +500,7 @@ function createMarker(googLatLng, icon, infoContent, clickCallback) {
   return marker;
 }
 
+//Adds text labels to the map
 function addMapLabels() {
   var labels = [];
   // for(var coord in fencelineMonitors) {
@@ -501,6 +536,7 @@ function addMapLabels() {
   }
 }
 
+//generates the legend based on icons object at top
 function generateLegend() {
   var $legend = $('<details id="legend"><summary class="no-highlight">Legend</summary></details>');
   for (var key in icons) {
@@ -513,6 +549,7 @@ function generateLegend() {
   map.controls[google.maps.ControlPosition.RIGHT_TOP].push($legend[0]);
 }
 
+//deals with canvas layer map projection for wind direction drawing
 function setupCanvasLayerProjection() {
   var canvasWidth = canvasLayer.canvas.width;
   var canvasHeight = canvasLayer.canvas.height;
@@ -545,6 +582,7 @@ function setupCanvasLayerProjection() {
   context.translate(-offset.x * projectionScale, -offset.y * projectionScale);
 }
 
+//draws wind data for desired point on map at given time
 function paintWind(site, epochTime) {
   var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
@@ -682,80 +720,82 @@ function getData(site, channel, time) {
   }
 }
 
-function highlightSelectedMonitors() {
-  if(communityMonitor) communityMonitor.setMap(null);
-  if(BAAQMDMonitor) BAAQMDMonitor.setMap(null);
-  if(fencelineMonitor) fencelineMonitor.setMap(null);
+// (deprecated for now) Highlights the selected monitor
+// function highlightSelectedMonitors() {
+//   if(communityMonitor) communityMonitor.setMap(null);
+//   if(BAAQMDMonitor) BAAQMDMonitor.setMap(null);
+//   if(fencelineMonitor) fencelineMonitor.setMap(null);
 
-  for(var feed in esdr_feeds) {
-    //skip the Rodeo wind feed
-    if (feed == "Rodeo fenceline_org") {
-      continue;
-    }
-    var coords = {
-      lat: esdr_feeds[feed].coordinates.latitude,
-      lng: esdr_feeds[feed].coordinates.longitude
-    }
+//   for(var feed in esdr_feeds) {
+//     //skip the Rodeo wind feed
+//     if (feed == "Rodeo fenceline_org") {
+//       continue;
+//     }
+//     var coords = {
+//       lat: esdr_feeds[feed].coordinates.latitude,
+//       lng: esdr_feeds[feed].coordinates.longitude
+//     }
 
-    if(feed.indexOf("Fence") > 0) {
-      var fencelineCoords;
-      if(area.id === "richmond") {
-        fencelineCoords = [coords, fencelineMonitors[area.locale]];
-      }
-      else {
-        fencelineCoords = [receivers[area.locale], fencelineMonitors[area.locale]];
-      }
-      fencelineMonitor = new google.maps.Polyline({
-        map: map,
-        path: fencelineCoords,
-        geodesic: true,
-        strokeColor: '#FFF000',
-        strokeOpacity: 0.5,
-        strokeWeight: 10
-      });
-    }
-    else {
-      var factor, radius, center;
-      factor = Math.pow(2,(13 - map.zoom));
-      radius = 260 * factor;
-      center = coords;
-      var markerOptions = {
-        strokeColor: '#FFF000',
-        strokeOpacity: 0.5,
-        strokeWeight: 2,
-        fillColor: '#FFF000',
-        fillOpacity: 0.5,
-        map: map,
-        center: {
-          lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
-          lng: center.lng
-        },
-        radius: radius
-      }
+//     if(feed.indexOf("Fence") > 0) {
+//       var fencelineCoords;
+//       if(area.id === "richmond") {
+//         fencelineCoords = [coords, fencelineMonitors[area.locale]];
+//       }
+//       else {
+//         fencelineCoords = [receivers[area.locale], fencelineMonitors[area.locale]];
+//       }
+//       fencelineMonitor = new google.maps.Polyline({
+//         map: map,
+//         path: fencelineCoords,
+//         geodesic: true,
+//         strokeColor: '#FFF000',
+//         strokeOpacity: 0.5,
+//         strokeWeight: 10
+//       });
+//     }
+//     else {
+//       var factor, radius, center;
+//       factor = Math.pow(2,(13 - map.zoom));
+//       radius = 260 * factor;
+//       center = coords;
+//       var markerOptions = {
+//         strokeColor: '#FFF000',
+//         strokeOpacity: 0.5,
+//         strokeWeight: 2,
+//         fillColor: '#FFF000',
+//         fillOpacity: 0.5,
+//         map: map,
+//         center: {
+//           lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
+//           lng: center.lng
+//         },
+//         radius: radius
+//       }
 
-      if (feed.indexOf("BAAQMD") >= 0) {
-        BAAQMDMonitor = new google.maps.Circle(markerOptions);
-        BAAQMDMonitor.initialCenter = center;
-      }
-      else {
-        communityMonitor = new google.maps.Circle(markerOptions);
-        communityMonitor.initialCenter = center;
-      }
-    }
-  }
-  map.addListener('zoom_changed', function() {
-    for (var monitor of [BAAQMDMonitor, communityMonitor]) {
-      if (monitor) {
-        factor = Math.pow(2,(13 - map.zoom));
-        radius = 260 * factor;
-        monitor.setRadius(radius);
-        var lat = monitor.initialCenter.lat + Math.pow(2,17-map.zoom) * .0001;
-        monitor.setCenter(new google.maps.LatLng(lat, monitor.initialCenter.lng));
-      }
-    }
-  });
-}
+//       if (feed.indexOf("BAAQMD") >= 0) {
+//         BAAQMDMonitor = new google.maps.Circle(markerOptions);
+//         BAAQMDMonitor.initialCenter = center;
+//       }
+//       else {
+//         communityMonitor = new google.maps.Circle(markerOptions);
+//         communityMonitor.initialCenter = center;
+//       }
+//     }
+//   }
+//   map.addListener('zoom_changed', function() {
+//     for (var monitor of [BAAQMDMonitor, communityMonitor]) {
+//       if (monitor) {
+//         factor = Math.pow(2,(13 - map.zoom));
+//         radius = 260 * factor;
+//         monitor.setRadius(radius);
+//         var lat = monitor.initialCenter.lat + Math.pow(2,17-map.zoom) * .0001;
+//         monitor.setCenter(new google.maps.LatLng(lat, monitor.initialCenter.lng));
+//       }
+//     }
+//   });
+// }
 
+//repaints the canvas layer on each update of the cursor
 function repaintCanvasLayer(epochTime) {
   try {
     //console.log('repaint');

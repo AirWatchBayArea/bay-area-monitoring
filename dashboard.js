@@ -40,7 +40,8 @@
     "Point Richmond" : [4913, 4914],
     "North Rodeo" : [4902, 4903, 4850],
     "South Rodeo" : [4901, 4903, 4846, 10011],
-    "Benicia": [12201]
+    "Benicia": [12201, 8421],
+    "Vallejo": [4857]
   };
 
 
@@ -103,6 +104,9 @@
     }
     else if(!locale && targetArea === "benicia") {
       area.locale = "Benicia"
+    }
+    else if(!locale && targetArea === "vallejo") {
+      area.locale = "Vallejo"
     }
     else {
       area.locale = locale;
@@ -861,7 +865,6 @@
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
     if(loc){
-      console.log('haha');
       plotManager.getDateAxis().setCursorPosition(Date.now()/1000);
       $("#view-air-quality-tab").addClass("active");
       $("#view-air-quality-tab>a").addClass("custom-nav-link-active");
@@ -1098,7 +1101,11 @@ function toggleGuide() {
       initSmells().then(function(result){
         // Initialize Graphs
         console.log("started feeds");
-        loadFeeds(feedMap[area.locale]);
+        if(feedMap[area.locale]){
+          loadFeeds(feedMap[area.locale]);
+        }else{
+          console.log('no feeds loaded');
+        }
       });
 
       if(fromShareLink) {

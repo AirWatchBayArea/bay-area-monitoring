@@ -1,10 +1,12 @@
-var serverURL = (window.location.hostname == "www.airwatchbayarea.org") ? 
+//chooses server url based on the hostname
+var serverURL = (window.location.hostname == "www.airwatchbayarea.org" || window.location.hostname == "airwatchbayarea.org") ? 
 					'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA' :
 					'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports';
-
+//flag to decide whether to reset report
 var isSubmissionSuccess = false;
 var geocoder;
 var formValidateTimer;
+
 // generate a hash for the user
 function generateUserHash() {
 	var userHash;
@@ -17,6 +19,7 @@ function generateUserHash() {
 	return userHash;
 }
 
+//take address value and return Google geocoded results
 function geocodeAddress() {
 	var address = document.getElementById('address').value;
 	return new Promise(function (resolve, reject){
@@ -47,18 +50,21 @@ function geocodeAddress() {
 	});
 }
 
+//returns all of the checked category tags
 function getCategoryList(){
 	return $('[name=tag]:checked').map(function () {
 		return encodeURIComponent((this.value == "other") ? $('[name=tag-other]').val() : this.value);
 	}).get();
 }
 
+//returns all of the captions in the image list
 function getCaptionList(){
 	return $('[name=caption]').map(function () {
 		return encodeURIComponent(this.value);
 	}).get();
 }
 
+//returns all of the epoch times of the photo list
 function getDateTimeList(){
 	var dates = $('[name=photo-date]').map(function () {
 		return encodeURIComponent(this.value);
@@ -73,6 +79,7 @@ function getDateTimeList(){
 	return dateTimeList;
 }
 
+//process the form for upload to server
 function serializeForm(geocodeResults, img_src_array){
 	//userhash
 	if(!localStorage.getItem('AWBAuser') || localStorage.getItem('AWBAuser').substring(0,2) != "BA") {
@@ -82,6 +89,7 @@ function serializeForm(geocodeResults, img_src_array){
 	var latlng = geocodeResults[0]['geometry']['location'];
 	var dateTimeList = getDateTimeList();
 	var captionList = getCaptionList();
+	//make sure all of these arrays match in length
 	assert(img_src_array.length == captionList.length && img_src_array.length == dateTimeList.length, "public_id, datetime, and category lists should all be the same size (something really weird happened)");
 	var imgData = {};
 	for(var i = img_src_array.length - 1; i >= 0; i--) {
@@ -90,6 +98,9 @@ function serializeForm(geocodeResults, img_src_array){
 			'when':dateTimeList[i]
 		}
 	}
+	// we wrap up all additional comments and parameters into a JSON 
+	// that gets stringified and placed in the additional comments field 
+	// in the smell report
 	var additionalCommentsData = {
 		"additional_comments": $('[name=additional-comments]').val() ? encodeURIComponent($('[name=additional-comments]').val()) : null,
 		"tags": getCategoryList(),
@@ -109,6 +120,7 @@ function serializeForm(geocodeResults, img_src_array){
 	return data;
 }
 
+//post data to SmellPGH server
 function postData(data){
 	return new Promise(function (resolve, reject){
 		$.ajax({
@@ -131,12 +143,14 @@ function postData(data){
 	});
 }
 
+//process through each of the photo submissions
 function processImgSubmissions(){
 	return new Promise(function(resolve,reject){
 		submitImgs(resolve, reject);	
 	});
 }
 
+//reset the report
 function resetReport(){
 	isSubmissionSuccess = false;
 	scrollToTop();
@@ -152,6 +166,7 @@ function resetReport(){
   	$('.required-error').removeClass('required-error');
 }
 
+//display the submission uploading box
 function submissionUploading(){
   scrollToBottom();
   disableSubmit();
@@ -160,6 +175,7 @@ function submissionUploading(){
   $('#upload-error').hide();
 }
 
+//display the submission success box
 function submissionSuccess(){
   scrollToBottom();
   $('#uploading').hide();
@@ -168,6 +184,7 @@ function submissionSuccess(){
   isSubmissionSuccess = true;
 }
 
+//display the submission failed box
 function reportFailed(reason, resolution){
 	$('#submit-success').hide();
   	$('#uploading').hide();
@@ -178,16 +195,19 @@ function reportFailed(reason, resolution){
 	alert('Report failed to upload: ' + reason + '\n\nResolve by: ' + resolution);
 }
 
+//disable the submit button
 function disableSubmit(){
 	$('#report-submit').prop('disabled', true);
 	$('#file-upload').prop('disabled', true);
 }
 
+//enable the submit button
 function enableSubmit(){
 	$('#report-submit').prop('disabled', false);
 	$('#file-upload').prop('disabled', false);
 }
 
+//iterate over required fields and highlight with red border if not filled
 function formValidate(){
 	var required = $('input.required'); 
 	clearTimeout(formValidateTimer);
@@ -204,6 +224,7 @@ function formValidate(){
     return true;
 }
 
+//submit the form
 function submitForm(){
 	console.log("submit pressed");
 	event.preventDefault();
@@ -262,7 +283,7 @@ $(function() {
 	var options = {
 	  bounds: defaultBounds,
 	};
-	//sets up
+	//sets up address suggestions autocomplete
 	autocomplete = new google.maps.places.Autocomplete(input, options);
   	$('#report-form').submit(function(){
   		event.preventDefault();
@@ -280,7 +301,7 @@ $(function() {
       $('[name=tag-other]').focus();
     }
   });
-
+  //define spinner characteristics
 	upload_spinner = new Spinner({
 		position:'relative',
 		left:' 90%',

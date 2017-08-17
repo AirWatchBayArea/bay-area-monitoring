@@ -1,6 +1,5 @@
 .dashboard-page{
   width: 100%;
-  height: calc(100% - 50px);
 }
 
 .dashboard-page nav{
@@ -211,14 +210,13 @@
 
 }
 
-.dashboard-page #grapher_parent{
+/*.dashboard-page #grapher_parent{
   height: 60%;
-}
+}*/
 
 .dashboard-page #grapher {
   width: 100%;
   min-width: 385px;
-  min-height: 400px;
 }
 
 .dashboard-page #grapher * {
@@ -325,11 +323,15 @@
   background: white;
 }
 
+.dashboard-page .chart{
+  height: 75px !important;
+}
+
+
 .dashboard-page .chartTitle {
-  /*position: absolute;*/
+  position: absolute;
   left: 0px;
   width: 150px;
-  /*height: 100%;*/
   border: 1px solid black;
   background-color: rgba(126,217,237,.43);
   padding: 11px;

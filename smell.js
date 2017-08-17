@@ -22,7 +22,7 @@ var smellReportPrependText = " out of 5 rating. ";
 var gwtPopUpText = "";
 var smellLoadingInterval = null;
 
-
+//initialize smell reports and add to grapher/map
 function initSmells() {
   smellReports.length = 0;
   smellMarkers.length = 0;
@@ -35,6 +35,7 @@ function initSmells() {
   });
 }
 
+//retrieve and cache all smell reports, callback on success
 function updateSmellList(callback){
   return new Promise(function(resolve, reject){
     $.ajax({
@@ -67,6 +68,7 @@ function sortingFunction(a, b) {
   return 0;
 }
 
+//on map smell report click, zoom to smell report
 function zoomMapToClickedReport(pointData) {
   var selectedPoint;
   for (var i=0;i<commentData.length;i++) {
@@ -87,7 +89,9 @@ function zoomMapToClickedReport(pointData) {
   }
 }
 
+//add smell report to grapher
 function addSmellReportsToGrapher() {
+  //cache smell report index in series
   var smellPlotIndex = 0;
   series[smellPlotIndex] = {};
   series[smellPlotIndex].id = smellPlotIndex;
@@ -129,6 +133,7 @@ function addSmellReportsToGrapher() {
 
       var plotId = smellPlotIndex + "_plot_" + rating;
       if ($(".annotationChart").length === 0) {
+        //add chart area to geapher
         var row = $('<tr class="annotationChart grapher_row"></tr>');
         plotContainerId = smellPlotIndex + "_plot_container";
         yAxisId = smellPlotIndex + "_yaxis";
@@ -166,7 +171,7 @@ function addSmellReportsToGrapher() {
     })(rating);
   }
 }
-
+//reset smellMarkers list and draw smell reports on map
 function processSmellReportsForMap(){
   smellMarkers.length = 0;
 
@@ -176,6 +181,7 @@ function processSmellReportsForMap(){
   drawSmellReports();
 }
 
+//set marker visible if smell report if time is in range
 function drawSmellReports(range) {
   if (!range) {
     range = plotManager.getDateAxis().getRange();
@@ -188,6 +194,7 @@ function drawSmellReports(range) {
   }
  }
 
+ //creates a smell marker at a given location
  function drawSingleSmellReport(report_i) {
    var latlng = {"lat": report_i.latitude, "lng": report_i.longitude};
 
@@ -234,13 +241,14 @@ function drawSmellReports(range) {
    return marker;
  }
 
+ //creates a smell icon from a given smell value
  function getSmellColor(idx) {
    return {
             path: google.maps.SymbolPath.CIRCLE,
             fillColor: ratingColors[idx],
             strokeColor: 'white',
             strokeWeight: 3,
-            scale: 9,
+            scale: 7.5,
             fillOpacity: 1.0,
           };
  }

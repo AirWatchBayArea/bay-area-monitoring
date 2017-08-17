@@ -3,10 +3,8 @@
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
 var successCallback = function(area_feed_ids) {
   var keys = Object.keys(esdr_feeds);
-    if(keys.length == area_feed_ids.length) {
-      initFeeds();
-    }
-  }
+  initFeeds();
+}
 
 function loadFeeds(area_feed_ids) {
   for(var i=0;i<area_feed_ids.length;i++) {
@@ -16,6 +14,9 @@ function loadFeeds(area_feed_ids) {
       url: ESDR_API_ROOT_URL + "/feeds/" + area_feed_ids[i],
       success: function(json) {
         var feed = json.data;
+        if(esdr_feeds[feed.name]){
+          feed.name = feed.name + "*";
+        }
         esdr_feeds[feed.name] = {
           feed_id : feed.id,
           coordinates: {

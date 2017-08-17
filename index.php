@@ -21,6 +21,18 @@
   })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-102327241-1', 'auto');
   ga('send', 'pageview');
+  /**
+  * Function that tracks a click on an outbound link in Analytics.
+  * This function takes a valid URL string as an argument, and uses that URL string
+  * as the event label. Setting the transport method to 'beacon' lets the hit be sent
+  * using 'navigator.sendBeacon' in browser that support it.
+  */
+  var trackOutboundLink = function(url) {
+     ga('send', 'event', 'outbound', 'click', url, {
+       'transport': 'beacon',
+       'hitCallback': function(){document.location = url;}
+     });
+  }
   </script>
   <!-- End Google Analytics -->
   <!-- Custom Fonts -->
@@ -153,9 +165,11 @@
             <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li class=""><a class="" href="#loc=richmond">Richmond</a></li>
-              <li class=""><a class="" href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
-              <li class=""><a class="" href="#loc=benicia">Benicia</a></li>
+              <!-- <li><a href="#loc=bay-area">Bay Area</a></li> -->
+              <li><a href="#loc=richmond">Richmond</a></li>
+              <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
+              <li><a href="#loc=benicia">Benicia</a></li>
+              <!-- <li><a href="#loc=vallejo">Vallejo</a></li> -->
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -447,12 +461,12 @@
     </div>
 
     <div id="submit-success">
-      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline">Click here to make a report to the BAAQMD site.</a>
+      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline" onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">Click here to make a report to the BAAQMD site.</a>
       </p>
       <a href="#user-reports"><div class="report-button no-highlight">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
     </div>
-    <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" target="_blank" class="underline">their&nbsp;website</a>.</p>
+    <p class="note">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline" onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">their&nbsp;website</a>.</p>
   </div>
 
   <div class="full-page full-height" id="user-reports-page">
@@ -523,9 +537,12 @@
         </div>
       </div> -->
     <!-- </div> --><!-- end timelapse things -->
-    <div class="container-fluid dashboard-page">
+    <div class="container-fluid dashboard-page full-height">
       <nav id="loc-nav" class="navbar navbar-default">
         <ul class="nav navbar-nav">
+          <!-- <li class="custom-nav-btn" id="bay-area-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=bay-area">Bay Area</a>
+          </li> -->
           <li class="custom-nav-btn" id="richmond-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Richmond</a>
           </li>
@@ -535,6 +552,9 @@
           <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
           </li>
+          <!-- <li class="custom-nav-btn" id="benicia-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=vallejo">Vallejo</a>
+          </li> -->
         </ul>
       </nav>
       <div id="map_parent" class="row">
@@ -574,7 +594,7 @@
         </span></a>
       </div>
       <div id="grapher_parent" class="row">
-        <table border="0" cellpadding="0" cellspacing="0" class="full-height" id="grapher">
+        <table border="0" cellpadding="0" cellspacing="0" id="grapher">
           <tr class="grapher_row" id="dateAxisContainer">
             <td><div id="slider-wrapper" title="speed" class="grapher-tool-icon">
           <div id="slider"></div>
