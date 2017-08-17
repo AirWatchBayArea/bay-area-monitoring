@@ -148,6 +148,11 @@ var BAAQMDMonitors = {
     lat:  38.102507,
     lng: -122.237976,
     description: "BAAQMD Monitor"
+  },
+  "San Martinez":{
+    lat:  38.012816,
+    lng: -122.134467,
+    description: "BAAQMD Monitor"
   }
 }
 
@@ -284,6 +289,11 @@ var pollutionSources = {
 }
 
 var mapCenters = {
+  "bay-area":{
+    x : 37.87450048188688,
+    y : -122.33979792548824,
+    zoom: 9
+  },
   "richmond":{
     x : 37.938407712418034,
     y : -122.36615572772212,
@@ -304,10 +314,10 @@ var mapCenters = {
     y : -122.24761576606441,
     zoom: 13
   },
-  "bay-area":{
-    x : 37.87450048188688,
-    y : -122.33979792548824,
-    zoom: 9
+  "san-martinez":{
+    x : 38.01201999567132,
+    y : -122.13458453021235,
+    zoom: 13
   }
 }
 

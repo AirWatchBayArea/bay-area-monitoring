@@ -170,6 +170,7 @@
               <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
               <li><a href="#loc=benicia">Benicia</a></li>
               <li><a href="#loc=vallejo">Vallejo</a></li>
+              <li><a href="#loc=san-martinez">San Martinez</a></li>
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -554,6 +555,9 @@
           </li>
           <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=vallejo">Vallejo</a>
+          </li>
+          <li class="custom-nav-btn" id="benicia-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=san-martinez">San Martinez</a>
           </li>
         </ul>
       </nav>

@@ -41,7 +41,8 @@
     "North Rodeo" : [4902, 4903, 4850],
     "South Rodeo" : [4901, 4903, 4846, 10011],
     "Benicia": [12201, 8421],
-    "Vallejo": [4857]
+    "Vallejo": [4857],
+    "San Martinez": [4849]
   };
 
 
@@ -107,6 +108,9 @@
     }
     else if(!locale && targetArea === "vallejo") {
       area.locale = "Vallejo"
+    }
+    else if(!locale && targetArea === "san-martinez") {
+      area.locale = "San Martinez"
     }
     else {
       area.locale = locale;
