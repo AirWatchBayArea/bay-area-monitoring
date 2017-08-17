@@ -978,164 +978,125 @@ function toggleGuide() {
   setSizes();
 }
 
-  function initFeeds() {
-    var feedNames = Object.keys(esdr_feeds).sort();
-    if(showSmokeDetection) {
-      feedNames.splice(feedNames.indexOf("Smoke_Detection"), 1);
-      feedNames[feedNames.length] = "Smoke_Detection";
+var playCallback = function() {
+  cursorInBound();
+  var icon = $("#play i:nth-child(2)");
+  icon.toggleClass("fa-play");
+  icon.toggleClass("fa-pause");
+  icon.hasClass("fa-pause") ? $('#play').addClass('pause') : $('#play').removeClass('pause');
+  icon.hasClass("fa-pause") ? play() : pause();
+}
+
+function channelPageSetup(fromShareLink) {
+  if (!tmReady) {
+    // Initialize E-Cam
+    var timelapseSupported = org.gigapan.Util.browserSupported();
+    var stitchedImage = "N/A";
+    locationDivId = "shenango1" + "_overlay";
+    setLocationThumbnailToggle();
+    $(".location_thumbnail_container").on("click", function() {
+      //if (window.location.hash)
+        //window.location.hash = "";
+      var newLocation = $(this).attr("data-location-id");
+      if (timelapse)
+        var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
+      changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
+    });
+    if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
+      // Nothing is up. Hide containers and inform the user
+      $("#stitched_image_wrapper").hide();
+      $("#location_toggle_container").hide();
+      $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
     }
-    for (var i = 0; i < feedNames.length; i++) {
-      (function(i){
-        $.ajax({
-          type: "GET",
-          dataType: "json",
-          url: ESDR_API_ROOT_URL + '/feeds/' + esdr_feeds[feedNames[i]].api_key,
-          success: function(json) {
-            esdr_feeds[feedNames[i]].fullTimeRange.min = json.data.minTimeSecs;
-            esdr_feeds[feedNames[i]].fullTimeRange.max = json.data.maxTimeSecs;
-            if (i == feedNames.length - 1) {
-              for (var j = 0; j < feedNames.length; j++) {
-                (function(j){
-                  var feed = esdr_feeds[feedNames[j]];
-                  var channelNames = Object.keys(feed.channels);
-                  channelNames.forEach(function(channelName) {
-                    if (!feed.channels[channelName].show_graph) return;
-                    createChart(feed, channelName, feed.api_key);
-                  });
-                })(j);
-              }
-            }
-          }
-        });
-      })(i);
+    else {
+      // Show timelapse
+      loadCalendar(cached_breathecam.latest.date);
     }
-    // setTimeout(refreshGrapher, 1000);
-    // setTimeout(refreshGrapher, 2000);
-    // setTimeout(refreshGrapher, 3000);
-    // if (canvasLayer){
-    //   highlightSelectedMonitors();
-    // }
   }
+  
+  initMap('map-canvas');
 
-  var playCallback = function() {
-    cursorInBound();
-    var icon = $("#play i:nth-child(2)");
-    icon.toggleClass("fa-play");
-    icon.toggleClass("fa-pause");
-    icon.hasClass("fa-pause") ? $('#play').addClass('pause') : $('#play').removeClass('pause');
-    icon.hasClass("fa-pause") ? play() : pause();
-  }
-
-  function channelPageSetup(fromShareLink) {
-    if (!tmReady) {
-      // Initialize E-Cam
-      var timelapseSupported = org.gigapan.Util.browserSupported();
-      var stitchedImage = "N/A";
-      locationDivId = "shenango1" + "_overlay";
-      setLocationThumbnailToggle();
-      $(".location_thumbnail_container").on("click", function() {
-        //if (window.location.hash)
-          //window.location.hash = "";
-        var newLocation = $(this).attr("data-location-id");
-        if (timelapse)
-          var captureTimeAsDateObj = new Date(timelapse.getCurrentCaptureTime().replace(/-/g,"/"));
-        changeLocation(newLocation, currentDate, null, null, true, null, captureTimeAsDateObj);
-      });
-      if ((!timelapseSupported || typeof (cached_breathecam) === "undefined") && stitchedImage === "") {
-        // Nothing is up. Hide containers and inform the user
-        $("#stitched_image_wrapper").hide();
-        $("#location_toggle_container").hide();
-        $("#loading").html("<div class='error_msg2'>Content currently unavailable. Please try again later.</div>");
-      }
-      else {
-        // Show timelapse
-        loadCalendar(cached_breathecam.latest.date);
-      }
+  //Zoom buttons
+  $("#zoomGrapherIn").on("click", function(event) {
+    if(!event.detail || event.detail==1){
+      zoomGrapher(0.7);
     }
-    
-    initMap('map-canvas');
+  });
+  $("#zoomGrapherOut").on("click", function(event) {
+    if(!event.detail || event.detail==1){
+      zoomGrapher(1.3);
+    }
+  });
 
-    //Zoom buttons
-    $("#zoomGrapherIn").on("click", function(event) {
-      if(!event.detail || event.detail==1){
-        zoomGrapher(0.7);
+  $('[data-toggle="popover"]').popover();
+  $("#dialog").dialog({ autoOpen: false , width: '60%'});
+
+  //Initialize playback things
+  plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
+  $("#play").unbind().on("click", function(){if(!event.detail || event.detail==1) playCallback()});
+  $("#slider").slider();
+  $('#calendar')
+  .unbind()
+  .on('click',function(ev){
+    if(!event.detail || event.detail==1){
+      toggleCalendar();
+    }
+  });
+  $('#calendarMenu').hide();
+
+  window.addEventListener('keydown',playOnSpacebarPress);
+
+  var initTime = plotManager.getDateAxis().getRange().min;
+  plotManager.getDateAxis().setCursorPosition(initTime);
+  plotManager.getDateAxis().getWrappedAxis().isTwelveHour = true
+  repaintCanvasLayer(initTime);
+
+  grapherLoadedInterval = window.setInterval(function() {
+    if (!grapherReady) return;
+
+    window.clearInterval(grapherLoadedInterval);
+    grapherLoadedInterval = null;
+
+    // Initialize Smells
+    console.log("started smell");
+    initSmells().then(function(result){
+      // Initialize Graphs
+      console.log("started feeds");
+      if(feedMap[area.locale]){
+        loadFeeds(feedMap[area.locale]);
+      }else{
+        console.log('no feeds loaded');
       }
     });
-    $("#zoomGrapherOut").on("click", function(event) {
-      if(!event.detail || event.detail==1){
-        zoomGrapher(1.3);
-      }
-    });
 
-    $('[data-toggle="popover"]').popover();
-    $("#dialog").dialog({ autoOpen: false , width: '60%'});
+    if(fromShareLink) {
+      $("#slider").slider("value",85);
+      playCallback();
+    }
+  }, 10);
+}
 
-    //Initialize playback things
-    plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-    $("#play").unbind().on("click", function(){if(!event.detail || event.detail==1) playCallback()});
-    $("#slider").slider();
-    $('#calendar')
-    .unbind()
-    .on('click',function(ev){
-      if(!event.detail || event.detail==1){
-        toggleCalendar();
-      }
-    });
-    $('#calendarMenu').hide();
-
-    window.addEventListener('keydown',playOnSpacebarPress);
-
-    var initTime = plotManager.getDateAxis().getRange().min;
-    plotManager.getDateAxis().setCursorPosition(initTime);
-    plotManager.getDateAxis().getWrappedAxis().isTwelveHour = true
-    repaintCanvasLayer(initTime);
-
-    grapherLoadedInterval = window.setInterval(function() {
-      if (!grapherReady) return;
-
-      window.clearInterval(grapherLoadedInterval);
-      grapherLoadedInterval = null;
-
-      // Initialize Smells
-      console.log("started smell");
-      initSmells().then(function(result){
-        // Initialize Graphs
-        console.log("started feeds");
-        if(feedMap[area.locale]){
-          loadFeeds(feedMap[area.locale]);
-        }else{
-          console.log('no feeds loaded');
-        }
-      });
-
-      if(fromShareLink) {
-        $("#slider").slider("value",85);
-        playCallback();
-      }
-    }, 10);
-  }
-
-  window.requestAnim =
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(callback) {
-      return window.setTimeout(callback, 10);
-    };
+window.requestAnim =
+  window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.oRequestAnimationFrame ||
+  window.msRequestAnimationFrame ||
+  function(callback) {
+    return window.setTimeout(callback, 10);
+  };
 
 window.addEventListener('message', function(event) {
 
-    // IMPORTANT: Check the origin of the data!
-    if (~event.origin.indexOf('http://crockett-rodeo-united.com')) {
-        // The data has been sent from your site
+  // IMPORTANT: Check the origin of the data!
+  if (~event.origin.indexOf('http://crockett-rodeo-united.com')) {
+      // The data has been sent from your site
 
-        // The data sent with postMessage is stored in event.data
-        console.log(event.data);
-    } else {
-        // The data hasn't been sent from your site!
-        // Be careful! Do not use it.
-        return;
-    }
+      // The data sent with postMessage is stored in event.data
+      console.log(event.data);
+  } else {
+      // The data hasn't been sent from your site!
+      // Be careful! Do not use it.
+      return;
+  }
 });

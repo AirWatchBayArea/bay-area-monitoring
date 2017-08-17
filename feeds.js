@@ -1,6 +1,45 @@
 "use strict";
 
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
+
+function initFeeds() {
+  var feedNames = Object.keys(esdr_feeds).sort();
+  if(showSmokeDetection) {
+    feedNames.splice(feedNames.indexOf("Smoke_Detection"), 1);
+    feedNames[feedNames.length] = "Smoke_Detection";
+  }
+  Promise.all(feedNames.map(function(feedName){
+    return createFeed(feedName);
+  })).then(function(results){
+    for (var j = 0; j < feedNames.length; j++) {
+      var feed = esdr_feeds[feedNames[j]];
+      var channelNames = Object.keys(feed.channels);
+      channelNames.forEach(function(channelName) {
+        if (!feed.channels[channelName].show_graph) return;
+        createChart(feed, channelName, feed.api_key);
+      });
+    }
+  });
+  // if (canvasLayer){
+  //   highlightSelectedMonitors();
+  // }
+  }
+
+function createFeed(feedName){
+  return new Promise(function(resolve, reject){
+    $.ajax({
+      type: "GET",
+      dataType: "json",
+      url: ESDR_API_ROOT_URL + '/feeds/' + esdr_feeds[feedName].api_key,
+      success: function(json) {
+        esdr_feeds[feedName].fullTimeRange.min = json.data.minTimeSecs;
+        esdr_feeds[feedName].fullTimeRange.max = json.data.maxTimeSecs;
+        resolve(json);
+      }
+    });
+  });
+}
+
 function loadFeeds(area_feed_ids) {
   Promise.all(area_feed_ids.map(function(feed_id){
     return loadFeed(feed_id);
