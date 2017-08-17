@@ -165,11 +165,11 @@
             <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <!-- <li><a href="#loc=bay-area">Bay Area</a></li> -->
+              <li><a href="#loc=bay-area">Bay Area</a></li>
               <li><a href="#loc=richmond">Richmond</a></li>
               <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
               <li><a href="#loc=benicia">Benicia</a></li>
-              <!-- <li><a href="#loc=vallejo">Vallejo</a></li> -->
+              <li><a href="#loc=vallejo">Vallejo</a></li>
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -540,9 +540,9 @@
     <div class="container-fluid dashboard-page full-height">
       <nav id="loc-nav" class="navbar navbar-default">
         <ul class="nav navbar-nav">
-          <!-- <li class="custom-nav-btn" id="bay-area-tab">
+          <li class="custom-nav-btn" id="bay-area-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=bay-area">Bay Area</a>
-          </li> -->
+          </li>
           <li class="custom-nav-btn" id="richmond-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Richmond</a>
           </li>
@@ -552,9 +552,9 @@
           <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
           </li>
-          <!-- <li class="custom-nav-btn" id="benicia-tab">
+          <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=vallejo">Vallejo</a>
-          </li> -->
+          </li>
         </ul>
       </nav>
       <div id="map_parent" class="row">
