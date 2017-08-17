@@ -143,6 +143,11 @@ var BAAQMDMonitors = {
     lat: 38.03433,
     lng: -122.27033,
     description: "BAAQMD Monitor"
+  },
+  "Vallejo":{
+    lat:  38.102507,
+    lng: -122.237976,
+    description: "BAAQMD Monitor"
   }
 }
 
