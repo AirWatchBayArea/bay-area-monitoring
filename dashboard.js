@@ -42,7 +42,7 @@
     "South Rodeo" : [4901, 4903, 4846, 10011],
     "Benicia": [12201, 8421],
     "Vallejo": [4857],
-    "San Martinez": [4849]
+    "Martinez": [4849]
   };
 
 
@@ -109,8 +109,8 @@
     else if(!locale && targetArea === "vallejo") {
       area.locale = "Vallejo"
     }
-    else if(!locale && targetArea === "san-martinez") {
-      area.locale = "San Martinez"
+    else if(!locale && targetArea === "martinez") {
+      area.locale = "Martinez"
     }
     else {
       area.locale = locale;

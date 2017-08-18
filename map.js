@@ -149,7 +149,7 @@ var BAAQMDMonitors = {
     lng: -122.237976,
     description: "BAAQMD Monitor"
   },
-  "San Martinez":{
+  "Martinez":{
     lat:  38.012816,
     lng: -122.134467,
     description: "BAAQMD Monitor"
@@ -314,7 +314,7 @@ var mapCenters = {
     y : -122.24761576606441,
     zoom: 13
   },
-  "san-martinez":{
+  "martinez":{
     x : 38.01201999567132,
     y : -122.13458453021235,
     zoom: 13
