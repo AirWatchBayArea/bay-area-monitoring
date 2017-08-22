@@ -72,7 +72,7 @@ function sortingFunction(a, b) {
 function zoomMapToClickedReport(pointData) {
   var selectedPoint;
   for (var i=0;i<commentData.length;i++) {
-    if(commentData[i][0] == pointData.x) {
+    if(Math.abs(commentData[i][0] - pointData.x) <= 1) {
       selectedPoint = commentData[i];
     }
   }

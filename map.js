@@ -290,8 +290,8 @@ var pollutionSources = {
 
 var mapCenters = {
   "bay-area":{
-    x : 37.87450048188688,
-    y : -122.33979792548824,
+    x : 38.0069141386237,
+    y : -122.33361811591793,
     zoom: 9
   },
   "richmond":{
