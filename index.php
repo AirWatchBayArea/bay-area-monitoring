@@ -146,8 +146,8 @@
   </script>
   <script src='user-reports.js' type='text/javascript'>
   </script>
-  <script src='language.js' type='text/javascript'>
-  </script>
+<!--   <script src='language.js' type='text/javascript'>
+  </script> -->
 </head>
 <body>
   <nav id="site-nav" class="navbar navbar-custom">
@@ -167,12 +167,21 @@
             <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <!-- <li><a href="#loc=bay-area">Bay Area</a></li> -->
+            <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
+               <li><a href="#loc=bay-area">Bay Area</a></li>
+              <li><a href="#loc=richmond">Richmond</a></li>
+              <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
+              <li><a href="#loc=benicia">Benicia</a></li>
+              <li><a href="#loc=vallejo">Vallejo</a></li>
+              <li><a href="#loc=martinez">Martinez</a></li>
+            <?php else: ?>
+               <!-- <li><a href="#loc=bay-area">Bay Area</a></li> -->
               <li><a href="#loc=richmond">Richmond</a></li>
               <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
               <li><a href="#loc=benicia">Benicia</a></li>
               <!-- <li><a href="#loc=vallejo">Vallejo</a></li> -->
               <!-- <li><a href="#loc=martinez">Martinez</a></li> -->
+            <?php endif; ?>
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -219,12 +228,21 @@
                    fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
+                    <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
+                    <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Bay Area &rarr;</a><br/>
+                    <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
+                    <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
+                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a><br/>
+                    <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted">Vallejo &rarr;</a><br/>
+                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted">Martinez&rarr;</a><br/>
+                    <?php else: ?>
                     <!-- <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Bay Area &rarr;</a><br/> -->
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
                     <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
                     <!-- <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted">Vallejo &rarr;</a>
                     <a href="#loc=martinez" class="btn btn-xl text-gettingstarted">Martinez&rarr;</a> -->
+                    <?php endif; ?>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -568,6 +586,9 @@
           </li>
 
         <?php else: ?>
+          <!-- <li class="custom-nav-btn" id="bay-area-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=bay-area">Bay Area</a>
+          </li> -->
           <li class="custom-nav-btn" id="richmond-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Richmond</a>
           </li>
@@ -577,6 +598,12 @@
           <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
           </li>
+          <!-- <li class="custom-nav-btn" id="vallejo-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=vallejo">Vallejo</a>
+          </li>
+          <li class="custom-nav-btn" id="martinez-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=martinez">Martinez</a>
+          </li> -->
         <?php endif; ?>
         </ul>
       </nav>
