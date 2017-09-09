@@ -11,7 +11,13 @@ var spinner;
 //generates a post from a given smell report
 function generatePostFromSmell(smell_report){
 	//parse the additional comments JSON from smell report
-	var additionalCommentsData = JSON.parse(smell_report['additional_comments']);
+	try{
+		var additionalCommentsData = JSON.parse(smell_report['additional_comments']);
+	}catch(err){
+		console.log(err);
+		var additionalCommentsData = false;
+	}
+
 	var safe_imgs;
 	if(additionalCommentsData){
 		//IMPORTANT! Checks if JSON was parsed correctly (legacy support for non-stringified submissions)
