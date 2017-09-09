@@ -146,6 +146,8 @@
   </script>
   <script src='user-reports.js' type='text/javascript'>
   </script>
+  <script src='language.js' type='text/javascript'>
+  </script>
 </head>
 <body>
   <nav id="site-nav" class="navbar navbar-custom">
@@ -165,12 +167,12 @@
             <a class="dropdown-toggle text-uppercase" data-toggle="dropdown" href="#">Air Quality
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="#loc=bay-area">Bay Area</a></li>
+              <!-- <li><a href="#loc=bay-area">Bay Area</a></li> -->
               <li><a href="#loc=richmond">Richmond</a></li>
               <li><a href="#loc=crockett-rodeo">Crockett-Rodeo</a></li>
               <li><a href="#loc=benicia">Benicia</a></li>
-              <li><a href="#loc=vallejo">Vallejo</a></li>
-              <li><a href="#loc=martinez">Martinez</a></li>
+              <!-- <li><a href="#loc=vallejo">Vallejo</a></li> -->
+              <!-- <li><a href="#loc=martinez">Martinez</a></li> -->
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -199,7 +201,7 @@
         <div class="container">
             <div class="intro-text" style="width:76%; margin: 0 12%">
               <img style="margin-bottom: 5%" src="img/logo+text.svg" class="img-reponsive"/>
-                <div style="text-shadow: 0px 0px 20px #162946" class="intro-lead-in">An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
+                <div style="text-shadow: 0px 0px 20px #162946" class="intro-lead-in" lang="en">An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
                 <a onclick="jumpToGetStarted()" class="page-scroll btn btn-xl" style="border-color: #f7b733; background-color: #f7b733; color: white;padding:15px 25px; letter-spacing: 1px;;
 ">GET STARTED</a>
             </div>
@@ -217,9 +219,12 @@
                    fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">View Air Quality in Your Community</h4>
+                    <!-- <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Bay Area &rarr;</a><br/> -->
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
                     <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a>
+                    <!-- <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted">Vallejo &rarr;</a>
+                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted">Martinez&rarr;</a> -->
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -342,7 +347,7 @@
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible "paper&nbsp;trail" of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
     
     <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
-      <p class="note error">THIS IS THE STAGING SITE! Reports without photos will go to a fake server so feel free to test away. Pictures will be uploaded, however, but email <a href="mailto:sufy.abbasi@gmail.com">sufy.abbasi@gmail.com</a> and we will remove it for you!</p>
+      <p class="note error">THIS IS THE STAGING SITE! Reports will go to a fake server so feel free to test away.</p>
     <?php endif; ?>
 
     <form id="report-form">
@@ -541,6 +546,8 @@
     <div class="container-fluid dashboard-page full-height">
       <nav id="loc-nav" class="navbar navbar-default">
         <ul class="nav navbar-nav">
+
+        <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
           <li class="custom-nav-btn" id="bay-area-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=bay-area">Bay Area</a>
           </li>
@@ -553,12 +560,24 @@
           <li class="custom-nav-btn" id="benicia-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
           </li>
-          <li class="custom-nav-btn" id="benicia-tab">
+          <li class="custom-nav-btn" id="vallejo-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=vallejo">Vallejo</a>
           </li>
-          <li class="custom-nav-btn" id="benicia-tab">
+          <li class="custom-nav-btn" id="martinez-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=martinez">Martinez</a>
           </li>
+
+        <?php else: ?>
+          <li class="custom-nav-btn" id="richmond-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=richmond">Richmond</a>
+          </li>
+          <li class="custom-nav-btn" id="crockett-rodeo-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=crockett-rodeo">Crockett-Rodeo</a>
+          </li>
+          <li class="custom-nav-btn" id="benicia-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=benicia">Benicia</a>
+          </li>
+        <?php endif; ?>
         </ul>
       </nav>
       <div id="map_parent" class="row">
