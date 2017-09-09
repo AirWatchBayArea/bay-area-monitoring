@@ -232,9 +232,9 @@
                     <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Bay Area &rarr;</a><br/>
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
                     <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo &rarr;</a><br/>
-                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted">Benicia &rarr;</a><br/>
-                    <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted">Vallejo &rarr;</a><br/>
-                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted">Martinez&rarr;</a><br/>
+                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Benicia &rarr;</a><br/>
+                    <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Vallejo &rarr;</a><br/>
+                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Martinez&rarr;</a><br/>
                     <?php else: ?>
                     <!-- <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Bay Area &rarr;</a><br/> -->
                     <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond &rarr;</a><br/>
