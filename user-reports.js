@@ -18,11 +18,11 @@ function generatePostFromSmell(smell_report){
 		var additionalCommentsData = false;
 	}
 
-	var safe_imgs;
+	var safe_imgs = {};
+	var safe_tags = [];
 	if(additionalCommentsData){
 		//IMPORTANT! Checks if JSON was parsed correctly (legacy support for non-stringified submissions)
 		var unsafe_imgs = additionalCommentsData.img;
-		var safe_imgs = {};
 		//safely decode img source and caption/dates
 		for(var unsafe_src in unsafe_imgs){
 			var safe_src = escapeHTML(decodeURIComponent(unsafe_src));
@@ -34,14 +34,12 @@ function generatePostFromSmell(smell_report){
 		}
 		//safely decode tags into list
 		var unsafe_tags = additionalCommentsData['tags'];
-		var safe_tags = [];
 		for (var i = unsafe_tags.length - 1; i >= 0; i--) {
 			safe_tags.push(escapeHTML(decodeURIComponent(unsafe_tags[i])));
 		}
 	}else{
 		//if JSON didn't successfully parse, we have a legacy submission (non-JSON additional comment)
 		additionalCommentsData = {'additional_comments': escapeHTML(decodeURIComponent(smell_report['additional_comments']))};
-		safe_imgs = {};
 	}
 
 	var postData = {
@@ -60,7 +58,7 @@ function generatePostFromSmell(smell_report){
 		new Date(0).setUTCSeconds(smell_report['created_at']),
 		postData['smell_value'],
 		Object.keys(safe_imgs).length,
-		additionalCommentsData['tags']
+		safe_tags
 	));
 }
 
