@@ -135,26 +135,26 @@ var communityMonitors = {
 
 //defines where to draw BAAQMDMonitors
 var BAAQMDMonitors = {
-  "North Rodeo": {
-    lat: 38.05492,
-    lng: -122.2332,
-    description: "BAAQMD Monitor"
-  },
-  "South Rodeo": {
-    lat: 38.03433,
-    lng: -122.27033,
-    description: "BAAQMD Monitor"
-  },
-  "Vallejo":{
-    lat:  38.102507,
-    lng: -122.237976,
-    description: "BAAQMD Monitor"
-  },
-  "Martinez":{
-    lat:  38.012816,
-    lng: -122.134467,
-    description: "BAAQMD Monitor"
-  }
+  // "North Rodeo": {
+  //   lat: 38.05492,
+  //   lng: -122.2332,
+  //   description: "BAAQMD Monitor"
+  // },
+  // "South Rodeo": {
+  //   lat: 38.03433,
+  //   lng: -122.27033,
+  //   description: "BAAQMD Monitor"
+  // },
+  // "Vallejo":{
+  //   lat:  38.102507,
+  //   lng: -122.237976,
+  //   description: "BAAQMD Monitor"
+  // },
+  // "Martinez":{
+  //   lat:  38.012816,
+  //   lng: -122.134467,
+  //   description: "BAAQMD Monitor"
+  // }
 }
 
 //Defines where to draw refineries
@@ -329,33 +329,33 @@ var pollutionSources = {
 
 var mapCenters = {
   "bay-area":{
-    x : 38.0069141386237,
-    y : -122.33361811591793,
+    lat : 38.0069141386237,
+    lng : -122.33361811591793,
     zoom: 9
   },
   "richmond":{
-    x : 37.938407712418034,
-    y : -122.36615572772212,
+    lat : 37.938407712418034,
+    lng : -122.36615572772212,
     zoom: 13
   },
   "crockett-rodeo":{
-    x : 38.03885974316995,
-    y : -122.23290213427731,
+    lat : 38.03885974316995,
+    lng : -122.23290213427731,
     zoom: 13
   },
   "benicia":{
-    x : 38.06830801346868,
-    y : -122.1451339240234,
+    lat : 38.06830801346868,
+    lng : -122.1451339240234,
     zoom: 13
   },
   "vallejo":{
-    x : 38.08776629286048,
-    y : -122.24761576606441,
+    lat : 38.09945801857219,
+    lng : -122.2465857978027,
     zoom: 13
   },
   "martinez":{
-    x : 38.01201999567132,
-    y : -122.13458453021235,
+    lat : 38.01201999567132,
+    lng : -122.13458453021235,
     zoom: 13
   }
 }
@@ -399,7 +399,7 @@ function initMap(div) {
     zoomControlOptions: {
         position: google.maps.ControlPosition.LEFT_TOP
     },
-    center: new google.maps.LatLng(center.x, center.y),
+    center: new google.maps.LatLng(center.lat, center.lng),
 
     styles: styleArray
   };
@@ -470,7 +470,7 @@ function initMap(div) {
     }
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
-      location: new google.maps.LatLng(center.x, center.y),
+      location: new google.maps.LatLng(center.lat, center.lng),
       radius: 5000,
       type: ['school']
     }, drawSchoolMarkers);

@@ -35,17 +35,27 @@
   };
 
   //the monitor associated with each of the locations, with array of ESDR Feed ID
+  // var feedMap = {
+  //   "Atchison Village" : [4910, 4909],
+  //   "North Richmond" : [4911, 4912],
+  //   "Point Richmond" : [4913, 4914],
+  //   "North Rodeo" : [4902, 4903, 4850],
+  //   "South Rodeo" : [4901, 4903, 4846, 10011],
+  //   "Benicia": [12201, 8421],
+  //   "Vallejo": [4857],
+  //   "Martinez": [4849]
+  // };
   var feedMap = {
     "Atchison Village" : [4910, 4909],
     "North Richmond" : [4911, 4912],
     "Point Richmond" : [4913, 4914],
-    "North Rodeo" : [4902, 4903, 4850],
-    "South Rodeo" : [4901, 4903, 4846, 10011],
+    "North Rodeo" : [4902, 4903],
+    "South Rodeo" : [4901, 4903, 10011],
     "Benicia": [12201, 8421],
-    "Vallejo": [4857],
-    "Martinez": [4849]
+    "Vallejo": [],
+    "Martinez": [],
+    "BAAQMD":[4850, 4846, 4857, 4849]
   };
-
 
   var healthLimitMap = {
     "Benzene (ppb)" : 1,
