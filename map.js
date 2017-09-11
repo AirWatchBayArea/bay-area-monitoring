@@ -9,7 +9,8 @@ var mapProjection;
 var projectionScale = 2000;
 var y_scale;
 var minZoom = 5;
-var windMonitor, fencelineMonitor, communityMonitor, BAAQMDMonitor, infowindow;
+var windMonitor, infowindow;
+var highlights = [];
 var iconBase = 'assets/images/';
 var countryPointSizePixels = 7; 
 var blockPointSizePixels = 70; 
@@ -64,44 +65,44 @@ var icons = {
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
-  "Atchison Village": {
-    lat:   37.935014,
-    lng: -122.384772,
+  "Atchison Village":{
+    lat: 37.941351,
+    lng: -122.381193,
     description: "Fenceline Monitor"
   },
   "North Richmond": {
-    lat: 37.952750,
+    lat: 37.948234,
     lng: -122.375425,
     description: "Fenceline Monitor"
   },
   "Point Richmond": {
-    lat:  37.933972,
-    lng: -122.392989,
+    lat:  37.93501,
+    lng: -122.384772,
     description: "Fenceline Monitor"
   },
   "North Rodeo": {
-    lat: 38.04756,
-    lng: -122.25207,
+    lat: 38.044924,
+    lng: -122.247935,
     description: "Fenceline Monitor"
   },
   "South Rodeo": {
-    lat: 38.03426,
-    lng: -122.25467,
+    lat: 38.03855,
+    lng: -122.25653,
     description: "Fenceline Monitor"
   }
 };
 
-//defines where to draw fenceline highlight (deprecated)
-// var receivers = {
-//   "North Rodeo": {
-//     lat: 38.04228,
-//     lng: -122.24378
-//   },
-//   "South Rodeo": {
-//     lat: 38.03996,
-//     lng: -122.26076
-//   }
-// }
+//defines where to draw fenceline highlight
+var receivers = {
+  "North Rodeo": {
+    lat: 38.04228,
+    lng: -122.24378
+  },
+  "South Rodeo": {
+    lat: 38.03996,
+    lng: -122.26076
+  }
+}
 
 //defines where to draw community monitors
 var communityMonitors = {
@@ -637,7 +638,7 @@ function setupCanvasLayerProjection() {
 
 //draws wind data for desired point on map at given time
 function paintWind(site, epochTime) {
-  var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude);
+  var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude - .003);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
   var x = worldPoint.x * projectionScale;
   var y = worldPoint.y * projectionScale;
@@ -773,80 +774,43 @@ function getData(site, channel, time) {
   }
 }
 
-// (deprecated for now) Highlights the selected monitor
-// function highlightSelectedMonitors() {
-//   if(communityMonitor) communityMonitor.setMap(null);
-//   if(BAAQMDMonitor) BAAQMDMonitor.setMap(null);
-//   if(fencelineMonitor) fencelineMonitor.setMap(null);
+// Highlights the selected monitor
+function highlightSelectedMonitors() {
+  for (var i = highlights.length - 1; i >= 0; i--) {
+    highlights[i].setMap(null);
+  }
 
-//   for(var feed in esdr_feeds) {
-//     //skip the Rodeo wind feed
-//     if (feed == "Rodeo fenceline_org") {
-//       continue;
-//     }
-//     var coords = {
-//       lat: esdr_feeds[feed].coordinates.latitude,
-//       lng: esdr_feeds[feed].coordinates.longitude
-//     }
-
-//     if(feed.indexOf("Fence") > 0) {
-//       var fencelineCoords;
-//       if(area.id === "richmond") {
-//         fencelineCoords = [coords, fencelineMonitors[area.locale]];
-//       }
-//       else {
-//         fencelineCoords = [receivers[area.locale], fencelineMonitors[area.locale]];
-//       }
-//       fencelineMonitor = new google.maps.Polyline({
-//         map: map,
-//         path: fencelineCoords,
-//         geodesic: true,
-//         strokeColor: '#FFF000',
-//         strokeOpacity: 0.5,
-//         strokeWeight: 10
-//       });
-//     }
-//     else {
-//       var factor, radius, center;
-//       factor = Math.pow(2,(13 - map.zoom));
-//       radius = 260 * factor;
-//       center = coords;
-//       var markerOptions = {
-//         strokeColor: '#FFF000',
-//         strokeOpacity: 0.5,
-//         strokeWeight: 2,
-//         fillColor: '#FFF000',
-//         fillOpacity: 0.5,
-//         map: map,
-//         center: {
-//           lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
-//           lng: center.lng
-//         },
-//         radius: radius
-//       }
-
-//       if (feed.indexOf("BAAQMD") >= 0) {
-//         BAAQMDMonitor = new google.maps.Circle(markerOptions);
-//         BAAQMDMonitor.initialCenter = center;
-//       }
-//       else {
-//         communityMonitor = new google.maps.Circle(markerOptions);
-//         communityMonitor.initialCenter = center;
-//       }
-//     }
-//   }
-//   map.addListener('zoom_changed', function() {
-//     for (var monitor of [BAAQMDMonitor, communityMonitor]) {
-//       if (monitor) {
-//         factor = Math.pow(2,(13 - map.zoom));
-//         radius = 260 * factor;
-//         monitor.setRadius(radius);
-//         var lat = monitor.initialCenter.lat + Math.pow(2,17-map.zoom) * .0001;
-//         monitor.setCenter(new google.maps.LatLng(lat, monitor.initialCenter.lng));
-//       }
-//     }
-//   });
-// }
+  for(var feed in esdr_feeds) {
+    //skip the Rodeo wind feed
+    if (feed == "Rodeo fenceline_org") {
+      continue;
+    }
+    var coords = {
+      lat: esdr_feeds[feed].coordinates.latitude,
+      lng: esdr_feeds[feed].coordinates.longitude
+    }
+    var factor, radius, center;
+    factor = Math.pow(2,(13 - map.zoom));
+    radius = 260 * factor;
+    center = coords;
+    var markerOptions = {
+      strokeColor: '#FFF000',
+      strokeOpacity: 0.5,
+      strokeWeight: 2,
+      fillColor: '#FFF000',
+      fillOpacity: 0.5,
+      map: map,
+      center: {
+        lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
+        lng: center.lng
+      },
+      radius: radius
+    }
+    var highlightCircle = new google.maps.Circle(markerOptions);
+    highlightCircle.initialCenter = center;
+    highlights.push(highlightCircle);
+  }
+}
 
 //repaints the canvas layer on each update of the cursor
 function repaintCanvasLayer(epochTime) {
@@ -862,20 +826,23 @@ function repaintCanvasLayer(epochTime) {
       epochTime = (currentTime.getTime() / 1000) - 3600;
     }
 
-    var esdrKeys = Object.keys(esdr_feeds);
-    var feedName;
-    if(area.locale.indexOf("Rodeo") > 0) {
-      feedName = "Rodeo fenceline_org";
+    // var esdrKeys = Object.keys(esdr_feeds);
+    // var feedName;
+    // if(area.locale.indexOf("Rodeo") > 0) {
+    //   feedName = "Rodeo fenceline_org";
+    // }
+    // else {
+    //   for(var i=0;i<esdrKeys.length;i++) {
+    //     if(esdrKeys[i].indexOf("Refinery") > -1) {
+    //       feedName = esdrKeys[i];
+    //     }
+    //   }
+    // }
+    // var feed = esdr_feeds[feedName];
+    // paintWind(feed, epochTime);
+    for (var i = windFeeds.length - 1; i >= 0; i--) {
+      paintWind(windFeeds[i], epochTime);
     }
-    else {
-      for(var i=0;i<esdrKeys.length;i++) {
-        if(esdrKeys[i].indexOf("Refinery") > -1) {
-          feedName = esdrKeys[i];
-        }
-      }
-    }
-    var feed = esdr_feeds[feedName];
-    paintWind(feed, epochTime);
   } catch(e) {
     //console.log(e);
   }

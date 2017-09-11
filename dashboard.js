@@ -34,6 +34,7 @@
     "BAAQMD" : "rgb(103,58,183)"
   };
 
+  //the monitor associated with each of the locations, with array of ESDR Feed ID
   var feedMap = {
     "Atchison Village" : [4910, 4909],
     "North Richmond" : [4911, 4912],
@@ -411,7 +412,7 @@
 
   function generateShareLink() {
     var range = plotManager.getDateAxis().getRange();
-    var link = PROJ_ROOT_URL + "#loc=" + area.id + "&monitor=" + area.locale.replace(/ /g,"-") + "&time=" + range.min + "," + range.max;
+    var link = PROJ_ROOT_URL + "#loc=" + area.id + "&monitor=" + (area.locale ? area.locale.replace(/ /g,"-") : "") + "&time=" + range.min + "," + range.max;
     $("#shareLink")
     .text(link)
     .attr('href',link);;

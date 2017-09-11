@@ -1,5 +1,8 @@
 "use strict";
 
+var windFeeds = [];
+var windFeedIds = [4911, 4913];
+
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
 
 function initFeeds() {
@@ -20,9 +23,9 @@ function initFeeds() {
       });
     }
   });
-  // if (canvasLayer){
-  //   highlightSelectedMonitors();
-  // }
+  if (canvasLayer){
+    highlightSelectedMonitors();
+  }
   }
 
 function createFeed(feedName){
@@ -141,3 +144,58 @@ function loadFeed(area_feed_id){
     });
   });
 }
+
+function loadWindFeeds(wind_feed_ids) {
+  Promise.all(wind_feed_ids.map(function(feed_id){
+    return loadWindFeed(feed_id);
+  })).then(function(results){
+    windFeeds = results;
+  })
+}
+
+function loadWindFeed(wind_feed_id){
+  return new Promise(function(resolve, reject){
+    $.ajax({
+    type: "GET",
+    dataType: "json",
+    url: ESDR_API_ROOT_URL + "/feeds/" + wind_feed_id,
+    success: function(json) {
+      var feed = json.data;
+      var wind_feed_data = {
+        feed_id : feed.id,
+        coordinates: {
+          latitude: feed.latitude,
+          longitude: feed.longitude
+        },
+        api_key: feed.apiKeyReadOnly,
+        requested_day: {},
+        channels: {},
+        fullTimeRange: {}
+      }
+      var feed_channels = Object.keys(feed.channelBounds.channels);
+      for(var j=0;j<feed_channels.length;j++) {
+        var chemical = feed_channels[j];
+        var chemicalLabel = chemical;
+          chemicalLabel = chemicalLabel.replace(/_/g," ");
+          wind_feed_data.channels[chemical] = {
+            show_graph: true,
+            hourly: true,
+            graphMetaData: {
+              label: chemicalLabel
+            },
+            summary: {}
+          }
+      }
+      resolve(wind_feed_data);
+      },
+      failure: function() {
+        alert("Something isn't working!");
+        reject();
+      }
+    });
+  });
+}
+
+$(function(){
+  loadWindFeeds(windFeedIds);
+})
