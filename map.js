@@ -41,15 +41,15 @@ var icons = {
                         fillOpacity: 1.0,
                         legendIcon: iconBase + "fenceline.png"
                       },
-  "BAAQMD Monitor": {
-                      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                      fillColor: 'royalblue',
-                      strokeColor: 'skyblue',
-                      strokeWeight: 3,
-                      scale: iconScale,
-                      fillOpacity: 1.0,
-                      legendIcon: iconBase + "baaqmd-monitor-pin.png" 
-                    },
+  // "BAAQMD Monitor": {
+  //                     path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+  //                     fillColor: 'royalblue',
+  //                     strokeColor: 'skyblue',
+  //                     strokeWeight: 3,
+  //                     scale: iconScale,
+  //                     fillOpacity: 1.0,
+  //                     legendIcon: iconBase + "baaqmd-monitor-pin.png" 
+  //                   },
   "Community Monitor": {
                       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
                       fillColor: 'mediumspringgreen',
@@ -331,7 +331,7 @@ var mapCenters = {
   "bay-area":{
     lat : 38.0069141386237,
     lng : -122.33361811591793,
-    zoom: 9
+    zoom: 10
   },
   "richmond":{
     lat : 37.938407712418034,
