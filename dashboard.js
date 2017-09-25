@@ -51,7 +51,7 @@
     "Point Richmond" : [4913, 4914],
     "North Rodeo" : [4902, 4903],
     "South Rodeo" : [4901, 4903, 10011],
-    "Benicia": [12201, 8421],
+    "Benicia": [12201, 8421, 12305],
     "Vallejo": [],
     "Martinez": [],
     "BAAQMD":[4850, 4846, 4857, 4849]

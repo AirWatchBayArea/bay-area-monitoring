@@ -106,31 +106,36 @@ var receivers = {
 
 //defines where to draw community monitors
 var communityMonitors = {
-  "Atchison Village": {
+  "Atchison Village": [{
     lat:   37.93447,
     lng: -122.37166,
     description: "Community Monitor"
-  },
-  "North Richmond": {
+  }],
+  "North Richmond": [{
     lat: 37.94799,
     lng: -122.36477,
     description: "Community Monitor"
-  },
-  "Point Richmond": {
+  }],
+  "Point Richmond": [{
     lat:  37.92423,
     lng: -122.38215,
     description: "Community Monitor"
-  },
-  "Benicia":{
+  }],
+  "Benicia":[
+  {
     lat:  38.060852,
     lng: -122.1277356,
     description: "Community Monitor"
-  },
-  "South Rodeo":{
+  },{
+    lat:  38.0680133588967,
+    lng: -122.121974062288,
+    description: "Community Monitor"
+  }],
+  "South Rodeo":[{
     lat:  38.031616,
     lng: -122.263651,
     description: "Community Monitor"
-  }
+  }]
 }
 
 //defines where to draw BAAQMDMonitors
@@ -330,7 +335,7 @@ var pollutionSources = {
 var mapCenters = {
   "bay-area":{
     lat : 37.991763648910556,
-    lng : -122.53137202216793,
+    lng : -122.2388610358398,
     zoom: 10
   },
   "richmond":{
@@ -432,10 +437,12 @@ function initMap(div) {
 
   //add Community Monitors
   for(var key in communityMonitors) {
-    var communityMonitor = communityMonitors[key];
-    var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
-    var icon = icons['Community Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key)).setZIndex(1);
+    for (var i = communityMonitors[key].length - 1; i >= 0; i--) {
+      var communityMonitor = communityMonitors[key][i];
+      var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
+      var icon = icons['Community Monitor'];
+      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key)).setZIndex(1);
+    }
   }
 
   //add BAAQMD Monitors

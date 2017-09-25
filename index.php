@@ -202,8 +202,7 @@
             <div class="intro-text" style="width:76%; margin: 0 12%">
               <img style="margin-bottom: 5%" src="img/logo+text.svg" class="img-reponsive"/>
                 <div style="text-shadow: 0px 0px 20px #162946" class="intro-lead-in" lang="en">An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.</div>
-                <a onclick="jumpToGetStarted()" class="page-scroll btn btn-xl" style="border-color: #f7b733; background-color: #f7b733; color: white;padding:15px 25px; letter-spacing: 1px;;
-">GET STARTED</a>
+                <a onclick="jumpToGetStarted()" class="page-scroll btn btn-xl" style="border-color: #f7b733; background-color: #f7b733; color: white;padding:15px 25px; letter-spacing: 1px;">GET STARTED</a>
             </div>
         </div>
     </header>
@@ -248,7 +247,8 @@
                         <i class="fa fa-flag-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Resources for Action</h4>
-                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View resources for action &rarr;</a>
+                    <a href="#resources-for-action" class="btn btn-xl text-gettingstarted">View resources for action &rarr;</a><br>
+                    <a href="https://www.facebook.com/AirWatchBayArea/?ref=br_rs" target="_blank" class="btn btn-xl text-gettingstarted" style="background-color: rgb(66, 103, 178); color: white; border: none;padding:10px 20px">Like us on our Facebook page &rarr;</a>
                 </div>
             </div>
         </div>

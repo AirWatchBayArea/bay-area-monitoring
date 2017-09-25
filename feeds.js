@@ -3,7 +3,7 @@
 var windFeeds = [];
 var windFeedIds = [4911, 4913];
 
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust"]//,"PM_2_5","Ammonia","3_Methylpentane","N_Hexane"]
+var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust","PM_2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
 
 function initFeeds() {
   var feedNames = Object.keys(esdr_feeds).sort();
