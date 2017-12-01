@@ -1048,11 +1048,11 @@ function channelPageSetup(fromShareLink) {
 
   //Initialize playback things
   plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
-  $("#play").unbind().on("click", function(){if(!event.detail || event.detail==1) playCallback()});
+  $("#play").unbind().on("click", function(event){if(!event.detail || event.detail==1) playCallback()});
   $("#slider").slider();
   $('#calendar')
   .unbind()
-  .on('click',function(ev){
+  .on('click',function(event){
     if(!event.detail || event.detail==1){
       toggleCalendar();
     }
