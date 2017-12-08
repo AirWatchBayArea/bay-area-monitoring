@@ -261,7 +261,7 @@ $(function(){
 		trail: 45,
 	}).spin()
 	$(window).scroll(function() {
-   		if(window.location.hash == "#user-reports" && postList.length > $('#posts .post').length && $(window).scrollTop() + $(window).height() >= $(document).height()) {
+   		if(window.location.hash == "#user-reports" && postList.length > $('#posts .post').length && $(window).scrollTop() + $(window).height() >= $(document).height() - 80) {
 	      console.log("got to bottom");
 	      clearTimeout(appendMoreTimer);
 	      spinner.spin();
