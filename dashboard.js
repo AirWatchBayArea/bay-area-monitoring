@@ -617,15 +617,8 @@
       // Add chart html to page since this chart does not exist yet
       var row = $('<tr class="chart"' + 'data-channel=' + channelName + '></tr>');
       var $chartTitle = $('<td class="chartTitle"><div>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
-      $chartTitle.hover(
-          function() {
-            $(this).css("font-weight","bold");
-          },
-          function() {
-            $(this).css("font-weight","normal");
-          }
-        )
-        .attr("title","View in ESDR")
+      $chartTitle
+        .attr("title","View Chemical Info")
         .click(function(event) {
           var channelName = event.currentTarget.parentElement.attributes["data-channel"].value;
           var channels = "#channels=";
@@ -636,7 +629,8 @@
           var range = plotManager.getDateAxis().getRange();
           var time = range.min + "," + range.max;
           var cursor = plotManager.getDateAxis().getCursorPosition();
-          var win = window.open("https://esdr.cmucreatelab.org/browse/"+channels+"&time=" + time + "&zoom=10&center=37.89143760613535,-121.80124835968014&cursor=" + cursor, "_blank");
+          var win = window.open("https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf", "_blank");
+          // var win = window.open("https://esdr.cmucreatelab.org/browse/"+channels+"&time=" + time + "&zoom=10&center=37.89143760613535,-121.80124835968014&cursor=" + cursor, "_blank");
           if (win) {
             win.focus();
           }
@@ -1000,6 +994,7 @@ var playCallback = function() {
   icon.toggleClass("fa-pause");
   icon.hasClass("fa-pause") ? $('#play').addClass('pause') : $('#play').removeClass('pause');
   icon.hasClass("fa-pause") ? play() : pause();
+  $("#slider").toggle()
 }
 
 function channelPageSetup(fromShareLink) {
@@ -1050,6 +1045,7 @@ function channelPageSetup(fromShareLink) {
   plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
   $("#play").unbind().on("click", function(event){if(!event.detail || event.detail==1) playCallback()});
   $("#slider").slider();
+  $("#slider").toggle()
   $('#calendar')
   .unbind()
   .on('click',function(event){

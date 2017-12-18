@@ -578,34 +578,46 @@
         <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
       </div>
       <div id="grapher_toolbar" class="row">
-        <span id="play" title="play/pause" class="grapher-tool-icon fa-stack fa-2x">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-play fa-stack-1x fa-inverse"></i>
-        </span>
-        <span id="zoomGrapherIn" title="zoom in" class="grapher-tool-icon fa-stack fa-2x">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
-        </span>
-        <span id="zoomGrapherOut" title="zoom out" class="grapher-tool-icon fa-stack fa-2x">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
+        <h4 class="timeline_toolbar_label">Timeline Toolbar:</h4>
+        <span id="grapher_zoom" class="grapher-tool-icon">
+          <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-primary"></i>
             <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+          </span>
+          <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
+            <i class="fa fa-square fa-stack-2x text-primary"></i>
+            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+          </span>
         </span>
-        <span id="calendar" title="calendar" class="grapher-tool-icon fa-stack fa-2x">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
+        <span id="play" title="play/pause" class="grapher-tool-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-play fa-stack-1x fa-inverse"></i>
+            </span>
         </span>
-        <span id="share" title="share" class="grapher-tool-icon fa-stack fa-2x"
-              onclick="generateShareLink()">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-share-square-o fa-stack-1x fa-inverse"></i>
+        <span id="calendar" title="calendar" class="grapher-tool-icon">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
+            </span>
+        </span>
+        <span id="share" title="share" class="grapher-tool-icon" onclick="generateShareLink()">
+            <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-share-square-o fa-stack-1x fa-inverse"></i>
+            </span>
         </span>
         <div id="dialog" title="Share a Pollution Incident">
           To link others to your current view, use this URL:<br><a id="shareLink" href="#"></a>
         </div>
-        <a href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank"><span id="help" title="help" class="grapher-tool-icon fa-stack fa-2x">
-            <i class="fa fa-circle fa-stack-2x text-primary"></i>
-            <i class="fa fa-question fa-stack-1x fa-inverse"></i>
-        </span></a>
+        <a href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank">
+          <span id="help" title="help" class="grapher-tool-icon">
+          <span class="fa-stack fa-2x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-question fa-stack-1x fa-inverse"></i>
+          </span>
+          </span>
+        </a>
       </div>
       <div id="grapher_parent" class="row">
         <table border="0" cellpadding="0" cellspacing="0" id="grapher">

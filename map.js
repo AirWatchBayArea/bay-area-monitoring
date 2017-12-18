@@ -394,6 +394,29 @@ function initMap(div) {
     }
   ];
 
+  // Create a div to hold the control.
+  var controlDiv = document.createElement('div');
+
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = '#fff';
+  controlUI.style.border = '2px solid #fff';
+  controlUI.style.padding = '4px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.marginBottom = '0px';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to recenter the map';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.color = 'rgb(25,25,25)';
+  controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
+  controlText.style.fontSize = '15px';
+  controlText.innerHTML = 'Expand Map:';
+  controlUI.appendChild(controlText);
+  controlDiv.index = 1;
+
   var mapOptions = {
     keyboardShortcuts: false,
     zoom: center.zoom || 13,
@@ -402,13 +425,18 @@ function initMap(div) {
     mapTypeControl: false,
     zoomControl: true,
     zoomControlOptions: {
-        position: google.maps.ControlPosition.LEFT_TOP
+        position: google.maps.ControlPosition.RIGHT_BOTTOM
+    },
+    fullscreenControl: true,
+    fullscreenControlOptions:{
+      position: google.maps.ControlPosition.RIGHT_TOP,
     },
     center: new google.maps.LatLng(center.lat, center.lng),
 
     styles: styleArray
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
 
   //import KML with monitor and fence line locations
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
@@ -599,7 +627,7 @@ function addMapLabels() {
 
 //generates the legend based on icons object at top
 function generateLegend() {
-  var $legend = $('<details id="legend"><summary class="no-highlight">Legend</summary></details>');
+  var $legend = $('<details id="legend" open=""><summary class="no-highlight">Legend</summary></details>');
   for (var key in icons) {
     var name = key;
     var icon = icons[key];
@@ -607,7 +635,8 @@ function generateLegend() {
     div.innerHTML = '<img src="' + icon.legendIcon + '"> ' + name;
     $legend.append(div);
   }
-  map.controls[google.maps.ControlPosition.RIGHT_TOP].push($legend[0]);
+  $legend[0].index = -1
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($legend[0]);
 }
 
 //deals with canvas layer map projection for wind direction drawing

@@ -134,35 +134,42 @@
   background-color: #222;
 }
 
+.dashboard-page .timeline_toolbar_label{
+  display: inline-block;
+  margin: 0px 5px;
+  vertical-align: middle;
+  color: white;
+  font-weight: normal;
+}
+
 .dashboard-page .grapher-tool-icon{
-  margin: 2px 5px;
-  margin-bottom: 23px;
+  position: relative;
+  display: inline-block;
+  margin: 8px 5px 20px 0px;
   cursor: pointer;
 }
 
 .grapher-tool-icon:after{
   position: absolute;
+  top: 52px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 16px;
-  line-height: 124px;
   color: white;
 }
 
 #slider-wrapper:after{
-  content: "speed";
-  position: absolute;
-  left: 50px;
-  transform: inherit;
-  line-height: 15px;
+  content: "playback\00a0speed";
+  top: 10px;
 }
 
-#zoomGrapherIn:after{
-  content: "zoom\00a0in";
+#grapher_zoom{
+  border-radius: 10px;
+  background-color: #555;
 }
 
-#zoomGrapherOut:after{
-  content: "zoom\00a0out";
+#grapher_zoom:after{
+  content: "scale\00a0time";
 }
 
 #calendar:after{
@@ -335,6 +342,11 @@
   border: 1px solid black;
   background-color: rgba(126,217,237,.43);
   padding: 11px;
+}
+
+.dashboard-page .chartTitle:hover{
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .dashboard-page .chartContent {
