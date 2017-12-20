@@ -1,5 +1,5 @@
   "use strict";
-  
+
   $(function(){
      if(window.location.protocol==="https:")
          alert('Currently this site does not work for https connections, unfortunately. Please change to http://')
@@ -12,7 +12,7 @@
   cached_breathecam.latest.date = today.toISOString().substring(0,10);
   var esdr_feeds = {};
   var series = [];
-  var loadedSeries = [];
+  var loadedChannelLabels = {};
   var seriesIdx = 0;
   var plotManager;
   var dateAxisRange;
@@ -31,7 +31,8 @@
   var monitorTypeColors = {
     "Refinery" : "rgb(245,124,0)",
     "Community" : "rgb(1,87,155)",
-    "BAAQMD" : "rgb(103,58,183)"
+    "BAAQMD" : "rgb(103,58,183)",
+    "PurpleAir" : "rgb(170,68,170)"
   };
 
   //the monitor associated with each of the locations, with array of ESDR Feed ID
@@ -49,10 +50,13 @@
     "Atchison Village" : [4910, 4909],
     "North Richmond" : [4911, 4912],
     "Point Richmond" : [4913, 4914],
-    "North Rodeo" : [4902, 4903],
-    "South Rodeo" : [4901, 4903, 10011],
-    "Benicia": [12201, 8421, 12305],
-    "Vallejo": [],
+    "North Rodeo" : [4902],
+    "South Rodeo" : [4901, 10011],
+    "Benicia": [12201, 12305, 12809, 12846, 13237, 14284],
+    "Vallejo": [12688, 13332, 12931, 14000, 13302, 13470, 12964, 14933, 12756, 13169, 13639, 14840, 14615, 12682, 14887, 13820, 13778, 12966, 13377, 13815, 14284],
+    "El Sobrante" : [13310],
+    "El Cerrito" : [13304],
+    "Berekley" : [12848],
     "Martinez": [],
     "BAAQMD":[4850, 4846, 4857, 4849]
   };
@@ -139,7 +143,7 @@
     plotManager.removeAllPlotContainers();
     $("#grapher > tbody > tr").not("tr:first").remove();
     series = [];
-    loadedSeries = [];
+    loadedChannelLabels = {};
     $("#auto_scale_toggle_button").addClass("ui-icon-locked");
     $("#auto_scale_toggle_button").removeClass("ui-icon-unlocked");
     $("#play").off();
@@ -595,25 +599,29 @@
 
     //Add charts
     var channelLabel = feed.channels[channelName].graphMetaData.label;
-    var idx = loadedSeries.indexOf(channelLabel);
+
+    var idx = -1;
+    if (loadedChannelLabels[channelLabel]) {
+      var idx = loadedChannelLabels[channelLabel].plotContainerIdx;
+    }
+
     var seriesIdx = series.length;
     var plotContainerId = seriesIdx + "_plot_container";
     var plotId = seriesIdx + "_plot";
     var yAxisId = seriesIdx + "_yaxis";
     if (idx != -1) {
-      var tmpId = new Date().getTime();
-      loadedSeries.push(channelLabel + tmpId);
+      var tmpId = new Date().getTime() + Math.ceil(Math.random() * 100000);
       seriesIdx = idx;
       plotId = seriesIdx + "_plot" + tmpId;
-      plotContainerId = seriesIdx + "_plot_container";
+      plotContainerId = idx + "_plot_container";
       yAxisId = seriesIdx + "_yaxis";
       var plotContainer = plotManager.getPlotContainer(plotContainerId);
       plotContainer.addDataSeriesPlot(plotId, datasource, yAxisId);
+      loadedChannelLabels[channelLabel].plotCount += 1;
     } else {
       series[seriesIdx] = {};
       series[seriesIdx].id = seriesIdx;
       series[seriesIdx].pc = [];
-      loadedSeries.push(channelLabel);
       // Add chart html to page since this chart does not exist yet
       var row = $('<tr class="chart"' + 'data-channel=' + channelName + '></tr>');
       var $chartTitle = $('<td class="chartTitle"><div>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
@@ -652,6 +660,10 @@
       addGraphOverlays(seriesIdx, channelLabel);
 
       plotManager.addDataSeriesPlot(plotId, datasource, plotContainerId, yAxisId);
+      loadedChannelLabels[channelLabel] = {};
+      loadedChannelLabels[channelLabel].plotContainerIdx = Object.keys(loadedChannelLabels).length - 1;
+      loadedChannelLabels[channelLabel].plotCount = 1;
+
       adjustGraphOverlays(seriesIdx, channelLabel);
       plotManager.getYAxis(yAxisId).addAxisChangeListener(function() {
         adjustGraphOverlays(seriesIdx, channelLabel);
@@ -777,7 +789,7 @@
     var dateProperties = dateAxis.getRange();
     dateProperties.cursorPosition = dateAxis.getCursorPosition();
     if (dateProperties.cursorPosition < dateProperties.min || !dateProperties.cursorPosition){
-        plotManager.getDateAxis().setCursorPosition(dateProperties.min); 
+        plotManager.getDateAxis().setCursorPosition(dateProperties.min);
     }else if(dateProperties.cursorPosition > dateProperties.max){
         plotManager.getDateAxis().setCursorPosition(dateProperties.max);
     }
@@ -1028,7 +1040,7 @@ function channelPageSetup(fromShareLink) {
       loadCalendar(cached_breathecam.latest.date);
     }
   }
-  
+
   initMap('map-canvas');
 
   //Zoom buttons
@@ -1076,7 +1088,6 @@ function channelPageSetup(fromShareLink) {
     console.log("started smell");
     initSmells().then(function(result){
       // Initialize Graphs
-      console.log("started feeds");
       if(feedMap[area.locale]){
         loadFeeds(feedMap[area.locale]);
       }else{
