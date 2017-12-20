@@ -169,7 +169,7 @@
 }
 
 #grapher_zoom:after{
-  content: "scale\00a0time";
+  content: "change\00a0timeframe";
 }
 
 #calendar:after{
