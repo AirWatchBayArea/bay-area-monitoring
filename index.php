@@ -45,8 +45,8 @@
   <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
   <!-- Theme CSS -->
   <style type="text/css">
-      @font-face { font-family: SanFranciscoText-Semibold; src: url('assets/css/fonts/SanFranciscoText-Semibold.otf'); } 
-      @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); } 
+      @font-face { font-family: SanFranciscoText-Semibold; src: url('assets/css/fonts/SanFranciscoText-Semibold.otf'); }
+      @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); }
       @font-face { font-family: SanFranciscoText-Regular; src: url('assets/css/fonts/SanFranciscoText-Regular.otf'); }
   </style>
   <link rel="stylesheet" href="jquery.form.min.css"/>
@@ -154,7 +154,7 @@
     <div class="container-fluid">
       <div class="navbar-header">
         <button type="button" class="navbar-toggle navbar-toggler-right" data-toggle="collapse" data-target="#myNavbar">
-          <span style="color: white">Menu</span>                      
+          <span style="color: white">Menu</span>
         </button>
          <a class="navbar-brand page-scroll" href="#home">Air Watch <span style="color:#f7b733">Bay Area</span></a>
       </div>
@@ -207,7 +207,7 @@
             </div>
         </div>
     </header>
-    
+
     <!-- Services Section -->
     <section id="services">
         <div class="container">
@@ -254,7 +254,7 @@
         </div>
     </section>
 
-    <!-- Intro Section -->    
+    <!-- Intro Section -->
     <section style="padding: 50px 0;">
       <div class="container">
             <div class="row">
@@ -269,12 +269,12 @@
             </div>
         </div>
     </section>
-   
+
     <!-- Portfolio Grid Section -->
     <section id="portfolio">
         <div class="container">
             <div class="row">
-              <div class="col-lg-7 col-sm-6">                 
+              <div class="col-lg-7 col-sm-6">
                   <hr class="section-heading-spacer" style="margin-top:0px"/>
                     <div class="clearfix"></div>
                     <h2 class="section-heading">faq</p>
@@ -301,14 +301,14 @@
     <section id="about">
       <div class="container">
           <div class="row">
-              <div class="col-lg-7 col-sm-6">                 
+              <div class="col-lg-7 col-sm-6">
                   <hr class="section-heading-spacer" style="margin-top:0px"/>
                     <div class="clearfix"></div>
                     <h2 class="section-heading">about</p>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-7 col-sm-6">         
+                <div class="col-lg-7 col-sm-6">
                     <p class="service-heading">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea@gmail.com">airwatchbayarea@gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
           <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
             <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
@@ -350,7 +350,7 @@
   <div id="report-pollution-page" class="resource-container">
     <h2>Report a Pollution Incident<br><span style="font-size: 25px; color: gray; font-weight: 500">(i.e. flaring, odor, residue, health symptoms)</span></h2>
     <p class="note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible "paper&nbsp;trail" of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
-    
+
     <?php if ($_SERVER['HTTP_HOST'] != "www.airwatchbayarea.org"): ?>
       <p class="note error">THIS IS THE STAGING SITE! Reports will go to a fake server so feel free to test away.</p>
     <?php endif; ?>
@@ -760,8 +760,8 @@
           <li><a href="https://sites.google.com/view/indigenous-science-letter " target="_blank">"Let Our Indigenous Voices Be Heard: Indigenous Science, March for Science Letter"</a></li>
           <li><a href="https://scienceforthepeople.org/2017/04/18/which-way-for-science/ " target="_blank">"Which Way for Science?" (Science for the People editorial team statement re: the March for Science, April 18, 2017)</a></li>
           <li><a href="https://publiclab.org/wiki/air-quality " target="_blank">Public Lab: "a community and non-profit democratizing science to address environmental issues that affect people," including air quality</a></li>
-          <li><a href="http://issues.org/32-2/citizen-engineers-at-the-fenceline/ " target="_blank">"Citizen Engineers at the Fenceline," Gwen Ottinger, Issues in Science and Technology (Winter 2016)</a></li> 
-          <li><a href="https://www.earthworksaction.org/files/publications/Air_Monitoring_White_Paper_March_2016_(1).pdf " target="_blank">"Community Air Monitoring of Oil and Gas Pollution: A Survey of Issues and Technologies," Nadia Steinzor, Earthworks white paper (March 2016)</a></li> 
+          <li><a href="http://issues.org/32-2/citizen-engineers-at-the-fenceline/ " target="_blank">"Citizen Engineers at the Fenceline," Gwen Ottinger, Issues in Science and Technology (Winter 2016)</a></li>
+          <li><a href="https://www.earthworksaction.org/files/publications/Air_Monitoring_White_Paper_March_2016_(1).pdf " target="_blank">"Community Air Monitoring of Oil and Gas Pollution: A Survey of Issues and Technologies," Nadia Steinzor, Earthworks white paper (March 2016)</a></li>
           <li><a href="http://dl.acm.org/citation.cfm?doid=2662155.2662188 " target="_blank">"Research at the margin: participatory design and community based participatory research," Robert Racadio, Emma J. Rose, and Beth E. Kolko, Proceedings of the 13th Participatory Design Conference (October 2014)</a></li>
           <li><a href="https://www.exploratorium.edu/environmental-field-station " target="_blank">San Francisco Exploratorium Environmental Field Station&mdash;featuring a Data Explorer web app to access and explore environmental data gathered at the Exploratorium’s Bay waterfront location</a></li>
           <li><a href="https://www.theguardian.com/technology/2014/jul/20/rise-of-data-death-of-politics-evgeny-morozov-algorithmic-regulation " target="_blank">"The rise of data and the death of politics," Evgeny Morozov, The Guardian (July 20, 2014)</a></li>
@@ -771,7 +771,7 @@
         <h3 class="resource-title">Climate Justice Educational Resources</h3>
         <ul>
           <li><a href="http://breakthroughcommunities.info/publications-re-metro-equity-issues/climate-justice-book/  " target="_blank">Climate Justice: Frontline Stories from Groundbreaking Coalitions in California, edited by M. Paloma Pavel, PhD, with the Breakthrough Communities Team; Foreword by Carl Anthony (July 2017)</a></li>
-          <li><a href="http://steveearly.org/ " target="_blank">Refinery Town: Big Oil, Big Money, and the Remaking of an American City, Steve Early (2017)</a></li> 
+          <li><a href="http://steveearly.org/ " target="_blank">Refinery Town: Big Oil, Big Money, and the Remaking of an American City, Steve Early (2017)</a></li>
           <li><a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016).</a></li>
           <li><a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">Video: "Why We Need to Keep Fossil Fuels in the Ground" (The Guardian)</a></li>
           <li>

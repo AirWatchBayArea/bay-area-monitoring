@@ -3,7 +3,7 @@
 var windFeeds = [];
 var windFeedIds = [4911, 4913];
 
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust","PM_2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
+var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust","PM_2_5","PM2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
 
 function initFeeds() {
   var feedNames = Object.keys(esdr_feeds).sort();
@@ -26,7 +26,7 @@ function initFeeds() {
   if (canvasLayer){
     highlightSelectedMonitors();
   }
-  }
+}
 
 function createFeed(feedName){
   return new Promise(function(resolve, reject){
@@ -75,12 +75,16 @@ function loadFeed(area_feed_id){
       }
       var isRodeoFenceline = (feed.id == 4901 || feed.id == 4902);
       var isBAAQMD = feed.name.indexOf("BAAQMD") >= 0;
+      var isPurpleAir = feed.name.indexOf("PurpleAir") >= 0;
       var isRodeoWind = feed.id == 4903;
       if(feed.name.indexOf("Fence") > 0) {
         esdr_feeds[feed.name].type = "Refinery";
       }
       else if(isBAAQMD) {
         esdr_feeds[feed.name].type = "BAAQMD";
+      }
+      else if (isPurpleAir) {
+        esdr_feeds[feed.name].type = "PurpleAir";
       }
       else {
         esdr_feeds[feed.name].type = "Community";

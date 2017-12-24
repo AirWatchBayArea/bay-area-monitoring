@@ -12,13 +12,13 @@ var minZoom = 5;
 var windMonitor, infowindow;
 var highlights = [];
 var iconBase = 'assets/images/';
-var countryPointSizePixels = 7; 
-var blockPointSizePixels = 70; 
+var countryPointSizePixels = 7;
+var blockPointSizePixels = 70;
 //defines the icons to be drawn for each marker type
 //key-value:
 //  legendIcon: path/to/legend/icon
 //  path: svg
-//or 
+//or
 //  url: path/to/icon
 var iconScale = 4.25;
 var icons = {
@@ -48,7 +48,7 @@ var icons = {
   //                     strokeWeight: 3,
   //                     scale: iconScale,
   //                     fillOpacity: 1.0,
-  //                     legendIcon: iconBase + "baaqmd-monitor-pin.png" 
+  //                     legendIcon: iconBase + "baaqmd-monitor-pin.png"
   //                   },
   "Community Monitor": {
                       path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
@@ -57,11 +57,21 @@ var icons = {
                       strokeWeight: 3,
                       scale: iconScale,
                       fillOpacity: 1.0,
-                      legendIcon: iconBase + "community-monitor.png" 
+                      legendIcon: iconBase + "community-monitor.png"
                     },
   "School/Day Care": {url: iconBase + "school.png",
             legendIcon: iconBase + "school.png",
-          }
+          },
+
+  "PurpleAir Monitor": {
+                        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+                        fillColor: '#c973c8',
+                        strokeColor: '#aa44aa',
+                        strokeWeight: 3,
+                        scale: iconScale,
+                        fillOpacity: 1.0,
+                        legendIcon: iconBase + "purpleair.png"
+                      },
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
@@ -138,6 +148,153 @@ var communityMonitors = {
   }]
 }
 
+var purpleAirMonitors = {
+  "Vallejo": [
+    {
+      lat: 38.14128,
+      lng: -122.260096,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.090349,
+      lng: -122.238814,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.089971,
+      lng: -122.238914,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.111121,
+      lng: -122.243314,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.114254,
+      lng: -122.258755,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.104107,
+      lng: -122.258171,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.073925,
+      lng: -122.23143,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.134271,
+      lng: -122.197826,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.120362,
+      lng: -122.241011,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.149868,
+      lng: -122.237466,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.066784,
+      lng: -122.220027,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.122023,
+      lng: -122.233247,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.097691,
+      lng: -122.25952,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.077987,
+      lng: -122.230468,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.080554,
+      lng: -122.215034,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.095808,
+      lng: -122.215461,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.113435,
+      lng: -122.259217,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.092826,
+      lng: -122.251253,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.107731,
+      lng: -122.255566,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.085676,
+      lng: -122.244778,
+      description: "PurpleAir Monitor"
+    },
+  ],
+  "El Sobrante" : [
+    {
+      lat: 37.98261,
+      lng: -122.295859,
+      description: "PurpleAir Monitor"
+    }
+  ],
+  "El Cerrito" : [
+    {
+      lat: 37.906472,
+      lng: -122.301588,
+      description: "PurpleAir Monitor"
+    },
+  ],
+  "Berekley": [
+    {
+      lat: 37.900737,
+      lng: -122.286133,
+      description: "PurpleAir Monitor"
+    }
+  ],
+  "Benicia": [
+    {
+      lat: 38.103588,
+      lng: -122.188702,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.074533,
+      lng: -122.173721,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.060789,
+      lng: -122.149458,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.05337,
+      lng: -122.158814,
+      description: "PurpleAir Monitor"
+    }
+  ]
+}
 //defines where to draw BAAQMDMonitors
 var BAAQMDMonitors = {
   // "North Rodeo": {
@@ -244,7 +401,7 @@ var refineries = {
     ]
   },
   "Shell Martinez Refinery":{
-    lat: 38.020256, 
+    lat: 38.020256,
     lng: -122.115495,
     boundCoords:[
       { lat: 38.011106,  lng: -122.102634 },
@@ -262,7 +419,7 @@ var refineries = {
     ]
   },
   "Tesoro Golden Eagle Refinery":{
-    lat: 38.027699, 
+    lat: 38.027699,
     lng: -122.066462,
     boundCoords:[
       { lat: 38.037635,  lng: -122.080122},
@@ -479,6 +636,16 @@ function initMap(div) {
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
     createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key)).setZIndex(1);
+  }
+
+  //add PurpleAir Monitors
+  for(var key in purpleAirMonitors) {
+    for (var i = purpleAirMonitors[key].length - 1; i >= 0; i--) {
+      var purpleAirMonitor = purpleAirMonitors[key][i];
+      var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
+      var icon = icons['PurpleAir Monitor'];
+      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key)).setZIndex(1);
+    }
   }
 
   //draw refineries
@@ -809,6 +976,17 @@ function getData(site, channel, time) {
     }
   }
 }
+
+/*function drawPurpleAirMonitors() {
+  for(var feedName in esdr_feeds) {
+    var monitor = esdr_feeds[feedName];
+    if (monitor.type == "PurpleAir") {
+      var latlng = {"lat":monitor.coordinates.latitude, "lng":monitor.coordinates.longitude};
+      var icon = icons['PurpleAir Monitor'];
+      createMarker(latlng, icon, createInfoWindowContent(feedName, "PurpleAir Monitor"),makeClosure(feedName)).setZIndex(1);
+    }
+  }
+}*/
 
 // Highlights the selected monitor
 function highlightSelectedMonitors() {
