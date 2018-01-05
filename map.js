@@ -59,10 +59,6 @@ var icons = {
                       fillOpacity: 1.0,
                       legendIcon: iconBase + "community-monitor.png"
                     },
-  "School/Day Care": {url: iconBase + "school.png",
-            legendIcon: iconBase + "school.png",
-          },
-
   "PurpleAir Monitor": {
                         path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
                         fillColor: '#c973c8',
@@ -72,6 +68,9 @@ var icons = {
                         fillOpacity: 1.0,
                         legendIcon: iconBase + "purpleair.png"
                       },
+  "School/Day Care": {url: iconBase + "school.png",
+            legendIcon: iconBase + "school.png",
+          }
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
