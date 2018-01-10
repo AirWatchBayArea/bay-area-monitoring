@@ -1006,7 +1006,6 @@ var playCallback = function() {
   icon.toggleClass("fa-pause");
   icon.hasClass("fa-pause") ? $('#play').addClass('pause') : $('#play').removeClass('pause');
   icon.hasClass("fa-pause") ? play() : pause();
-  $("#slider").toggle()
 }
 
 function channelPageSetup(fromShareLink) {
@@ -1057,7 +1056,6 @@ function channelPageSetup(fromShareLink) {
   plotManager.getDateAxis().addAxisChangeListener(dateAxisListener);
   $("#play").unbind().on("click", function(event){if(!event.detail || event.detail==1) playCallback()});
   $("#slider").slider();
-  $("#slider").toggle()
   $('#calendar')
   .unbind()
   .on('click',function(event){
