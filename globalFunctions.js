@@ -80,16 +80,18 @@ function scrollToBottom(){
   $('html,body').animate({scrollTop: $(document).height()});
 }
 
-//For R4A page, will jump to the index of post relative to the clicked link
-function jumpToIndex(elm){
-  var index = $(elm).parent().index();
-  scrollToElmMiddle($('section.post').eq(index));
-}
-
-//Jumpts to get started section
+//Jumps to get started section
 function jumpToGetStarted(){
   scrollToElmTop($('#services'));
 }
+
+//Jumps to the index of post relative to the clicked link in R4A
+function jumpToIndex(elm){
+  var index = $(elm).parent().index();
+  console.log(index, $('section.post').eq(index).html())
+  scrollToElmMiddle($('section.post').eq(index));
+}
+
 
 //Converts current time for prepopulating input type date/time
 Date.prototype.toDateInputValue = (function() {

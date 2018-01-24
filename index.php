@@ -146,6 +146,8 @@
   </script>
   <script src='user-reports.js' type='text/javascript'>
   </script>
+  <script src='resources4action.js' type='text/javascript'>
+  </script>
 <!--   <script src='language.js' type='text/javascript'>
   </script> -->
 </head>
@@ -638,7 +640,8 @@
         <h2>Resources for Action</h2>
       <nav role="navigation" class="table-of-contents">
          <ul>
-          <li><a onclick="jumpToIndex(this)">Connect with Bay Area community organizations, campaigns, and resources</a></li>
+          <li><a onclick="jumpToIndex(this)">Summer of Maps</a></li>
+<!--           <li><a onclick="jumpToIndex(this)">Connect with Bay Area community organizations, campaigns, and resources</a></li>
           <li><a onclick="jumpToIndex(this)">Connect with elected officials and regulators</a></li>
           <li><a onclick="jumpToIndex(this)">Learn about Bay Area oil refinery politics and policies</a></li>
           <li><a onclick="jumpToIndex(this)">Learn about California oil refinery politics and policies</a></li>
@@ -646,10 +649,25 @@
           <li><a onclick="jumpToIndex(this)">Investigate community-based science, participatory design, and data politics</a></li>
           <li><a onclick="jumpToIndex(this)">Climate Justice Educational Resources</a></li>
           <li><a onclick="jumpToIndex(this)">Grow the community</a></li>
-          <li><a onclick="jumpToIndex(this)">Please send us feedback! What other resources do you suggest?</a></li>
+          <li><a onclick="jumpToIndex(this)">Please send us feedback! What other resources do you suggest?</a></li> -->
         </ul>
       </nav>
       <section class="post">
+        <h3 class="resource-title">Summer of Maps</h3>
+        <p></p>
+        <ul><li>
+            As part of the <a href="http://www.summerofmaps.com" target="_blank">Summer of Maps project</a>, <a href="https://www.azavea.com" target="_blank">Azavea</a> intern <a href="https://www.fairtechcollective.org/collaborators" target="_blank"> Sarah Gates</a> created a series of infographics visualizing pollution released from refinery flaring, and sensitive receptors in close proximity to Bay area refineries. <a href="https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution" target="_blank">Read her description of the project.</a> View or download the infographics:
+          <ol>
+            <li><a href='https://www.fairtechcollective.org/s/Bay-Area-Overview' target="_blank">Bay area overview</a></li>
+            <li><a href='https://www.fairtechcollective.org/s/flaring_animation.gif' target="_blank">2 years of flaring</a></li>
+            <li><a href='https://www.fairtechcollective.org/s/Chevron_Richmond.pdf' target="_blank">Richmond</a></li>
+            <li><a href='https://www.fairtechcollective.org/s/Phillips66_Rodeo.pdf' target="_blank">Rodeo</a></li>
+            <li><a href='https://www.fairtechcollective.org/s/Shell_Tesoro_Martinez.pdf' target="_blank">Martinez</a></li>
+            <li><a href='https://www.fairtechcollective.org/s/Valero_Benicia.pdf' target="_blank">Benicia</a></li>
+          </ol>
+          </li></ul>
+      </section>
+<!--       <section class="post">
         <h3 class="resource-title">Connect with Bay Area community organizations, campaigns, and resources</h3>
         <p>to advocate for cleaner air, particularly in frontline communities.</p>
         <ul>
@@ -775,7 +793,7 @@
           <li><a href="http://www.sunflower-alliance.org/warning-from-my-future-self/ " target="_blank">Climate Justice Comic Book, Warning from my Future Self, by Jean Tepperman and Alfred Twu (2016).</a></li>
           <li><a href="https://www.youtube.com/watch?v=M9MayBUgSHI" target="_blank">Video: "Why We Need to Keep Fossil Fuels in the Ground" (The Guardian)</a></li>
           <li>
-            As part of the <a href="http://www.summerofmaps.com" target="_blank">Summer of Maps project, <a href="https://www.azavea.com" target="_blank">Azavea</a> intern <a href="https://www.fairtechcollective.org/collaborators" target="_blank"> Sarah Gates</a> created a series of infographics visualizing pollution released from refinery flaring, and sensitive receptors in close proximity to Bay area refineries. <a href="https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution" target="_blank">Read her description of the project.</a> View or download the infographics:
+            As part of the <a href="http://www.summerofmaps.com" target="_blank">Summer of Maps project</a>, <a href="https://www.azavea.com" target="_blank">Azavea</a> intern <a href="https://www.fairtechcollective.org/collaborators" target="_blank"> Sarah Gates</a> created a series of infographics visualizing pollution released from refinery flaring, and sensitive receptors in close proximity to Bay area refineries. <a href="https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution" target="_blank">Read her description of the project.</a> View or download the infographics:
           <ol>
             <li><a href='https://www.fairtechcollective.org/s/Bay-Area-Overview' target="_blank">Bay area overview</a></li>
             <li><a href='https://www.fairtechcollective.org/s/flaring_animation.gif' target="_blank">2 years of flaring</a></li>
@@ -799,7 +817,7 @@
         <ul>
           <li><a href="mailto:airwatchbayarea@gmail.com?subject=AWBA Resources to Add">Email: airwatchbayarea@gmail.com</a></li>
         </ul>
-      </section>
+      </section> -->
       </div>
     </div>
 </body>
