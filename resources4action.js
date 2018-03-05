@@ -5,7 +5,7 @@ var custom = {
 	"As part of the <a href='http://www.summerofmaps.com' target='_blank'>Summer of Maps project</a>, ",
 	"<a href='https://www.azavea.com' target='_blank'>Azavea</a> intern <a href='https://www.fairtechcollective.org/collaborators' target='_blank'> Sarah Gates</a>",
 	" created a series of infographics visualizing pollution released from refinery flaring, and sensitive receptors in close proximity to Bay area refineries.",
-	"<a href='https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution' target='_blank'>Read her description of the project.</a> View or download the infographics:",
+	"<a href='https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution' target='_blank'> Read her description of the project.</a> View or download the infographics:",
 	"<ol>",
 	"<li><a href='https://www.fairtechcollective.org/s/Bay-Area-Overview' target='_blank'>Bay area overview</a></li>",
 	"<li><a href='https://www.fairtechcollective.org/s/flaring_animation.gif' target='_blank'>2 years of flaring</a></li>",
