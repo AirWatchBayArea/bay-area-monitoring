@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+   <?php
+    $http_origin = $_SERVER['HTTP_ORIGIN'];
+
+      if ($http_origin == "http://localhost" || $http_origin == "http://air-watch-bay-area-staging.herokuapp.com" || $http_origin == "http://www.airwatchbayarea.org")
+      {  
+          header("Access-Control-Allow-Origin: $http_origin");
+      }
+    ?>
   <title>Air Watch: Bay Area</title>
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
   <meta content="width=device-width, initial-scale=1" name="viewport">
