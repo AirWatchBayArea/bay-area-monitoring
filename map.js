@@ -68,6 +68,15 @@ var icons = {
                         fillOpacity: 1.0,
                         legendIcon: iconBase + "purpleair.png"
                       },
+
+  "Selected Monitors":{
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: 'yellow',
+                        strokeWeight: 0,
+                        scale: iconScale,
+                        fillOpacity: 1.0,
+                        legendIcon: iconBase + "yellow_highlight.png"
+                      },
   "School/Day Care": {url: iconBase + "school.png",
             legendIcon: iconBase + "school.png",
           }
@@ -557,8 +566,9 @@ function initMap(div) {
   var controlUI = document.createElement('div');
   controlUI.style.backgroundColor = '#fff';
   controlUI.style.border = '2px solid #fff';
-  controlUI.style.padding = '4px';
+  controlUI.style.padding = '2px';
   controlUI.style.cursor = 'pointer';
+  controlUI.style.marginTop = '10px';
   controlUI.style.marginBottom = '0px';
   controlUI.style.textAlign = 'center';
   controlUI.title = 'Click to recenter the map';
@@ -568,10 +578,10 @@ function initMap(div) {
   var controlText = document.createElement('div');
   controlText.style.color = 'rgb(25,25,25)';
   controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
-  controlText.style.fontSize = '15px';
-  controlText.innerHTML = 'Expand Map:';
+  controlText.style.fontSize = '13px';
+  controlText.innerHTML = 'Expand Map';
   controlUI.appendChild(controlText);
-  controlDiv.index = 1;
+  controlDiv.index = 0;
 
   var mapOptions = {
     keyboardShortcuts: false,
@@ -585,7 +595,7 @@ function initMap(div) {
     },
     fullscreenControl: true,
     fullscreenControlOptions:{
-      position: google.maps.ControlPosition.RIGHT_TOP,
+      position: google.maps.ControlPosition.TOP_RIGHT,
     },
     center: new google.maps.LatLng(center.lat, center.lng),
 

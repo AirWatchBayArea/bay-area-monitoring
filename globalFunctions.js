@@ -88,7 +88,6 @@ function jumpToGetStarted(){
 //Jumps to the index of post relative to the clicked link in R4A
 function jumpToIndex(elm){
   var index = $(elm).parent().index();
-  console.log(index, $('section.post').eq(index).html())
   scrollToElmMiddle($('section.post').eq(index));
 }
 
