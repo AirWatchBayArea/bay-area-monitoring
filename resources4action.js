@@ -100,7 +100,7 @@ function processCSV(csv){
     	}
     	$($post).children('ul').append($entryHTML)
     }
-    $('.resource-container').append($post)
+    $('#resources-for-action-page .resource-container').append($post)
 }
 
 $(resources4ActionInit)
