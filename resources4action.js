@@ -41,6 +41,11 @@ function load(url, responseType) {
     }); 
   }
 
+//Jumps to the index of post relative to the clicked link in R4A
+function jumpToIndex(index){
+  scrollToElmMiddle($('section.post').eq(index));
+}
+
 function resources4ActionInit(){
 	var resources_spinner = new Spinner({
 		radius: 8,
@@ -61,6 +66,11 @@ function resources4ActionInit(){
 		for(var i = 0; i < response.length; i++){
 			processCSV(response[i]);
 		}
+        $('.resource-container>nav.table-of-contents>ul>li').each(function(index){
+            $(this).find('a').click(function(){
+                jumpToIndex(index)
+            });
+        })
 		resources_spinner.stop()
 	}).catch(function(reject){
 		console.log(reject);
@@ -72,7 +82,7 @@ function processCSV(csv){
 	var sectionTitle = escapeHTML(allCSVLines[0].split('\t')[0]);
 	var sectionSubtitle = escapeHTML(allCSVLines[1].split('\t')[0]);
     var headers = allCSVLines[3].split(',');
-    // $('.resource-container>nav.table-of-contents>ul').append('<li><a onclick="jumpToIndex(this)">'+sectionTitle+'</a></li>')
+    $('.resource-container>nav.table-of-contents>ul').append('<li><a>'+sectionTitle+'</a></li>')
     var restCSV = allCSVLines.slice(4)
     var $post = $([
     		'<section class="post">',
