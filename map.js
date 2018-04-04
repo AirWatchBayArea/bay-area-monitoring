@@ -603,7 +603,9 @@ function initMap(div) {
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
-
+  $(controlDiv).click(function(){
+      $('[title="Toggle fullscreen view"]').click();
+  });
   //import KML with monitor and fence line locations
   //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   // var kmlLayer = new google.maps.KmlLayer({
@@ -862,10 +864,10 @@ function paintWind(site, epochTime) {
   y_scale = site.flip_y ? -1 : 1;
 
   var wind_speed, wind_dir;
-  var windSpeedChannel = site.channels.Wind_Speed_MPH ? site.channels.Wind_Speed_MPH : site.channels.Wind_Speed;
+  var windSpeedChannel = site.channels.Wind_Speed_MPH || site.channels.Wind_Speed || site.channels.WS;
   if (windSpeedChannel) {
     wind_speed = getData(site, windSpeedChannel, epochTime);
-    wind_dir = getData(site, site.channels.Wind_Direction, epochTime);
+    wind_dir = getData(site, site.channels.Wind_Direction || site.channels.WD, epochTime);
   }
 
   if (wind_speed && wind_dir) {

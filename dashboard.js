@@ -790,17 +790,29 @@
   }
 
   function setSizes() {
-    var height = $('.chart').height();
-    $('.chartContent').height(height - 1);
-    $('.chartTitle').height(height - 23);
-    $('.chartAxis').height(height - 1);
-    plotManager.forEachPlotContainer(function(pc) {
-      if(pc.getElementId()[0] != "0") {
-        pc.setHeight(height);
+    
+    if ($('.chart').length && !$('.no-feeds').length){
+       $('#map_parent').css('height', '45%');
+      var chartsAreaHeight = Math.floor(.3*window.innerHeight);
+      var height = clamp(Math.floor(chartsAreaHeight/$('.chart').length), parseInt($('.chart').css('min-height').slice(0,-2)) || 75, 250);
+      $('.chart').height(height);
+      $('.chartContent').height(height - 1);
+      $('.chartTitle').height(height - 23);
+      $('.chartAxis').height(height - 1);
+      plotManager.forEachPlotContainer(function(pc) {
+        if(pc.getElementId()[0] != "0") {
+          pc.setHeight(height);
+        }
+      });
+      for (var i = 1; i < series.length; i++) {
+        adjustGraphOverlays(i);
       }
-    });
-    for (var i = 1; i < series.length; i++) {
-      adjustGraphOverlays(i);
+    }else{
+      console.log('no charts');
+      var totalHeight = $('#map_parent').parent().height()
+      var siblingHeights = $('#loc-nav').height() + $('#grapher_toolbar').height() + $('#grapher_parent').height()
+      var buffer = 20;
+      $('#map_parent').height(totalHeight - siblingHeights - buffer);
     }
     google.maps.event.trigger(map, 'resize');
   }
@@ -939,7 +951,6 @@
       return $("#grapher").width() - 34 - 136 - 26;
     });
     grapherReady = true;
-
     processHash();
   };
 
@@ -1083,9 +1094,15 @@ function channelPageSetup(fromShareLink) {
     initSmells().then(function(result){
       // Initialize Graphs
       if(feedMap[area.locale]){
-        loadFeeds(feedMap[area.locale]);
+        if(feedMap[area.locale].length){
+          loadFeeds(feedMap[area.locale]);
+        }else{
+          $('#grapher').append('<tr class="chart no-feeds"></tr>');
+          setSizes(); // to expand the map to size
+        }
       }else{
         console.log('no feeds loaded');
+        setSizes(); // to expand the map to size
       }
     });
 

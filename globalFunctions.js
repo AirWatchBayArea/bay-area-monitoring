@@ -9,6 +9,10 @@ function assert(condition, message) {
     }
 }
 
+function clamp(value, min, max){
+  return Math.min(Math.max(value, min), max)
+}
+
 //check if string has a falsey value as string
 function checkFalseyString(str){
   return (str != "null" && str != "undefined" && str != "");

@@ -1,7 +1,7 @@
 "use strict";
 
 var windFeeds = [];
-var windFeedIds = [4911, 4913];
+var windFeedIds = [4911, 4913, 4857, 2518];
 
 var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust","PM_2_5","PM2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
 

@@ -330,7 +330,24 @@
 }
 
 .dashboard-page .chart{
-  height: 75px !important;
+  height: 75px;
+  min-height: 75px !important;
+  /* LEAVE min-height PROPERTY (but you can change it)! It's used in the 
+    setSizes() function in dashboard.js*/
+}
+
+.dashboard-page .chart.no-feeds{
+  height: 90px !important;
+}
+
+.dashboard-page .chart.no-feeds:after{
+  content: "We are looking for real-time air quality data to display here. Please email us at airwatchbayarea@gmail.com if you have a sensor to add to this community and we will get back to you shortly!";
+  display: block;
+  margin: 20px;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: white;
 }
 
 
@@ -341,6 +358,12 @@
   border: 1px solid black;
   background-color: rgba(126,217,237,.43);
   padding: 11px;
+}
+
+.dashboard-page .chartTitle>div{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .dashboard-page .chartTitle:hover{
@@ -405,8 +428,10 @@
 
 .dashboard-page #map_parent {
   overflow-x: hidden;
-  height: 40%;
-  min-height: 365px;
+  height: 45%; 
+  /*change in setSize function in dashboard.js*/
+  min-height: 360px;
+  transition: height .8s;
 }
 
 .dashboard-page .menu {
