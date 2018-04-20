@@ -628,7 +628,7 @@ function initMap(div) {
     var fencelineMonitor = fencelineMonitors[key];
     var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
     var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key)).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add Community Monitors
@@ -637,7 +637,7 @@ function initMap(div) {
       var communityMonitor = communityMonitors[key][i];
       var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
       var icon = icons['Community Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key)).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -646,7 +646,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key)).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -655,7 +655,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key)).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -721,6 +721,19 @@ function createInfoWindowContent(title, description){
           '<p>',description,'</p>'].join('');
 }
 
+//adds data to infowindow if available
+function addDataToInfoWindow(infowindow, infoContent){
+  var communityName = $(infoContent).get(0).innerHTML;
+  if (communityName in feedMap){
+    for(var i = 0; i < feedMap[communityName].length; i++){
+      var feedId = feedMap[communityName][i];
+      if (feedId in feedIDtoPlotId){
+          console.log(feedIDtoPlotId[feedId]);
+      }
+    }
+  }
+}
+
 //draws school markers based on Google Places results
 function drawSchoolMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
@@ -740,7 +753,7 @@ function scaleIcon(marker, icon){
 }
 
 //creates a marker with given infoContent HTML and function callback on click
-function createMarker(googLatLng, icon, infoContent, clickCallback) {
+function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallback) {
   var marker = new google.maps.Marker({
     map: map,
     position: googLatLng,
@@ -750,6 +763,9 @@ function createMarker(googLatLng, icon, infoContent, clickCallback) {
   });
   google.maps.event.addListener(marker, 'mouseover', function() {
     infowindow.setContent(infoContent);
+    if (hoverCallback){
+      hoverCallback(infowindow, infoContent);
+    }
     infowindow.open(map, this);
   });
   google.maps.event.addListener(marker, 'mouseout', function() {

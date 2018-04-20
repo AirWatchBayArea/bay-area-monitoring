@@ -61,6 +61,8 @@
     "BAAQMD":[4850, 4846, 4857, 4849]
   };
 
+  var feedIDtoPlotId = {}
+
   var healthLimitMap = {
     "Benzene (ppb)" : 1,
     "Black Carbon (µg/m³)": 5,
@@ -139,6 +141,7 @@
 
   function refreshChannelPage() {
     esdr_feeds = {};
+    feedIDtoPlotId = {}
     plotManager.getDateAxis().removeAxisChangeListener(dateAxisListener);
     plotManager.removeAllPlotContainers();
     $("#grapher > tbody > tr").not("tr:first").remove();
@@ -624,11 +627,16 @@
       series[seriesIdx].pc = [];
       // Add chart html to page since this chart does not exist yet
       var row = $('<tr class="chart"' + 'data-channel=' + channelName + '></tr>');
-      var $chartTitle = $('<td class="chartTitle"><div>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
-      $chartTitle
-        .attr("title","View Chemical Info")
+      var $chartTitle = $('<td class="chartTitle"><div class=title>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
+      var $chemicalInfo = $(['<a class=chartButton title="View Chemical Info"href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf" target="_blank">',
+                                'chemical info',
+                              '</a>'].join(''));
+      var $dataView = $(['<a class=chartButton title="View Data on ESDR">',
+                                'view data',
+                              '</a>'].join(''));
+      $dataView
         .click(function(event) {
-          var channelName = event.currentTarget.parentElement.attributes["data-channel"].value;
+          var channelName = event.currentTarget.parentElement.parentElement.parentElement.attributes["data-channel"].value;
           var channels = "#channels=";
           for(var feed of feedMap[area.locale]) {
             channels += feed + "." + channelName + ",";
@@ -637,8 +645,8 @@
           var range = plotManager.getDateAxis().getRange();
           var time = range.min + "," + range.max;
           var cursor = plotManager.getDateAxis().getCursorPosition();
-          var win = window.open("https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf", "_blank");
-          // var win = window.open("https://esdr.cmucreatelab.org/browse/"+channels+"&time=" + time + "&zoom=10&center=37.89143760613535,-121.80124835968014&cursor=" + cursor, "_blank");
+          // var win = window.open("https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf", "_blank");
+          var win = window.open("https://esdr.cmucreatelab.org/browse/"+channels+"&time=" + time + "&zoom=10&center=37.89143760613535,-121.80124835968014&cursor=" + cursor, "_blank");
           if (win) {
             win.focus();
           }
@@ -646,6 +654,11 @@
             alert('Please allow popups for this website in order to go to detail view on ESDR');
           }
         });
+
+      var $buttonContainer = $('<div class="chartButtonContainer"></div>')
+      $buttonContainer.append($chemicalInfo);
+      $buttonContainer.append($dataView);
+      $chartTitle.append($buttonContainer);
       row.append($chartTitle);
       row.append('<td id="' + plotContainerId + '" class="chartContent"></td>');
       row.append('<td id="' + yAxisId + '" class="chartAxis"></td>');
@@ -689,7 +702,32 @@
     setMinRangeToHealthLimit(plotContainer, channelLabel);
     plotContainer.setAutoScaleEnabled(true, true);
     series[seriesIdx].pc.push(plotContainer);
+    if(!(feed.feed_id in feedIDtoPlotId)){
+      feedIDtoPlotId[feed.feed_id] = []
+    }
+    feedIDtoPlotId[feed.feed_id].push([plotContainerId, plotId, feed.channels[channelName].graphMetaData.label])
   };
+
+  function getDataSummaryInRange(feedId){
+    if (feedId in feedIDtoPlotId){
+      var summaryList = []
+      var plotInfoList = feedIDtoPlotId[feedId]
+      for(var i = 0; i < plotInfoList.length; i++){
+          var plotInfo = plotInfoList[i];
+          var plotContainerId = plotInfo[0];
+          var plotId = plotInfo[1];
+          var plotName = plotInfo[2]
+          var summary = plotManager.getPlotContainer(plotContainerId).getPlot(plotId).getStatisticsWithinRange(plotManager.getDateAxis().getRange());
+          if(summary.hasData){
+            summaryList.push([plotName, summary]);
+          }
+      }
+      return summaryList;
+    }else{
+      console.log("feed id does not exist in plots.")
+      return []
+    }
+  }
 
   function setMinRangeToHealthLimit(plotContainer, channelLabel) {
     var healthLimit = healthLimitMap[channelLabel];
@@ -699,7 +737,7 @@
   }
 
   function getChannelLabel(seriesIdx) {
-    return $("#" + seriesIdx + "_plot_container")[0].parentElement.firstChild.firstChild.innerHTML;
+    return $("#" + seriesIdx + "_plot_container").parent().find('.chartTitle').text();
   }
 
   function addGraphOverlays(seriesIdx) {

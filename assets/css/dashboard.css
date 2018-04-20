@@ -360,7 +360,28 @@
   padding: 11px;
 }
 
-.dashboard-page .chartTitle>div{
+.dashboard-page .chartButtonContainer{
+  position: absolute;
+  bottom: 3px;
+}
+
+.dashboard-page .chartButton{
+  position: relative;
+  padding: 3px;
+  margin-left: 5px;
+  background-color: white;
+  color: gray;
+  text-decoration: none;
+  font-size: 11px;
+  border-radius: 3px;
+  transition: background-color .2s;
+}
+
+.dashboard-page .chartButton:hover{
+  background-color: #ccc;
+}
+
+.dashboard-page .chartTitle>div.title{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
