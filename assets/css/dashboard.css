@@ -362,13 +362,13 @@
 
 .dashboard-page .chartButtonContainer{
   position: absolute;
-  top: 1px;
+  bottom: 3px;
   left: 8px;
 }
 
 .dashboard-page .chartButton{
   position: relative;
-  padding: 3px;
+  padding: 2px;
   margin-left: 5px;
   background-color: white;
   color: gray;
