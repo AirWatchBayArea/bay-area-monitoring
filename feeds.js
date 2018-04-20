@@ -128,7 +128,6 @@ function loadFeed(area_feed_id){
           if(chemical.indexOf("Xylene") != -1) {
             chemicalLabel = "Xylene";
           }
-          console.log(chemical)
           var units = chemical.indexOf("Black_Carbon") != -1 || chemical.indexOf("PM_2_5") != -1 ? " (µg/m³)" : " (ppb)";
           esdr_feeds[feed.name].channels[chemical] = {
             show_graph: true,
