@@ -745,7 +745,6 @@
 
   function addGraphOverlays(seriesIdx) {
     var channelLabel = getChannelLabel(seriesIdx);
-    console.log(seriesIdx, channelLabel, healthLimitMap[channelLabel]);
     if (healthLimitMap[channelLabel]) {
       $("#" + seriesIdx + "_plot_container").append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
     }
