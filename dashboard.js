@@ -27,6 +27,7 @@
   var tmReady = false;
   var grapherLoadedInterval = null;
   var showSmokeDetection = false;
+  var isAutoScaleOn = true;
 
   var monitorTypeColors = {
     "Refinery" : "rgb(245,124,0)",
@@ -72,7 +73,9 @@
     "Xylene (ppb)": 50,
     "Ethylbenzene (ppb)": 60,
     "VOC (ppb)": 345,
-    "Dust (µg/m³)": 10
+    "Dust (µg/m³)": 10,
+    "PM 2 5 (µg/m³)": 35,
+    "PM2 5 (µg/m³)": 35,
   };
 
   var communityDetectionLimitMap = {
@@ -632,7 +635,7 @@
                                 'chemical info',
                               '</a>'].join(''));
       var $dataView = $(['<a class=chartButton title="View Data on ESDR">',
-                                'view data',
+                                'download',
                               '</a>'].join(''));
       $dataView
         .click(function(event) {
@@ -700,7 +703,7 @@
   });
     var plotContainer = plotManager.getPlotContainer(plotContainerId);
     setMinRangeToHealthLimit(plotContainer, channelLabel);
-    plotContainer.setAutoScaleEnabled(true, true);
+    plotContainer.setAutoScaleEnabled(isAutoScaleOn, isAutoScaleOn);
     series[seriesIdx].pc.push(plotContainer);
     if(!(feed.feed_id in feedIDtoPlotId)){
       feedIDtoPlotId[feed.feed_id] = []
@@ -737,11 +740,12 @@
   }
 
   function getChannelLabel(seriesIdx) {
-    return $("#" + seriesIdx + "_plot_container").parent().find('.chartTitle').text();
+    return $("#" + seriesIdx + "_plot_container").parent().find('.chartTitle').find('.title').text();
   }
 
   function addGraphOverlays(seriesIdx) {
     var channelLabel = getChannelLabel(seriesIdx);
+    console.log(seriesIdx, channelLabel, healthLimitMap[channelLabel]);
     if (healthLimitMap[channelLabel]) {
       $("#" + seriesIdx + "_plot_container").append("<div id='healthDangerBox" + seriesIdx + "' class='healthDangerBox'></div>");
     }
@@ -890,8 +894,8 @@
   }
 
   function toggleYAxisAutoScaling() {
-    var autoScaleToggleButton = $("#auto_scale_toggle_button");
-    var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
+    // var autoScaleToggleButton = $("#auto_scale_toggle_button");
+    // var isAutoScaleOn = autoScaleToggleButton.hasClass("ui-icon-locked");
     plotManager.forEachPlotContainer(function (pc) {
       pc.setAutoScaleEnabled(!isAutoScaleOn, false);
       if(!isAutoScaleOn) {
@@ -902,8 +906,8 @@
         pc.getYAxis().clearMinRangeConstraints();
       }
     });
-    autoScaleToggleButton.toggleClass("ui-icon-locked");
-    autoScaleToggleButton.toggleClass("ui-icon-unlocked");
+    // autoScaleToggleButton.toggleClass("ui-icon-locked");
+    // autoScaleToggleButton.toggleClass("ui-icon-unlocked");
 }
 
   function initialize(fromShareLink, location, monitor) {

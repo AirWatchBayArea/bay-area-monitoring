@@ -319,7 +319,7 @@
             </div>
             <div class="row">
                 <div class="col-lg-7 col-sm-6">
-                    <p class="service-heading">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea@gmail.com">airwatchbayarea@gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
+                    <p class="service-heading">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea@gmail.com">airwatchbayarea[at]gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
           <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
             <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee →</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment →</a></li>
@@ -343,7 +343,7 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-inline quicklinks">
-                        <li><a href="mailto:airwatchbayarea@gmail.com" style="color:#f7b733">Contact: airwatchbayarea@gmail.com</a></li>
+                        <li><a href="mailto:airwatchbayarea@gmail.com" style="color:#f7b733">Contact: airwatchbayarea[at]gmail.com</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
@@ -478,7 +478,7 @@
     <div id="upload-error" class="error note">
       <p id="upload-error-message"></p>
       <p id="error-resolution"></p>
-      <p>If you cannot resolve this error, please take screenshots of your entire report and email <a href="mailto:airwatchbayarea@gmail.com?Subject=AWBA Error Report" target="_top">airwatchbayarea@gmail.com</a> and we will get back to you shortly!</p>
+      <p>If you cannot resolve this error, please take screenshots of your entire report and email <a href="mailto:airwatchbayarea@gmail.com?Subject=AWBA Error Report" target="_top">airwatchbayarea[at]gmail.com</a> and we will get back to you shortly!</p>
     </div>
 
     <div id="submit-success">
@@ -592,11 +592,11 @@
         <span id="grapher_zoom" class="grapher-tool-icon">
           <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-primary"></i>
-            <i class="fa fa-minus fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-search-minus fa-stack-1x fa-inverse"></i>
           </span>
           <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-primary"></i>
-            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+            <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
           </span>
         </span>
         <span id="play" title="play/pause" class="grapher-tool-icon">
