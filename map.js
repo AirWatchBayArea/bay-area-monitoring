@@ -9,7 +9,8 @@ var mapProjection;
 var projectionScale = 2000;
 var y_scale;
 var minZoom = 5;
-var windMonitor, infowindow;
+var windMonitor, windInfoWindow;
+var infowindow;
 var highlights = [];
 var iconBase = 'assets/images/';
 var countryPointSizePixels = 7;
@@ -81,34 +82,6 @@ var icons = {
             legendIcon: iconBase + "school.png",
           }
 }
-//defines where to draw fenceline monitors
-var fencelineMonitors = {
-  "Atchison Village":{
-    lat: 37.941351,
-    lng: -122.381193,
-    description: "Fenceline Monitor"
-  },
-  "North Richmond": {
-    lat: 37.948234,
-    lng: -122.375425,
-    description: "Fenceline Monitor"
-  },
-  "Point Richmond": {
-    lat:  37.93501,
-    lng: -122.384772,
-    description: "Fenceline Monitor"
-  },
-  "North Rodeo": {
-    lat: 38.044924,
-    lng: -122.247935,
-    description: "Fenceline Monitor"
-  },
-  "South Rodeo": {
-    lat: 38.03855,
-    lng: -122.25653,
-    description: "Fenceline Monitor"
-  }
-};
 
 //defines where to draw fenceline highlight
 var receivers = {
@@ -122,37 +95,77 @@ var receivers = {
   }
 }
 
+//defines where to draw fenceline monitors
+var fencelineMonitors = {
+  "Atchison Village":{
+    lat: 37.941351,
+    lng: -122.381193,
+    description: "Fenceline Monitor",
+    feedID: 4909,
+  },
+  "North Richmond": {
+    lat: 37.948234,
+    lng: -122.375425,
+    description: "Fenceline Monitor",
+    feedID: 4911,
+  },
+  "Point Richmond": {
+    lat:  37.93501,
+    lng: -122.384772,
+    description: "Fenceline Monitor",
+    feedID: 4913,
+  },
+  "North Rodeo": {
+    lat: 38.044924,
+    lng: -122.247935,
+    description: "Fenceline Monitor",
+    feedID: 4902,
+  },
+  "South Rodeo": {
+    lat: 38.03855,
+    lng: -122.25653,
+    description: "Fenceline Monitor",
+    feedID: 4901,
+  }
+};
+
 //defines where to draw community monitors
 var communityMonitors = {
   "Atchison Village": [{
     lat:   37.93447,
     lng: -122.37166,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 4910,
   }],
   "North Richmond": [{
     lat: 37.94799,
     lng: -122.36477,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 4912,
   }],
   "Point Richmond": [{
     lat:  37.92423,
     lng: -122.38215,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 4914,
   }],
   "Benicia":[
   {
     lat:  38.060852,
     lng: -122.1277356,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 12201,
   },{
     lat:  38.0680133588967,
     lng: -122.121974062288,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 12305,
   }],
   "South Rodeo":[{
     lat:  38.031616,
     lng: -122.263651,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    feedID: 10011,
   }]
 }
 
@@ -161,145 +174,178 @@ var purpleAirMonitors = {
     {
       lat: 38.14128,
       lng: -122.260096,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.090349,
-      lng: -122.238814,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.089971,
-      lng: -122.238914,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.111121,
-      lng: -122.243314,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.114254,
-      lng: -122.258755,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.104107,
-      lng: -122.258171,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.073925,
-      lng: -122.23143,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.134271,
-      lng: -122.197826,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.120362,
-      lng: -122.241011,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 12688
     },
     {
       lat: 38.149868,
       lng: -122.237466,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 13332
     },
     {
-      lat: 38.066784,
-      lng: -122.220027,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.122023,
-      lng: -122.233247,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.097691,
-      lng: -122.25952,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.077987,
-      lng: -122.230468,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.080554,
-      lng: -122.215034,
-      description: "PurpleAir Monitor"
-    },
-    {
-      lat: 38.095808,
-      lng: -122.215461,
-      description: "PurpleAir Monitor"
+      lat: 38.114254,
+      lng: -122.258755,
+      description: "PurpleAir Monitor",
+      feedID: 12931
     },
     {
       lat: 38.113435,
       lng: -122.259217,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 14000
     },
     {
-      lat: 38.092826,
-      lng: -122.251253,
-      description: "PurpleAir Monitor"
+      lat: 38.120362,
+      lng: -122.241011,
+      description: "PurpleAir Monitor",
+      feedID: 13302
+    },
+    {
+      lat: 38.122023,
+      lng: -122.233247,
+      description: "PurpleAir Monitor",
+      feedID: 13470
+    },
+    {
+      lat: 38.104107,
+      lng: -122.258171,
+      description: "PurpleAir Monitor",
+      feedID: 12964
     },
     {
       lat: 38.107731,
       lng: -122.255566,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 14933
+    },
+    {
+      lat: 38.111121,
+      lng: -122.243314,
+      description: "PurpleAir Monitor",
+      feedID: 12756
+    },
+    {
+      lat: 38.134271,
+      lng: -122.197826,
+      description: "PurpleAir Monitor",
+      feedID: 13169
+    },
+    {
+      lat: 38.097691,
+      lng: -122.25952,
+      description: "PurpleAir Monitor",
+      feedID: 13639
+    },
+    {
+      lat: 38.092826,
+      lng: -122.251253,
+      description: "PurpleAir Monitor",
+      feedID: 14840
     },
     {
       lat: 38.085676,
       lng: -122.244778,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 14615
+    },
+    {
+      lat: 38.089971,
+      lng: -122.238914,
+      description: "PurpleAir Monitor",
+      feedID: 12682
+    },
+    {
+      lat: 38.090349,
+      lng: -122.238814,
+      description: "PurpleAir Monitor",
+      feedID: 14887
+    },
+    {
+      lat: 38.095808,
+      lng: -122.215461,
+      description: "PurpleAir Monitor",
+      feedID: 13820
+    },
+    {
+      lat: 38.077987,
+      lng: -122.230468,
+      description: "PurpleAir Monitor",
+      feedID: 13778
+    },
+    {
+      lat: 38.073925,
+      lng: -122.23143,
+      description: "PurpleAir Monitor",
+      feedID: 12966
+    },
+    {
+      lat: 38.066784,
+      lng: -122.220027,
+      description: "PurpleAir Monitor",
+      feedID: 13377
+    },
+    {
+      lat: 38.080554,
+      lng: -122.215034,
+      description: "PurpleAir Monitor",
+      feedID: 13815
+    },
+    {
+      lat: 38.103588,
+      lng: -122.188702,
+      description: "PurpleAir Monitor",
+      feedID: 14284
     },
   ],
   "El Sobrante" : [
     {
       lat: 37.98261,
       lng: -122.295859,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 13310,
     }
   ],
   "El Cerrito" : [
     {
       lat: 37.906472,
       lng: -122.301588,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 13304,
     },
   ],
-  "Berekley": [
+  "Berkeley": [
     {
       lat: 37.900737,
       lng: -122.286133,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 12848,
     }
   ],
   "Benicia": [
     {
       lat: 38.103588,
       lng: -122.188702,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 14284,
     },
     {
       lat: 38.074533,
       lng: -122.173721,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 12809,
     },
     {
       lat: 38.060789,
       lng: -122.149458,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 12846,
     },
     {
       lat: 38.05337,
       lng: -122.158814,
-      description: "PurpleAir Monitor"
+      description: "PurpleAir Monitor",
+      feedID: 13237,
     }
   ]
 }
@@ -308,22 +354,26 @@ var BAAQMDMonitors = {
   // "North Rodeo": {
   //   lat: 38.05492,
   //   lng: -122.2332,
-  //   description: "BAAQMD Monitor"
+  //   description: "BAAQMD Monitor",
+  //   feedID: 0,
   // },
   // "South Rodeo": {
   //   lat: 38.03433,
   //   lng: -122.27033,
-  //   description: "BAAQMD Monitor"
+  //   description: "BAAQMD Monitor",
+  //   feedID: 0,
   // },
   // "Vallejo":{
   //   lat:  38.102507,
   //   lng: -122.237976,
-  //   description: "BAAQMD Monitor"
+  //   description: "BAAQMD Monitor",
+  //   feedID: 0,
   // },
   // "Martinez":{
   //   lat:  38.012816,
   //   lng: -122.134467,
-  //   description: "BAAQMD Monitor"
+  //   description: "BAAQMD Monitor",
+  //   feedID: 0,
   // }
 }
 
@@ -622,13 +672,14 @@ function initMap(div) {
   // });
 
   infowindow = new google.maps.InfoWindow();
-
+  windInfoWindow = new google.maps.InfoWindow();
+  
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
     var fencelineMonitor = fencelineMonitors[key];
     var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
     var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(fencelineMonitor, latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add Community Monitors
@@ -637,7 +688,7 @@ function initMap(div) {
       var communityMonitor = communityMonitors[key][i];
       var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
       var icon = icons['Community Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(communityMonitor, latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -646,7 +697,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(BAAQMDMonitor, latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -655,7 +706,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(purpleAirMonitor, latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -679,7 +730,7 @@ function initMap(div) {
       var pollutionSource = pollutionSources[key];
       var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
       var icon = icons['Pollution Source'];
-      createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
+      createMarker(pollutionSource, latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
     }
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
@@ -717,28 +768,60 @@ function makeClosure(key){
 
 //creates info window content based on title and description
 function createInfoWindowContent(title, description){
-  return ['<h4>',title,'</h4>',
-          '<p>',description,'</p>'].join('');
+  return ['<div>',
+          '<h4>',title,'</h4>',
+          '<p>',description,'</p>',
+          '<ul class="info-data"></ul>',
+          '</div>'].join('');
 }
 
 //adds data to infowindow if available
-function addDataToInfoWindow(infowindow, infoContent){
-  var communityName = $(infoContent).get(0).innerHTML;
-  if (communityName in feedMap){
-    for(var i = 0; i < feedMap[communityName].length; i++){
-      var feedId = feedMap[communityName][i];
-      if (feedId in feedIDtoPlotId){
-          console.log(feedIDtoPlotId[feedId]);
+function addDataToInfoWindow(infowindow, infoContent, obj){
+  var feedDataList = feedIDtoPlotId[obj.feedID];
+  var $infoData = $(infoContent)
+  $infoData.find('.info-data').text('');
+  if(feedDataList){
+    var hasData = false;
+    for (var i = 0; i < feedDataList.length; i++) {
+      var feedData = feedDataList[i];
+      var plotID = feedData[0];
+      var chemicalName = feedData[2];
+      var plt = plotManager.getPlotContainer(plotID).getPlot();
+      var closestData = plt.getClosestDataPointToTimeWithinWindow();
+      var statistics = plt.getStatisticsWithinRange();
+      if(closestData){
+        console.log(closestData);
+        $infoData.append([
+          '<li>',
+            'most recent data:', //closestData,
+          '</li>',
+        ].join(''));
+      }
+      if(statistics.minValue && statistics.maxValue){
+        hasData = true
+        $infoData.append([
+          '<li>',
+              chemicalName,':&nbsp', statistics.minValue.toFixed(2), '&nbsp-&nbsp', statistics.maxValue.toFixed(2),
+          '</li>',
+        ].join(''));
       }
     }
+    if(!hasData){
+      $infoData.append('<p>No data for this time range.</p>');
+    }else{
+      $infoData.find('.info-data').prepend('<h5>Min&#47;Max for time range</h5>')
+    }
+  }else {
+    $infoData.append('<p>Click map marker to view data.</p>')
   }
+  infowindow.setContent($infoData[0]);
 }
 
 //draws school markers based on Google Places results
 function drawSchoolMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i].geometry.location, icons["School/Day Care"], results[i].name);
+      createMarker(results[i], results[i].geometry.location, icons["School/Day Care"], results[i].name);
     }
   }
 }
@@ -753,7 +836,7 @@ function scaleIcon(marker, icon){
 }
 
 //creates a marker with given infoContent HTML and function callback on click
-function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallback) {
+function createMarker(obj, googLatLng, icon, infoContent, clickCallback, hoverCallback) {
   var marker = new google.maps.Marker({
     map: map,
     position: googLatLng,
@@ -764,8 +847,9 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
   google.maps.event.addListener(marker, 'mouseover', function() {
     infowindow.setContent(infoContent);
     if (hoverCallback){
-      hoverCallback(infowindow, infoContent);
+      hoverCallback(infowindow, infoContent, obj);
     }
+    infowindow.close();
     infowindow.open(map, this);
   });
   google.maps.event.addListener(marker, 'mouseout', function() {
@@ -774,6 +858,9 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
   google.maps.event.addListener(marker, 'click', function() {
     if(clickCallback){
       clickCallback.bind(this, marker, infoContent)();
+    }
+    if (hoverCallback){
+      hoverCallback(infowindow, infoContent, obj);
     }
   });
   google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -923,7 +1010,7 @@ function paintWind(site, epochTime) {
         var formattedDate = new Date(epochTime * 1000).toString();
         var offsetDegrees = (wind_dir+11.25) % 360; //offset sedecimants so "S" is 0-22.5 degrees instead of 349.75-11.25 degrees
         var contentString = "<div>Wind Speed (mph): " + wind_speed + "</div><div>Wind Towards: " + windDirs[Math.floor(offsetDegrees/22.5)] +"</div><div>Time: "+ formattedDate +"</div>";
-        var infowindow = new google.maps.InfoWindow({
+        windInfoWindow = new google.maps.InfoWindow({
           content: contentString,
           position: rectLatLng
         });
@@ -944,10 +1031,11 @@ function paintWind(site, epochTime) {
         });
 
         windMonitor.addListener('mouseover', function() {
-          infowindow.open(map);
+          windInfoWindow.close();
+          windInfoWindow.open(map);
         });
         windMonitor.addListener('mouseout', function() {
-          infowindow.close();
+          windInfoWindow.close();
         });
     }
   }
@@ -1003,17 +1091,6 @@ function getData(site, channel, time) {
     }
   }
 }
-
-/*function drawPurpleAirMonitors() {
-  for(var feedName in esdr_feeds) {
-    var monitor = esdr_feeds[feedName];
-    if (monitor.type == "PurpleAir") {
-      var latlng = {"lat":monitor.coordinates.latitude, "lng":monitor.coordinates.longitude};
-      var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(feedName, "PurpleAir Monitor"),makeClosure(feedName)).setZIndex(1);
-    }
-  }
-}*/
 
 // Highlights the selected monitor
 function highlightSelectedMonitors() {

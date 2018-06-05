@@ -232,7 +232,7 @@ function drawSmellReports(range) {
                   '<b>Smell Rating:</b> ',smell_value," (",smell_value_text[smell_value - 1],")",'<br>',
                   '<b>Symptoms:</b> ',feelings_symptoms,'<br>',
                   '<b>Smell Description:</b> ',smell_description].join('');
-   var marker = createMarker(latlng,
+   var marker = createMarker({}, latlng,
                               getSmellColor(report_i.smell_value - 1),
                               content);
 
