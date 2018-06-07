@@ -56,8 +56,17 @@
 		"odor-rating-4": "4 - It's getting pretty bad",
 		"odor-rating-5": "5 - About as bad as it gets!",
 		"address": "What is the cross street or address of the odor or incident?",
+		"address-input": {
+			"value": "e.g. at the corner of 7th and Hensley"
+		},
 		"describe-odor": "Describe the odor and/or incident:",
-		"symptoms": "What health symptoms are you experiencing, if any? ",
+		"describe-odor-input": {
+			"value": "e.g. flaring, residue, exhaust, sulfur, wood smoke, rotten-eggs"
+		},
+		"symptoms": "What health symptoms are you experiencing, if any?",
+		"symptoms-input": {
+			"value": "e.g. headache, sore throat, eye irritation"
+		},
 		"additional-comments": "Additional comments:",
 		"note-bottom": "This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>their&nbsp;website</a>."
 	}

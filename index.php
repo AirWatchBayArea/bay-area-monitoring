@@ -533,17 +533,17 @@
         </label>
 
         <label class='location-label'>
-          <strong class="emphasis required" data-localize="report.address">What is the cross street or address of the odor or incident?</strong><br><input class="required" type="text" id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required/>
+          <strong class="emphasis required" data-localize="report.address">What is the cross street or address of the odor or incident?</strong><br><input class="required" type="text" id="address"  name="location" placeholder="e.g. at the corner of 7th and Hensley" emphasis required data-localize="report.address-input"/>
         </label>
 
         <label class='textarea-label'>
           <strong data-localize="report.describe-odor">Describe the odor and/or incident:</strong>
-          <textarea name="describe-air" value="" placeholder="e.g. flaring, residue, exhaust, sulfur, wood smoke, rotten-eggs"></textarea>
+          <textarea name="describe-air" value="" placeholder="e.g. flaring, residue, exhaust, sulfur, wood smoke, rotten-eggs" data-localize="report.describe-odor-input"></textarea>
         </label>
 
         <label class='textarea-label'>
           <strong data-localize="report.symptoms">What health symptoms are you experiencing, if any? </strong>
-          <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation"></textarea>
+          <textarea id="symptoms" name="symptoms" placeholder="e.g. headache, sore throat, eye irritation" data-localize="report.symptoms-input"></textarea>
         </label>
 
         <label class='textarea-label'>

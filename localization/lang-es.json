@@ -56,8 +56,17 @@
 		"odor-rating-4": "4 - Se está poniendo bastante mal",
 		"odor-rating-5": "5 - ¡Tan malo como se pone!",
 		"address": "¿Cuál es la calle transversal o la dirección del olor o incidente?",
+		"address-input": {
+			"value": "p.ej. en la esquina de 7th y Hensley"
+		},
 		"describe-odor": "Describa el olor y/o incidente:",
+		"describe-odor-input": {
+			"value": "p.ej. quema, residuos, escape, azufre, humo de leña, huevos podridos"
+		},
 		"symptoms": "¿Qué síntomas de salud estás experimentando, si hay alguno?",
+		"symptoms-input": {
+			"value": "p.ej. dolor de cabeza, dolor de garganta, irritación ocular"
+		},
 		"additional-comments": "Comentarios adicionales:",
 		"note-bottom": "Esto no es un sustituto para informar a BAAQMD, ya que no podemos transmitir su informe directamente a ellos.  Recomendamos que también envíe un informe a través de <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>su&nbsp;sitio&nbsp;web</a>."
 	}
