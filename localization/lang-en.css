@@ -1,0 +1,33 @@
+html:lang(en) [data-localize="report.file-status"]:after {
+  content: ' file(s) selected for upload.';
+}
+html:lang(en) [data-localize="report.img-caption"]:after {
+  content: "Caption:";
+}
+html:lang(en) [data-localize="report.img-when"]:before {
+  content: "When did this photo occur?";
+}
+html:lang(en) [data-localize="report.img-just-took"]:after {
+  content: "I just took it";
+}
+html:lang(en) [data-localize="report.img-date"]:after {
+  content: "Date:\02002";
+}
+html:lang(en) [data-localize="report.img-time"]:after {
+  content: "Time:\02002";
+}
+html:lang(en) [data-localize="report.categories-odor"]:before {
+	content: "Odor";
+}
+html:lang(en) [data-localize="report.categories-flaring"]:before {
+	content: "Flaring";
+}
+html:lang(en) [data-localize="report.categories-residue"]:before {
+	content: "Residue";
+}
+html:lang(en) [data-localize="report.categories-health"]:before {
+	content: "Health";
+}
+html:lang(en) [data-localize="report.categories-other"]:before {
+	content: "Other:\000A0";
+}

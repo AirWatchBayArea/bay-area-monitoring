@@ -821,7 +821,7 @@ function addMapLabels() {
 
 //generates the legend based on icons object at top
 function generateLegend() {
-  var $legend = $('<details id="legend" open=""><summary class="no-highlight">Legend</summary></details>');
+  var $legend = $('<details id="legend" open=""><summary class="no-highlight" data-localize="dashboard-legend">Legend</summary></details>');
   for (var key in icons) {
     var name = key;
     var icon = icons[key];

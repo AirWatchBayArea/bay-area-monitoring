@@ -161,7 +161,7 @@ function resetReport(){
   	$('#uploading').hide();
   	$('#upload-error').hide();
   	$('.thumbnails').html('');
-  	$('.num-file-status').text('');
+  	$('.num-file-status').text('0');
   	$('.photo-upload').hide();
   	$('.required-error').removeClass('required-error');
 }

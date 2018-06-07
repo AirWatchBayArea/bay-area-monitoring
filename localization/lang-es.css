@@ -1,0 +1,33 @@
+html:lang(es) [data-localize="report.file-status"]:after {
+  content: ' archivo(s) seleccionado para cargar.';
+}
+html:lang(es) [data-localize="report.img-caption"]:after {
+  content: "Subtítulo:";
+}
+html:lang(es) [data-localize="report.img-when"]:before {
+  content: "¿Cuándo ocurrió esta foto?";
+}
+html:lang(es) [data-localize="report.img-just-took"]:after {
+  content: "Simplemente lo tomé";
+}
+html:lang(es) [data-localize="report.img-date"]:after {
+  content: "Fecha:\02002";
+}
+html:lang(es) [data-localize="report.img-time"]:after {
+  content: "Hora:\02002";
+}
+html:lang(es) [data-localize="report.categories-odor"]:before {
+	content: "Olor";
+}
+html:lang(es) [data-localize="report.categories-flaring"]:before {
+	content: "Flareante";
+}
+html:lang(es) [data-localize="report.categories-residue"]:before {
+	content: "Residuo";
+}
+html:lang(es) [data-localize="report.categories-health"]:before {
+	content: "Salud";
+}
+html:lang(es) [data-localize="report.categories-other"]:before {
+	content: "Otro:\000A0";
+}

@@ -117,7 +117,7 @@ function uploadInit(){
 		$(thumbnail).children('.delete-me').click(function(event){
 			$(event.currentTarget).parent().next().remove();
 			$(event.currentTarget).parent().remove();
-			$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
+			$('.num-file-status').text($('.thumbnails img').length);
 			if($('.thumbnails img').length){
 				$('.photo-upload').show();
 			}else{
@@ -130,16 +130,16 @@ function uploadInit(){
 		$('.thumbnails')
 		.append(thumbnail)
 		.append('<div class="report-form-section"><label class="textarea-label photo-upload">'+
-		          '<strong>Caption:</strong>'+
+		          '<strong data-localize="report.img-caption"></strong>'+
 		          '<input type="text" name="caption"/>'+
 		        '</label>'+
 		        '<div class="textarea-label photo-upload">'+
-		          '<strong class="required">When did this photo occur?</strong>'+
-		          '<br><button class="report-button now-button">I just took it</button>'+
-		          '<br><label style="display:inline"><strong>Date:&ensp;</strong> <input class="required" type="date" name="photo-date" required></label>'+
-		          '<br><label style="display:inline"><strong>Time:&ensp;</strong> <input class="required" type="time" name="photo-time" required></label>'+
+		          '<strong class="required" data-localize="report.img-when"></strong>'+
+		          '<br><button class="report-button now-button" data-localize="report.img-just-took"></button>'+
+		          '<br><label style="display:inline"><strong data-localize="report.img-date"></strong> <input class="required" type="date" name="photo-date" required></label>'+
+		          '<br><label style="display:inline"><strong data-localize="report.img-time"></strong> <input class="required" type="time" name="photo-time" required></label>'+
 		        '<br></div></div>');		
-		$('.num-file-status').text($('.thumbnails img').length + ' files selected for upload.');
+		$('.num-file-status').text($('.thumbnails img').length);
 		$('.photo-upload').show();
 		$('#file-upload').val('');
 		scrollToElmMiddle($('[name=caption]').last());

@@ -1,0 +1,64 @@
+{	
+	"menu": {
+		"home": "Inicio",
+		"air-quality": "Calidad del aire&nbsp;<span class='caret'></span>",
+		"report-pollution": "Informe de Contaminación",
+		"user-reports": "Informes de Usuario",
+		"resources-for-action": "Recursos para la Acción",
+		"user-guide": "Guía del Usuario"
+	},
+	"title": {
+		"sub": "Una herramienta interactiva para las comunidades de primera línea del Área de la Bahía de San Francisco para explorar nuestra calidad del aire.",
+		"fb": "Únete a nuestra página de Facebook &rarr;",
+		"get-started": "EMPEZAR"
+	},
+	"service":{
+		"view-air-quality": "Vea la Calidad del Aire en su Comunidad",
+		"report-pollution": "Informe de Contaminación a Air Watch",
+		"report-start": "Comience un informe en línea &rarr;",
+		"user-reports": "Informes de Usuario",
+		"user-view": "Ver los informes enviados &rarr;",
+		"resources-for-action": "Recursos para la Acción",
+		"resources-view": "Ver recursos para la acción &rarr;",
+		"app": "Informe los incidentes de contaminación a través de nuestra aplicación cuando los experimente"
+	},
+	"faq":{
+		"title": "preguntas frecuentes",
+		"data-q": "¿De dónde vienen los datos?",
+		"data-a": "La mayoría de los datos en nuestro sitio provienen de <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>. A diferencia de <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>, sin embargo, nuestro sitio muestra datos archivados desde mayo de 2015. El resto proviene de monitores BAAQMD o monitores de bajo costo configurados por miembros de la comunidad.",
+		"health-hazard-q": "¿Quién decide qué nivel de una sustancia química dada constituye un peligro para la salud?",
+		"health-hazard-a": "Los límites de salud varían ampliamente entre las agencias gubernamentales. Nuestro sitio utiliza cifras de los Estándares Nacionales de Calidad del Aire Ambiental de los Estados Unidos (NAAQS), la Agencia para el Registro de Sustancias Tóxicas y Enfermedades (ATSDR) y la Oficina de Evaluación de Peligros para la Salud Ambiental de California (OEHHA). En interés de la salud pública, elegimos las cifras más bajas que se consideraron peligrosas para cada sustancia química.",
+		"pollution-event-q": "Un evento de contaminación del aire ocurrió en mi comunidad, pero los monitores no captaron nada. ¿Que pasó?",
+		"pollution-event-a": "Los eventos que ocurren fuera del rango de los sensores pueden no aparecer en el sitio. Lo que recogen los monitores depende en gran medida de la ubicación de la fuente de contaminación y la velocidad y dirección del viento en el momento del evento.",
+		"schools-q": "¿Por qué se incluyen las escuelas y las guarderías en el mapa?",
+		"schools-a": "La contaminación del aire conlleva mayores riesgos para las poblaciones vulnerables, que incluye a niños y ancianos. Debido a que nuestro objetivo es contextualizar los datos de contaminación del aire sobre cómo afecta a las personas reales, queríamos que los residentes pudieran ver si un evento de contaminación del aire podría afectar a sus niños."
+	},
+	"about":{
+		"title": "acerca de",
+		"info": "Air Watch es desarrollado y mantenido por <a style='color: #FD9453;' href='https://www.fairtechcollective.org/'>Fair Tech Collective</a> (contacto: <a href='mailto:airwatchbayarea&#x40;gmail.com'>airwatchbayarea&#x40;gmail.com</a>) en Drexel University en colaboración con <a style='color: #FD9453;' href='http://cmucreatelab.org/'>Community Robotics, Education and Technology Empowerment Lab</a> en Carnegie Mellon University en Carnegie Mellon University y miembros de la comunidad interesados ​​de:"
+	},
+	"footer":{
+		"copyright": "Derechos de Autor &copy; Air Watch Bay Area 2017",
+		"contact": "Contacto: airwatchbayarea&#x40;gmail.com",
+		"back-to-top": "Volver arriba"
+	},
+	"report": {
+		"title": "Informar un Incidente de Contaminación",
+		"subtitle": "(es decir, llamarada, olor, residuo, síntomas de salud)",
+		"title-note": "Cuando se reporta al área de Air Watch Bay, contribuye a un <a href='#user-reports' class='underline'>\"rastro de papel\" públicamente visible de los incidentes.</a><br>Contar con este documento permite a los miembros de la comunidad responsabilizar al Distrito de Gestión de la Calidad del Aire del Área de la Bahía.",
+		"photo": "Subir foto del incidente (opcional)",
+		"photo-multiple": "Seleccione varias fotos de a una por vez.",
+		"categories": "Indique las categorías del incidente que está informando (<i>marque todas las que correspondan</i>):",
+		"odor-rating": "¿Qué tan malo es el olor, si hay alguno?",
+		"odor-rating-1": "1 - Bien!",
+		"odor-rating-2": "2 - Apenas perceptible",
+		"odor-rating-3": "3 - Definitivamente notable",
+		"odor-rating-4": "4 - Se está poniendo bastante mal",
+		"odor-rating-5": "5 - ¡Tan malo como se pone!",
+		"address": "¿Cuál es la calle transversal o la dirección del olor o incidente?",
+		"describe-odor": "Describa el olor y/o incidente:",
+		"symptoms": "¿Qué síntomas de salud estás experimentando, si hay alguno?",
+		"additional-comments": "Comentarios adicionales:",
+		"note-bottom": "Esto no es un sustituto para informar a BAAQMD, ya que no podemos transmitir su informe directamente a ellos.  Recomendamos que también envíe un informe a través de <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>su&nbsp;sitio&nbsp;web</a>."
+	}
+}

@@ -1,8 +1,4 @@
-var languages = ['en','es'];
-
-function showLanguage(language){
-	for (var i = languages.length - 1; i >= 0; i--) {
-		$(':lang('+languages[i]+')').hide();
-	}
-	$(':lang('+language+')').show();
+function localize(language){
+	$("html").attr("lang", language);
+	$("[data-localize]").localize("localization/lang", { language: language });
 }

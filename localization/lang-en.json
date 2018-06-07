@@ -1,0 +1,64 @@
+{
+	"menu": {
+		"home": "Home",
+		"air-quality": "Air Quality&nbsp;<span class='caret'></span>",
+		"report-pollution": "Report Pollution",
+		"user-reports": "User Reports",
+		"resources-for-action": "Resources for Action",
+		"user-guide": "User Guide"
+	},
+	"title": {
+		"sub": "An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.",
+		"fb": "Join our Facebook page &rarr;",
+		"get-started": "GET STARTED"
+	},
+	"service":{
+		"view-air-quality": "View Air Quality in Your Community",
+		"report-pollution": "Report Pollution to Air Watch",
+		"report-start": "Start a report online &rarr;",
+		"user-reports": "User Reports",
+		"user-view": "View user-submitted reports &rarr;",
+		"resources-for-action": "Resources for Action",
+		"resources-view": "View resources for action &rarr;",
+		"app": "Report pollution incidents through our app right when you experience them"
+	},
+	"faq":{
+		"title": "faq",
+		"data-q": "Where do the data come from?",
+		"data-a": "Most of the data on our site come from <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>. Unlike <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>, however, our site displays archived data from as far back as May 2015. The rest come from BAAQMD monitors or inexpensive monitors set up by community members.",
+		"health-hazard-q": "Who decides what level of a given chemical constitutes a health hazard?",
+		"health-hazard-a": "Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.",
+		"pollution-event-q": "An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?",
+		"pollution-event-a": "Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.",
+		"schools-q": "Why are schools and daycares included on the map?",
+		"schools-a": "Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children."
+	},
+	"about":{
+		"title": "about",
+		"info": "Air Watch is developed and maintained by the <a style='color: #FD9453;' href='https://www.fairtechcollective.org/'>Fair Tech Collective</a> (contact: <a href='mailto:airwatchbayarea&#x40;gmail.com'>airwatchbayarea&#x40;gmail.com</a>) at Drexel University in collaboration with the <a style='color: #FD9453;' href='http://cmucreatelab.org/'>Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:"
+	},
+	"footer":{
+		"copyright": "Copyright &copy; Air Watch Bay Area 2017",
+		"contact": "Contact: airwatchbayarea&#x40;gmail.com",
+		"back-to-top": "Back to Top"
+	},
+	"report": {
+		"title": "Report a Pollution Incident",
+		"subtitle": "(i.e. flaring, odor, residue, health symptoms)",
+		"title-note": "When you report to Air Watch Bay Area, you contribute to a <a href='#user-reports' class='underline'>publicly visible \"paper&nbsp;trail\" of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.",
+		"photo": "Upload Photo of Incident (optional)",
+		"photo-multiple": "Please select multiple photos one at a time.",
+		"categories": "Indicate the categories of the incident you are reporting (<i>check all that apply</i>):",
+		"odor-rating": "How bad is the odor, if any?",
+		"odor-rating-1": "1 - Just Fine!",
+		"odor-rating-2": "2 - Barely noticeable",
+		"odor-rating-3": "3 - Definitely noticeable",
+		"odor-rating-4": "4 - It's getting pretty bad",
+		"odor-rating-5": "5 - About as bad as it gets!",
+		"address": "What is the cross street or address of the odor or incident?",
+		"describe-odor": "Describe the odor and/or incident:",
+		"symptoms": "What health symptoms are you experiencing, if any? ",
+		"additional-comments": "Additional comments:",
+		"note-bottom": "This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>their&nbsp;website</a>."
+	}
+}
