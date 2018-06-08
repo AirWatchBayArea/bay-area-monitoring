@@ -47,7 +47,9 @@
 		"past-7-days": "Past 7 Days",
 		"past-30-days": "Past 30 Days",
 		"timeline-toolbar": "Timeline Toolbar",
-		"share-dialogue": "Share a Pollution Incident",
+		"share-dialogue": {
+			"title": "Share a Pollution Incident"
+		},
 		"share-link": "To link others to your current view, use this URL:",
 		"smell-reports": "Smell Reports",
 		"expand-map": "Expand Map",

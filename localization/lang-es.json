@@ -47,7 +47,9 @@
 		"past-7-days": "Últimos 7 Días",
 		"past-30-days": "Últimos 30 Días",
 		"timeline-toolbar": "Barra de Herramientas",
-		"share-dialogue": "Comparta un incidente de contaminación",
+		"share-dialogue": {
+			"title": "Comparta un Incidente de Contaminación"
+		},
 		"share-link": "Para vincular a otros a su vista actual, use esta URL:",
 		"smell-reports": "Informes de Olor",
 		"expand-map": "Expandir Mapa",

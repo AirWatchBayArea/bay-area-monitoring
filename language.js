@@ -1,8 +1,9 @@
 function localize(language){
 	$("html").attr("lang", language);
-	$("[data-localize]").localize("localization/lang", { language: language});
+	$("[data-localize]").localize("localization/lang", { language: language, callback: cleanupLocalization});
 }
 
-function cleanupLocalization(data){
-	// $('[data-localize="dashboard.share-dialogue"]').dialog({'title':data['dashboard']['share-dialogue']});
+function cleanupLocalization(data, defaultCallback){
+	$('[data-localize="dashboard.share-dialogue"]').dialog(data['dashboard']['share-dialogue']);
+	defaultCallback(data);
 }
