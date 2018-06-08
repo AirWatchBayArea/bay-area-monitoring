@@ -387,11 +387,11 @@
         <div class="full-height" id="map-canvas"></div>
       </div>
       <div id="calendarMenu" class="calendar-controls">
-        <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button">Past 30 Days</button>
+        <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button" data-localize="dashboard.past-24-hours">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button" data-localize="dashboard.past-7-days">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button" data-localize="dashboard.past-30-days">Past 30 Days</button>
       </div>
       <div id="grapher_toolbar" class="row">
-        <h4 class="timeline_toolbar_label" data-localize="dashboard-timeline-toolbar">Timeline Toolbar:</h4>
-        <span id="grapher_zoom" class="grapher-tool-icon">
+        <h4 class="timeline_toolbar_label" data-localize="dashboard.timeline-toolbar">Timeline Toolbar:</h4>
+        <span id="grapher_zoom" class="grapher-tool-icon" data-localize="dashboard.zoom">
           <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-primary"></i>
             <i class="fa fa-search-minus fa-stack-1x fa-inverse"></i>
@@ -401,29 +401,29 @@
             <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
           </span>
         </span>
-        <span id="play" title="play/pause" class="grapher-tool-icon">
+        <span id="play" title="play/pause" class="grapher-tool-icon" data-localize="dashboard.play-pause">
             <span class="fa-stack fa-2x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-play fa-stack-1x fa-inverse"></i>
             </span>
         </span>
-        <span id="calendar" title="calendar" class="grapher-tool-icon">
+        <span id="calendar" title="calendar" class="grapher-tool-icon" data-localize="dashboard.calendar">
             <span class="fa-stack fa-2x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
             </span>
         </span>
-        <span id="share" title="share" class="grapher-tool-icon" onclick="generateShareLink()">
+        <span id="share" title="share" class="grapher-tool-icon" onclick="generateShareLink()" data-localize="dashboard.share">
             <span class="fa-stack fa-2x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-share-square-o fa-stack-1x fa-inverse"></i>
             </span>
         </span>
-        <div id="dialog" title="Share a Pollution Incident">
-          To link others to your current view, use this URL:<br><a id="shareLink" href="#"></a>
+        <div id="dialog" title="Share a Pollution Incident" data-localize="dashboard.share-dialogue">
+          <span data-localize="dashboard.share-link">To link others to your current view, use this URL:</span><br><a id="shareLink" href="#"></a>
         </div>
         <a href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank">
-          <span id="help" title="help" class="grapher-tool-icon">
+          <span id="help" title="help" class="grapher-tool-icon" data-localize="dashboard.help">
           <span class="fa-stack fa-2x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-question fa-stack-1x fa-inverse"></i>
@@ -434,7 +434,7 @@
       <div id="grapher_parent" class="row">
         <table border="0" cellpadding="0" cellspacing="0" id="grapher">
           <tr class="grapher_row" id="dateAxisContainer">
-            <td><div id="slider-wrapper" title="speed" class="grapher-tool-icon">
+            <td><div id="slider-wrapper" title="speed" class="grapher-tool-icon" data-localize="dashboard.playback-speed">
           <div id="slider"></div>
         </div></td>
             <td id="dateAxis"></td>
@@ -558,7 +558,7 @@
       </div></div></div>
     </form>
 
-    <div id="uploading" class="uploading note">
+    <div id="uploading" class="uploading note" data-localize="report.uploading">
       Uploading your report...
       <div id="upload-spinner"></div>
     </div>
@@ -566,14 +566,14 @@
     <div id="upload-error" class="error note">
       <p id="upload-error-message"></p>
       <p id="error-resolution"></p>
-      <p>If you cannot resolve this error, please take screenshots of your entire report and email <a href="mailto:airwatchbayarea&#x40;gmail.com?Subject=AWBA Error Report" target="_top">airwatchbayarea&#x40;gmail.com</a> and we will get back to you shortly!</p>
+      <p data-localize="report.upload-error">If you cannot resolve this error, please take screenshots of your entire report and email <a href="mailto:airwatchbayarea&#x40;gmail.com?Subject=AWBA Error Report" target="_top">airwatchbayarea&#x40;gmail.com</a> and we will get back to you shortly!</p>
     </div>
 
     <div id="submit-success">
-      <p class="success note">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline" onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">Click here to make a report to the BAAQMD site.</a>
+      <p class="success note" data-localize="report.upload-success">Your submission was a success! Thank you for reporting.<br><a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline" onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">Click here to make a report to the BAAQMD site.</a>
       </p>
-      <a href="#user-reports"><div class="report-button no-highlight">view submission</div></a>
-      <div id="submit-another-report" class="report-button no-highlight">submit another report</div>
+      <a href="#user-reports"><div class="report-button no-highlight" data-localize="report.view-submission">view submission</div></a>
+      <div id="submit-another-report" class="report-button no-highlight" data-localize="report.submit-another">submit another report</div>
     </div>
     <p class="note" data-localize="report.note-bottom">This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href="https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection" class="underline" onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">their&nbsp;website</a>.</p>
   </div>

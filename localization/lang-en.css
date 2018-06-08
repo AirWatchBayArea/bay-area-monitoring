@@ -31,3 +31,35 @@ html:lang(en) [data-localize="report.categories-health"]:before {
 html:lang(en) [data-localize="report.categories-other"]:before {
 	content: "Other:\000A0";
 }
+
+html:lang(en) [data-localize="dashboard.zoom"]:after{
+	content: "change\00a0timeframe";
+}
+html:lang(en) [data-localize="dashboard.calendar"]:after{
+	content: "calendar";
+}
+html:lang(en) [data-localize="dashboard.play-pause"]:after{
+	content: "play";
+}
+html:lang(en) [data-localize="dashboard.play-pause"].pause:after{
+	content: "pause" !important;
+}
+html:lang(en) [data-localize="dashboard.share"]:after{
+	content: "share";
+}
+html:lang(en) [data-localize="dashboard.help"]:after{
+	content: "help";
+}
+html:lang(en) [data-localize="dashboard.playback-speed"]:after{
+	content: "playback\00a0speed";
+}
+
+html:lang(en) [data-localize="dashboard.chemical-info"]:after{
+	content: "chemical\00a0info";
+}
+html:lang(en) [data-localize="dashboard.download"]:after{
+	content: "download";
+}
+
+
+

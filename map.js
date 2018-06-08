@@ -22,64 +22,73 @@ var blockPointSizePixels = 70;
 //  url: path/to/icon
 var iconScale = 4.25;
 var icons = {
-  "Wind": {legendIcon: iconBase + 'wind-arrow.png'},
-  "Pollution Source": {
-                        path: "M 50,8 90,75 10,75 z",
-                        fillColor: 'dimgray',
-                        strokeColor: 'gray',
-                        strokeWeight: 3,
-                        scale: .2,
-                        fillOpacity: 1.0,
-                        legendIcon: iconBase + "pollution-source.png"
-                      },
-  "Fenceline Monitor": {
-                        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                        fillColor: 'deeppink',
-                        strokeColor: 'lightpink',
-                        strokeWeight: 3,
-                        scale: iconScale,
-                        fillOpacity: 1.0,
-                        legendIcon: iconBase + "fenceline.png"
-                      },
-  // "BAAQMD Monitor": {
-  //                     path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-  //                     fillColor: 'royalblue',
-  //                     strokeColor: 'skyblue',
-  //                     strokeWeight: 3,
-  //                     scale: iconScale,
-  //                     fillOpacity: 1.0,
-  //                     legendIcon: iconBase + "baaqmd-monitor-pin.png"
-  //                   },
+  "Selected Monitor":{
+    path: google.maps.SymbolPath.CIRCLE,
+    fillColor: 'yellow',
+    strokeWeight: 0,
+    scale: iconScale,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "yellow_highlight.png",
+    localize: "dashboard.icon.selected-monitor"
+  },
   "Community Monitor": {
-                      path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                      fillColor: 'mediumspringgreen',
-                      strokeColor: '#A6FDDC',
-                      strokeWeight: 3,
-                      scale: iconScale,
-                      fillOpacity: 1.0,
-                      legendIcon: iconBase + "community-monitor.png"
-                    },
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    fillColor: 'mediumspringgreen',
+    strokeColor: '#A6FDDC',
+    strokeWeight: 3,
+    scale: iconScale,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "community-monitor.png",
+    localize: "dashboard.icon.community-monitor"
+  },
+  "Fenceline Monitor": {
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    fillColor: 'deeppink',
+    strokeColor: 'lightpink',
+    strokeWeight: 3,
+    scale: iconScale,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "fenceline.png",
+    localize: "dashboard.icon.fenceline-monitor"
+                      },
+  /* "BAAQMD Monitor": {
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    fillColor: 'royalblue',
+    strokeColor: 'skyblue',
+    strokeWeight: 3,
+    scale: iconScale,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "baaqmd-monitor-pin.png",
+    localize: "dashboard.icon.baaaqmd-monitor"
+  },*/
   "PurpleAir Monitor": {
-                        path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
-                        fillColor: '#c973c8',
-                        strokeColor: '#aa44aa',
-                        strokeWeight: 3,
-                        scale: iconScale,
-                        fillOpacity: 1.0,
-                        legendIcon: iconBase + "purpleair.png"
-                      },
-
-  "Selected Monitors":{
-                        path: google.maps.SymbolPath.CIRCLE,
-                        fillColor: 'yellow',
-                        strokeWeight: 0,
-                        scale: iconScale,
-                        fillOpacity: 1.0,
-                        legendIcon: iconBase + "yellow_highlight.png"
-                      },
+    path: google.maps.SymbolPath.BACKWARD_CLOSED_ARROW,
+    fillColor: '#c973c8',
+    strokeColor: '#aa44aa',
+    strokeWeight: 3,
+    scale: iconScale,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "purpleair.png",
+    localize: "dashboard.icon.purpleair-monitor"
+  },
+  "Wind": {
+    legendIcon: iconBase + 'wind-arrow.png',
+    localize: "dashboard.icon.wind"
+  },
   "School/Day Care": {url: iconBase + "school.png",
-            legendIcon: iconBase + "school.png",
-          }
+    legendIcon: iconBase + "school.png",
+    localize: "dashboard.icon.school"
+  },
+  "Pollution Source": {
+    path: "M 50,8 90,75 10,75 z",
+    fillColor: 'dimgray',
+    strokeColor: 'gray',
+    strokeWeight: 3,
+    scale: .2,
+    fillOpacity: 1.0,
+    legendIcon: iconBase + "pollution-source.png",
+    localize: "dashboard.icon.pollution-source"
+  },
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
@@ -579,7 +588,7 @@ function initMap(div) {
   controlText.style.color = 'rgb(25,25,25)';
   controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlText.style.fontSize = '13px';
-  controlText.innerHTML = 'Expand Map';
+  controlText.innerHTML = '<span data-localize="dashboard.expand-map">Expand Map</span>';
   controlUI.appendChild(controlText);
   controlDiv.index = 0;
 
@@ -821,12 +830,13 @@ function addMapLabels() {
 
 //generates the legend based on icons object at top
 function generateLegend() {
-  var $legend = $('<details id="legend" open=""><summary class="no-highlight" data-localize="dashboard-legend">Legend</summary></details>');
+  var $legend = $('<details id="legend" open=""><summary class="no-highlight" data-localize="dashboard.legend">Legend</summary></details>');
   for (var key in icons) {
     var name = key;
     var icon = icons[key];
     var div = document.createElement('div');
-    div.innerHTML = '<img src="' + icon.legendIcon + '"> ' + name;
+    div.innerHTML = ['<img src="',icon.legendIcon,'"> ',
+                     '<span data-localize="',icon.localize,'"">',name,'</span>'].join('');
     $legend.append(div);
   }
   $legend[0].index = -1
@@ -886,6 +896,12 @@ function paintWind(site, epochTime) {
     wind_dir = getData(site, site.channels.Wind_Direction || site.channels.WD, epochTime);
   }
 
+  // Black dot as base to wind vector
+  context.fillStyle = 'black';
+  context.beginPath();
+  context.arc(x, y, 1, 0, 2 * Math.PI, false);
+  context.fill();
+
   if (wind_speed && wind_dir) {
     if (wind_speed > 0.1) {
       var wind_dir_radians = wind_dir * Math.PI / 180;
@@ -912,12 +928,6 @@ function paintWind(site, epochTime) {
                      y + (length - d * 3) * dy + d * 1.5 * dx);
       context.fill();
 
-      // Black dot as base to wind vector
-      context.fillStyle = 'black';
-      context.beginPath();
-      context.arc(x, y, 0.5, 0, 2 * Math.PI, false);
-      context.fill();
-
       //show wind speed value on hover
         var windDirs = [ "S","SSW","SW", "WSW","W", "WNW","NW","NNW","N", "NNE","NE","ENE", "E","ESE","SE", "SSE"];
         var formattedDate = new Date(epochTime * 1000).toString();
@@ -928,10 +938,6 @@ function paintWind(site, epochTime) {
           position: rectLatLng
         });
 
-        if(windMonitor) {
-          windMonitor.setMap(null);
-          google.maps.event.clearInstanceListeners(windMonitor);
-        }
         windMonitor = new google.maps.Circle({
           strokeColor: '#FF0000',
           strokeOpacity: 0,

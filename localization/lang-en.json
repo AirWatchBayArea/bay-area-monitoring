@@ -42,6 +42,27 @@
 		"contact": "Contact: airwatchbayarea&#x40;gmail.com",
 		"back-to-top": "Back to Top"
 	},
+	"dashboard":{
+		"past-24-hours": "Past 24 Hours",
+		"past-7-days": "Past 7 Days",
+		"past-30-days": "Past 30 Days",
+		"timeline-toolbar": "Timeline Toolbar",
+		"share-dialogue": "Share a Pollution Incident",
+		"share-link": "To link others to your current view, use this URL:",
+		"smell-reports": "Smell Reports",
+		"expand-map": "Expand Map",
+		"legend": "Legend",
+		"icon":{
+			"selected-monitor": "Selected Monitor",
+			"community-monitor": "Community Monitor",
+			"fenceline-monitor": "Fenceline Monitor",
+			"baaaqmd-monitor": "BAAQMD Monitor",
+			"purpleair-monitor": "PurlpeAir Monitor",
+			"wind": "Wind",
+			"school": "School/Day Care",
+			"pollution-source": "Pollution Source"
+		}
+	},
 	"report": {
 		"title": "Report a Pollution Incident",
 		"subtitle": "(i.e. flaring, odor, residue, health symptoms)",
@@ -68,6 +89,11 @@
 			"value": "e.g. headache, sore throat, eye irritation"
 		},
 		"additional-comments": "Additional comments:",
+		"uploading": "Uploading your report...",
+		"upload-error": "If you cannot resolve this error, please take screenshots of your entire report and email <a href='mailto:airwatchbayarea&#x40;gmail.com?Subject=AWBA Error Report' target='_top'>airwatchbayarea&#x40;gmail.com</a> and we will get back to you shortly!",
+		"upload-success": "Your submission was a success! Thank you for reporting.<br><a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>Click here to make a report to the BAAQMD site.</a>",
+		"view-submission": "view submission",
+		"submit-another": "submit another report",
 		"note-bottom": "This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>their&nbsp;website</a>."
 	}
 }

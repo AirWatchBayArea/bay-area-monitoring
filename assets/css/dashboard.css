@@ -145,7 +145,7 @@
 .dashboard-page .grapher-tool-icon{
   position: relative;
   display: inline-block;
-  margin: 8px 5px 20px 0px;
+  margin: 8px 20px 20px 0px;
   cursor: pointer;
 }
 
@@ -159,37 +159,12 @@
 }
 
 #slider-wrapper:after{
-  content: "playback\00a0speed";
   top: 10px;
 }
 
 #grapher_zoom{
   border-radius: 10px;
   background-color: #555;
-}
-
-#grapher_zoom:after{
-  content: "change\00a0timeframe";
-}
-
-#calendar:after{
-  content: "calendar";
-}
-
-#play:after{
-  content: "play";
-}
-
-.pause:after{
-  content: "pause" !important;
-}
-
-#share:after{
-  content: "share";
-}
-
-#help:after{
-  content: "help";
 }
 
 .dashboard-page #shareLink {

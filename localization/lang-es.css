@@ -31,3 +31,30 @@ html:lang(es) [data-localize="report.categories-health"]:before {
 html:lang(es) [data-localize="report.categories-other"]:before {
 	content: "Otro:\000A0";
 }
+html:lang(es) [data-localize="dashboard.zoom"]:after{
+	content: "cambiar\00a0tiempo";
+}
+html:lang(es) [data-localize="dashboard.calendar"]:after{
+	content: "calendario";
+}
+html:lang(es) [data-localize="dashboard.play-pause"]:after{
+	content: "reproduce";
+}
+html:lang(es) [data-localize="dashboard.play-pause"].pause:after{
+	content: "pausa" !important;
+}
+html:lang(es) [data-localize="dashboard.share"]:after{
+	content: "compartir";
+}
+html:lang(es) [data-localize="dashboard.help"]:after{
+	content: "ayuda";
+}
+html:lang(es) [data-localize="dashboard.playback-speed"]:after{
+	content: "velocidad";
+}
+html:lang(es) [data-localize="dashboard.chemical-info"]:after{
+	content: "info\00a0química";
+}
+html:lang(es) [data-localize="dashboard.download"]:after{
+	content: "descargar";
+}

@@ -138,7 +138,8 @@ function postData(data){
 			},
 			error:function(err){
 				reject(err);
-				reportFailed(err, "checking your internet connection or see below.");			}
+				reportFailed(err.statusText, "checking your internet connection or see below.");
+			}
 		});
 	});
 }

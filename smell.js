@@ -138,7 +138,7 @@ function addSmellReportsToGrapher() {
         var row = $('<tr class="annotationChart grapher_row"></tr>');
         plotContainerId = smellPlotIndex + "_plot_container";
         yAxisId = smellPlotIndex + "_yaxis";
-        row.append('<td class="annotationChartTitle" style="color: black; background:white">Smell Reports</td>');
+        row.append('<td class="annotationChartTitle" style="color: black; background:white" data-localize="dashboard.smell-reports">Smell Reports</td>');
         row.append('<td id="' + plotContainerId + '" class="annotationContent" style="height:35px;"></td>');
         row.append('<td id="' + yAxisId + '" class="annotationChartAxis" style="display: none"></td>');
         $('#dateAxisContainer').after(row);

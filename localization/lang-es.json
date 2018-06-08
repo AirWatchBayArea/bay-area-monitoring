@@ -42,6 +42,27 @@
 		"contact": "Contacto: airwatchbayarea&#x40;gmail.com",
 		"back-to-top": "Volver arriba"
 	},
+	"dashboard":{
+		"past-24-hours": "Últimas 24 Horas",
+		"past-7-days": "Últimos 7 Días",
+		"past-30-days": "Últimos 30 Días",
+		"timeline-toolbar": "Barra de Herramientas",
+		"share-dialogue": "Comparta un incidente de contaminación",
+		"share-link": "Para vincular a otros a su vista actual, use esta URL:",
+		"smell-reports": "Informes de Olor",
+		"expand-map": "Expandir Mapa",
+		"legend": "Leyenda",
+		"icon":{
+			"selected-monitor": "Monitor Seleccionado",
+			"community-monitor": "Monitor de Comunidad",
+			"fenceline-monitor": "Monitor de Fenceline",
+			"baaaqmd-monitor": "Monitor de BAAQMD",
+			"purpleair-monitor": "Monitor de PurlpeAir",
+			"wind": "Viento",
+			"school": "Escuela/Guardería",
+			"pollution-source": "Fuente de Contaminación"
+		}
+	},
 	"report": {
 		"title": "Informar un Incidente de Contaminación",
 		"subtitle": "(es decir, llamarada, olor, residuo, síntomas de salud)",
@@ -68,6 +89,11 @@
 			"value": "p.ej. dolor de cabeza, dolor de garganta, irritación ocular"
 		},
 		"additional-comments": "Comentarios adicionales:",
+		"uploading": "Cargando su informe...",
+		"upload-error": "Si no puede resolver este error, tome capturas de pantalla de su informe y correo electrónico completos <a href='mailto:airwatchbayarea&#x40;gmail.com?Subject=AWBA Error Report' target='_top'>airwatchbayarea&#x40;gmail.com</a> y nos comunicaremos con usted en breve.",
+		"upload-success": "¡Tu envío fue un éxito! Gracias por informar.<br><a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>Haga clic aquí para hacer un informe al sitio de BAAQMD.</a>",
+		"view-submission": "ver presentación",
+		"submit-another": "enviar otro informe",
 		"note-bottom": "Esto no es un sustituto para informar a BAAQMD, ya que no podemos transmitir su informe directamente a ellos.  Recomendamos que también envíe un informe a través de <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>su&nbsp;sitio&nbsp;web</a>."
 	}
 }
