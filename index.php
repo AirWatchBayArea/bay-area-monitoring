@@ -631,7 +631,7 @@
     <div class="full-page full-height" id="resources-for-action-page">
       <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
       <div class="resource-container">
-        <h2>Resources for Action</h2>
+        <h2 data-localize="resources-for-action.title">Resources for Action</h2>
       <nav role="navigation" class="table-of-contents">
          <ul>
         </ul>

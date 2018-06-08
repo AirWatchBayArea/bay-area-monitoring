@@ -1,4 +1,7 @@
-var googleSheetUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBeSMdS3IknhvHmCdKH_Cy2_Vkj5y8Hc68JKDm1KgmgYVwdt468MYNQhjEzrhcl_duXP1PiBbJgFuq/pub?output=tsv&single=true';
+var localizedGoogleSheetUrls = {
+    'en': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBeSMdS3IknhvHmCdKH_Cy2_Vkj5y8Hc68JKDm1KgmgYVwdt468MYNQhjEzrhcl_duXP1PiBbJgFuq/pub?output=tsv&single=true',
+    'es': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBHbVmNHU9feWZRqYvLVzeSVD_hiOKdgVMk0LwcCIxnGawGf0vwf1sfbEJVQjCMT5y7B4pD_kS-DrR/pub?output=tsv&single=true',
+}
 
 var custom = {
 'summer_of_maps': ['<li>',
@@ -17,8 +20,13 @@ var custom = {
 	"</li>"].join('')
 }
 
-function getGoogleSheetURL(sheetGID){
-	return googleSheetUrl + '&gid=' + sheetGID
+//Jumps to the index of post relative to the clicked link in R4A
+function jumpToIndex(index){
+  scrollToElmMiddle($('section.post').eq(index));
+}
+
+function getGoogleSheetURL(sheetGID, language){
+	return localizedGoogleSheetUrls[language || 'en'] + '&gid=' + sheetGID;
 }
 
 function load(url, responseType) {
@@ -39,51 +47,49 @@ function load(url, responseType) {
         };
         xhr.send();
     }); 
-  }
-
-//Jumps to the index of post relative to the clicked link in R4A
-function jumpToIndex(index){
-  scrollToElmMiddle($('section.post').eq(index));
-}
-
-function resources4ActionInit(){
-	var resources_spinner = new Spinner({
-		radius: 8,
-		color: "#666",
-		opacity: .4,
-		trail: 45,
-	}).spin()
-	document.getElementById('resources-spinner').appendChild(resources_spinner.el)
-	load(googleSheetUrl, 'text').then(function(gidList){
-		gidList = gidList.split(/\r\n|\n/)[0].split('\t').slice(1);
-		var loadList = gidList
-					.map(getGoogleSheetURL)
-					.map(function(url){
-							return load(url, 'text');
-						})
-		return Promise.all(loadList)
-	}).then(function(response){
-		for(var i = 0; i < response.length; i++){
-			processCSV(response[i]);
-		}
+}  
+function loadResources4Action(language){
+    $('.resource-container>nav.table-of-contents>ul').html('');
+    $('#resources-for-action-page .post').remove();
+    var resources_spinner = new Spinner({
+        radius: 8,
+        color: "#666",
+        opacity: .4,
+        trail: 45,
+    }).spin()
+    document.getElementById('resources-spinner').appendChild(resources_spinner.el);
+    load(localizedGoogleSheetUrls[language || 'en'], 'text').then(function(gidList){
+        gidList = gidList.split(/\r\n|\n/)[0].split('\t').slice(1);
+        var loadList = gidList
+                    .map(function(gid){
+                        return getGoogleSheetURL(gid, language);
+                    })
+                    .map(function(url){
+                        return load(url, 'text');
+                    });
+        return Promise.all(loadList)
+    }).then(function(response){
+        for(var i = 0; i < response.length; i++){
+            processTSV(response[i]);
+        }
         $('.resource-container>nav.table-of-contents>ul>li').each(function(index){
             $(this).find('a').click(function(){
                 jumpToIndex(index)
             });
         })
-		resources_spinner.stop()
-	}).catch(function(reject){
-		console.log(reject);
-	});
+        resources_spinner.stop()
+    }).catch(function(reject){
+        console.log(reject);
+    });
 }
 
-function processCSV(csv){
-	var allCSVLines = csv.split(/\r\n|\n/);
-	var sectionTitle = escapeHTML(allCSVLines[0].split('\t')[0]);
-	var sectionSubtitle = escapeHTML(allCSVLines[1].split('\t')[0]);
-    var headers = allCSVLines[3].split(',');
+function processTSV(tsv){
+	var allTSVLines = tsv.split(/\r\n|\n/);
+	var sectionTitle = escapeHTML(allTSVLines[0].split('\t')[0]);
+	var sectionSubtitle = escapeHTML(allTSVLines[1].split('\t')[0]);
+    var headers = allTSVLines[3].split(',');
     $('.resource-container>nav.table-of-contents>ul').append('<li><a>'+sectionTitle+'</a></li>')
-    var restCSV = allCSVLines.slice(4)
+    var restTSV = allTSVLines.slice(4)
     var $post = $([
     		'<section class="post">',
     		'<h3 class="resource-title">', sectionTitle, '</h3>',
@@ -91,8 +97,8 @@ function processCSV(csv){
     		'<ul>','</ul>',
     		'</section>'].join(''))
 
-    for(var i = 0; i < restCSV.length; i++){
-    	var entry = restCSV[i].split('\t').map(escapeHTML)
+    for(var i = 0; i < restTSV.length; i++){
+    	var entry = restTSV[i].split('\t').map(escapeHTML)
     	$entryHTML = entry[0] != "CUSTOM" ? $([
     		'<li>',
     			'<a href="' + entry[1] + '" target="_blank">',
@@ -111,6 +117,10 @@ function processCSV(csv){
     	$($post).children('ul').append($entryHTML)
     }
     $('#resources-for-action-page .resource-container').append($post)
+}
+
+function resources4ActionInit(){
+    loadResources4Action('en');
 }
 
 $(resources4ActionInit)

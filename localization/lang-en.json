@@ -97,5 +97,8 @@
 		"view-submission": "view submission",
 		"submit-another": "submit another report",
 		"note-bottom": "This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>their&nbsp;website</a>."
+	},
+	"resources-for-action": {
+		"title": "Resources for Action"
 	}
 }

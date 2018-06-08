@@ -97,5 +97,8 @@
 		"view-submission": "ver presentación",
 		"submit-another": "enviar otro informe",
 		"note-bottom": "Esto no es un sustituto para informar a BAAQMD, ya que no podemos transmitir su informe directamente a ellos.  Recomendamos que también envíe un informe a través de <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>su&nbsp;sitio&nbsp;web</a>."
+	},
+	"resources-for-action": {
+		"title": "Recursos para la Acción"
 	}
 }
