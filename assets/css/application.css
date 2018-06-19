@@ -68,7 +68,7 @@ html, body {
 }
 
 #site-nav .nav>li>a:focus, #site-nav .nav>li>a:hover, #site-nav .nav>li>a:active{
-  background-color: #222;
+  background-color: transparent;
 }
 
 .nav .open>a, .nav .open>a:focus, .nav .open>a:hover {

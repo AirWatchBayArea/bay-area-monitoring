@@ -1,6 +1,11 @@
 html:lang(en) [data-localize="report.file-status"]:after {
   content: ' file(s) selected for upload.';
 }
+
+html:lang(en) strong.required:after{
+  content: ' (required)';
+}
+
 html:lang(en) [data-localize="report.img-caption"]:after {
   content: "Caption:";
 }
@@ -61,5 +66,78 @@ html:lang(en) [data-localize="dashboard.download"]:after{
 	content: "download";
 }
 
+html:lang(en) [data-localize="dashboard.smell-reports"]:after{
+	content: "Smell Reports";
+}
+
+html:lang(en) [data-localize="dashboard.expand-map"]:before{
+	content: "Expand Map";
+}
+
+html:lang(en) [data-localize="dashboard.legend"]:before{
+	content: "Legend ";
+}
+
+html:lang(en) [data-localize="dashboard.icon.selected-monitor"]:after{
+	content: "Selected Monitor";
+}
+html:lang(en) [data-localize="dashboard.icon.community-monitor"]:after{
+	content: "Community Monitor";
+}
+html:lang(en) [data-localize="dashboard.icon.fenceline-monitor"]:after{
+	content: "Fenceline Monitor";
+}
+html:lang(en) [data-localize="dashboard.icon.baaaqmd-monitor"]:after{
+	content: "BAAQMD Monitor";
+}
+html:lang(en) [data-localize="dashboard.icon.purpleair-monitor"]:after{
+	content: "PurlpeAir Monitor";
+}
+html:lang(en) [data-localize="dashboard.icon.wind"]:after{
+	content: "Wind";
+}
+html:lang(en) [data-localize="dashboard.icon.school"]:after{
+	content: "School/Day Care";
+}
+html:lang(en) [data-localize="dashboard.icon.pollution-source"]:after{
+	content: "Pollution Source";
+}
+
+html:lang(en) .chart.no-feeds:after{
+	content: "We are looking for real-time air quality data to display here. Please email us at airwatchbayarea@gmail.com if you have a sensor to add to this community and we will get back to you shortly!";
+}
 
 
+html:lang(en) [data-localize="user-reports.no-caption"]:after{
+	content: "(no caption)";
+}
+
+html:lang(en) [data-localize="user-reports.no-description"]:after{
+	content: "(no description)";
+}
+html:lang(en) [data-localize="user-reports.no-symptoms"]:after{
+	content: "(no symptoms)";
+}
+
+html:lang(en) .info.when:before{
+	content: "When: ";
+}
+
+html:lang(en) .info.posted:before{
+	content: "Posted: ";
+}
+
+html:lang(en) .info.tag:before{
+	content: "Category: ";
+}
+
+html:lang(en) .info.lat:before{
+	content: "Lat: ";
+}
+
+html:lang(en) .info.long:before{
+	content: "Lng: ";
+}
+html:lang(en) .caption.symptoms:before{
+	content: 'Symptoms: ';
+}

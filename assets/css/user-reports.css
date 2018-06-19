@@ -59,31 +59,10 @@
 	content: "" !important;
 }*/
 
-.info.when:before{
-	content: "When: ";
-}
-
-.info.posted:before{
-	content: "Posted: ";
-}
-
-.info.tag:before{
-	content: "Category: ";
-}
-
-.info.lat:before{
-	content: "Lat: ";
-}
-
-.info.long:before{
-	content: "Lng: ";
-}
-
 .caption{
 	margin: 5px 0px;
 }
 
 .caption.symptoms:before{
-	content: 'Symptoms: ';
 	color: gray;
 }

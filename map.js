@@ -539,6 +539,11 @@ var mapCenters = {
   }
 }
 
+//callback when map finish loaded
+function mapLoaded(){
+  localize()
+}
+
 //initializes the google map and draws markers/bounds
 function initMap(div) {
   // Initialize Google Map
@@ -588,7 +593,7 @@ function initMap(div) {
   controlText.style.color = 'rgb(25,25,25)';
   controlText.style.fontFamily = 'Roboto,Arial,sans-serif';
   controlText.style.fontSize = '13px';
-  controlText.innerHTML = '<span data-localize="dashboard.expand-map">Expand Map</span>';
+  controlText.innerHTML = '<span data-localize="dashboard.expand-map"></span>';
   controlUI.appendChild(controlText);
   controlDiv.index = 0;
 
@@ -830,13 +835,13 @@ function addMapLabels() {
 
 //generates the legend based on icons object at top
 function generateLegend() {
-  var $legend = $('<details id="legend" open=""><summary class="no-highlight" data-localize="dashboard.legend">Legend</summary></details>');
+  var $legend = $('<details id="legend" open=""><summary class="no-highlight" data-localize="dashboard.legend"></summary></details>');
   for (var key in icons) {
     var name = key;
     var icon = icons[key];
     var div = document.createElement('div');
     div.innerHTML = ['<img src="',icon.legendIcon,'"> ',
-                     '<span data-localize="',icon.localize,'"">',name,'</span>'].join('');
+                     '<span data-localize="',icon.localize,'""></span>'].join('');
     $legend.append(div);
   }
   $legend[0].index = -1

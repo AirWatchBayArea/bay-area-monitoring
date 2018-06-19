@@ -631,9 +631,9 @@
       // Add chart html to page since this chart does not exist yet
       var row = $('<tr class="chart"' + 'data-channel=' + channelName + '></tr>');
       var $chartTitle = $('<td class="chartTitle"><div class=title>' + feed.channels[channelName].graphMetaData.label + '</div></td>');
-      var $chemicalInfo = $(['<a class=chartButton title="View Chemical Info"href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf" target="_blank" data-localize="dashboard.chemical-info">',
+      var $chemicalInfo = $(['<a class="chartButton user-guide-chem-link" title="View Chemical Info"href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub#h.y2qt3fnrqosf" target="_blank" data-localize="dashboard.chemical-info">',
                               '</a>'].join(''));
-      var $dataView = $(['<a class=chartButton title="View Data on ESDR" data-localize="dashboard.download">',
+      var $dataView = $(['<a class="chartButton user-guide-chem-link" title="View Data on ESDR" data-localize="dashboard.download">',
                               '</a>'].join(''));
       $dataView
         .click(function(event) {

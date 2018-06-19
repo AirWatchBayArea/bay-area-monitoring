@@ -156,7 +156,7 @@ function generatePostHTML(data){
 		$($img).attr("src",src);
 		$($img).attr("width",'100%');
 		imgElms.push(
-					 '<h4 class="caption">',(imgData['caption']) ? escapeHTML(imgData['caption']) : "(no caption)",'</h4>',
+					 '<h4 class="caption">',(imgData['caption']) ? escapeHTML(imgData['caption']) : '<span data-localize="user-reports.no-caption"></span>','</h4>',
 					 '<p class="info when">',(imgData['when']) ? escapeHTML(dateFormat(Date.parse(imgData['when']))) : '?','</p>',
 					 $($img).prop('outerHTML'));
 	}
@@ -165,12 +165,12 @@ function generatePostHTML(data){
         	'<div class="smell-box" style="background-color: ',
         	smellColorStr,
         	'"></div>',
-        	'<h3 class="title">',(data['smell_description'] && checkFalseyString(data['smell_description'])) ? escapeHTML(data['smell_description']) : '(No Description)','</h3><br>',
+        	'<h3 class="title">',(data['smell_description'] && checkFalseyString(data['smell_description'])) ? escapeHTML(data['smell_description']) : '<span data-localize="user-reports.no-description"></span>','</h3><br>',
         	'<p class="info posted">',(data['posted']) ? escapeHTML(data['posted']) : '?','</p>',
         	// '<p class="info lat">',(data['latitude']) ? escapeHTML(data['latitude']) : '?','</p>',
         	// '<p class="info long">',(data['longitude']) ? escapeHTML(data['longitude']) : '?','</p>',
         	'<p class="info tag">',(data['tags'] && checkFalseyString(data['tags'])) ? escapeHTML(data['tags']).split(',').join(', ') : '?','</p>',
-        	'<h4 class="caption symptoms">',((data['feelings_symptoms']) && checkFalseyString(data['feelings_symptoms'])) ? escapeHTML(data['feelings_symptoms']) : "(no symptoms)",'</h4>',
+        	'<h4 class="caption symptoms">',((data['feelings_symptoms']) && checkFalseyString(data['feelings_symptoms'])) ? escapeHTML(data['feelings_symptoms']) : '<span data-localize="user-reports.no-symptoms"></span>','</h4>',
         	'<img src="', generateStaticMapURL(data['latitude'],data['longitude'],data['smell_value']), '" width="100%">',
         	imgElms.join(""),
       		(data['additional_comments'] && checkFalseyString(data['additional_comments'])) ? '<p class="info additional_comments">'+escapeHTML(data['additional_comments'])+'</p>' : "",

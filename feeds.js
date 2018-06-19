@@ -22,6 +22,7 @@ function initFeeds() {
         createChart(feed, channelName, feed.api_key);
       });
     }
+    localize();
   });
   if (canvasLayer){
     highlightSelectedMonitors();

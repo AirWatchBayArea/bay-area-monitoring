@@ -1,37 +1,39 @@
 {
+	"bay-area": "Bay Area ",
 	"menu": {
 		"home": "Home",
 		"air-quality": "Air Quality&nbsp;<span class='caret'></span>",
 		"report-pollution": "Report Pollution",
 		"user-reports": "User Reports",
 		"resources-for-action": "Resources for Action",
-		"user-guide": "User Guide"
+		"user-guide": "User Guide",
+		"language": "Español"
 	},
 	"title": {
-		"sub": "An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality.",
-		"fb": "Join our Facebook page &rarr;",
+		"sub": "Learn more about air quality in the San Francisco Bay Area and report air pollution. Use our interactive tool to know how air pollution affects your community, especially pollution from oil refineries.",
+		"fb": "Join our Facebook page ",
 		"get-started": "GET STARTED"
 	},
 	"service":{
 		"view-air-quality": "View Air Quality in Your Community",
 		"report-pollution": "Report Pollution to Air Watch",
-		"report-start": "Start a report online &rarr;",
+		"report-start": "Start a report online ",
 		"user-reports": "User Reports",
-		"user-view": "View user-submitted reports &rarr;",
+		"user-view": "View user-submitted reports ",
 		"resources-for-action": "Resources for Action",
-		"resources-view": "View resources for action &rarr;",
-		"app": "Report pollution incidents through our app right when you experience them"
+		"resources-view": "View resources for action ",
+		"app": "Report pollution events through the app right when they happen."
 	},
 	"faq":{
 		"title": "faq",
-		"data-q": "Where do the data come from?",
-		"data-a": "Most of the data on our site come from <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>. Unlike <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>, however, our site displays archived data from as far back as May 2015. The rest come from BAAQMD monitors or inexpensive monitors set up by community members.",
-		"health-hazard-q": "Who decides what level of a given chemical constitutes a health hazard?",
-		"health-hazard-a": "Health limits vary widely between governmental agencies. Our site uses figures from the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). In the interest of public health, we chose the lowest figures that were deemed hazardous for each chemical.",
-		"pollution-event-q": "An air pollution event occurred in my community, but the monitors didn’t pick up anything. What happened?",
-		"pollution-event-a": "Events that occur outside the range of the sensors may not appear on the site. What the monitors pick up depends highly on the location of the pollution source, and the wind speed and direction at the time of the event.",
-		"schools-q": "Why are schools and daycares included on the map?",
-		"schools-a": "Air pollution carries higher risks for vulnerable populations—which includes children and the elderly. Because our aim is to contextualize air pollution data in how it impacts real people, we wanted residents to be able to see whether an air pollution event might impact their children."
+		"data-q": "Where does the information on this website come from?",
+		"data-a": "Most of the information comes from <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>. Our site is different because it lets you see information from as far back as May 2015.<br>We also show information from air monitors set up by community members.",
+		"health-hazard-q": "How do you decide what is a dangerous amount of a chemical in the air?",
+		"health-hazard-a": "Different groups have different standards for unhealthy amounts of various chemicals. Air Watch Bay Area uses standards from government agencies, especially the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). For each chemical we measure, we use the lowest amount that is considered dangerous. In other words, we pick the strictest standards from the experts.",
+		"pollution-event-q": "An air pollution event happened in my community, but the air monitors didn’t pick up anything. What happened?",
+		"pollution-event-a": "Air pollution events can happen in a community but be too far from a monitor to be sensed. This can mean they don't appear on the site. What the monitors can pick up depends on where the pollution came from and the wind's speed and direction when it happened.",
+		"schools-q": "Why are schools and day-care centers included on the map?",
+		"schools-a": "Air pollution is more dangerous for certain people, including children and older people. We show schools and day-care centers on the map so people can see how air pollution will affect them and their families."
 	},
 	"about":{
 		"title": "about",
@@ -50,20 +52,7 @@
 		"share-dialogue": {
 			"title": "Share a Pollution Incident"
 		},
-		"share-link": "To link others to your current view, use this URL:",
-		"smell-reports": "Smell Reports",
-		"expand-map": "Expand Map",
-		"legend": "Legend",
-		"icon":{
-			"selected-monitor": "Selected Monitor",
-			"community-monitor": "Community Monitor",
-			"fenceline-monitor": "Fenceline Monitor",
-			"baaaqmd-monitor": "BAAQMD Monitor",
-			"purpleair-monitor": "PurlpeAir Monitor",
-			"wind": "Wind",
-			"school": "School/Day Care",
-			"pollution-source": "Pollution Source"
-		}
+		"share-link": "To link others to your current view, use this URL:"
 	},
 	"report": {
 		"title": "Report a Pollution Incident",
@@ -96,7 +85,21 @@
 		"upload-success": "Your submission was a success! Thank you for reporting.<br><a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>Click here to make a report to the BAAQMD site.</a>",
 		"view-submission": "view submission",
 		"submit-another": "submit another report",
-		"note-bottom": "This is not a substitute for reporting to BAAQMD, since we cannot relay your report directly to them.  We recommend that you also submit a report through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>their&nbsp;website</a>."
+		"note-bottom": "You should also report this pollution event to BAAQMD through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>its&nbsp;website</a>. We cannot send your report to BAAQMD."
+	},
+	"user-reports":{
+		"title": "User Reports",
+		"sort-by": "Sort by:",
+		"posted-date": "Posted Date",
+		"pic-on-top": "Pictures On Top",
+		"odor-severity": "Odor Severity",
+		"all": "All",
+		"odor": "Odor",
+		"flaring": "Flaring",
+		"residue": "Residue",
+		"health": "Health",
+		"other​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​": "Other​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​​",
+		"scroll-load": "(Scroll Down to Load More)"
 	},
 	"resources-for-action": {
 		"title": "Resources for Action"

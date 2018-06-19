@@ -1,6 +1,9 @@
 html:lang(es) [data-localize="report.file-status"]:after {
   content: ' archivo(s) seleccionado para cargar.';
 }
+html:lang(es) strong.required:after{
+  content: ' (obligatorio)';
+}
 html:lang(es) [data-localize="report.img-caption"]:after {
   content: "Subtítulo:";
 }
@@ -20,7 +23,7 @@ html:lang(es) [data-localize="report.categories-odor"]:before {
 	content: "Olor";
 }
 html:lang(es) [data-localize="report.categories-flaring"]:before {
-	content: "Flareante";
+	content: "Llamarada";
 }
 html:lang(es) [data-localize="report.categories-residue"]:before {
 	content: "Residuo";
@@ -38,7 +41,7 @@ html:lang(es) [data-localize="dashboard.calendar"]:after{
 	content: "calendario";
 }
 html:lang(es) [data-localize="dashboard.play-pause"]:after{
-	content: "reproduce";
+	content: "reproducir";
 }
 html:lang(es) [data-localize="dashboard.play-pause"].pause:after{
 	content: "pausa" !important;
@@ -50,11 +53,85 @@ html:lang(es) [data-localize="dashboard.help"]:after{
 	content: "ayuda";
 }
 html:lang(es) [data-localize="dashboard.playback-speed"]:after{
-	content: "velocidad";
+	content: "Velocidad de reproducción";
 }
 html:lang(es) [data-localize="dashboard.chemical-info"]:after{
 	content: "info\00a0química";
 }
 html:lang(es) [data-localize="dashboard.download"]:after{
 	content: "descargar";
+}
+
+html:lang(es) [data-localize="dashboard.smell-reports"]:after{
+	content: "Reportes de olores";
+}
+
+html:lang(es) [data-localize="dashboard.expand-map"]:before{
+	content: "Ampliar Mapa";
+}
+
+html:lang(es) [data-localize="dashboard.legend"]:before{
+	content: "Leyenda ";
+}
+
+html:lang(es) [data-localize="dashboard.icon.selected-monitor"]:after{
+	content: "Monitores seleccionados";
+}
+html:lang(es) [data-localize="dashboard.icon.community-monitor"]:after{
+	content: "Monitor de la comunidad";
+}
+html:lang(es) [data-localize="dashboard.icon.fenceline-monitor"]:after{
+	content: "Monitor del vallado";
+}
+html:lang(es) [data-localize="dashboard.icon.baaaqmd-monitor"]:after{
+	content: "Monitor de BAAQMD";
+}
+html:lang(es) [data-localize="dashboard.icon.purpleair-monitor"]:after{
+	content: "Monitor de PurlpeAir";
+}
+html:lang(es) [data-localize="dashboard.icon.wind"]:after{
+	content: "Viento";
+}
+html:lang(es) [data-localize="dashboard.icon.school"]:after{
+	content: "Escuela/Guardería";
+}
+html:lang(es) [data-localize="dashboard.icon.pollution-source"]:after{
+	content: "Fuente de contaminación";
+}
+
+html:lang(es) .chart.no-feeds:after{
+	content: "Estamos buscando datos de calidad del aire en tiempo real para mostrar aquí. Envíenos un correo electrónico a airwatchbayarea\00040gmail.com si tiene un sensor para agregar a esta comunidad y nos pondremos en contacto con usted en breve.";
+}
+
+html:lang(es) [data-localize="user-reports.no-caption"]:after{
+	content: "(no hay leyenda)";
+}
+
+html:lang(es) [data-localize="user-reports.no-description"]:after{
+	content: "(no hay descripción)";
+}
+html:lang(es) [data-localize="user-reports.no-symptoms"]:after{
+	content: "(no hay síntomas)";
+}
+html:lang(es) .info.when:before{
+	content: "Cuando: ";
+}
+
+html:lang(es) .info.posted:before{
+	content: "Publique: ";
+}
+
+html:lang(es) .info.tag:before{
+	content: "Categoría: ";
+}
+
+html:lang(es) .info.lat:before{
+	content: "Lat: ";
+}
+
+html:lang(es) .info.long:before{
+	content: "Lng: ";
+}
+html:lang(es) .caption.symptoms:before{
+	content: "Síntomas: ";
 }

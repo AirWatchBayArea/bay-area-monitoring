@@ -316,7 +316,6 @@
 }
 
 .dashboard-page .chart.no-feeds:after{
-  content: "We are looking for real-time air quality data to display here. Please email us at airwatchbayarea@gmail.com if you have a sensor to add to this community and we will get back to you shortly!";
   display: block;
   margin: 20px;
   padding: 10px;
