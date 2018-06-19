@@ -1,7 +1,7 @@
 function localizeInit(){
 	localize();
 	$('.language').click(function(event){
-		var lang = event.toElement.dataset.lang;
+		var lang = event.target.dataset.lang;
 	    localize(lang);
 	    event.preventDefault();
 	});

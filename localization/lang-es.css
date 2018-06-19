@@ -53,7 +53,7 @@ html:lang(es) [data-localize="dashboard.help"]:after{
 	content: "ayuda";
 }
 html:lang(es) [data-localize="dashboard.playback-speed"]:after{
-	content: "Velocidad de reproducción";
+	content: "velocidad";
 }
 html:lang(es) [data-localize="dashboard.chemical-info"]:after{
 	content: "info\00a0química";
@@ -63,7 +63,7 @@ html:lang(es) [data-localize="dashboard.download"]:after{
 }
 
 html:lang(es) [data-localize="dashboard.smell-reports"]:after{
-	content: "Reportes de olores";
+	content: "Reportes de Olores";
 }
 
 html:lang(es) [data-localize="dashboard.expand-map"]:before{

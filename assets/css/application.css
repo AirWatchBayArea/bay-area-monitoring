@@ -58,6 +58,11 @@ html, body {
   }
 }
 
+.language {
+  background-color: #444 !important;
+  border-radius: 5px;
+}
+
 .navbar-custom{
   background-color: #222 !important;
   color: white !important;
