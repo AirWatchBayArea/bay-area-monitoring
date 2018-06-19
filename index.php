@@ -585,7 +585,7 @@
   </div>
 
   <div class="full-page full-height" id="user-reports-page">
-    <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
+    <div class="back-to-top report-button no-highlight" onclick="scrollToTop()" data-localize="footer.back-to-top">Back To Top</div>
     <div id="photos-container" class="resource-container">
       <h2 data-localize="user-reports.title">User Reports:</h2>
       <div id="reports-toolbar">
@@ -635,7 +635,7 @@
   </div>
 
     <div class="full-page full-height" id="resources-for-action-page">
-      <div class="back-to-top report-button no-highlight" onclick="scrollToTop()">Back To Top</div>
+      <div class="back-to-top report-button no-highlight" onclick="scrollToTop()" data-localize="footer.back-to-top">Back To Top</div>
       <div class="resource-container">
         <h2 data-localize="resources-for-action.title">Resources for Action</h2>
       <nav role="navigation" class="table-of-contents">
