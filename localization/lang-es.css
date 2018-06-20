@@ -31,6 +31,9 @@ html:lang(es) [data-localize="report.categories-residue"]:before {
 html:lang(es) [data-localize="report.categories-health"]:before {
 	content: "Salud";
 }
+html:lang(es) [data-localize="report.categories-coal"]:before {
+	content: "Carbón";
+}
 html:lang(es) [data-localize="report.categories-other"]:before {
 	content: "Otro:\000A0";
 }

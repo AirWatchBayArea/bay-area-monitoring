@@ -33,6 +33,9 @@ html:lang(en) [data-localize="report.categories-residue"]:before {
 html:lang(en) [data-localize="report.categories-health"]:before {
 	content: "Health";
 }
+html:lang(en) [data-localize="report.categories-coal"]:before {
+	content: "Coal";
+}
 html:lang(en) [data-localize="report.categories-other"]:before {
 	content: "Other:\000A0";
 }

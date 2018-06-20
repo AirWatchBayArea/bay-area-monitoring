@@ -494,6 +494,10 @@
           <div class="tag-label" data-localize="report.categories-residue"></div>
         </label>
         <label class="no-highlight" style="display: inline-block;">
+          <input type="checkbox" name="tag" value="coal">
+          <div class="tag-label" data-localize="report.categories-coal"></div>
+        </label>
+        <label class="no-highlight" style="display: inline-block;">
           <input type="checkbox" name="tag" value="health">
           <div class="tag-label" data-localize="report.categories-health"></div>
         </label>
@@ -621,6 +625,10 @@
         <label>
           <input type="radio" name="filter" value="health">
           <div class="tag-label" data-localize="user-reports.health">Health</div>
+        </label>
+        <label>
+          <input type="radio" name="filter" value="Coal">
+          <div class="tag-label" data-localize="user-reports.coal">Coal</div>
         </label>
         <label>
           <input type="radio" name="filter" value="other">
