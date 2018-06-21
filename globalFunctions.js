@@ -25,7 +25,7 @@ function escapeHTML(text){
 }
 
 //rounds a lat or long value to 3 decimals
-function roundLatLng(val){
+function shortenLatLng(val){
   return Math.floor(val*1000+0.5)/1000;
 }
 

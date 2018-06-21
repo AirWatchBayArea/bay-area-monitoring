@@ -111,7 +111,7 @@
   </script>
   <script src="assets/js/jquery.xdomainrequest.min.js" type="text/javascript">
   </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbv3SgWdKhgZWNhHVy8QXfYFCSONWj2Jk&libraries=places" type="text/javascript">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZuOqKr7onchQX0np-fCgwrx5c0VK11Os&libraries=places" type="text/javascript">
   </script>
   <script src="Promise.js">
   </script>
@@ -171,7 +171,7 @@
           <span style="color: white">Menu</span>
         </button>
          <a class="navbar-brand page-scroll" href="#home">Air&nbsp;Watch <span style="color:#f7b733">Bay&nbsp;Area</span></a>
-         <ul class="nav navbar-nav navbar-right">
+         <ul style="display: inline-block; margin: 7.5px 0px;" class="nav navbar-nav navbar-right">
            <li class="" id="language-tab">
               <a class="language text-uppercase no-highlight" href="#" data-lang='es'>Español</a>
               <a class="language text-uppercase no-highlight" href="#" data-lang='en'>English</a>

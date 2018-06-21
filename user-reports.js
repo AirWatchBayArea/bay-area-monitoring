@@ -1,5 +1,5 @@
 //NOTE: Smell report = incident report, keeping smell language for legacy support
-
+var googleMapsApi = "AIzaSyDZuOqKr7onchQX0np-fCgwrx5c0VK11Os";
 var postList = [];
 var showList = [];
 var responseList;
@@ -43,8 +43,8 @@ function generatePostFromSmell(smell_report){
 	}
 
 	var postData = {
-		'latitude': roundLatLng(escapeHTML(smell_report['latitude'])),
-		'longitude':roundLatLng(escapeHTML(smell_report['longitude'])),
+		'latitude': shortenLatLng(parseFloat(escapeHTML(smell_report['latitude']))),
+		'longitude':shortenLatLng(parseFloat(escapeHTML(smell_report['longitude']))),
 		'smell_value':parseInt(escapeHTML(smell_report['smell_value'])),
 		'smell_description': escapeHTML(smell_report['smell_description']),
 		'posted':formatDate(smell_report['created_at']*1000),
@@ -128,8 +128,7 @@ function getMapSmellColorStr(smellVal){
 
 //generate a src for map thumbnail
 function generateStaticMapURL(lat, lng, smellVal){
-	// return ""
-	return [
+	return  [
 			"https://maps.googleapis.com/maps/api/staticmap?",
 			"center=",
 			"&zoom=13",
@@ -142,7 +141,7 @@ function generateStaticMapURL(lat, lng, smellVal){
 			getMapSmellColorStr(smellVal),
 			"%7Clabel:%7C",
 			lat, ",", "+", lng,
-			"&key=AIzaSyACnBtr47XRPi-D7l4jl5rPKMIOeZxXgSc",
+			"&key=", googleMapsApi
 			].join('');
 }
 
