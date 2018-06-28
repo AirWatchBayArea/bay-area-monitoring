@@ -132,9 +132,3 @@ function processTSV(tsv){
     }
     $('#resources-for-action-page .resource-container').append($post)
 }
-
-function resources4ActionInit(){
-    loadResources4Action('en');
-}
-
-$(resources4ActionInit)
