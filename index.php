@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
   $http_origin = $_SERVER['HTTP_ORIGIN'];
   $allowed_domains = array(
@@ -16,7 +17,6 @@
       header("Access-Control-Allow-Origin: https://www.google-analytics.com", false);
   }
 ?>
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <title>Air Watch: Bay Area</title>
