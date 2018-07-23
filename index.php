@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<?php
-  $http_origin = $_SERVER['HTTP_ORIGIN'];
-  $allowed_domains = array(
-    'http://localhost',
-    'http://air-watch-bay-area-staging.herokuapp.com',
-    'http://www.airwatchbayarea.org',
-  );
-
-  if (in_array($http_origin, $allowed_domains))
-  {  
-      header("Access-Control-Allow-Origin: $http_origin", false);
-      header("Access-Control-Allow-Origin: http://esdr.cmucreatelab.org", false);
-      header("Access-Control-Allow-Origin: https://docs.google.com", false);
-      header("Access-Control-Allow-Origin: http://api.smellpittsburgh.org", false);
-      header("Access-Control-Allow-Origin: https://maps.googleapis.com", false);
-      header("Access-Control-Allow-Origin: https://www.google-analytics.com", false);
-  }
-?>
 <html lang="en">
 <head>
   <title>Air Watch: Bay Area</title>
