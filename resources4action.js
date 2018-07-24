@@ -1,6 +1,6 @@
 var localizedGoogleSheetUrls = {
-    'en': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBeSMdS3IknhvHmCdKH_Cy2_Vkj5y8Hc68JKDm1KgmgYVwdt468MYNQhjEzrhcl_duXP1PiBbJgFuq/pub?output=tsv&single=true',
-    'es': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSBHbVmNHU9feWZRqYvLVzeSVD_hiOKdgVMk0LwcCIxnGawGf0vwf1sfbEJVQjCMT5y7B4pD_kS-DrR/pub?output=tsv&single=true',
+    'en': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1Y9EW-OsEESY72DeE0s-HCI3Gs2kOuf6gwB-s063LnBPf8ZeV1lPrFXJWrIMED4AabTNMtDBn9r5y/pub?output=tsv&single=true',
+    'es': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8VWfFBymRrzsxOkMj6aEMbAn0kuBz_ZLtsIOA6glmw3EHcgl4twBpHYtKTxTCqOhKwPcJPj42MX5Y/pub?output=tsv&single=true',
 }
 
 var custom = {
@@ -52,7 +52,7 @@ function load(url, responseType) {
           if(xhr.status == 200){
               resolve(this.response);
           }else{
-              reject(Error(xhr.statusText));
+              reject(Error(xhr.responseText));
           }
         };
         // Handle network errors
