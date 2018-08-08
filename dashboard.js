@@ -59,6 +59,7 @@
     "El Cerrito" : [13304],
     "Berekley" : [12848],
     "Martinez": [],
+    "Clyde": [17230],
     "BAAQMD":[4850, 4846, 4857, 4849]
   };
 

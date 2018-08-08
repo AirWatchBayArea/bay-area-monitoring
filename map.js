@@ -310,6 +310,13 @@ var purpleAirMonitors = {
       lng: -122.158814,
       description: "PurpleAir Monitor"
     }
+  ],
+  "Clyde": [
+    {
+      lat: 38.0285,
+      lng: -122.0302,
+      description: "PurpleAir Monitor"
+    }
   ]
 }
 //defines where to draw BAAQMDMonitors
@@ -533,8 +540,8 @@ var mapCenters = {
     zoom: 13
   },
   "martinez":{
-    lat : 38.01201999567132,
-    lng : -122.13458453021235,
+    lat : 38.01540113860103,
+    lng : -122.11896334490962,
     zoom: 13
   }
 }
@@ -660,7 +667,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -669,7 +676,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -741,9 +748,9 @@ function addDataToInfoWindow(infowindow, infoContent){
   if (communityName in feedMap){
     for(var i = 0; i < feedMap[communityName].length; i++){
       var feedId = feedMap[communityName][i];
-      if (feedId in feedIDtoPlotId){
-          console.log(feedIDtoPlotId[feedId]);
-      }
+      // if (feedId in feedIDtoPlotId){
+      //     console.log(feedIDtoPlotId[feedId]);
+      // }
     }
   }
 }
