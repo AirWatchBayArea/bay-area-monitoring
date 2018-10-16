@@ -511,6 +511,11 @@ var pollutionSources = {
     lat: 38.0561213,
     lng:-122.2187912,
   },
+  "Lehigh Permanente Quarry":{
+    description: "Mercury",
+    lat: 37.320355, 
+    lng: -122.106913,
+  }
 }
 
 var mapCenters = {
@@ -694,14 +699,15 @@ function initMap(div) {
     refineryBounds.setMap(map);
   }
 
+  //add Pollution Sources
+  for(var key in pollutionSources) {
+    var pollutionSource = pollutionSources[key];
+    var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
+    var icon = icons['Pollution Source'];
+    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
+  }
+
   if(!isBigPicture){
-    //add Pollution Sources
-    for(var key in pollutionSources) {
-      var pollutionSource = pollutionSources[key];
-      var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
-      var icon = icons['Pollution Source'];
-      createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
-    }
     var service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
       location: new google.maps.LatLng(center.lat, center.lng),
