@@ -395,6 +395,9 @@
           <li class="custom-nav-btn" id="martinez-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=martinez">Martinez</a>
           </li>
+          <li class="custom-nav-btn" id="east-oakland-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=east-oakland">East Oakland</a>
+          </li>
         </ul>
       </nav>
       <div id="map_parent" class="row">
