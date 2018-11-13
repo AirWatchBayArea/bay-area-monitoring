@@ -90,7 +90,7 @@ html:lang(es) [data-localize="dashboard.icon.baaaqmd-monitor"]:after{
 	content: "Monitor de BAAQMD";
 }
 html:lang(es) [data-localize="dashboard.icon.purpleair-monitor"]:after{
-	content: "Monitor de PurlpeAir";
+	content: "Monitor de PurpleAir";
 }
 html:lang(es) [data-localize="dashboard.icon.wind"]:after{
 	content: "Viento";

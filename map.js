@@ -395,7 +395,24 @@ var purpleAirMonitors = {
     }
   ],
   "Piedmont": [
-
+    {
+      // feedid: 21922, 21923
+      lat: 37.828898,
+      lng: -122.243001,
+      description: "PurpleAir Monitor"
+    },
+    {
+      // feedid: 18171, 18172, 23216, 23217
+      lat: 37.82223,
+      lng: -122.253422,
+      description: "PurpleAir Monitor"
+    },
+    {
+      // feedid: 19370, 19371, 21651, 21651, 21652
+      lat: 37.830009,
+      lng: -122.254306,
+      description: "PurpleAir Monitor"
+    }
   ],
   "Alameda": [
     {
