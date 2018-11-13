@@ -319,30 +319,6 @@ var purpleAirMonitors = {
     },
   ],
   "East Oakland": [
-    { 
-      // feedid: 23026
-      lat: 37.759153,
-      lng: -122.237239,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 15269
-      lat: 37.763711,
-      lng: -122.233043,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 19709
-      lat: 37.767806,
-      lng: -122.250155,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 22119
-      lat: 37.764082,
-      lng: -122.260221,
-      description: "PurpleAir Monitor"
-    },
     {
       // feedid: 18230
       lat: 37.784896,
@@ -404,9 +380,46 @@ var purpleAirMonitors = {
       description: "PurpleAir Monitor"
     },
     {
+      // feedid: 13935
+      lat: 37.795173,
+      lng: -122.271255,
+      description: "PurpleAir Monitor"
+    }
+  ],
+  "West Oakland": [
+    {
       // feedid: 14852
       lat: 37.809883,
       lng: -122.297672,
+      description: "PurpleAir Monitor"
+    }
+  ],
+  "Piedmont": [
+
+  ],
+  "Alameda": [
+    {
+      // feedid: 22119
+      lat: 37.764082,
+      lng: -122.260221,
+      description: "PurpleAir Monitor"
+    },
+    { 
+      // feedid: 23026
+      lat: 37.759153,
+      lng: -122.237239,
+      description: "PurpleAir Monitor"
+    },
+    {
+      // feedid: 15269
+      lat: 37.763711,
+      lng: -122.233043,
+      description: "PurpleAir Monitor"
+    },
+    {
+      // feedid: 19709
+      lat: 37.767806,
+      lng: -122.250155,
       description: "PurpleAir Monitor"
     }
   ]
@@ -641,7 +654,7 @@ var mapCenters = {
     lng : -122.11896334490962,
     zoom: 13
   },
-  "east-oakland":{
+  "oakland":{
     lat : 37.77030299261307,
     lng : -122.20983282148165,
     zoom: 12

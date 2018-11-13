@@ -64,9 +64,12 @@
     "Martinez": [],
     "Clyde": [17230],
     "BAAQMD":[4850, 4846, 4857, 4849],
-    "East Oakland": [23026, 15269, 19709, 22119, 18230, 
-                     21928, 16053, 23133, 19016, 20694, 
-                     13381, 23133, 18449, 13995, 14852]
+    "East Oakland": [21928, 16053, 23133, 19016, 20694, 
+                     13381, 23133, 18449, 13995, 13935,
+                     18230],
+    "West Oakland": [14852],
+    "Alameda": [22119, 23026, 15269, 19709],
+    "Piedmont": []
   };
 
   var feedIDtoPlotId = {}
@@ -139,7 +142,7 @@
     else if(!locale && targetArea === "martinez") {
       area.locale = "Martinez"
     }
-    else if(!locale && targetArea === "east-oakland") {
+    else if(!locale && targetArea === "oakland") {
       area.locale = "East Oakland"
     }
     else {
