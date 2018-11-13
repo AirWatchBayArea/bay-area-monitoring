@@ -94,7 +94,7 @@ html:lang(en) [data-localize="dashboard.icon.baaaqmd-monitor"]:after{
 	content: "BAAQMD Monitor";
 }
 html:lang(en) [data-localize="dashboard.icon.purpleair-monitor"]:after{
-	content: "PurlpeAir Monitor";
+	content: "PurpleAir Monitor";
 }
 html:lang(en) [data-localize="dashboard.icon.wind"]:after{
 	content: "Wind";
