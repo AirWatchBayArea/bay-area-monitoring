@@ -197,6 +197,7 @@
               <li><a href="#loc=benicia">Benicia</a></li>
               <li><a href="#loc=vallejo">Vallejo</a></li>
               <li><a href="#loc=martinez">Martinez</a></li>
+              <li><a href="#loc=east-oakland">East Oakland</a></li>
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -243,12 +244,13 @@
                    fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading" data-localize="service.view-air-quality">View Air Quality in Your Community</h4>
-                    <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;" data-localize="bay-area">Bay Area </a><br/>
-                    <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond </a><br/>
-                    <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo </a><br/>
-                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Benicia </a><br/>
-                    <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Vallejo </a><br/>
-                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Martine </a><br/>
+                    <a href="#loc=bay-area" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;" data-localize="bay-area">Bay Area&nbsp;</a><br/>
+                    <a href="#loc=richmond" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Richmond&nbsp;</a><br/>
+                    <a href="#loc=crockett-rodeo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Crockett-Rodeo&nbsp;</a><br/>
+                    <a href="#loc=benicia" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Benicia&nbsp;</a><br/>
+                    <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Vallejo&nbsp;</a><br/>
+                    <a href="#loc=martinez" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Martinez&nbsp;</a><br/>
+                    <a href="#loc=east-oakland" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">East Oakland&nbsp;</a><br/>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -335,11 +337,12 @@
                 <div class="col-lg-7 col-sm-6">
                     <p class="service-heading" data-localize="about.info">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea&#x40;gmail.com">airwatchbayarea&#x40;gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
           <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
-            <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee </a></li>
-            <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment </a></li>
-            <li><a style="margin-bottom: 0; font-size: .95em" href="https://rodeocitizensassociation.org/" class="btn btn-xl text-gettingstarted">Rodeo Citizens Association </a></li>
-            <li><a style="margin-bottom: 0; font-size: .95em" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN </a></li>
-            <li><a style="margin-bottom: 0; font-size: .95em" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute </a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://rodeocitizensassociation.org/" class="btn btn-xl text-gettingstarted">Rodeo Citizens Association&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.cbecal.org/" class="btn btn-xl text-gettingstarted">Communities For A Better Environment&nbsp;</a></li>
           </ul>
                 </div>
                 <div class="col-lg-4 col-lg-offset-1 col-sm-6" style="border-radius: 5px;background: no-repeat url('img/group-photo.jpg') 50% / 100%;">

@@ -316,8 +316,9 @@ var purpleAirMonitors = {
       lat: 38.0285,
       lng: -122.0302,
       description: "PurpleAir Monitor"
-    }
-  ]
+    },
+  ],
+  "East Oakland": [],
 }
 //defines where to draw BAAQMDMonitors
 var BAAQMDMonitors = {
