@@ -133,36 +133,54 @@ var receivers = {
 
 //defines where to draw community monitors
 var communityMonitors = {
-  "Atchison Village": [{
-    lat:   37.93447,
-    lng: -122.37166,
-    description: "Community Monitor"
-  }],
-  "North Richmond": [{
-    lat: 37.94799,
-    lng: -122.36477,
-    description: "Community Monitor"
-  }],
-  "Point Richmond": [{
-    lat:  37.92423,
-    lng: -122.38215,
-    description: "Community Monitor"
-  }],
+  "Atchison Village": [
+    {
+      lat:   37.93447,
+      lng: -122.37166,
+      description: "Community Monitor"
+    }
+  ],
+  "North Richmond": [
+    {
+      lat: 37.94799,
+      lng: -122.36477,
+      description: "Community Monitor"
+    }
+  ],
+  "Point Richmond": [
+    {
+      lat:  37.92423,
+      lng: -122.38215,
+      description: "Community Monitor"
+    }
+  ],
   "Benicia":[
-  {
-    lat:  38.060852,
-    lng: -122.1277356,
-    description: "Community Monitor"
-  },{
-    lat:  38.0680133588967,
-    lng: -122.121974062288,
-    description: "Community Monitor"
-  }],
-  "South Rodeo":[{
-    lat:  38.031616,
-    lng: -122.263651,
-    description: "Community Monitor"
-  }]
+    {
+      lat:  38.060852,
+      lng: -122.1277356,
+      description: "Community Monitor"
+    },
+    {
+      lat:  38.0680133588967,
+      lng: -122.121974062288,
+      description: "Community Monitor"
+    }
+  ],
+  "South Rodeo":[
+    {
+      lat:  38.031616,
+      lng: -122.263651,
+      description: "Community Monitor"
+    }
+  ],
+  "East Oakland":[
+    {
+      //feed id: 2342
+      lat:  37.743061,
+      lng: -122.169907,
+      description: "Community Monitor"
+    }
+  ]
 }
 
 var purpleAirMonitors = {
@@ -378,67 +396,67 @@ var purpleAirMonitors = {
       lat: 34.047246,
       lng: -117.144925,
       description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 13935
-      lat: 37.795173,
-      lng: -122.271255,
-      description: "PurpleAir Monitor"
     }
+    // {
+    //   // feedid: 13935
+    //   lat: 37.795173,
+    //   lng: -122.271255,
+    //   description: "PurpleAir Monitor"
+    // }
   ],
   "West Oakland": [
-    {
-      // feedid: 14852
-      lat: 37.809883,
-      lng: -122.297672,
-      description: "PurpleAir Monitor"
-    }
+    // {
+    //   // feedid: 14852
+    //   lat: 37.809883,
+    //   lng: -122.297672,
+    //   description: "PurpleAir Monitor"
+    // }
   ],
   "Piedmont": [
-    {
-      // feedid: 21922, 21923
-      lat: 37.828898,
-      lng: -122.243001,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 18171, 18172, 23216, 23217
-      lat: 37.82223,
-      lng: -122.253422,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 19370, 19371, 21651, 21651, 21652
-      lat: 37.830009,
-      lng: -122.254306,
-      description: "PurpleAir Monitor"
-    }
+    // {
+    //   // feedid: 21922, 21923
+    //   lat: 37.828898,
+    //   lng: -122.243001,
+    //   description: "PurpleAir Monitor"
+    // },
+    // {
+    //   // feedid: 18171, 18172, 23216, 23217
+    //   lat: 37.82223,
+    //   lng: -122.253422,
+    //   description: "PurpleAir Monitor"
+    // },
+    // {
+    //   // feedid: 19370, 19371, 21651, 21651, 21652
+    //   lat: 37.830009,
+    //   lng: -122.254306,
+    //   description: "PurpleAir Monitor"
+    // }
   ],
   "Alameda": [
-    {
-      // feedid: 22119
-      lat: 37.764082,
-      lng: -122.260221,
-      description: "PurpleAir Monitor"
-    },
-    { 
-      // feedid: 23026
-      lat: 37.759153,
-      lng: -122.237239,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 15269
-      lat: 37.763711,
-      lng: -122.233043,
-      description: "PurpleAir Monitor"
-    },
-    {
-      // feedid: 19709
-      lat: 37.767806,
-      lng: -122.250155,
-      description: "PurpleAir Monitor"
-    }
+    // {
+    //   // feedid: 22119
+    //   lat: 37.764082,
+    //   lng: -122.260221,
+    //   description: "PurpleAir Monitor"
+    // },
+    // { 
+    //   // feedid: 23026
+    //   lat: 37.759153,
+    //   lng: -122.237239,
+    //   description: "PurpleAir Monitor"
+    // },
+    // {
+    //   // feedid: 15269
+    //   lat: 37.763711,
+    //   lng: -122.233043,
+    //   description: "PurpleAir Monitor"
+    // },
+    // {
+    //   // feedid: 19709
+    //   lat: 37.767806,
+    //   lng: -122.250155,
+    //   description: "PurpleAir Monitor"
+    // }
   ]
 }
 //defines where to draw BAAQMDMonitors
@@ -672,6 +690,11 @@ var mapCenters = {
     zoom: 13
   },
   "oakland":{
+    lat : 37.77030299261307,
+    lng : -122.20983282148165,
+    zoom: 12
+  },
+  "east-oakland":{
     lat : 37.77030299261307,
     lng : -122.20983282148165,
     zoom: 12

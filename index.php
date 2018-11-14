@@ -197,7 +197,7 @@
               <li><a href="#loc=benicia">Benicia</a></li>
               <li><a href="#loc=vallejo">Vallejo</a></li>
               <li><a href="#loc=martinez">Martinez</a></li>
-              <li><a href="#loc=oakland">Oakland</a></li>
+              <li><a href="#loc=east-oakland">East Oakland</a></li>
             </ul>
           </li>
           <li class="" id="report-pollution-tab">
@@ -250,7 +250,7 @@
                     <a href="#loc=benicia" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Benicia&nbsp;</a><br/>
                     <a href="#loc=vallejo" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Vallejo&nbsp;</a><br/>
                     <a href="#loc=martinez" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Martinez&nbsp;</a><br/>
-                    <a href="#loc=oakland" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">Oakland&nbsp;</a><br/>
+                    <a href="#loc=east-oakland" class="btn btn-xl text-gettingstarted" style="margin-bottom: 0px;">East Oakland&nbsp;</a><br/>
                 </div>
                 <div class="col-md-3">
                     <span class="fa-stack fa-4x">
@@ -395,8 +395,8 @@
           <li class="custom-nav-btn" id="martinez-tab">
             <a class="text-uppercase custom-nav-link no-highlight" href="#loc=martinez">Martinez</a>
           </li>
-          <li class="custom-nav-btn" id="oakland-tab">
-            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=oakland">Oakland</a>
+          <li class="custom-nav-btn" id="east-oakland-tab">
+            <a class="text-uppercase custom-nav-link no-highlight" href="#loc=east-oakland">East Oakland</a>
           </li>
         </ul>
       </nav>
