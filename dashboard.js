@@ -918,26 +918,35 @@
     google.maps.event.trigger(map, 'resize');
   }
 
+  function generateHashMap(){
+    return window.location.hash.slice(1)
+      .split("&")
+      .map(v => v.split("="))
+      .reduce( (pre, [key, value]) => ({ ...pre, [key]: value }), {} );
+  }
+
   function processHash(){
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
-
     var hash = window.location.hash.slice(1).split("&");
-    if(hash[1]) {
+    var hashMap = generateHashMap();
+
+    if("loc" in hashMap && "monitor" in hashMap && "time" in hashMap) {
       fromShareLink = true;
-      var timeRange = hash[2].slice(5).split(",");
+      var timeRange = hashMap["time"].split(",");
       minTimeSecs = timeRange[0];
       maxTimeSecs = timeRange[1];
-      monitor = hash[1].slice(8).replace(/-/g," ");
+      monitor = hashMap["monitor"];
     }
     else {
       maxTimeSecs = Date.now() / 1000;
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
-    var loc = hash[0].split("loc=")[1];
     $(".active a").removeClass("custom-nav-link-active");
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
-    if(loc){
+
+    if("loc" in hashMap){
+      var loc = hashMap["loc"];
       plotManager.getDateAxis().setCursorPosition(Date.now()/1000);
       $("#view-air-quality-tab").addClass("active");
       $("#view-air-quality-tab>a").addClass("custom-nav-link-active");
@@ -949,12 +958,23 @@
     }
     $('[id*="-page"],[class*="-page"]').hide();
 
+    if ('embed' in hashMap && 'loc' in hashMap) {
+      $('#myNavbar > ul').hide();
+      $('#loc-nav').hide();
+    } else if('embed' in hashMap) {
+      $('#myNavbar > ul').hide();
+    } else {
+      $('#myNavbar > ul').show();
+      $('#loc-nav').show();
+    }
+
     scrollToTop();
     if(isSubmissionSuccess){
       refreshPosts();
       resetReport();
     }
-    if(loc){
+    if("loc" in hashMap){
+      var loc = hashMap["loc"];
       $('.dashboard-page').show()
       changeLocale(loc, monitor);
     }else if($('#'+hash[0]+'-page').length){
@@ -968,14 +988,15 @@
 
   window.grapherLoad = function() {
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
-
     var hash = window.location.hash.slice(1).split("&");
-    if(hash[1]) {
+    var hashMap = generateHashMap();
+    
+    if("loc" in hashMap && "monitor" in hashMap && "time" in hashMap) {
       fromShareLink = true;
-      var timeRange = hash[2].slice(5).split(",");
+      var timeRange = hashMap["time"].split(",");
       minTimeSecs = timeRange[0];
       maxTimeSecs = timeRange[1];
-      monitor = hash[1].slice(8).replace(/-/g," ");
+      monitor = hashMap["monitor"];
     }
     else {
       maxTimeSecs = Date.now() / 1000;
@@ -984,8 +1005,7 @@
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
     plotManager.getDateAxis().constrainRangeTo(1262304000, 1577836800);
     $(window).resize(function() {
-      var location = window.location.hash.slice(1).split("&")[0].split("loc=")[1];
-      if(location){setSizes();}
+      if('loc' in generateHashMap()){setSizes();}
     });
     plotManager.setWillAutoResizeWidth(true, function() {
       return $("#grapher").width() - 34 - 136 - 26;
