@@ -282,7 +282,7 @@ var purpleAirMonitors = {
       description: "PurpleAir Monitor"
     },
   ],
-  "Berekley": [
+  "Berkeley": [
     {
       lat: 37.900737,
       lng: -122.286133,
