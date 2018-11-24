@@ -617,7 +617,7 @@ function initMap(div) {
     mapTypeControl: false,
     zoomControl: true,
     zoomControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_BOTTOM
+        position: google.maps.ControlPosition.LEFT_BOTTOM
     },
     fullscreenControl: true,
     fullscreenControlOptions:{
