@@ -92,29 +92,34 @@ var icons = {
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
-  "Atchison Village":{
+  "Atchison Village": {
     lat: 37.941351,
     lng: -122.381193,
+    title: "Atchison Village",
     description: "Fenceline Monitor"
   },
   "North Richmond": {
     lat: 37.948234,
     lng: -122.375425,
+    title: "North Richmond",
     description: "Fenceline Monitor"
   },
   "Point Richmond": {
     lat:  37.93501,
     lng: -122.384772,
+    title: "Point Richmond",
     description: "Fenceline Monitor"
   },
   "North Rodeo": {
     lat: 38.044924,
     lng: -122.247935,
+    title: "North Rodeo",
     description: "Fenceline Monitor"
   },
   "South Rodeo": {
     lat: 38.03855,
     lng: -122.25653,
+    title: "South Rodeo",
     description: "Fenceline Monitor"
   }
 };
@@ -137,6 +142,7 @@ var communityMonitors = {
     {
       lat:   37.93447,
       lng: -122.37166,
+      title: "Atchison Village",
       description: "Community Monitor"
     }
   ],
@@ -144,6 +150,7 @@ var communityMonitors = {
     {
       lat: 37.94799,
       lng: -122.36477,
+      title: "North Richmond",
       description: "Community Monitor"
     }
   ],
@@ -151,6 +158,7 @@ var communityMonitors = {
     {
       lat:  37.92423,
       lng: -122.38215,
+      title: "Point Richmond",
       description: "Community Monitor"
     }
   ],
@@ -158,11 +166,13 @@ var communityMonitors = {
     {
       lat:  38.060852,
       lng: -122.1277356,
+      title: "Benicia",
       description: "Community Monitor"
     },
     {
       lat:  38.0680133588967,
       lng: -122.121974062288,
+      title: "Benicia",
       description: "Community Monitor"
     }
   ],
@@ -170,6 +180,7 @@ var communityMonitors = {
     {
       lat:  38.031616,
       lng: -122.263651,
+      title: "South Rodeo",
       description: "Community Monitor"
     }
   ],
@@ -178,6 +189,7 @@ var communityMonitors = {
       //feed id: 2342
       lat:  37.743061,
       lng: -122.169907,
+      title: "East Oakland",
       description: "Community Monitor"
     }
   ]
@@ -188,101 +200,121 @@ var purpleAirMonitors = {
     {
       lat: 38.14128,
       lng: -122.260096,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.090349,
       lng: -122.238814,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.089971,
       lng: -122.238914,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.111121,
       lng: -122.243314,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.114254,
       lng: -122.258755,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.104107,
       lng: -122.258171,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.073925,
       lng: -122.23143,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.134271,
       lng: -122.197826,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.120362,
       lng: -122.241011,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.149868,
       lng: -122.237466,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.066784,
       lng: -122.220027,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.122023,
       lng: -122.233247,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.097691,
       lng: -122.25952,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.077987,
       lng: -122.230468,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.080554,
       lng: -122.215034,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.095808,
       lng: -122.215461,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.113435,
       lng: -122.259217,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.092826,
       lng: -122.251253,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.107731,
       lng: -122.255566,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.085676,
       lng: -122.244778,
+      title: "Vallejo",
       description: "PurpleAir Monitor"
     },
   ],
@@ -290,6 +322,7 @@ var purpleAirMonitors = {
     {
       lat: 37.98261,
       lng: -122.295859,
+      title: "El Sobrante",
       description: "PurpleAir Monitor"
     }
   ],
@@ -297,6 +330,7 @@ var purpleAirMonitors = {
     {
       lat: 37.906472,
       lng: -122.301588,
+      title: "El Cerrito",
       description: "PurpleAir Monitor"
     },
   ],
@@ -304,6 +338,7 @@ var purpleAirMonitors = {
     {
       lat: 37.900737,
       lng: -122.286133,
+      title: "Berkeley",
       description: "PurpleAir Monitor"
     }
   ],
@@ -311,21 +346,25 @@ var purpleAirMonitors = {
     {
       lat: 38.103588,
       lng: -122.188702,
+      title: "Benicia",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.074533,
       lng: -122.173721,
+      title: "Benicia",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.060789,
       lng: -122.149458,
+      title: "Benicia",
       description: "PurpleAir Monitor"
     },
     {
       lat: 38.05337,
       lng: -122.158814,
+      title: "Benicia",
       description: "PurpleAir Monitor"
     }
   ],
@@ -333,6 +372,7 @@ var purpleAirMonitors = {
     {
       lat: 38.0285,
       lng: -122.0302,
+      title: "Clyde",
       description: "PurpleAir Monitor"
     },
   ],
@@ -341,66 +381,77 @@ var purpleAirMonitors = {
       // feedid: 18230
       lat: 37.784896,
       lng: -122.216922,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 21928
       lat: 37.798929,
       lng: -122.191622,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 16053
       lat: 37.797233,
       lng: -122.216199,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 23133
       lat: 37.791932,
       lng: -122.237915,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 19016
       lat: 37.801375,
       lng: -122.218991,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 20694
       lat: 37.804103,
       lng: -122.221954,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 13381
       lat: 37.802432,
       lng: -122.227101,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 23133
       lat: 37.791932,
       lng: -122.237915,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 18449
       lat: 37.799532,
       lng: -122.24932,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 13995
       lat: 34.047246,
       lng: -117.144925,
+      title: "East Oakland",
       description: "PurpleAir Monitor"
     }
     // {
     //   // feedid: 13935
     //   lat: 37.795173,
     //   lng: -122.271255,
+    //   title: "East Oakland",
     //   description: "PurpleAir Monitor"
     // }
   ],
@@ -409,6 +460,7 @@ var purpleAirMonitors = {
     //   // feedid: 14852
     //   lat: 37.809883,
     //   lng: -122.297672,
+    //   title: "West Oakland",
     //   description: "PurpleAir Monitor"
     // }
   ],
@@ -417,18 +469,21 @@ var purpleAirMonitors = {
     //   // feedid: 21922, 21923
     //   lat: 37.828898,
     //   lng: -122.243001,
+    //   title: "Piedmont",
     //   description: "PurpleAir Monitor"
     // },
     // {
     //   // feedid: 18171, 18172, 23216, 23217
     //   lat: 37.82223,
     //   lng: -122.253422,
+    //   title: "Piedmont",
     //   description: "PurpleAir Monitor"
     // },
     // {
     //   // feedid: 19370, 19371, 21651, 21651, 21652
     //   lat: 37.830009,
     //   lng: -122.254306,
+    //   title: "Piedmont",
     //   description: "PurpleAir Monitor"
     // }
   ],
@@ -437,24 +492,28 @@ var purpleAirMonitors = {
     //   // feedid: 22119
     //   lat: 37.764082,
     //   lng: -122.260221,
+    //   title: "Alameda",
     //   description: "PurpleAir Monitor"
     // },
     // { 
     //   // feedid: 23026
     //   lat: 37.759153,
     //   lng: -122.237239,
+    //   title: "Alameda",
     //   description: "PurpleAir Monitor"
     // },
     // {
     //   // feedid: 15269
     //   lat: 37.763711,
     //   lng: -122.233043,
+    //   title: "Alameda",
     //   description: "PurpleAir Monitor"
     // },
     // {
     //   // feedid: 19709
     //   lat: 37.767806,
     //   lng: -122.250155,
+    //   title: "Alameda",
     //   description: "PurpleAir Monitor"
     // }
   ]
@@ -464,21 +523,25 @@ var BAAQMDMonitors = {
   // "North Rodeo": {
   //   lat: 38.05492,
   //   lng: -122.2332,
+  //   title: "North Rodeo",
   //   description: "BAAQMD Monitor"
   // },
   // "South Rodeo": {
   //   lat: 38.03433,
   //   lng: -122.27033,
+  //   title: "South Rodeo",
   //   description: "BAAQMD Monitor"
   // },
   // "Vallejo":{
   //   lat:  38.102507,
   //   lng: -122.237976,
+  //   title: "Vallejo",
   //   description: "BAAQMD Monitor"
   // },
   // "Martinez":{
   //   lat:  38.012816,
   //   lng: -122.134467,
+  //   title: "Martinez",
   //   description: "BAAQMD Monitor"
   // }
 }
@@ -804,7 +867,7 @@ function initMap(div) {
     var fencelineMonitor = fencelineMonitors[key];
     var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
     var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(fencelineMonitor.title, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add Community Monitors
@@ -813,7 +876,7 @@ function initMap(div) {
       var communityMonitor = communityMonitors[key][i];
       var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
       var icon = icons['Community Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(communityMonitor.title, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
@@ -822,7 +885,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(BAAQMDMonitor.title, BAAQMDMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -831,7 +894,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(purpleAirMonitor.title, purpleAirMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
     }
   }
 
