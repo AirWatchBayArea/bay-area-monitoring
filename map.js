@@ -189,7 +189,7 @@ var communityMonitors = {
       //feed id: 2342
       lat:  37.743061,
       lng: -122.169907,
-      title: "East Oakland",
+      title: "E 14th and 99th Ave",
       description: "Community Monitor"
     }
   ]
@@ -381,72 +381,65 @@ var purpleAirMonitors = {
       // feedid: 18230
       lat: 37.784896,
       lng: -122.216922,
-      title: "East Oakland",
+      title: "35th and Galindo",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 21928
       lat: 37.798929,
       lng: -122.191622,
-      title: "East Oakland",
+      title: "Redwood Rd and Jordan Rd",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 16053
       lat: 37.797233,
       lng: -122.216199,
-      title: "East Oakland",
+      title: "Champion St and Pleasant St",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 23133
       lat: 37.791932,
       lng: -122.237915,
-      title: "East Oakland",
+      title: "San Antonio Way and 18th Ave",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 19016
       lat: 37.801375,
       lng: -122.218991,
-      title: "East Oakland",
+      title: "E 38th St and Excelsior Ave",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 20694
       lat: 37.804103,
       lng: -122.221954,
-      title: "East Oakland",
+      title: "Woodruff Ave and E 38th St",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 13381
       lat: 37.802432,
       lng: -122.227101,
-      title: "East Oakland",
+      title: "Excelsior Ave and Brighton Ave",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 23133
       lat: 37.791932,
       lng: -122.237915,
-      title: "East Oakland",
+      title: "San Antonio Way and 18th Ave",
       description: "PurpleAir Monitor"
     },
     {
       // feedid: 18449
       lat: 37.799532,
       lng: -122.24932,
-      title: "East Oakland",
+      title: "E 19th St and 5th Ave",
       description: "PurpleAir Monitor"
     },
-    {
-      // feedid: 13995
-      lat: 34.047246,
-      lng: -117.144925,
-      title: "East Oakland",
-      description: "PurpleAir Monitor"
-    }
     // {
     //   // feedid: 13935
     //   lat: 37.795173,
