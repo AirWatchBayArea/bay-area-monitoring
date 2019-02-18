@@ -26,7 +26,7 @@ var smellLoadingInterval = null;
 function initSmells() {
   smellReports.length = 0;
   smellMarkers.length = 0;
-  infowindow = new google.maps.InfoWindow({
+  infoWindow = new google.maps.InfoWindow({
     pixelOffset: new google.maps.Size(-1, 0)
   });
   return updateSmellList(function(){
@@ -82,8 +82,8 @@ function zoomMapToClickedReport(pointData) {
     map.panTo(latLng);
     for (var i = smellMarkers.length - 1; i >= 0; i--) {
       if (smellMarkers[i].position.equals(latLng)) {
-        infowindow.setContent(smellMarkers[i].content);
-        infowindow.open(map,smellMarkers[i]);
+        infoWindow.setContent(smellMarkers[i].content);
+        infoWindow.open(map,smellMarkers[i]);
       }
     }
   }

@@ -154,6 +154,7 @@
   function changeLocale(targetArea, locale) {
     selectArea(targetArea, locale);
     refreshChannelPage();
+    showMessageWindow(targetArea)
   }
 
   function refreshChannelPage() {
@@ -1149,6 +1150,7 @@ function channelPageSetup(fromShareLink) {
       if(feedMap[area.locale]){
         if(feedMap[area.locale].length){
           loadFeeds(feedMap[area.locale]);
+          // $('#grapher').prepend('<tr class="chart no-feeds"></tr>');
         }else{
           $('#grapher').append('<tr class="chart no-feeds"></tr>');
           setSizes(); // to expand the map to size

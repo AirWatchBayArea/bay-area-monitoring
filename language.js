@@ -37,6 +37,7 @@ function localize(language){
 	loadResources4Action(language);
 	localizeUserGuide(language);
 	$("[data-localize]").localize("localization/lang", { language: language, callback: cleanupLocalization});
+	showMessageWindow(area.id);
 }
 
 function cleanupLocalization(data, defaultCallback){

@@ -9,7 +9,7 @@ var mapProjection;
 var projectionScale = 2000;
 var y_scale;
 var minZoom = 5;
-var windMonitor, infowindow;
+var windMonitor, infoWindow, messageWindow;
 var highlights = [];
 var iconBase = 'assets/images/';
 var countryPointSizePixels = 7;
@@ -660,6 +660,17 @@ var refineries = {
   }
 }
 
+var mapMessages = {
+  "east-oakland": {
+    content: {
+      en: "If you have any air quality sensors in this area,<br>please send us an email at airwatchbayarea@gmail.com!",
+      es: "Si tiene algún sensor de calidad del aire en esta área,<br>¡envíenos un correo electrónico a airwatchbayarea@gmail.com!"
+    },
+    lat: 37.7549396514504,
+    lng: -122.17579046459952,
+  }
+}
+
 //defines where to draw pollution sources
 var pollutionSources = {
   "Nu Star Energy (ST Shore Terminals)":{
@@ -853,7 +864,8 @@ function initMap(div) {
   //   }
   // });
 
-  infowindow = new google.maps.InfoWindow();
+  infoWindow = new google.maps.InfoWindow();
+  messageWindow = new google.maps.InfoWindow();
 
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
@@ -941,6 +953,20 @@ function initMap(div) {
   generateLegend();
 }
 
+function showMessageWindow(locale){
+  if (messageWindow) {
+    messageWindow.close();
+  }
+  if (locale in mapMessages) {
+    var localMessage = mapMessages[locale]
+    messageWindow = new google.maps.InfoWindow({
+      content: localMessage['content'][$("html").attr("lang")],
+      position: new google.maps.LatLng(localMessage['lat'], localMessage['lng']),
+    });
+    messageWindow.open(map);
+  }
+}
+
 //used for binding event for marker onclick
 function makeClosure(key){
   return (function(){
@@ -954,8 +980,8 @@ function createInfoWindowContent(title, description){
           '<p>',description,'</p>'].join('');
 }
 
-//adds data to infowindow if available
-function addDataToInfoWindow(infowindow, infoContent){
+//adds data to infoWindow if available
+function addDataToInfoWindow(infoWindow, infoContent){
   var communityName = $(infoContent).get(0).innerHTML;
   if (communityName in feedMap){
     for(var i = 0; i < feedMap[communityName].length; i++){
@@ -995,14 +1021,14 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
     animation: google.maps.Animation.DROP,
   });
   google.maps.event.addListener(marker, 'mouseover', function() {
-    infowindow.setContent(infoContent);
+    infoWindow.setContent(infoContent);
     if (hoverCallback){
-      hoverCallback(infowindow, infoContent);
+      hoverCallback(infoWindow, infoContent);
     }
-    infowindow.open(map, this);
+    infoWindow.open(map, this);
   });
   google.maps.event.addListener(marker, 'mouseout', function() {
-    infowindow.close();
+    infoWindow.close();
   });
   google.maps.event.addListener(marker, 'click', function() {
     if(clickCallback){
@@ -1157,7 +1183,7 @@ function paintWind(site, epochTime) {
         var formattedDate = new Date(epochTime * 1000).toString();
         var offsetDegrees = (wind_dir+11.25) % 360; //offset sedecimants so "S" is 0-22.5 degrees instead of 349.75-11.25 degrees
         var contentString = "<div>Wind Speed (mph): " + wind_speed + "</div><div>Wind Towards: " + windDirs[Math.floor(offsetDegrees/22.5)] +"</div><div>Time: "+ formattedDate +"</div>";
-        var infowindow = new google.maps.InfoWindow({
+        var infoWindow = new google.maps.InfoWindow({
           content: contentString,
           position: rectLatLng
         });
@@ -1174,10 +1200,10 @@ function paintWind(site, epochTime) {
         });
 
         windMonitor.addListener('mouseover', function() {
-          infowindow.open(map);
+          infoWindow.open(map);
         });
         windMonitor.addListener('mouseout', function() {
-          infowindow.close();
+          infoWindow.close();
         });
     }
   }
@@ -1318,3 +1344,5 @@ function repaintCanvasLayer(epochTime) {
     //console.log(e);
   }
 }
+
+
