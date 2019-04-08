@@ -11,7 +11,7 @@
   var today = new Date();
   cached_breathecam.latest.date = today.toISOString().substring(0,10);
   var esdr_feeds = {};
-  var series = [];
+  var series = {};
   var loadedChannelLabels = {};
   var seriesIdx = 0;
   var plotManager;
@@ -106,6 +106,13 @@
     "Xylene (ppb)": 5
   };
 
+  var customTimeRange = {
+    "east-oakland": {
+      min: 1525293808.9648068,
+      max: 1553311847.9310672,
+    }
+  }
+
   //switch these maps to a matrix with feeds on the rows and chemicals on the columns?
   if (showSmokeDetection) {
     esdr_feeds.Smoke_Detection = {
@@ -163,7 +170,7 @@
     plotManager.getDateAxis().removeAxisChangeListener(dateAxisListener);
     plotManager.removeAllPlotContainers();
     $("#grapher > tbody > tr").not("tr:first").remove();
-    series = [];
+    series = {};
     loadedChannelLabels = {};
     $("#auto_scale_toggle_button").addClass("ui-icon-locked");
     $("#auto_scale_toggle_button").removeClass("ui-icon-unlocked");
@@ -626,7 +633,7 @@
       var idx = loadedChannelLabels[channelLabel].plotContainerIdx;
     }
 
-    var seriesIdx = series.length;
+    var seriesIdx = Object.keys(series).length;
     var plotContainerId = seriesIdx + "_plot_container";
     var plotId = seriesIdx + "_plot";
     var yAxisId = seriesIdx + "_yaxis";
@@ -844,9 +851,18 @@
   }
 
   function setSizes() {
-    
-    if ($('.chart').length && !$('.no-feeds').length){
-       $('#map_parent').css('height', '45%');
+    var maximizeParentHeight = function() {
+      var totalHeight = $('#map_parent').parent().height();
+      var siblingHeights = $('#loc-nav').height() + $('#grapher_toolbar').height() + $('#grapher_parent').height();
+      var buffer = 20;
+      $('#map_parent').height(totalHeight - siblingHeights - buffer);
+    }
+    if ($('.chart').length && !$('.no-feeds').length) {
+      if (area.locale === "East Oakland") {
+        maximizeParentHeight();
+      } else {
+        $('#map_parent').css('height', '45%');
+      }
       var chartsAreaHeight = Math.floor(.3*window.innerHeight);
       var height = clamp(Math.floor(chartsAreaHeight/$('.chart').length), parseInt($('.chart').css('min-height').slice(0,-2)) || 75, 250);
       $('.chart').height(height);
@@ -863,10 +879,7 @@
       }
     }else{
       console.log('no charts');
-      var totalHeight = $('#map_parent').parent().height()
-      var siblingHeights = $('#loc-nav').height() + $('#grapher_toolbar').height() + $('#grapher_parent').height()
-      var buffer = 20;
-      $('#map_parent').height(totalHeight - siblingHeights - buffer);
+      maximizeParentHeight();
     }
     google.maps.event.trigger(map, 'resize');
   }
@@ -933,21 +946,14 @@
   }
 
   function processHash(){
-    var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
+    var monitor, fromShareLink;
 
     var hash = window.location.hash.slice(1).split("&");
+    var loc = hash[0].split("loc=")[1];
     if(hash[1]) {
       fromShareLink = true;
-      var timeRange = hash[2].slice(5).split(",");
-      minTimeSecs = timeRange[0];
-      maxTimeSecs = timeRange[1];
       monitor = hash[1].slice(8).replace(/-/g," ");
     }
-    else {
-      maxTimeSecs = Date.now() / 1000;
-      minTimeSecs = maxTimeSecs - 8 * 60 * 60;
-    }
-    var loc = hash[0].split("loc=")[1];
     $(".active a").removeClass("custom-nav-link-active");
     $(".active a").addClass("custom-nav-link");
     $(".active").removeClass("active");
@@ -984,14 +990,17 @@
     var maxTimeSecs, minTimeSecs, monitor, fromShareLink;
 
     var hash = window.location.hash.slice(1).split("&");
+    var loc = hash[0].split("loc=")[1];
     if(hash[1]) {
       fromShareLink = true;
       var timeRange = hash[2].slice(5).split(",");
       minTimeSecs = timeRange[0];
       maxTimeSecs = timeRange[1];
       monitor = hash[1].slice(8).replace(/-/g," ");
-    }
-    else {
+    } else if (loc && customTimeRange[loc]) {
+      maxTimeSecs = customTimeRange[loc].max;
+      minTimeSecs = customTimeRange[loc].min;
+    } else {
       maxTimeSecs = Date.now() / 1000;
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }

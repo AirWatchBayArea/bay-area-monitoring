@@ -10,17 +10,11 @@ var ratingColors = ["rgb(0,255,0)", "rgb(255,255,0)", "rgb(255,165,0)", "rgb(255
 var tweleveHoursInSecs = 43200;
 var smellReports = [];
 var smellMarkers = [];
-var commentDataByRating = {
-    "1" : [],
-    "2" : [],
-    "3" : [],
-    "4" : [],
-    "5" : []
-  };
 var commentData = [];
 var smellReportPrependText = " out of 5 rating. ";
 var gwtPopUpText = "";
 var smellLoadingInterval = null;
+var smellPromise = null;
 
 //initialize smell reports and add to grapher/map
 function initSmells() {
@@ -30,14 +24,14 @@ function initSmells() {
     pixelOffset: new google.maps.Size(-1, 0)
   });
   return updateSmellList(function(){
-    addSmellReportsToGrapher();
+    refreshGrapherSmellReports();
     processSmellReportsForMap();
   });
 }
 
 //retrieve and cache all smell reports, callback on success
 function updateSmellList(callback){
-  return new Promise(function(resolve, reject){
+  return smellPromise || new Promise(function(resolve, reject) {
     $.ajax({
     url: rootSmellUrl + "/smell_reports?area=BA",
     success: function(json) {
@@ -57,15 +51,11 @@ function updateSmellList(callback){
   });
 }
 
-//order reports chronologically
-function sortingFunction(a, b) {
-  if (a[0] > b[0]) {
-    return 1;
-  }
-  if (a[0] < b[0]) {
-    return -1;
-  }
-  return 0;
+function filterSmellReportsByMapBounds(map) {
+  return smellReports.filter(function(smellReport) {
+    var smellPosition = new google.maps.LatLng(smellReport.latitude, smellReport.longitude);
+    return map.getBounds().contains(smellPosition);
+  });
 }
 
 //on map smell report click, zoom to smell report
@@ -90,35 +80,55 @@ function zoomMapToClickedReport(pointData) {
 }
 
 //add smell report to grapher
-function addSmellReportsToGrapher() {
-  //cache smell report index in series
-  var smellPlotIndex = 0;
-  series[smellPlotIndex] = {};
-  series[smellPlotIndex].id = smellPlotIndex;
-
-  for (var report of smellReports) {
-    var mean = 1;
+function refreshGrapherSmellReports() {
+  var commentDataByRating = {
+    "1" : [],
+    "2" : [],
+    "3" : [],
+    "4" : [],
+    "5" : []
+  };
+  commentData = [];
+  for (var report of map ? filterSmellReportsByMapBounds(map) : smellReports) {
+    var mean = 0;
     // TODO: Deal with comment overlaps
     //var dataPoint = findPoint(timestamp);
     //if (dataPoint) mean = 1.1
     var notes = report.smell_value + smellReportPrependText + report.smell_description + "," + report.feelings_symptoms;
-    var dataObj = [report.created_at, mean, 0, 1, ((new Date(report.created_at * 1000)).toTimeString().substring(0,8)) + " - " + notes, report.latitude + "," + report.longitude];
+    var dataObj = [report.created_at, mean, -100, 100, ((new Date(report.created_at * 1000)).toTimeString().substring(0,8)) + " - " + notes, report.latitude + "," + report.longitude];
     commentDataByRating[report.smell_value].push(dataObj);
     commentData.push(dataObj);
   }
 
-  commentData.sort(sortingFunction);
-
+  commentData.sort(function(a, b) {
+    return b[0] - a[0];
+  });
+  //cache smell report index in series
+  var smellPlotIndex = "0";
+  series[smellPlotIndex] = {};
+  series[smellPlotIndex].id = smellPlotIndex;
   // Add chart
-  var plotContainerId, yAxisId;
+  var plotContainerId = smellPlotIndex + "_plot_container";
+  var yAxisId = smellPlotIndex + "_yaxis";
   var plots = [];
   var lastHighlightDate = null;
   loadedChannelLabels["Smell Reports"] = {};
   loadedChannelLabels["Smell Reports"].plotContainerIdx = 0;
-
+  if (plotManager.getPlotContainer(plotContainerId)) {
+    plotManager.getPlotContainer(plotContainerId).removeAllPlots();
+  } else {
+    $('.annotationChart').remove();
+    var row = $('<tr class="annotationChart grapher_row"></tr>');
+    row.append('<td class="annotationChartTitle" style="color: black; background:white" data-localize="dashboard.smell-reports"></td>');
+    row.append('<td id="' + plotContainerId + '" class="annotationContent"></td>');
+    row.append('<td id="' + yAxisId + '" class="annotationChartAxis" style="display: none"></td>');
+    $('#dateAxisContainer').after(row);
+  }
   for (var rating in commentDataByRating) {
     (function(rating){
-      commentDataByRating[rating].sort(sortingFunction);
+      commentDataByRating[rating].sort(function(a, b) {
+        return b[0] - a[0];
+      });
 
       var commentDatasource = function(level, offset, successCallback) {
         var json = {
@@ -133,22 +143,13 @@ function addSmellReportsToGrapher() {
       };
 
       var plotId = smellPlotIndex + "_plot_" + rating;
-      if ($(".annotationChart").length === 0) {
-        //add chart area to geapher
-        var row = $('<tr class="annotationChart grapher_row"></tr>');
-        plotContainerId = smellPlotIndex + "_plot_container";
-        yAxisId = smellPlotIndex + "_yaxis";
-        row.append('<td class="annotationChartTitle" style="color: black; background:white" data-localize="dashboard.smell-reports"></td>');
-        row.append('<td id="' + plotContainerId + '" class="annotationContent" style="height:35px;"></td>');
-        row.append('<td id="' + yAxisId + '" class="annotationChartAxis" style="display: none"></td>');
-        $('#dateAxisContainer').after(row);
-        plotManager.addDataSeriesPlot(plotId, commentDatasource, plotContainerId, yAxisId);
+      if (!plotManager.getPlotContainer(plotContainerId)) {
+        plotManager.addDataSeriesPlot(plotId, commentDatasource, plotContainerId, yAxisId, -1, 1);
         plotManager.getPlotContainer(plotContainerId).setAutoScaleEnabled(true, false);
-        plotManager.getYAxis(yAxisId).constrainMinRangeTo(-3,4);
-        plotManager.getYAxis(yAxisId).setRange(-3,4);
-      }
-      else {
-        plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, commentDatasource, yAxisId);
+        plotManager.getYAxis(yAxisId).constrainRangeTo(-1,1);
+        plotManager.getYAxis(yAxisId).setRange(-1,1);
+      } else {
+        plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, commentDatasource, yAxisId, -1, 1);
       }
       var plot = plotManager.getPlot(plotId);
 
@@ -232,9 +233,13 @@ function drawSmellReports(range) {
                   '<b>Smell Rating:</b> ',smell_value," (",smell_value_text[smell_value - 1],")",'<br>',
                   '<b>Symptoms:</b> ',feelings_symptoms,'<br>',
                   '<b>Smell Description:</b> ',smell_description].join('');
+   var clickCallback = function() {
+      plotManager.getDateAxis().setCursorPosition(date.getTime() / 1000);
+   }
    var marker = createMarker(latlng,
                               getSmellColor(report_i.smell_value - 1),
-                              content);
+                              content,
+                              clickCallback);
 
    marker.setZIndex(report_i.smell_value*100);
    marker.created_date = date.getTime();

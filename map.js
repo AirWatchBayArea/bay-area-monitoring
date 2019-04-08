@@ -762,9 +762,9 @@ var mapCenters = {
     zoom: 12
   },
   "east-oakland":{
-    lat : 37.77030299261307,
-    lng : -122.20983282148165,
-    zoom: 12
+    lat : 37.75500937527444,
+    lng : -122.18284413162667,
+    zoom: 13
   }
 }
 
@@ -834,7 +834,7 @@ function initMap(div) {
     mapTypeControl: false,
     zoomControl: true,
     zoomControlOptions: {
-        position: google.maps.ControlPosition.RIGHT_BOTTOM
+        position: google.maps.ControlPosition.LEFT_BOTTOM
     },
     fullscreenControl: true,
     fullscreenControlOptions:{
@@ -845,6 +845,7 @@ function initMap(div) {
     styles: styleArray
   };
   map = new google.maps.Map(document.getElementById(div), mapOptions);
+  map.addListener('bounds_changed', refreshGrapherSmellReports);
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
   $(controlDiv).click(function(){
       $('[title="Toggle fullscreen view"]').click();
