@@ -309,7 +309,37 @@ var purpleAirMonitors = {
       lat: 38.05337,
       lng: -122.158814,
       description: "PurpleAir Monitor"
-    }
+    },
+    {
+      lat: 38.062176,
+      lng: -122.160203,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.079625,
+      lng: -122.155216,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.071981,
+      lng: -122.152329,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.058971,
+      lng: -122.141785,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.058086,
+      lng: -122.157553,
+      description: "PurpleAir Monitor"
+    },
+    {
+      lat: 38.055033,
+      lng: -122.157681,
+      description: "PurpleAir Monitor"
+    },
   ],
   "Clyde": [
     {
