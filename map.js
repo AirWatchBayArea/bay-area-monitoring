@@ -117,43 +117,43 @@ var fencelineMonitors = {
     lng: -122.25653,
     description: "Fenceline Monitor"
   }],
-  "Valero North": [
+    "Valero North": [
     {
       lat: 38.07909, 
       lng: -122.138, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }, 
     {
       lat: 38.069294, 
       lng: -122.131348, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     },
     {
       lat: 38.07223, 
       lng: -122.126512, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }, 
     {
       lat: 38.070225, 
       lng: -122.132462, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }
   ],
   "Valero South": [
     {
       lat: 38.06556, 
       lng: -122.1508, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }, 
     {
       lat: 38.05953, 
       lng: -122.149575, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }, 
     {
       lat: 38.05907, 
       lng: -122.1387, 
-      description: "Fenceline Monitor"
+      description: 'Fenceline Monitor<br><a href="https://beniciarefineryairmonitors.org/measurements.html" rel="noopener noreferrer" target="_blank">Source</a>'
     }
   ]
 };
