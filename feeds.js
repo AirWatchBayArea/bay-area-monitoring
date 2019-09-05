@@ -3,7 +3,7 @@
 var windFeeds = [];
 var windFeedIds = [4911, 4913, 4857, 2518];
 
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide","voc","dust","PM_2_5","PM2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
+var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","H2S", "m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide", "SO2", "voc","dust","PM_2_5","PM2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
 
 function initFeeds() {
   var feedNames = Object.keys(esdr_feeds).sort();
@@ -128,6 +128,10 @@ function loadFeed(area_feed_id){
           chemicalLabel = chemicalLabel.replace(/_/g," ");
           if(chemical.indexOf("Xylene") != -1) {
             chemicalLabel = "Xylene";
+          } else if (chemicalLabel === "H2S") {
+            chemicalLabel = "Hydrogen Sulfide";
+          } else if (chemicalLabel === "SO2") {
+            chemicalLabel = "Sulfur Dioxide";
           }
           var units = chemical.indexOf("Black_Carbon") != -1 || 
                       chemical.indexOf("PM_2_5") != -1 || 

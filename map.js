@@ -92,31 +92,70 @@ var icons = {
 }
 //defines where to draw fenceline monitors
 var fencelineMonitors = {
-  "Atchison Village":{
+  "Atchison Village": [{
     lat: 37.941351,
     lng: -122.381193,
     description: "Fenceline Monitor"
-  },
-  "North Richmond": {
+  }],
+  "North Richmond": [{
     lat: 37.948234,
     lng: -122.375425,
     description: "Fenceline Monitor"
-  },
-  "Point Richmond": {
+  }],
+  "Point Richmond": [{
     lat:  37.93501,
     lng: -122.384772,
     description: "Fenceline Monitor"
-  },
-  "North Rodeo": {
+  }],
+  "North Rodeo": [{
     lat: 38.044924,
     lng: -122.247935,
     description: "Fenceline Monitor"
-  },
-  "South Rodeo": {
+  }],
+  "South Rodeo": [{
     lat: 38.03855,
     lng: -122.25653,
     description: "Fenceline Monitor"
-  }
+  }],
+  "Valero North": [
+    {
+      lat: 38.07909, 
+      lng: -122.138, 
+      description: "Fenceline Monitor"
+    }, 
+    {
+      lat: 38.069294, 
+      lng: -122.131348, 
+      description: "Fenceline Monitor"
+    },
+    {
+      lat: 38.07223, 
+      lng: -122.126512, 
+      description: "Fenceline Monitor"
+    }, 
+    {
+      lat: 38.070225, 
+      lng: -122.132462, 
+      description: "Fenceline Monitor"
+    }
+  ],
+  "Valero South": [
+    {
+      lat: 38.06556, 
+      lng: -122.1508, 
+      description: "Fenceline Monitor"
+    }, 
+    {
+      lat: 38.05953, 
+      lng: -122.149575, 
+      description: "Fenceline Monitor"
+    }, 
+    {
+      lat: 38.05907, 
+      lng: -122.1387, 
+      description: "Fenceline Monitor"
+    }
+  ]
 };
 
 //defines where to draw fenceline highlight
@@ -146,16 +185,6 @@ var communityMonitors = {
   "Point Richmond": [{
     lat:  37.92423,
     lng: -122.38215,
-    description: "Community Monitor"
-  }],
-  "Benicia":[
-  {
-    lat:  38.060852,
-    lng: -122.1277356,
-    description: "Community Monitor"
-  },{
-    lat:  38.0680133588967,
-    lng: -122.121974062288,
     description: "Community Monitor"
   }],
   "South Rodeo":[{
@@ -291,55 +320,55 @@ var purpleAirMonitors = {
   ],
   "Benicia": [
     {
-      lat: 38.103588,
-      lng: -122.188702,
+      lat: 38.060789, 
+      lng: -122.149458, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.074533,
-      lng: -122.173721,
+      lat: 38.05337, 
+      lng: -122.158814, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.060789,
-      lng: -122.149458,
+      lat: 38.103588, 
+      lng: -122.188702, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.05337,
-      lng: -122.158814,
+      lat: 38.060789, 
+      lng: -122.149458, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.062176,
-      lng: -122.160203,
+      lat: 38.074533, 
+      lng: -122.173721, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.079625,
-      lng: -122.155216,
+      lat: 38.062176, 
+      lng: -122.160203, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.071981,
-      lng: -122.152329,
+      lat: 38.058971, 
+      lng: -122.141785, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.058971,
-      lng: -122.141785,
+      lat: 38.058086, 
+      lng: -122.157553, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.058086,
-      lng: -122.157553,
+      lat: 38.055033, 
+      lng: -122.157681, 
       description: "PurpleAir Monitor"
-    },
+    }, 
     {
-      lat: 38.055033,
-      lng: -122.157681,
+      lat: 38.071981, 
+      lng: -122.152329, 
       description: "PurpleAir Monitor"
-    },
+    }
   ],
   "Clyde": [
     {
@@ -681,10 +710,12 @@ function initMap(div) {
 
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
-    var fencelineMonitor = fencelineMonitors[key];
-    var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
-    var icon = icons['Fenceline Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    for (var i = fencelineMonitors[key].length - 1; i >= 0; i--) {
+      var fencelineMonitor = fencelineMonitors[key][i];
+      var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
+      var icon = icons['Fenceline Monitor'];
+      createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    }
   }
 
   //add Community Monitors
