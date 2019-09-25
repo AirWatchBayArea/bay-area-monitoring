@@ -972,7 +972,7 @@ function setupCanvasLayerProjection() {
 }
 
 //draws wind data for desired point on map at given time
-function paintWind(site, epochTime) {
+function drawWind(site, epochTime) {
   var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude - .003);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
   var x = worldPoint.x * projectionScale;
@@ -1181,9 +1181,9 @@ function repaintCanvasLayer(epochTime) {
     //   }
     // }
     // var feed = esdr_feeds[feedName];
-    // paintWind(feed, epochTime);
+    // drawWind(feed, epochTime);
     for (var i = windFeeds.length - 1; i >= 0; i--) {
-      paintWind(windFeeds[i], epochTime);
+      drawWind(windFeeds[i], epochTime);
     }
   } catch(e) {
     //console.log(e);
