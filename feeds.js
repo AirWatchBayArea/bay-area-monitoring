@@ -156,20 +156,20 @@ function loadFeed(area_feed_id){
   });
 }
 
-function loadWindFeeds(wind_feed_ids) {
-  Promise.all(wind_feed_ids.map(function(feed_id){
-    return loadWindFeed(feed_id);
+function loadWindFeeds(feedIds) {
+  Promise.all(feedIds.map(function(feed_id){
+    return loadEsdrFeed(feed_id);
   })).then(function(results){
     windFeeds = results;
   })
 }
 
-function loadWindFeed(wind_feed_id){
+function loadEsdrFeed(feedId){
   return new Promise(function(resolve, reject){
     $.ajax({
     type: "GET",
     dataType: "json",
-    url: ESDR_API_ROOT_URL + "/feeds/" + wind_feed_id,
+    url: ESDR_API_ROOT_URL + "/feeds/" + feedId,
     success: function(json) {
       var feed = json.data;
       var wind_feed_data = {
@@ -205,6 +205,121 @@ function loadWindFeed(wind_feed_id){
       }
     });
   });
+}
+
+function makeEsdrRequest(feed, start_time, end_time) {
+  return {
+    feed_id : feed.feed_id,
+    api_key : feed.api_key,
+    start_time : start_time,
+    end_time : end_time,
+    channels : Object.keys(feed.channels).toString(),
+    headers : null
+  };
+}
+
+function makeEsdrRequest24Hours(feed, time) {
+  var day = Math.floor(time / 86400);
+  return makeEsdrRequest(feed, day * 86400, (day + 1) * 86400);
+}
+
+function requestEsdrExport(requestInfo) {
+  return new Promise(function (resolve, reject)  {
+    $.ajax({
+      crossDomain: true,
+      type: "GET",
+      dataType: "text",
+      url: ESDR_API_ROOT_URL + "/feeds/" + requestInfo.feed_id + "/channels/" + requestInfo.channels + "/export",
+      data: { from: requestInfo.start_time, to: requestInfo.end_time, FeedApiKey: requestInfo.api_key},
+      success: function(csvData) {
+        resolve(csvData);
+      },
+      failure: function(err) {
+        console.error('Failed to load sensor data.');
+        reject(err);
+      },
+      headers: requestInfo.headers
+    });
+  });
+}
+
+function parseEsdrCSV(csvData, sensor) {
+  var csvArray = csvData.split("\n");
+  var headingsArray = csvArray[0].split(",");
+  // First row is the CSV headers, which we took care of above, so start at 1.
+  for (var i = 1; i < csvArray.length; i++) {
+    var csvLineAsArray = csvArray[i].split(",");
+    // First entry is the EPOC time, so start at index 1.
+    for (var j = 1; j < csvLineAsArray.length; j++) {
+      var tmpChannelHeading = headingsArray[j].split(".");
+      var channelHeading = tmpChannelHeading[tmpChannelHeading.length - 1];
+      var timeStamp = sensor.channels[channelHeading].hourly ? (csvLineAsArray[0] - 1800): csvLineAsArray[0];
+      sensor.channels[channelHeading].summary[timeStamp] = parseFloat(csvLineAsArray[j]);
+    }
+  }
+}
+
+function get24HourData(feed, time) {
+  var requestInfo = makeEsdrRequest24Hours(feed, time);
+  return requestEsdrExport(requestInfo).then(function(csvData) {
+    parseEsdrCSV(csvData, feed);
+    return feed;
+  });
+}
+
+function get24HourDataForFeed(feedId, time) {
+  return loadEsdrFeed(feedId).then(function (feed) {
+     return get24HourData(feed, time);
+  });
+}
+
+function getSummaryStats(feed) {
+  var channelStats = {};
+  for (var channelName in feed.channels) {
+    var stats = {}
+    channelStats[channelName] = stats;
+    var summary = feed.channels[channelName].summary;
+    if (!summary) {
+      console.log("No summary for channel: " + channelName);
+      continue;
+    }
+    var values = Object.values(summary).filter(function(num) {
+      return typeof num === typeof 1 && num !== NaN;
+     });
+    stats.max = Math.max(...values);
+    stats.min = Math.min(...values);
+    stats.mean = +(mean(values).toFixed(2));
+    stats.median = median(values);
+  }
+  return channelStats;
+}
+
+// https://jonlabelle.com/snippets/view/javascript/calculate-mean-median-mode-and-range-in-javascript
+function mean(numbers) {
+  var total = 0, i;
+  for (i = 0; i < numbers.length; i += 1) {
+      total += numbers[i];
+  }
+  return total / numbers.length;
+}
+
+// https://jonlabelle.com/snippets/view/javascript/calculate-mean-median-mode-and-range-in-javascript
+function median(numbers) {
+    // median of [3, 5, 4, 4, 1, 1, 2, 3] = 3
+    var median = 0, numsLen = numbers.length;
+    numbers.sort();
+ 
+    if (
+        numsLen % 2 === 0 // is even
+    ) {
+        // average of two middle numbers
+        median = (numbers[numsLen / 2 - 1] + numbers[numsLen / 2]) / 2;
+    } else { // is odd
+        // middle number only
+        median = numbers[(numsLen - 1) / 2];
+    }
+ 
+    return median;
 }
 
 $(function(){

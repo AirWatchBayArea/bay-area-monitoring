@@ -532,40 +532,6 @@
     return formattedTime;
   }
 
-  function requestEsdrExport(requestInfo, callBack) {
-    $.ajax({
-      crossDomain: true,
-      type: "GET",
-      dataType: "text",
-      url: ESDR_API_ROOT_URL + "/feeds/" + requestInfo.feed_id + "/channels/" + requestInfo.channels + "/export",
-      data: { from: requestInfo.start_time, to: requestInfo.end_time, FeedApiKey: requestInfo.api_key},
-      success: function(csvData) {
-        if (typeof(callBack) === "function")
-          callBack(csvData);
-      },
-      failure: function(data) {
-        console.log('Failed to load sensor data.');
-      },
-      headers: requestInfo.headers
-    });
-  }
-
-  function parseEsdrCSV(csvData, sensor) {
-    var csvArray = csvData.split("\n");
-    var headingsArray = csvArray[0].split(",");
-    // First row is the CSV headers, which we took care of above, so start at 1.
-    for (var i = 1; i < csvArray.length; i++) {
-      var csvLineAsArray = csvArray[i].split(",");
-      // First entry is the EPOC time, so start at index 1.
-      for (var j = 1; j < csvLineAsArray.length; j++) {
-        var tmpChannelHeading = headingsArray[j].split(".");
-        var channelHeading = tmpChannelHeading[tmpChannelHeading.length - 1];
-        var timeStamp = sensor.channels[channelHeading].hourly ? (csvLineAsArray[0] - 1800): csvLineAsArray[0];
-        sensor.channels[channelHeading].summary[timeStamp] = parseFloat(csvLineAsArray[j]);
-      }
-    }
-  }
-
   function setupTileSource(channelName, feedAPIKey) {
     return function(level, offset, successCallback, failureCallback) {
       $.ajax({

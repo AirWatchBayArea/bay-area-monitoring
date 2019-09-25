@@ -976,8 +976,8 @@ function paintWind(site, epochTime) {
   var wind_speed, wind_dir;
   var windSpeedChannel = site.channels.Wind_Speed_MPH || site.channels.Wind_Speed || site.channels.WS;
   if (windSpeedChannel) {
-    wind_speed = getData(site, windSpeedChannel, epochTime);
-    wind_dir = getData(site, site.channels.Wind_Direction || site.channels.WD, epochTime);
+    wind_speed = processWindData(site, windSpeedChannel, epochTime);
+    wind_dir = processWindData(site, site.channels.Wind_Direction || site.channels.WD, epochTime);
   }
 
   // Black dot as base to wind vector
@@ -1043,23 +1043,12 @@ function paintWind(site, epochTime) {
   }
 }
 
-function getData(site, channel, time) {
+function processWindData(site, channel, time) {
   var day = Math.floor(time / 86400);
-
   if (!site.requested_day[day]) {
     site.requested_day[day] = true;
     //console.log('Requesting ' + site.feed_id + ', day ' + day);
-    var requestInfo = {
-      feed_id : site.feed_id,
-      api_key : site.api_key,
-      start_time : day * 86400,
-      end_time : (day + 1) * 86400,
-      channels : Object.keys(site.channels).toString(),
-      headers : null
-    };
-    requestEsdrExport(requestInfo, function(csvData) {
-      parseEsdrCSV(csvData, site);
-      //console.log('got that data');
+    get24HourData(site, time).then(function() {
       repaintCanvasLayer(time);
     });
   } else {
@@ -1175,6 +1164,6 @@ function repaintCanvasLayer(epochTime) {
       paintWind(windFeeds[i], epochTime);
     }
   } catch(e) {
-    //console.log(e);
+    console.log(e);
   }
 }
