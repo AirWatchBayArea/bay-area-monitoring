@@ -854,16 +854,27 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
     content: infoContent,
     animation: google.maps.Animation.DROP,
   });
-  google.maps.event.addListener(marker, 'mouseover', function() {
+  var hoverArea = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0,
+    map: map,
+    center: googLatLng,
+    radius: 230
+  });
+  hoverArea.addListener('mouseover', function() {
     infowindow.setContent(infoContent);
     if (hoverCallback){
       hoverCallback(infowindow, infoContent);
     }
-    infowindow.open(map, this);
+    infowindow.setPosition(googLatLng);
+    infowindow.open(map);
   });
-  // google.maps.event.addListener(marker, 'mouseout', function() {
-  //   infowindow.close();
-  // });
+  hoverArea.addListener('mouseout', function() {
+    infowindow.close();
+  });
   google.maps.event.addListener(marker, 'click', function() {
     if(clickCallback){
       clickCallback.bind(this, marker, infoContent)();
