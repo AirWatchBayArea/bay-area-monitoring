@@ -1,0 +1,33 @@
+.summary .no-stats {
+	font-style: italic;
+	color: darkgray;
+}
+
+table.stats {
+  border: 3px solid #FFFFFF;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.stats td, table.stats th {
+  border: 0px solid #000000;
+  padding: 5px 4px;
+}
+table.stats tbody td {
+  font-size: 13px;
+}
+table.stats tr:nth-child(even) {
+  background: #E0E0E0;
+}
+table.stats thead {
+    border-bottom: 1px solid #000000;
+}
+table.stats thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #000000;
+  text-align: left;
+}
+table.stats tfoot td {
+  font-size: 14px;
+}

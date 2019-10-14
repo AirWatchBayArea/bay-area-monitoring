@@ -100,65 +100,77 @@ var fencelineMonitors = {
   "Atchison Village": [{
     lat: 37.941351,
     lng: -122.381193,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php,"),
+    esdr_ids: [4909],
   }],
   "North Richmond": [{
     lat: 37.948234,
     lng: -122.375425,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php,"),
+    esdr_ids: [4912],
   }],
   "Point Richmond": [{
     lat:  37.93501,
     lng: -122.384772,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php,"),
+    esdr_ids: [4913],
   }],
   "North Rodeo": [{
     lat: 38.044924,
     lng: -122.247935,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php,"),
+    esdr_ids: [4902],
   }],
   "South Rodeo": [{
     lat: 38.03855,
     lng: -122.25653,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php,"),
+    esdr_ids: [4901],
   }],
   "Valero North": [
     {
       lat: 38.07909, 
       lng: -122.138, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
-    }, 
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26349],
+    },
     {
       lat: 38.069294, 
       lng: -122.131348, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26350],
     },
     {
       lat: 38.07223, 
       lng: -122.126512, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26354],
     }, 
     {
       lat: 38.070225, 
       lng: -122.132462, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26348],
     }
   ],
   "Valero South": [
     {
       lat: 38.06556, 
       lng: -122.1508, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26346],
     }, 
     {
       lat: 38.05953, 
       lng: -122.149575, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26347],
     }, 
     {
       lat: 38.05907, 
       lng: -122.1387, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html"),
+      esdr_ids: [26351],
     }
   ]
 };
@@ -180,22 +192,26 @@ var communityMonitors = {
   "Atchison Village": [{
     lat:   37.93447,
     lng: -122.37166,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    esdr_ids: [4910],
   }],
   "North Richmond": [{
     lat: 37.94799,
     lng: -122.36477,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    esdr_ids: [4911],
   }],
   "Point Richmond": [{
     lat:  37.92423,
     lng: -122.38215,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    esdr_ids: [4914],
   }],
   "South Rodeo":[{
     lat:  38.031616,
     lng: -122.263651,
-    description: "Community Monitor"
+    description: "Community Monitor",
+    esdr_ids: [10011],
   }]
 }
 
@@ -204,182 +220,216 @@ var purpleAirMonitors = {
     {
       lat: 38.14128,
       lng: -122.260096,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12688],
     },
     {
       lat: 38.090349,
       lng: -122.238814,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14887],
     },
     {
       lat: 38.089971,
       lng: -122.238914,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12682],
     },
     {
       lat: 38.111121,
       lng: -122.243314,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12756],
     },
     {
       lat: 38.114254,
       lng: -122.258755,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12931],
     },
     {
       lat: 38.104107,
       lng: -122.258171,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12964],
     },
     {
       lat: 38.073925,
       lng: -122.23143,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12966],
     },
     {
       lat: 38.134271,
       lng: -122.197826,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13169],
     },
     {
       lat: 38.120362,
       lng: -122.241011,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13302],
     },
     {
       lat: 38.149868,
       lng: -122.237466,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13332],
     },
     {
       lat: 38.066784,
       lng: -122.220027,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13377],
     },
     {
       lat: 38.122023,
       lng: -122.233247,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13470],
     },
     {
       lat: 38.097691,
       lng: -122.25952,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13639],
     },
     {
       lat: 38.077987,
       lng: -122.230468,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13778],
     },
     {
       lat: 38.080554,
       lng: -122.215034,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13815],
     },
     {
       lat: 38.095808,
       lng: -122.215461,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13820],
     },
     {
       lat: 38.113435,
       lng: -122.259217,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14000],
     },
     {
       lat: 38.092826,
       lng: -122.251253,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14840],
     },
     {
       lat: 38.107731,
       lng: -122.255566,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14933],
     },
     {
       lat: 38.085676,
       lng: -122.244778,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14615],
     },
   ],
   "El Sobrante" : [
     {
       lat: 37.98261,
       lng: -122.295859,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13310],
     }
   ],
   "El Cerrito" : [
     {
       lat: 37.906472,
       lng: -122.301588,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13304],
     },
   ],
   "Berkeley": [
     {
       lat: 37.900737,
       lng: -122.286133,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12848],
     }
   ],
   "Benicia": [
     {
       lat: 38.060789, 
       lng: -122.149458, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [12846],
     }, 
     {
       lat: 38.05337, 
       lng: -122.158814, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [13237],
     }, 
     {
       lat: 38.103588, 
       lng: -122.188702, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [14284],
     }, 
     {
       lat: 38.060789, 
       lng: -122.149458, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26224],
     }, 
     {
       lat: 38.074533, 
       lng: -122.173721, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26225],
     }, 
     {
       lat: 38.062176, 
       lng: -122.160203, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26226],
     }, 
     {
       lat: 38.058971, 
       lng: -122.141785, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26228],
     }, 
     {
       lat: 38.058086, 
       lng: -122.157553, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26229],
     }, 
     {
       lat: 38.055033, 
       lng: -122.157681, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26230],
     }, 
     {
       lat: 38.071981, 
       lng: -122.152329, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [26231],
     }
   ],
   "Clyde": [
     {
       lat: 38.0285,
       lng: -122.0302,
-      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+      description: 'PurpleAir Monitor' + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
+      esdr_ids: [17230],
     }
   ]
 }
@@ -707,7 +757,7 @@ function initMap(div) {
 
   // kmlLayer.addListener('click', function(kmlEvent) {
   //   if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
-  //     changeLocale(area.id, kmlEvent.featureData.description);
+  //     changeLocaleClosure(area.id, kmlEvent.featureData.description);
   //   }
   // });
 
@@ -719,7 +769,7 @@ function initMap(div) {
       var fencelineMonitor = fencelineMonitors[key][i];
       var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
       var icon = icons['Fenceline Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(fencelineMonitor, latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),changeLocaleClosure(key), createDataSummary).setZIndex(1);
     }
   }
 
@@ -729,7 +779,7 @@ function initMap(div) {
       var communityMonitor = communityMonitors[key][i];
       var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
       var icon = icons['Community Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(communityMonitor, latlng, icon, createInfoWindowContent(key, communityMonitor.description),changeLocaleClosure(key), createDataSummary).setZIndex(1);
     }
   }
 
@@ -738,7 +788,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(BAAQMDMonitor, latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), changeLocaleClosure(key), createDataSummary).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -747,7 +797,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(purpleAirMonitor, latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), changeLocaleClosure(key), createDataSummary).setZIndex(1);
     }
   }
 
@@ -770,7 +820,7 @@ function initMap(div) {
     var pollutionSource = pollutionSources[key];
     var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
     var icon = icons['Pollution Source'];
-    createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
+    createMarker(pollutionSource, latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
   }
 
   if(!isBigPicture){
@@ -802,36 +852,84 @@ function initMap(div) {
 }
 
 //used for binding event for marker onclick
-function makeClosure(key){
+function changeLocaleClosure(key){
   return (function(){
     changeLocale(area.id, key);
   })
 }
 
-//creates info window content based on title and description
-function createInfoWindowContent(title, description){
-  return ['<h4>',title,'</h4>',
-          '<p>',description,'</p>'].join('');
-}
-
-//adds data to infowindow if available
-function addDataToInfoWindow(infowindow, infoContent){
-  var communityName = $(infoContent).get(0).innerHTML;
-  if (communityName in feedMap){
-    for(var i = 0; i < feedMap[communityName].length; i++){
-      var feedId = feedMap[communityName][i];
-      // if (feedId in feedIDtoPlotId){
-      //     console.log(feedIDtoPlotId[feedId]);
-      // }
+function createDataSummaryElement(summary){
+  var hasData = false;
+  var summaryContainer = $([
+    '<table class="stats">',
+    '<thead>',
+    '<tr>',
+      '<th>Chemical</th>',
+      '<th>min</th>',
+      '<th>max</th>',
+      '<th>mean</th>',
+      '<th>median</th>',
+    '</tr>',
+    '</thead>',
+    '<tbody></tbody>',
+    '</table>',
+  ].join(''));
+  for (var chemical of Object.keys(summary)) {
+    var chemicalSummary = summary[chemical];
+    if (!$.isEmptyObject(chemicalSummary)) {
+      hasData = true;
+      var chemicalSummaryDiv = $('<tr></tr>');
+      chemicalSummaryDiv.append(
+        $('<td>' + makeLabel(chemical) + '</td>')
+      );
+      chemicalSummaryDiv.append(
+        $('<td>' + chemicalSummary.min + '</td>')
+      );
+      chemicalSummaryDiv.append(
+        $('<td>' + chemicalSummary.max + '</td>')
+      );
+      chemicalSummaryDiv.append(
+        $('<td>' + chemicalSummary.mean + '</td>')
+      );
+      chemicalSummaryDiv.append(
+        $('<td>' + chemicalSummary.median + '</td>')
+      );
+      summaryContainer.children('tbody').append(chemicalSummaryDiv);
     }
   }
+  return hasData ? summaryContainer[0] : $('<div class="no-stats">No stats for this monitor.</div>')[0];
+}
+
+//loads and renders the data summary from the monitor into the given infowindow.
+function createDataSummary(infoContent, monitor){
+  var ids = monitor.esdr_ids;
+  var summaryDiv = infoContent.getElementsByClassName('summary').item(0)
+  if (infoContent && !summaryDiv.innerHTML) {
+    summaryDiv.innerHTML = '<p class="loading">Loading...<p>';
+    getLast24HourSummaryForFeeds(ids)
+      .then(createDataSummaryElement)
+      .then((div) => {
+        summaryDiv.innerHTML = "";
+        summaryDiv.append(div);
+      });
+  }
+}
+
+//creates info window content based on title and description. 
+function createInfoWindowContent(title, description){
+  var domElement = document.createElement('div');
+  domElement.innerHTML = ['<h4>',title,'</h4>',
+          '<p>',description,'</p>',
+          '<h5>24 Hour Summary:</h5>',
+          '<div class="summary"></div>'].join('');
+  return domElement;
 }
 
 //draws school markers based on Google Places results
 function drawSchoolMarkers(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
-      createMarker(results[i].geometry.location, icons["School/Day Care"], results[i].name);
+      createMarker(results[i], results[i].geometry.location, icons["School/Day Care"], results[i].name);
     }
   }
 }
@@ -846,7 +944,7 @@ function scaleIcon(marker, icon){
 }
 
 //creates a marker with given infoContent HTML and function callback on click
-function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallback) {
+function createMarker(data, googLatLng, icon, infoContent, clickCallback, hoverCallback) {
   var marker = new google.maps.Marker({
     map: map,
     position: googLatLng,
@@ -857,7 +955,7 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
   google.maps.event.addListener(marker, 'mouseover', function() {
     infowindow.setContent(infoContent);
     if (hoverCallback){
-      hoverCallback(infowindow, infoContent);
+      hoverCallback(infoContent, data);
     }
     infowindow.open(map, this);
   });
@@ -1082,17 +1180,6 @@ function processWindData(site, channel, time) {
     }
   }
 }
-
-/*function drawPurpleAirMonitors() {
-  for(var feedName in esdr_feeds) {
-    var monitor = esdr_feeds[feedName];
-    if (monitor.type == "PurpleAir") {
-      var latlng = {"lat":monitor.coordinates.latitude, "lng":monitor.coordinates.longitude};
-      var icon = icons['PurpleAir Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(feedName, "PurpleAir Monitor"),makeClosure(feedName)).setZIndex(1);
-    }
-  }
-}*/
 
 // Highlights the selected monitor
 function highlightSelectedMonitors() {

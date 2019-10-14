@@ -3,7 +3,7 @@
 var windFeeds = [];
 var windFeedIds = [4911, 4913, 4857, 2518];
 
-var target_channels = ["Benzene","Toluene","Xylene","Hydrogen_Sulfide","H2S", "m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide", "SO2", "voc","dust","PM_2_5","PM2_5"]//,"Ammonia","3_Methylpentane","N_Hexane"]
+var target_channels = new Set(["Benzene","Toluene","Xylene","Hydrogen_Sulfide","H2S", "m_p_Xylene","o_Xylene","Black_Carbon", "Ethylbenzene","Sulfur_Dioxide", "SO2", "voc","dust","PM_2_5","PM2_5"]); //,"Ammonia","3_Methylpentane","N_Hexane"]
 
 function initFeeds() {
   var feedNames = Object.keys(esdr_feeds).sort();
@@ -50,6 +50,21 @@ function loadFeeds(area_feed_ids) {
   })).then(function(results){
     initFeeds();
   })
+}
+
+function makeLabel(chemical) {
+  var chemicalLabel = chemical.replace(/_/g," ");
+  if(chemical.indexOf("Xylene") != -1) {
+    chemicalLabel = "Xylene";
+  } else if (chemicalLabel === "H2S") {
+    chemicalLabel = "Hydrogen Sulfide";
+  } else if (chemicalLabel === "SO2") {
+    chemicalLabel = "Sulfur Dioxide";
+  }
+  var units = chemical.indexOf("Black_Carbon") != -1 || 
+              chemical.indexOf("PM_2_5") != -1 || 
+              chemical.indexOf("PM2_5") != -1 ? " (µg/m³)" : " (ppb)";
+  return chemicalLabel + units;
 }
 
 function loadFeed(area_feed_id){
@@ -124,23 +139,12 @@ function loadFeed(area_feed_id){
         if(isBAAQMD) {
           chemicalLabel = chemical.slice(0,chemical.lastIndexOf("_"));
         }
-        if(target_channels.indexOf(chemicalLabel) != -1) {
-          chemicalLabel = chemicalLabel.replace(/_/g," ");
-          if(chemical.indexOf("Xylene") != -1) {
-            chemicalLabel = "Xylene";
-          } else if (chemicalLabel === "H2S") {
-            chemicalLabel = "Hydrogen Sulfide";
-          } else if (chemicalLabel === "SO2") {
-            chemicalLabel = "Sulfur Dioxide";
-          }
-          var units = chemical.indexOf("Black_Carbon") != -1 || 
-                      chemical.indexOf("PM_2_5") != -1 || 
-                      chemical.indexOf("PM2_5") != -1 ? " (µg/m³)" : " (ppb)";
+        if(target_channels.has(chemicalLabel)) {
           esdr_feeds[feed.name].channels[chemical] = {
             show_graph: true,
             hourly: true,
             graphMetaData: {
-              label: chemicalLabel + units
+              label: makeLabel(chemicalLabel)
             },
             summary: {}
           }
@@ -260,6 +264,9 @@ function parseEsdrCSV(csvData, sensor) {
 }
 
 function get24HourData(feed, time) {
+  if (!time) {
+    time = Date.now()/1000;
+  }
   var requestInfo = makeEsdrRequest24Hours(feed, time);
   return requestEsdrExport(requestInfo).then(function(csvData) {
     parseEsdrCSV(csvData, feed);
@@ -268,28 +275,55 @@ function get24HourData(feed, time) {
 }
 
 function get24HourDataForFeed(feedId, time) {
+  if (!time) {
+    time = Date.now()/1000;
+  }
   return loadEsdrFeed(feedId).then(function (feed) {
      return get24HourData(feed, time);
   });
 }
 
-function getSummaryStats(feed) {
+function getLast24HourSummaryForFeeds(feedIDs) {
+  return Promise.all(feedIDs.map(get24HourDataForFeed))
+                .then(mergeFeedSummaries)
+                .then(getSummaryStats);
+}
+
+function mergeFeedSummaries(feeds) {
+  var channels = {};
+  for (var feed of feeds) {
+    for (var channelName in feed.channels) {
+      var channel = feed.channels[channelName];
+      if (channelName in channels) {
+        Object.assign(channels[channelName].summary, channel.summary);
+      } else {
+        channels[channelName] = {summary: channel.summary};
+      }
+    }
+  }
+  return channels;
+}
+
+function getSummaryStats(channels) {
   var channelStats = {};
-  for (var channelName in feed.channels) {
+  for (var channelName in channels) {
+    if (!target_channels.has(channelName)) {
+      continue;
+    }
     var stats = {}
     channelStats[channelName] = stats;
-    var summary = feed.channels[channelName].summary;
-    if (!summary) {
+    var summary = channels[channelName].summary;
+    if (!summary || Object.keys(summary).length === 0) {
       console.log("No summary for channel: " + channelName);
       continue;
     }
     var values = Object.values(summary).filter(function(num) {
       return typeof num === typeof 1 && num !== NaN;
      });
-    stats.max = Math.max(...values);
-    stats.min = Math.min(...values);
+    stats.max = +(Math.max(...values).toFixed(2));
+    stats.min = +(Math.min(...values).toFixed(2));
     stats.mean = +(mean(values).toFixed(2));
-    stats.median = median(values);
+    stats.median = +(median(values).toFixed(2));
   }
   return channelStats;
 }

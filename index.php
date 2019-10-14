@@ -68,6 +68,7 @@
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
 
   <link href="assets/css/dashboard.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/css/map.css" media="screen" rel="stylesheet" type="text/css" />
   <link href="assets/css/user-reports.css" media="screen" rel="stylesheet" type="text/css">
   <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="localization/lang-en.css">
