@@ -763,6 +763,15 @@ function initMap(div) {
 
   infowindow = new google.maps.InfoWindow();
 
+  if(!isBigPicture){
+    var service = new google.maps.places.PlacesService(map);
+    service.nearbySearch({
+      location: new google.maps.LatLng(center.lat, center.lng),
+      radius: 5000,
+      type: ['school']
+    }, drawSchoolMarkers);
+  }
+
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
     for (var i = fencelineMonitors[key].length - 1; i >= 0; i--) {
@@ -821,15 +830,6 @@ function initMap(div) {
     var latlng = {"lat":pollutionSource.lat, "lng":pollutionSource.lng};
     var icon = icons['Pollution Source'];
     createMarker(pollutionSource, latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
-  }
-
-  if(!isBigPicture){
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-      location: new google.maps.LatLng(center.lat, center.lng),
-      radius: 5000,
-      type: ['school']
-    }, drawSchoolMarkers);
   }
 
     // initialize the canvasLayer
@@ -959,11 +959,11 @@ function createMarker(data, googLatLng, icon, infoContent, clickCallback, hoverC
     strokeColor: '#FF0000',
     strokeOpacity: 0,
     strokeWeight: 2,
-    fillColor: '#FF0000',
+    fillColor: icon.fillColor || '#FFFFFF',
     fillOpacity: 0,
     map: map,
     center: googLatLng,
-    radius: 230
+    radius: 150,
   });
   hoverArea.addListener('mouseover', function() {
     infowindow.setContent(infoContent);
@@ -1197,9 +1197,7 @@ function processWindData(site, channel, time) {
 
 // Highlights the selected monitor
 function highlightSelectedMonitors() {
-  for (var i = highlights.length - 1; i >= 0; i--) {
-    highlights[i].setMap(null);
-  }
+  highlights.forEach(highlight => highlight.setMap(null));
 
   for(var feed in esdr_feeds) {
     //skip the Rodeo wind feed
@@ -1212,18 +1210,18 @@ function highlightSelectedMonitors() {
     }
     var factor, radius, center;
     factor = Math.pow(2,(13 - map.zoom));
-    radius = 260 * factor;
+    radius = 125 * factor;
     center = coords;
     var markerOptions = {
       strokeColor: '#FFF000',
-      strokeOpacity: 0.5,
-      strokeWeight: 2,
+      strokeOpacity: .75,
+      strokeWeight: 3,
       fillColor: '#FFF000',
       fillOpacity: 0.5,
       map: map,
       center: {
-        lat: center.lat + Math.pow(2,17-map.zoom) * .0001,
-        lng: center.lng
+        lat: center.lat,
+        lng: center.lng,
       },
       radius: radius
     }
