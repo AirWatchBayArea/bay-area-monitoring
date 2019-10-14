@@ -952,16 +952,27 @@ function createMarker(data, googLatLng, icon, infoContent, clickCallback, hoverC
     content: infoContent,
     animation: google.maps.Animation.DROP,
   });
-  google.maps.event.addListener(marker, 'mouseover', function() {
+  var hoverArea = new google.maps.Circle({
+    strokeColor: '#FF0000',
+    strokeOpacity: 0,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0,
+    map: map,
+    center: googLatLng,
+    radius: 230
+  });
+  hoverArea.addListener('mouseover', function() {
     infowindow.setContent(infoContent);
     if (hoverCallback){
       hoverCallback(infoContent, data);
     }
-    infowindow.open(map, this);
+    infowindow.setPosition(googLatLng);
+    infowindow.open(map);
   });
-  // google.maps.event.addListener(marker, 'mouseout', function() {
-  //   infowindow.close();
-  // });
+  hoverArea.addListener('mouseout', function() {
+    infowindow.close();
+  });
   google.maps.event.addListener(marker, 'click', function() {
     if(clickCallback){
       clickCallback.bind(this, marker, infoContent)();
@@ -1059,7 +1070,7 @@ function setupCanvasLayerProjection() {
 }
 
 //draws wind data for desired point on map at given time
-function paintWind(site, epochTime) {
+function drawWind(site, epochTime) {
   var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude - .003);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
   var x = worldPoint.x * projectionScale;
@@ -1246,9 +1257,9 @@ function repaintCanvasLayer(epochTime) {
     //   }
     // }
     // var feed = esdr_feeds[feedName];
-    // paintWind(feed, epochTime);
+    // drawWind(feed, epochTime);
     for (var i = windFeeds.length - 1; i >= 0; i--) {
-      paintWind(windFeeds[i], epochTime);
+      drawWind(windFeeds[i], epochTime);
     }
   } catch(e) {
     console.log(e);
