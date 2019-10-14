@@ -918,10 +918,13 @@ function createDataSummary(infoContent, monitor){
 //creates info window content based on title and description. 
 function createInfoWindowContent(title, description){
   var domElement = document.createElement('div');
-  domElement.innerHTML = ['<h4>',title,'</h4>',
-          '<p>',description,'</p>',
-          '<h5>24 Hour Summary:</h5>',
-          '<div class="summary"></div>'].join('');
+  domElement.innerHTML = [
+    '<h4>',title,'</h4>',
+    '<p>', description,'&nbsp;&nbsp;<a class="show-graphs">Show graphs</a></p>',
+    '<h5>24 Hour Summary:</h5>',
+    '<div class="summary"></div>'
+  ].join('');
+  $(domElement).find('.show-graphs').click(changeLocaleClosure(title));
   return domElement;
 }
 
