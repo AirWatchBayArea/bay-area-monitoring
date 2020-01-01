@@ -284,11 +284,17 @@
             <div class="row">
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
                   <div class="col-lg-4" style="margin:auto; padding: 10px; float: none; width: 80%">
-                    <img class="img-responsive" src="img/logo.svg" style="padding: 5% 35% 0% 35%;"/>
-                    <h4 class="service-heading" data-localize="service.app">Report pollution events through the app right when they happen.</h4>
-                    <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px; background-color: #eee;"><a href="https://itunes.apple.com/us/app/air-watch-bay-area/id1194566633?mt=8" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
-                    <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smell_pgh.bay_area&hl=en" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></div></a>
-                  </div>
+                    <img class="img-responsive" src="img/logo.svg" style="padding: 5% 40% 0% 40%;"/>
+                    <h4 class="service-heading" style="font-weight: normal;">Report pollution events through the <a href="https://smellmycity.org">Smell My City</a> app right when they happen.
+                    </h4>
+                    <video preload="" controls="" autoplay="" loop="" muted="" playsinline="" class="image-responsive" id="demo-video" style="max-width: 200px;">
+                      <source src="https://smellmycity.org/vid/demo.mp4" type="video/mp4">
+                      Your browser does not support the video tag.
+                    </video>
+                    <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
+                      <a href="https://apps.apple.com/us/app/smell-mycity/id1299801253" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
+                      <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smellmycity&hl=en_US" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -456,6 +462,12 @@
     </div>
 
   <div id="report-pollution-page" class="resource-container">
+    <h3 class="note" style="font-weight: normal; text-align: center;">Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell My City</a> app to manage your pollution reports, so we will be removing this reporting page in the coming months. Download the Smell My City app here:
+      <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
+        <a href="https://apps.apple.com/us/app/smell-mycity/id1299801253" target="_blank"><img class="img-responsive" src="img/appstore.svg" width="40%" style="display:inline;"/></a>
+        <a href="https://play.google.com/store/apps/details?id=org.cmucreatelab.smellmycity&hl=en_US" target="_blank"><img class="img-responsive" src="img/googleplay.png" width="45%" style="display:inline"/></a>
+      </div>
+    </h3>
     <h2 style="margin-bottom: 0; padding-bottom: 0" data-localize="report.title">Report a Pollution Incident</h2>
     <h2 style="margin-top: 0; font-size: 25px; color: gray; font-weight: 500" data-localize="report.subtitle">(i.e. flaring, odor, residue, health symptoms)</h2>
     <p class="note" data-localize="report.title-note">When you report to Air Watch Bay Area, you contribute to a <a href="#user-reports" class="underline">publicly visible "paper&nbsp;trail" of incidents.</a><br>Having this paper trail enables community members to hold Bay Area Air Quality Management District accountable.</p>
@@ -466,13 +478,13 @@
 
     <form id="report-form">
       <div class="report-form-section">
-        <label>
+        <!-- <label>
           <strong class="emphasis" data-localize="report.photo">Upload Photo of Incident (optional)</strong>
           <p data-localize="report.photo-multiple">Please select multiple photos one at a time.</p>
         </label>
         <input id="file-upload" class="upload_field" type="file" name="file" style="color:transparent;">
         <p class='num-file-status' data-localize="report.file-status">0</p>
-        <div class="thumbnails"></div>
+        <div class="thumbnails"></div> -->
 
         <!-- <label class='textarea-label photo-upload'>
           <strong>Caption:</strong>
