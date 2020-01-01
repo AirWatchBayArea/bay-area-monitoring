@@ -867,8 +867,8 @@ function createDataSummaryElement(summary){
       '<th>Chemical</th>',
       '<th>min</th>',
       '<th>max</th>',
-      '<th>mean</th>',
-      '<th>median</th>',
+      '<th>mean (>detection limit)</th>',
+      '<th>percent</th>',
     '</tr>',
     '</thead>',
     '<tbody></tbody>',
@@ -889,10 +889,10 @@ function createDataSummaryElement(summary){
         $('<td>' + chemicalSummary.max + '</td>')
       );
       chemicalSummaryDiv.append(
-        $('<td>' + chemicalSummary.mean + '</td>')
+        $('<td>' + (chemicalSummary.meanAboveDetection || '(no data)') + '</td>')
       );
       chemicalSummaryDiv.append(
-        $('<td>' + chemicalSummary.median + '</td>')
+        $('<td>' + (chemicalSummary.percentageAboveDetection) + '%</td>')
       );
       summaryContainer.children('tbody').append(chemicalSummaryDiv);
     }

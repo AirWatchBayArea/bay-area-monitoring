@@ -322,8 +322,11 @@ function getSummaryStats(channels) {
      });
     stats.max = +(Math.max(...values).toFixed(2));
     stats.min = +(Math.min(...values).toFixed(2));
-    stats.mean = +(mean(values).toFixed(2));
-    stats.median = +(median(values).toFixed(2));
+    var valuesAboveDetection = values.filter(function (x) {return x > 0});
+    if (valuesAboveDetection.length) {
+      stats.meanAboveDetection = +(mean(valuesAboveDetection).toFixed(2));
+    }
+    stats.percentageAboveDetection = +(((valuesAboveDetection.length / values.length) * 100).toFixed(0));
   }
   return channelStats;
 }
