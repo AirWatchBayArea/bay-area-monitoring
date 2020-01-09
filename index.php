@@ -285,7 +285,7 @@
                 <div class="col-lg-12 bg-light-gray" style="text-align: center;border-radius: 5px">
                   <div class="col-lg-4" style="margin:auto; padding: 10px; float: none; width: 80%">
                     <img class="img-responsive" src="img/logo.svg" style="padding: 5% 40% 0% 40%;"/>
-                    <h4 class="service-heading" style="font-weight: normal;">Report pollution events through the <a href="https://smellmycity.org">Smell My City</a> app right when they happen.
+                    <h4 class="service-heading" style="font-weight: normal;">Report pollution odor events through the <a href="https://smellmycity.org">Smell My City</a> app right when they happen.
                     </h4>
                     <video preload="" controls="" autoplay="" loop="" muted="" playsinline="" class="image-responsive" id="demo-video" style="max-width: 200px;">
                       <source src="https://smellmycity.org/vid/demo.mp4" type="video/mp4">
@@ -462,13 +462,13 @@
     </div>
 
   <div id="report-pollution-page" class="resource-container">
-    <div class="note" style="text-align: center;">
+    <div class="note" style="text-align: center; margin: 15px;">
       <img src="img/smell-my-city.png" style="position: relative; display:inline; height: 50px;"/>
       <h3 style="position: relative; font-weight: 50; display:inline;">
           Download&nbsp;the&nbsp;Smell&nbsp;My&nbsp;City&nbsp;App
       </h3>
       <h4 style="font-weight: 500;">
-         Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell&nbsp;My&nbsp;City</a> app to manage your pollution reports. Please use the Smell My City app instead:
+         Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell&nbsp;My&nbsp;City</a> app to manage your pollution odor reports. Please use the Smell My City app instead:
       </h4>
       <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
         <a href="https://apps.apple.com/us/app/smell-mycity/id1299801253" target="_blank" rel="noopener noreferrer" style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
@@ -613,12 +613,21 @@
       <a href="#user-reports"><div class="report-button no-highlight" data-localize="report.view-submission">view submission</div></a>
       <div id="submit-another-report" class="report-button no-highlight" data-localize="report.submit-another">submit another report</div>
     </div>
-    <p class="note" data-localize="report.note-bottom">You should also report this pollution event to BAAQMD through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick='trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');'>its&nbsp;website</a>. We cannot send your report to BAAQMD.</p>
+    <p class="note" data-localize="report.note-bottom">You should also report this pollution event to BAAQMD through <a href='https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection' class='underline' onclick="trackOutboundLink('https://permits.baaqmd.gov/PublicForms/ComplaintWizardSelection');">its&nbsp;website</a>. We cannot send your report to BAAQMD.</p>
   </div>
 
   <div class="full-page full-height" id="user-reports-page">
     <div class="back-to-top report-button no-highlight" onclick="scrollToTop()" data-localize="footer.back-to-top">Back To Top</div>
     <div id="photos-container" class="resource-container">
+      <div class="note" style="text-align: center; margin: 15px;">
+        <img src="img/smell-my-city.png" style="position: relative; display:inline; height: 50px;"/>
+        <h3 style="position: relative; font-weight: 50; display:inline;">
+            Download Smell&nbsp;My&nbsp;City&nbsp;Reports
+        </h3>
+        <h4 style="font-weight: 500;">
+           Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell&nbsp;My&nbsp;City</a> app to manage your pollution odor reports. Visit the <a href="https://smellmycity.org/data">Smell My City website</a> to download reports from Smell My City.
+        </h4>
+      </div>
       <h2 data-localize="user-reports.title">User Reports:</h2>
       <div id="reports-toolbar">
         <label>
