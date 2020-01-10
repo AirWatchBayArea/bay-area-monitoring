@@ -468,7 +468,7 @@
           Download&nbsp;the&nbsp;Smell&nbsp;My&nbsp;City&nbsp;App
       </h3>
       <h4 style="font-weight: 500;">
-         Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell&nbsp;My&nbsp;City</a> app to manage your pollution odor reports. Please use the Smell My City app instead:
+         Air Watch Bay Area is joining forces with the <a href="https://smellmycity.org">Smell&nbsp;My&nbsp;City</a> app to manage your pollution odor reports. Download the Smell My City app today!
       </h4>
       <div style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
         <a href="https://apps.apple.com/us/app/smell-mycity/id1299801253" target="_blank" rel="noopener noreferrer" style="margin:auto;width:100%; min-width: 200px; max-width: 400px;">
