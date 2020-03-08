@@ -985,7 +985,7 @@
       minTimeSecs = maxTimeSecs - 8 * 60 * 60;
     }
     plotManager = new org.bodytrack.grapher.PlotManager("dateAxis", minTimeSecs, maxTimeSecs);
-    plotManager.getDateAxis().constrainRangeTo(1262304000, 1577836800);
+    plotManager.getDateAxis().constrainRangeTo(1262304000, 1609459199);
     $(window).resize(function() {
       var location = window.location.hash.slice(1).split("&")[0].split("loc=")[1];
       if(location){setSizes();}
