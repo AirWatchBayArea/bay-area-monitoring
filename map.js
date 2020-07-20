@@ -210,105 +210,45 @@ var communityMonitors = {
 var purpleAirMonitors = {
   "Vallejo": [
     {
-      lat: 38.14128,
-      lng: -122.260096,
+      lat: 38.092815, 
+      lng: -122.251223, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.090349,
-      lng: -122.238814,
+      lat: 38.092815, 
+      lng: -122.251223, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.089971,
-      lng: -122.238914,
+      lat: 38.094574, 
+      lng: -122.252202, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.111121,
-      lng: -122.243314,
+      lat: 38.096161, 
+      lng: -122.251748, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.114254,
-      lng: -122.258755,
+      lat: 38.09737, 
+      lng: -122.259197, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.104107,
-      lng: -122.258171,
+      lat: 38.107731, 
+      lng: -122.255566, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.073925,
-      lng: -122.23143,
+      lat: 38.110553, 
+      lng: -122.243537, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }, 
     {
-      lat: 38.134271,
-      lng: -122.197826,
+      lat: 38.122023, 
+      lng: -122.233247, 
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.120362,
-      lng: -122.241011,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.149868,
-      lng: -122.237466,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.066784,
-      lng: -122.220027,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.122023,
-      lng: -122.233247,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.097691,
-      lng: -122.25952,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.077987,
-      lng: -122.230468,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.080554,
-      lng: -122.215034,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.095808,
-      lng: -122.215461,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.113435,
-      lng: -122.259217,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.092826,
-      lng: -122.251253,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.107731,
-      lng: -122.255566,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
-    {
-      lat: 38.085676,
-      lng: -122.244778,
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-    },
+    }
   ],
   "El Sobrante" : [
     {
