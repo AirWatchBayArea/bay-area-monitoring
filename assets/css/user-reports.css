@@ -51,14 +51,9 @@
 }
 
 .post .posted:after{
-	content: "\B7";
-    color: #666;
+	content: "";
     margin: 0 5px;
 }
-
-/*.info.tag:after, .info.additional_comments:after, .info.when:after{
-	content: "" !important;
-}*/
 
 .caption{
 	margin: 5px 0px;
