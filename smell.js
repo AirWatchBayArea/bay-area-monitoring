@@ -4,7 +4,7 @@ var smell_value_text = ["Just fine!", "Barely noticeable", "Definitely noticeabl
   "It's getting pretty bad", "About as bad as it gets!"
 ];
 var zoom_level_to_smell_icon_size = [24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 36, 60, 90, 180, 240, 360];
-var rootSmellUrl = "http://api.smellpittsburgh.org/api/v1";
+var rootSmellUrl = "http://api.smellpittsburgh.org/api/v2/smell_reports?format=json&city_ids=4&timezone_string=America%2FLos_Angeles";
 //                     lime               yellow            orange           crimson       rebeccapurple
 var ratingColors = ["rgb(0,255,0)", "rgb(255,255,0)", "rgb(255,165,0)", "rgb(255,0,0)", "rgb(102,51,153)"];
 var tweleveHoursInSecs = 43200;
@@ -39,7 +39,7 @@ function initSmells() {
 function updateSmellList(callback){
   return new Promise(function(resolve, reject){
     $.ajax({
-    url: rootSmellUrl + "/smell_reports?area=BA",
+    url: rootSmellUrl,
     success: function(json) {
       //remove reports not within a bounding box approximately representing BAAQMD's jurisdiction
       smellReports = json.filter(function(report) {

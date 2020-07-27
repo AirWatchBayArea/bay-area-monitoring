@@ -1,7 +1,7 @@
 //chooses server url based on the hostname
 var serverURL = (window.location.hostname == "www.airwatchbayarea.org" || window.location.hostname == "airwatchbayarea.org") ? 
-					'http://api.smellpittsburgh.org/api/v1/smell_reports?area=BA' :
-					'http://bayarea.staging.api.smellpittsburgh.org/api/v1/smell_reports';
+					'http://api.smellpittsburgh.org/api/v2/smell_reports' :
+					'http://staging.api.smellpittsburgh.org/api/v2/smell_reports';
 //flag to decide whether to reset report
 var isSubmissionSuccess = false;
 var geocoder;
@@ -116,6 +116,7 @@ function serializeForm(geocodeResults, img_src_array){
 	  "smell_description" : $('[name=describe-air]').val() ? $('[name=describe-air]').val() : null,
 	  "feelings_symptoms" : $('[name=symptoms]').val() ? $('[name=symptoms]').val() : null,
 	  "additional_comments" : JSON.stringify(additionalCommentsData),
+	  "send_form_to_agency": false,
 	};
 	return data;
 }
@@ -125,7 +126,7 @@ function postData(data){
 	return new Promise(function (resolve, reject){
 		$.ajax({
 			method: 'POST',
-			url: serverURL,
+			url: serverURL + "?client_token=a1a3b9f8f0d4f1e5e69c420fc6414721",
 			data: data,
 			success:function(msg){
 				console.log("POST Result:", msg);
