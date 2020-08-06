@@ -8,6 +8,7 @@
     'https://air-watch-bay-area-staging.herokuapp.com',
     'http://www.airwatchbayarea.org',
     'https://www.airwatchbayarea.org',
+    'https://doc-08-7c-sheets.googleusercontent.com',
   );
 
   if (in_array($http_origin, $allowed_domains))
