@@ -326,92 +326,32 @@ var purpleAirMonitors = {
     }
   ],
   "Benicia": [
-    {
-      lat: 38.060789, 
-      lng: -122.149458, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.074533, 
-      lng: -122.173721, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.079625, 
-      lng: -122.155216, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.058971, 
-      lng: -122.141785, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.058086, 
-      lng: -122.157553, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.055033, 
-      lng: -122.157681, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.071981, 
-      lng: -122.152329, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.086684, 
-      lng: -122.153081, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.074533, 
-      lng: -122.173721, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.079625, 
-      lng: -122.155216, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.058971, 
-      lng: -122.141785, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.060789, 
-      lng: -122.149458, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.058086, 
-      lng: -122.157553, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.055033, 
-      lng: -122.157681, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.071981, 
-      lng: -122.152329, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.069507, 
-      lng: -122.163241, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }, 
-    {
-      lat: 38.069507, 
-      lng: -122.163241, 
-      description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227"),
-    }
-  ],
+  {
+    "lat": 38.079625, 
+    "lng": -122.155216, 
+    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+  }, 
+  {
+    "lat": 38.060789, 
+    "lng": -122.149458, 
+    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+  }, 
+  {
+    "lat": 38.058971, 
+    "lng": -122.141785, 
+    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+  }, 
+  {
+    "lat": 38.058086, 
+    "lng": -122.157553, 
+    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+  }, 
+  {
+    "lat": 38.055033, 
+    "lng": -122.157681, 
+    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+  }
+],
   "Clyde": [
     {
       lat: 38.0285,
