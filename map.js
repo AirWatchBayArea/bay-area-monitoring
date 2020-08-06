@@ -108,8 +108,8 @@ var fencelineMonitors = {
     description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
   },
   {
-    lat: 37.924232, 
-    lng: -122.38214, 
+    lat: 37.953857, 
+    lng: -122.37978, 
     description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
   }],
   "Point Richmond": [{
