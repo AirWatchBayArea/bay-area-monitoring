@@ -136,7 +136,7 @@
       area.locale = "North Rodeo";
     }
     else if(!locale && targetArea === "benicia") {
-      area.locale = "Valero"
+      area.locale = "Benicia"
     }
     else if(!locale && targetArea === "vallejo") {
       area.locale = "Vallejo"
