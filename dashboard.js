@@ -703,8 +703,21 @@
       "lineWidth" : 1
     },*/
     "styles": [
-      { "type" : "line", "lineWidth" : 4, "show" : true, "color" : color_line },
-      { "type" : "circle", "radius" : 1.2, "lineWidth" : 3, "show" : true, "color" : color_line, fill : true }
+      {
+        "type" : "line",
+        "lineWidth" : 4,
+        "show" : true,
+        "color" : color_line
+      },
+
+      {
+        "type" : "circle",
+        "radius" : 2,
+        "lineWidth" : 2,
+        "show" : true,
+        "color" : color_line,
+        "fill" : true
+     }
     ]
   });
     var plotContainer = plotManager.getPlotContainer(plotContainerId);
