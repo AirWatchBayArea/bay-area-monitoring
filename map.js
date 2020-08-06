@@ -100,17 +100,22 @@ var fencelineMonitors = {
   "Atchison Village": [{
     lat: 37.941351,
     lng: -122.381193,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
   }],
   "North Richmond": [{
     lat: 37.948234,
     lng: -122.375425,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
+  },
+  {
+    lat: 37.924232, 
+    lng: -122.38214, 
+    description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
   }],
   "Point Richmond": [{
     lat:  37.93501,
     lng: -122.384772,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/richmond/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("https://richmondairmonitoring.org/measurements.html")
   }],
   "North Rodeo": [{
     lat: 38.044924,
@@ -122,25 +127,10 @@ var fencelineMonitors = {
     lng: -122.25653,
     description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php")
   }],
-  "Valero": [
+  "Valero North": [
     {
       lat: 38.07023, 
       lng: -122.1325, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
-    }, 
-    {
-      lat: 38.06556, 
-      lng: -122.1508, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
-    }, 
-    {
-      lat: 38.05953, 
-      lng: -122.149575, 
-      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
-    }, 
-    {
-      lat: 38.07223, 
-      lng: -122.126512, 
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
     }, 
     {
@@ -154,19 +144,83 @@ var fencelineMonitors = {
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
     }, 
     {
-      lat: 38.05907, 
-      lng: -122.1387, 
+      lat: 38.070225, 
+      lng: -122.132462, 
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
     }, 
     {
-      lat: 38.070225, 
-      lng: -122.132462, 
+      lat: 38.07223, 
+      lng: -122.126512, 
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+    }
+  ],
+  "Valero South": [
+    {
+      lat: 38.06556, 
+      lng: -122.1508, 
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+    }, 
+    {
+      lat: 38.05953, 
+      lng: -122.149575, 
+      description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+    }, 
+    {
+      lat: 38.05907, 
+      lng: -122.1387, 
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
     }, 
     {
       lat: 38.0624, 
       lng: -122.13828, 
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
+    }
+  ],
+  "Martinez": [
+    {
+      lat: 38.0131667, 
+      lng: -122.1064, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.013525, 
+      lng: -122.0971111, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0136778, 
+      lng: -122.1109576, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0150056, 
+      lng: -122.121425, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0220028, 
+      lng: -122.1283278, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0157333, 
+      lng: -122.1239374, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0133496, 
+      lng: -122.1017286, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0164611, 
+      lng: -122.12645, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+    }, 
+    {
+      lat: 38.0153314, 
+      lng: -122.0963823, 
+      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
     }
   ]
 };
@@ -971,7 +1025,7 @@ function drawWind(site, epochTime) {
   var windSpeedChannel = site.channels.Wind_Speed_MPH || site.channels.Wind_Speed || site.channels.WS;
   if (windSpeedChannel) {
     wind_speed = getData(site, windSpeedChannel, epochTime);
-    wind_dir = getData(site, site.channels.Wind_Direction || site.channels.WD, epochTime);
+    wind_dir = getData(site, site.channels.Wind_Direction_degrees, site.channels.Wind_Direction || site.channels.WD, epochTime);
   }
 
   // Black dot as base to wind vector

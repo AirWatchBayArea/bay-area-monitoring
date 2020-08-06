@@ -48,9 +48,9 @@
   //   "Martinez": [4849]
   // };
   var feedMap = {
-    "Atchison Village" : [4910, 4909],
-    "North Richmond" : [4911, 4912],
-    "Point Richmond" : [4913, 4914],
+    "Atchison Village" : [4910, 4909, 38825],
+    "North Richmond" : [4911, 4912, 38816, 38818],
+    "Point Richmond" : [4913, 4914, 38817],
     "North Rodeo" : [4902, 38294],
     "South Rodeo" : [4901, 10011, 38295],
     "Benicia": [26224, 26225, 26227, 26228, 
@@ -58,8 +58,8 @@
                 26329, 26331, 26332, 26333,
                 26334, 26335, 26336, 33093,
                 33094],
-    "Valero": [26345, 26346, 26347, 26348,
-               26349, 26350, 26351, 26354, 26394],
+    "Valero North": [26345, 26349, 26350, 26354, 26348],
+    "Valero South": [26346, 26347, 26351, 26394],
     "Vallejo": [
                 // Previous sensor list (may have included indoor monitors)
                 // 12688, 13332, 12931, 14000, 13302,
@@ -73,7 +73,8 @@
     "El Sobrante" : [13310],
     "El Cerrito" : [13304],
     "Berkeley" : [12848],
-    "Martinez": [],
+    "Martinez": [38674, 38675, 38676, 38677, 38678,
+                 38680, 38681, 38682, 38683],
     "Clyde": [17230],
     "BAAQMD":[4850, 4846, 4857, 4849]
   };
