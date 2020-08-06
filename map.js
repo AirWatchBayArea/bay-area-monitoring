@@ -120,12 +120,12 @@ var fencelineMonitors = {
   "North Rodeo": [{
     lat: 38.044924,
     lng: -122.247935,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/rodeo/data.php")
   }],
   "South Rodeo": [{
     lat: 38.03855,
     lng: -122.25653,
-    description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/rodeo/data.php")
+    description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/rodeo/data.php")
   }],
   "Valero North": [
     {
@@ -180,47 +180,47 @@ var fencelineMonitors = {
     {
       lat: 38.0131667, 
       lng: -122.1064, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.013525, 
       lng: -122.0971111, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0136778, 
       lng: -122.1109576, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0150056, 
       lng: -122.121425, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0220028, 
       lng: -122.1283278, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0157333, 
       lng: -122.1239374, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0133496, 
       lng: -122.1017286, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0164611, 
       lng: -122.12645, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }, 
     {
       lat: 38.0153314, 
       lng: -122.0963823, 
-      description: "Fenceline Monitor" + makeSourceLink("http://www.fenceline.org/martinez")
+      description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/martinez")
     }
   ]
 };
@@ -734,7 +734,7 @@ function initMap(div) {
       $('[title="Toggle fullscreen view"]').click();
   });
   //import KML with monitor and fence line locations
-  //code adapted from http://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
+  //code adapted from https://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
   // var kmlLayer = new google.maps.KmlLayer({
   //     map: map,
   //     url: PROJ_ROOT_URL + "/assets/kmz/map12.kmz",

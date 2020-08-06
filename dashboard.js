@@ -1,10 +1,5 @@
   "use strict";
 
-  $(function(){
-     if(window.location.protocol==="https:")
-         alert('Currently this site does not work for https connections, unfortunately. Please change to http://')
- });
-
   jQuery.support.cors = true;
   var zoomify, locationDivId, timelapse, timelapseFeedUnavailable, hashVars, dateAxis, dateAxisListener, playInterval;
   var pageLoadDate = cached_breathecam.latest.date;
@@ -19,8 +14,8 @@
   var area = {};
   var currentLocation = "shenango1";
   var currentDate;
-  var ESDR_API_ROOT_URL = 'http://esdr.cmucreatelab.org/api/v1';
-  var PROJ_ROOT_URL = 'http://airwatchbayarea.org';
+  var ESDR_API_ROOT_URL = 'https://esdr.cmucreatelab.org/api/v1';
+  var PROJ_ROOT_URL = 'https://airwatchbayarea.org';
   var TILE_BOUNDARY_SENTINEL_VALUE = -1e+308;
   var fixedCursorPosition;
   var grapherReady = false;
@@ -355,7 +350,7 @@
   function loadMetaData(date, datasetName) {
     $.ajax({
       dataType: "json",
-      url: "http://tiles.cmucreatelab.org/ecam/timemachines/smoke_detection/" + datasetName + "/smoke-" + date + ".json",
+      url: "https://tiles.cmucreatelab.org/ecam/timemachines/smoke_detection/" + datasetName + "/smoke-" + date + ".json",
       success: function(json) {
         moveTimelineMetadataVisualizerUI();
         timelapse.getTimelineMetadataVisualizer().loadMetaData(json);
@@ -402,7 +397,7 @@
       location.href = "/embeds/" + locationName;
     } else {
       $.ajax({
-        url: "http://tiles.cmucreatelab.org/ecam/timemachines/" + locationName + "/" + locationName + ".json",
+        url: "https://tiles.cmucreatelab.org/ecam/timemachines/" + locationName + "/" + locationName + ".json",
         dataType: "json"
       }).done(function(data) {
         cached_breathecam = data;

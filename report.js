@@ -1,7 +1,7 @@
 //chooses server url based on the hostname
-var serverURL = (window.location.hostname == "www.airwatchbayarea.org" || window.location.hostname == "airwatchbayarea.org") ? 
-					'http://api.smellpittsburgh.org/api/v2/smell_reports' :
-					'http://staging.api.smellpittsburgh.org/api/v2/smell_reports';
+var serverURL = window.location.hostname.endsWith("airwatchbayarea.org") ? 
+					'https://api.smellpittsburgh.org/api/v2/smell_reports' :
+					'https://staging.api.smellpittsburgh.org/api/v2/smell_reports';
 //flag to decide whether to reset report
 var isSubmissionSuccess = false;
 var geocoder;

@@ -1,5 +1,5 @@
-var rootCloudinaryListUrl = "http://www.res.cloudinary.com/hpkutahah/image/list/";
-var rootCloudianaryFetchUrl = "http://res.cloudinary.com/hpkutahah/image/upload/";
+var rootCloudinaryListUrl = "https://www.res.cloudinary.com/hpkutahah/image/list/";
+var rootCloudianaryFetchUrl = "https://res.cloudinary.com/hpkutahah/image/upload/";
 
 //configure cloudinary with cloud name
 $.cloudinary.config({ cloud_name: 'hpkutahah' })

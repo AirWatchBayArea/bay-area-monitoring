@@ -3,8 +3,11 @@
   $http_origin = $_SERVER['HTTP_ORIGIN'];
   $allowed_domains = array(
     'http://localhost',
+    'https://localhost',
     'http://air-watch-bay-area-staging.herokuapp.com',
+    'https://air-watch-bay-area-staging.herokuapp.com',
     'http://www.airwatchbayarea.org',
+    'https://www.airwatchbayarea.org',
   );
 
   if (in_array($http_origin, $allowed_domains))
@@ -18,8 +21,8 @@
   <meta content="text/html; charset=utf-8" http-equiv="content-type">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta name="google-site-verification" content="tTjpNm-VuCKD_LkM9Rql7ybgPVxCPhYUgqK1XMlk3bQ" />
-  <meta property="og:image" content="http://www.airwatchbayarea.org/img/logo_with_background.png" />
-  <meta property="og:url" content="http://www.airwatchbayarea.org" />
+  <meta property="og:image" content="https://www.airwatchbayarea.org/img/logo_with_background.png" />
+  <meta property="og:url" content="https://www.airwatchbayarea.org" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Air Watch Bay Area" />
   <meta property="og:description" content="An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality." />
@@ -112,7 +115,7 @@
   </script>
   <script src="assets/timemachine-viewer/libs/change-detect/js/ChangeDetectionTool.js" type="text/javascript">
   </script>
-  <script src="http://tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript">
+  <script src="https://tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript">
   </script>
   <script src="assets/js/jquery.xdomainrequest.min.js" type="text/javascript">
   </script>
@@ -313,7 +316,7 @@
             <div class="row">
               <div class="col-lg-5 col-sm-6">
                 <h3 style="color: #FD9453; text-transform:none;margin:25px 0" data-localize="faq.data-q">Where does the information on this website come from?</h3>
-                <p class="service-heading" data-localize="faq.data-a">Most of the information comes from <a style='color: #FD9453;' href='http://fenceline.org'>fenceline.org</a>. Our site is different because it lets you see information from as far back as May 2015.<br>We also show information from air monitors set up by community members.</p>
+                <p class="service-heading" data-localize="faq.data-a">Most of the information comes from <a style='color: #FD9453;' href='https://fenceline.org'>fenceline.org</a>. Our site is different because it lets you see information from as far back as May 2015.<br>We also show information from air monitors set up by community members.</p>
                 <h3 style="color: #FD9453; text-transform:none;margin:25px 0" data-localize="faq.health-hazard-q">How do you decide what is a dangerous amount of a chemical in the air?</h3>
                 <p class="service-heading" data-localize="faq.health-hazard-a">Different groups have different standards for unhealthy amounts of various chemicals. Air Watch Bay Area uses standards from government agencies, especially the US National Ambient Air Quality Standards (NAAQS), the Agency for Toxic Substances and Diseases Registry (ATSDR), and the California Office of Environmental Health Hazard Assessment (OEHHA). For each chemical we measure, we use the lowest amount that is considered dangerous. In other words, we pick the strictest standards from the experts.</p>
               </div>
@@ -339,12 +342,12 @@
             </div>
             <div class="row">
                 <div class="col-lg-7 col-sm-6">
-                    <p class="service-heading" data-localize="about.info">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea&#x40;gmail.com">airwatchbayarea&#x40;gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="http://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
+                    <p class="service-heading" data-localize="about.info">Air Watch is developed and maintained by the <a style="color: #FD9453;" href="https://www.fairtechcollective.org/">Fair Tech Collective</a> (contact: <a href="mailto:airwatchbayarea&#x40;gmail.com">airwatchbayarea&#x40;gmail.com</a>) at Drexel University in collaboration with the <a style="color: #FD9453;" href="https://cmucreatelab.org/">Community Robotics, Education, and Technology Empowerment Lab</a> at Carnegie Mellon University and concerned community members from:</p>
           <ul style="list-style-type: none; color:#FD9453;line-height:30px; padding: 0;">
-            <li><a style="margin-bottom: 0; font-size: .95em" href="http://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://www.sustainablebenicia.org/about" class="btn btn-xl text-gettingstarted">Benicia Good Neighbor Steering Committee&nbsp;</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://crockett-rodeo-united.com/" class="btn btn-xl text-gettingstarted">Crockett-Rodeo United to Defend the Environment&nbsp;</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://rodeocitizensassociation.org/" class="btn btn-xl text-gettingstarted">Rodeo Citizens Association&nbsp;</a></li>
-            <li><a style="margin-bottom: 0; font-size: .95em" href="http://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN&nbsp;</a></li>
+            <li><a style="margin-bottom: 0; font-size: .95em" href="https://laceen.org/" class="btn btn-xl text-gettingstarted">LACEEN&nbsp;</a></li>
             <li><a style="margin-bottom: 0; font-size: .95em" href="https://csi4health.wordpress.com/" class="btn btn-xl text-gettingstarted">Community Science Institute&nbsp;</a></li>
           </ul>
                 </div>
