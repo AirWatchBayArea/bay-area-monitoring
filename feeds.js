@@ -1,7 +1,7 @@
 "use strict";
 
 var windFeeds = [];
-var windFeedIds = [4911, 4913, 4857, 2518, 26394, 38816, 26394];
+var windFeedIds = [26394, 38294, 38684, 38816];
 
 var target_channels = [
   "Benzene",

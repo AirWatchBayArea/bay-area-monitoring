@@ -759,7 +759,7 @@ function initMap(div) {
     createMarker(latlng, icon, createInfoWindowContent(key, pollutionSource.description)).setZIndex(1);
   }
 
-    // initialize the canvasLayer
+  // initialize the canvasLayer
   var update = function() {
     var epochTime = plotManager.getDateAxis().getCursorPosition();
     repaintCanvasLayer(epochTime);
@@ -963,9 +963,13 @@ function drawWind(site, epochTime) {
 
   var wind_speed, wind_dir;
   var windSpeedChannel = site.channels.Wind_Speed_MPH || site.channels.Wind_Speed || site.channels.WS;
-  if (windSpeedChannel) {
-    wind_speed = getData(site, windSpeedChannel, epochTime);
-    wind_dir = getData(site, site.channels.Wind_Direction_degrees, site.channels.Wind_Direction || site.channels.WD, epochTime);
+  var windDirectionChannel = site.channels.Wind_Direction_degrees || site.channels.Wind_Direction_deg || site.channels.Wind_Direction || site.channels.WD;
+  if (windSpeedChannel && windDirectionChannel) {
+    wind_speed = getWindData(site, windSpeedChannel, epochTime);
+    wind_dir = getWindData(site, windDirectionChannel, epochTime);
+    if (site.feed_id == 38816) {
+      console.log(site, wind_speed, wind_dir);
+    }
   }
 
   // Black dot as base to wind vector
@@ -1031,7 +1035,7 @@ function drawWind(site, epochTime) {
   }
 }
 
-function getData(site, channel, time) {
+function getWindData(site, channel, time) {
   var day = Math.floor(time / 86400);
 
   if (!site.requested_day[day]) {
@@ -1042,7 +1046,11 @@ function getData(site, channel, time) {
       api_key : site.api_key,
       start_time : day * 86400,
       end_time : (day + 1) * 86400,
-      channels : Object.keys(site.channels).toString(),
+      channels : Object.keys(site.channels)
+                       .filter(
+                         (key) => key.match(new RegExp('wind|wd|ws', 'i'))
+                       )
+                       .toString(),
       headers : null
     };
     requestEsdrExport(requestInfo, function(csvData) {
@@ -1054,31 +1062,23 @@ function getData(site, channel, time) {
     //console.log('We have data for ' + site.feed_id + ', day ' + day);
     //console.log(channel);
     if (!channel) return null;
-    if (channel.hourly) {
-      time = Math.floor(time / 3600) * 3600;
-      //console.log('Hourly; adjusted time to ' + time);
-      var ret = channel.summary[time];
-      //console.log('Value is ' + ret);
-      return ret;
-    } else {
-      time = Math.round(time);
-      // Search for data
-      var search_dist = 150;  // 45 seconds
-      //console.log('Searching for time ' + time + ', +/- ' + search_dist);
-      //console.log(channel);
-      for (var i = 0; i <= search_dist; i++) {
-        if ((time + i) in channel.summary) {
-          //console.log('found at time ' + (time + i));
-          return channel.summary[time + i];
-        }
-        if ((time - i) in channel.summary) {
-          //console.log('found at time ' + (time - i));
-          return channel.summary[time - i];
-        }
+    time = Math.round(time);
+    // Search for data
+    var search_dist = 150;  // 45 seconds
+    //console.log('Searching for time ' + time + ', +/- ' + search_dist);
+    //console.log(channel);
+    for (var i = 0; i <= search_dist; i++) {
+      if ((time + i) in channel.summary) {
+        //console.log('found at time ' + (time + i));
+        return channel.summary[time + i];
       }
-      //console.log('could not find time in range');
-      return null;
+      if ((time - i) in channel.summary) {
+        //console.log('found at time ' + (time - i));
+        return channel.summary[time - i];
+      }
     }
+    //console.log('could not find time in range');
+    return null;
   }
 }
 

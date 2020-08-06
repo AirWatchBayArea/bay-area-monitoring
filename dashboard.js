@@ -718,7 +718,7 @@
         "color" : color_line,
         "fill" : true
      }
-    ]
+    ],
   });
     var plotContainer = plotManager.getPlotContainer(plotContainerId);
     setMinRangeToHealthLimit(plotContainer, channelLabel);
