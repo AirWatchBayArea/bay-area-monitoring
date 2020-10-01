@@ -465,7 +465,7 @@ var refineries = {
       { lat: 38.0787372, lng: -122.1405888 }
     ]
   },
-  "Shell Martinez Refinery":{
+  "PBF Energy Martinez Refinery":{
     lat: 38.020256,
     lng: -122.115495,
     boundCoords:[
@@ -483,7 +483,7 @@ var refineries = {
       { lat: 38.011106,  lng: -122.102634 }
     ]
   },
-  "Tesoro Golden Eagle Refinery":{
+  "Marathon Petroleum Refinery":{
     lat: 38.027699,
     lng: -122.066462,
     boundCoords:[
