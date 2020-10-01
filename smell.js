@@ -102,7 +102,7 @@ function addSmellReportsToGrapher() {
     //var dataPoint = findPoint(timestamp);
     //if (dataPoint) mean = 1.1
     var notes = report.smell_value + smellReportPrependText + report.smell_description + "," + report.feelings_symptoms;
-    var dataObj = [report.created_at, mean, 0, 1, ((new Date(report.created_at * 1000)).toTimeString().substring(0,8)) + " - " + notes, report.latitude + "," + report.longitude];
+    var dataObj = [report.observed_at, mean, 0, 1, ((new Date(report.observed_at * 1000)).toTimeString().substring(0,8)) + " - " + notes, report.latitude + "," + report.longitude];
     commentDataByRating[report.smell_value].push(dataObj);
     commentData.push(dataObj);
   }
@@ -200,7 +200,7 @@ function drawSmellReports(range) {
    var latlng = {"lat": report_i.latitude, "lng": report_i.longitude};
 
    // Add marker
-   var date = new Date(report_i.created_at * 1000);
+   var date = new Date(report_i.observed_at * 1000);
    var date_str = date.toLocaleString();
    var smell_value = report_i.smell_value;
    var feelings_symptoms = report_i.feelings_symptoms ? report_i.feelings_symptoms : "No data.";

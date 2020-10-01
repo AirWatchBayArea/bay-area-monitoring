@@ -47,7 +47,7 @@ function generatePostFromSmell(smell_report){
 		'longitude':shortenLatLng(parseFloat(escapeHTML(smell_report['longitude']))),
 		'smell_value':parseInt(escapeHTML(smell_report['smell_value'])),
 		'smell_description': escapeHTML(smell_report['smell_description']),
-		'posted':formatDate(smell_report['created_at']*1000),
+		'posted':formatDate(smell_report['observed_at']*1000),
 		'feelings_symptoms':escapeHTML(smell_report['feelings_symptoms']),
 		'img':safe_imgs,
 		'additional_comments': escapeHTML(decodeURIComponent(additionalCommentsData['additional_comments'])),
@@ -55,7 +55,7 @@ function generatePostFromSmell(smell_report){
 	}
 	postList.push(makePostItem(
 		postData, 
-		new Date(0).setUTCSeconds(smell_report['created_at']),
+		new Date(0).setUTCSeconds(smell_report['observed_at']),
 		postData['smell_value'],
 		Object.keys(safe_imgs).length,
 		safe_tags
