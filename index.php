@@ -209,9 +209,9 @@
           <li class="" id="user-reports-tab">
             <a class="text-uppercase no-highlight" href="#user-reports" data-localize="menu.user-reports">User Reports</a>
           </li>
-          <li class="" id="resources-for-action-tab">
+          <!-- <li class="" id="resources-for-action-tab">
             <a class="text-uppercase no-highlight" href="#resources-for-action" data-localize="menu.resources-for-action">Resources for Action</a>
-          </li>
+          </li> -->
           <li class="" id="help-tab">
             <a class="text-uppercase no-highlight user-guide-link" href="https://docs.google.com/document/d/1RL5MGzxdswD37jXnv-9_Skl638ntj7_2OR87YZtcOoM/pub" target="_blank" data-localize="menu.user-guide">User Guide</a>
           </li>
