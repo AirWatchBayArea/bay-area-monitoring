@@ -1,46 +1,21 @@
-var localizedGoogleSheetUrls = {
-    'en': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ1Y9EW-OsEESY72DeE0s-HCI3Gs2kOuf6gwB-s063LnBPf8ZeV1lPrFXJWrIMED4AabTNMtDBn9r5y/pub?output=tsv&single=true',
-    'es': 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8VWfFBymRrzsxOkMj6aEMbAn0kuBz_ZLtsIOA6glmw3EHcgl4twBpHYtKTxTCqOhKwPcJPj42MX5Y/pub?output=tsv&single=true',
+const localizedTsvUrls = {
+    en: [
+            'r4a/facebook_en.tsv',
+            'r4a/bay_orgs_en.tsv',
+            'r4a/officials_en.tsv',
+            'r4a/contact_en.tsv'
+        ],
+    es: [
+            'r4a/facebook_es.tsv',
+            'r4a/bay_orgs_es.tsv',
+            'r4a/officials_es.tsv',
+            'r4a/contact_es.tsv'
+        ],
 }
 
-var custom = {
-'summer_of_maps_en': ['<li>',
-	"As part of the <a href='http://www.summerofmaps.com' target='_blank'>Summer of Maps project</a>, ",
-	"<a href='https://www.azavea.com' target='_blank'>Azavea</a> intern <a href='https://www.fairtechcollective.org/collaborators' target='_blank'> Sarah Gates</a>",
-	" created a series of infographics visualizing pollution released from refinery flaring, and sensitive receptors in close proximity to Bay area refineries.",
-	"<a href='https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution' target='_blank'> Read her description of the project.</a> View or download the infographics:",
-	"<ol>",
-	"<li><a href='https://www.fairtechcollective.org/s/Bay-Area-Overview' target='_blank'>Bay area overview</a></li>",
-	"<li><a href='https://www.fairtechcollective.org/s/flaring_animation.gif' target='_blank'>2 years of flaring</a></li>",
-	"<li><a href='https://www.fairtechcollective.org/s/Chevron_Richmond.pdf' target='_blank'>Richmond</a></li>",
-	"<li><a href='https://www.fairtechcollective.org/s/Phillips66_Rodeo.pdf' target='_blank'>Rodeo</a></li>",
-	"<li><a href='https://www.fairtechcollective.org/s/Shell_Tesoro_Martinez.pdf' target='_blank'>Martinez</a></li>",
-	"<li><a href='https://www.fairtechcollective.org/s/Valero_Benicia.pdf' target='_blank'>Benicia</a></li>",
-	"</ol>",
-	"</li>"].join(''),
-'summer_of_maps_es': ['<li>',
-    "Como parte del <a href='http://www.summerofmaps.com' target='_blank'> proyecto Summer of Maps</a>,",
-    " la pasante de <a href='https://www.azavea.com' target='_blank'>Azavea</a> <a href='https://www.fairtechcollective.org/collaborators' target='_blank'> Sarah Gates</a>",
-    " creó una serie de infografías que visualizan la contaminación liberada por la quema de refinería y los receptores sensibles en las proximidades de las refinerías de la zona de la Bahía.",
-    "<a href='https://www.azavea.com/blog/2017/09/18/investigating-refinery-flaring-pollution' target='_blank'> Lee su descripción del proyecto.</a> Ver o descargar la infografía:",
-    "<ol>",
-    "<li><a href='https://www.fairtechcollective.org/s/Bay-Area-Overview' target='_blank'>Descripción del área de la bahía</a></li>",
-    "<li><a href='https://www.fairtechcollective.org/s/flaring_animation.gif' target='_blank'>2 años de quema</a></li>",
-    "<li><a href='https://www.fairtechcollective.org/s/Chevron_Richmond.pdf' target='_blank'>Richmond</a></li>",
-    "<li><a href='https://www.fairtechcollective.org/s/Phillips66_Rodeo.pdf' target='_blank'>Rodeo</a></li>",
-    "<li><a href='https://www.fairtechcollective.org/s/Shell_Tesoro_Martinez.pdf' target='_blank'>Martinez</a></li>",
-    "<li><a href='https://www.fairtechcollective.org/s/Valero_Benicia.pdf' target='_blank'>Benicia</a></li>",
-    "</ol>",
-    "</li>"].join(''),
-}
-
-//Jumps to the index of post relative to the clicked link in R4A
+// Jumps to the index of post relative to the clicked link in R4A
 function jumpToIndex(index){
   scrollToElmMiddle($('section.post').eq(index));
-}
-
-function getGoogleSheetURL(sheetGID, language){
-	return localizedGoogleSheetUrls[language || 'en'] + '&gid=' + sheetGID;
 }
 
 function load(url, responseType) {
@@ -72,17 +47,10 @@ function loadResources4Action(language){
         trail: 45,
     }).spin()
     document.getElementById('resources-spinner').appendChild(resources_spinner.el);
-    load(localizedGoogleSheetUrls[language || 'en'], 'text').then(function(gidList){
-        gidList = gidList.split(/\r\n|\n/)[0].split('\t').slice(1);
-        var loadList = gidList
-                    .map(function(gid){
-                        return getGoogleSheetURL(gid, language);
-                    })
-                    .map(function(url){
-                        return load(url, 'text');
-                    });
-        return Promise.all(loadList)
-    }).then(function(response){
+    Promise.all(localizedTsvUrls[language || 'en'].map(function(url){
+        return load(url, 'text');
+    }))
+    .then(function(response){
         for(var i = 0; i < response.length; i++){
             processTSV(response[i]);
         }
