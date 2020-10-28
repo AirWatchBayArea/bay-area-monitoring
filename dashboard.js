@@ -372,7 +372,7 @@
     $("#timelapse_feed").hide();
     $("#image_feed").css("visibility", "visible");
     $("#stitched_image_wrapper").css("visibility", "visible");
-    $("#stitched_image").css("visibilriity", "visible");
+    $("#stitched_image").css("visibility", "visible");
     $("#location_toggle_container").css("top", "0px");
     setLocationTitle();
   }
