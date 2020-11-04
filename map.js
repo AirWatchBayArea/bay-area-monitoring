@@ -673,20 +673,6 @@ function initMap(div) {
   $(controlDiv).click(function(){
       $('[title="Toggle fullscreen view"]').click();
   });
-  //import KML with monitor and fence line locations
-  //code adapted from https://stackoverflow.com/questions/29603652/google-maps-api-google-maps-engine-my-maps
-  // var kmlLayer = new google.maps.KmlLayer({
-  //     map: map,
-  //     url: PROJ_ROOT_URL + "/assets/kmz/map12.kmz",
-  //     preserveViewport: true,
-  //     zIndex: 0
-  //   });
-
-  // kmlLayer.addListener('click', function(kmlEvent) {
-  //   if(kmlEvent.featureData.name.indexOf("Monitor") > 0) {
-  //     changeLocale(area.id, kmlEvent.featureData.description);
-  //   }
-  // });
 
   infowindow = new google.maps.InfoWindow();
 
@@ -967,9 +953,6 @@ function drawWind(site, epochTime) {
   if (windSpeedChannel && windDirectionChannel) {
     wind_speed = getWindData(site, windSpeedChannel, epochTime);
     wind_dir = getWindData(site, windDirectionChannel, epochTime);
-    if (site.feed_id == 38816) {
-      console.log(site, wind_speed, wind_dir);
-    }
   }
 
   // Black dot as base to wind vector

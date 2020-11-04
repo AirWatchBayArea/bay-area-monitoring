@@ -29,7 +29,7 @@
   <meta property="og:description" content="An interactive tool for the frontline communities of the San Francisco Bay Area to explore our air quality." />
   <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="/favicon.ico" rel="icon" type="image/x-icon">
-  <link href="assets/timemachine-viewer/css/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
+  <link href="assets/jquery-ui/smoothness/jquery-ui.custom.css" media="screen" rel="stylesheet" type="text/css">
   <!-- Google Analytics -->
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -66,7 +66,7 @@
       @font-face { font-family: SanFranciscoText-Bold; src: url('assets/css/fonts/SanFranciscoText-Bold.otf'); }
       @font-face { font-family: SanFranciscoText-Regular; src: url('assets/css/fonts/SanFranciscoText-Regular.otf'); }
   </style>
-  <link rel="stylesheet" href="jquery.form.min.css"/>
+  <link rel="stylesheet" href="assets/jquery/jquery.form.min.css"/>
   <link href="assets/css/agency.css" rel="stylesheet">
 
   <link href="assets/css/application.css" media="screen" rel="stylesheet" type="text/css">
@@ -76,71 +76,37 @@
   <link href="assets/css/resources-for-action.css" media="screen" rel="stylesheet" type="text/css">
   <link rel="stylesheet" type="text/css" href="localization/lang-en.css">
   <link rel="stylesheet" type="text/css" href="localization/lang-es.css">
-  <script src="assets/timemachine-viewer/js/jquery/jquery.min.js" type="text/javascript">
+  <script src="assets/jquery/jquery.min.js" type="text/javascript">
   </script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
   </script>
-  <script src="assets/timemachine-viewer/js/jquery/jquery-ui.custom.min.js" type="text/javascript">
+  <script src="assets/jquery/jquery-ui.custom.min.js" type="text/javascript">
   </script>
-  <script src="assets/timemachine-viewer/js/jquery/plugins/mouse/jquery.mousewheel.min.js" type="text/javascript">
+  <script src="assets/jquery/jquery.mousewheel.min.js" type="text/javascript">
   </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/util.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/videoset.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/parabolicMotion.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/timelapse.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/Math.uuid.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/snaplapse.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/snaplapseViewer.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/defaultUI.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/crossdomain_api.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/js/org/gigapan/timelapse/timelineMetadataVisualizer.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/template_includes.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/libs/change-detect/js/ThumbnailServiceAPI.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/libs/change-detect/js/TimeMachineCanvasLayer.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/libs/change-detect/js/ThumbnailTool.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/libs/change-detect/js/BoxEventHandler.js" type="text/javascript">
-  </script>
-  <script src="assets/timemachine-viewer/libs/change-detect/js/ChangeDetectionTool.js" type="text/javascript">
-  </script>
-  <script src="https://tiles.cmucreatelab.org/ecam/timemachines/shenango1/shenango1.js" type="text/javascript">
-  </script>
-  <script src="assets/js/jquery.xdomainrequest.min.js" type="text/javascript">
+  <script src="assets/jquery/jquery.xdomainrequest.min.js" type="text/javascript">
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZuOqKr7onchQX0np-fCgwrx5c0VK11Os&libraries=places" type="text/javascript">
   </script>
-  <script src="Promise.js">
+  <script src="assets/js/Promise.js">
   </script>
-  <script src="jquery.form.min.js">
+  <script src="assets/jquery/jquery.form.min.js">
   </script>
-  <script src="jquery.localize.min.js">
+  <script src="assets/jquery/jquery.localize.min.js">
   </script>
   <script src="language.js">
   </script>
-  <script src='spin.min.js' type='text/javascript'>
+  <script src='assets/js/spin.min.js' type='text/javascript'>
   </script>
-  <script src='dateFormat.js' type='text/javascript'>
+  <script src='assets/js/dateFormat.js' type='text/javascript'>
   </script>
   <script src="globalFunctions.js" type="text/javascript">
   </script>
   <script src="assets/js/maplabel-compiled.js" type="text/javascript">
   </script>
-  <script src="assets/grapher.min.js" type="text/javascript">
+  <script src="assets/js/grapher.min.js" type="text/javascript">
   </script>
-  <script src="assets/PlotManager.js" type="text/javascript">
+  <script src="assets/js/PlotManager.js" type="text/javascript">
   </script>
   <script src="map.js">
   </script>
@@ -148,22 +114,22 @@
   </script>
   <script src="feeds.js">
   </script>
-  <script src="assets/data-visualization-tools/js/CanvasLayer.js">
+  <script src="assets/js/CanvasLayer.js">
   </script>
-  <script src="md5.js" type="text/javascript">
+  <script src="assets/js/md5.js" type="text/javascript">
   </script>
   <script src="report.js" type="text/javascript">
   </script>
-  <script src="agency.js"></script>
+  <script src="assets/js/agency.min.js"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
-  <script src='jquery.ui.widget.js' type='text/javascript'>
+  <script src='assets/jquery/jquery.ui.widget.js' type='text/javascript'>
   </script>
-  <script src='jquery.iframe-transport.js' type='text/javascript'>
+  <script src='assets/jquery/jquery.iframe-transport.js' type='text/javascript'>
   </script>
-  <script src='jquery.fileupload.js' type='text/javascript'>
+  <script src='assets/jquery/jquery.fileupload.js' type='text/javascript'>
   </script>
-  <script src='jquery.cloudinary.js' type='text/javascript'>
+  <script src='assets/jquery/jquery.cloudinary.js' type='text/javascript'>
   </script>
   <script src='upload.js' type='text/javascript'>
   </script>
