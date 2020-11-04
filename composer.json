@@ -1,0 +1,12 @@
+{
+    "name": "sufyan/bay-area-monitoring",
+    "require": {
+        "cloudinary/cloudinary_php": "dev-master"
+    },
+    "authors": [
+        {
+            "name": "sufyanAbbasi",
+            "email": "sufy.abbasi@gmail.com"
+        }
+    ]
+}
