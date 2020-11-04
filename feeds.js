@@ -23,10 +23,6 @@ var target_channels = [
 
 function initFeeds() {
   var feedNames = Object.keys(esdr_feeds).sort();
-  if(showSmokeDetection) {
-    feedNames.splice(feedNames.indexOf("Smoke_Detection"), 1);
-    feedNames[feedNames.length] = "Smoke_Detection";
-  }
   Promise.all(feedNames.map(function(feedName){
     return createFeed(feedName);
   })).then(function(results){
