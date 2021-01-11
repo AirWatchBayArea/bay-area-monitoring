@@ -578,6 +578,18 @@ button:active {
   vertical-align: middle;
 }
 
+.dashboard-page #locale-picker {
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+}
+
+.dashboard-page #locale-picker p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 15px;
+}
+
 .dashboard-page .hide {
   display: none;
 }

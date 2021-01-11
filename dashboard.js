@@ -43,19 +43,30 @@ var feedMap = {
   "Point Richmond" : [4913, 4914, 38817],
   "North Rodeo" : [4902, 38294],
   "South Rodeo" : [4901, 10011, 38295],
-  "Benicia": [26227, 26224, 26228, 26229, 26230],
-  "Valero North": [26345, 26349, 26350, 26354, 26348],
-  "Valero South": [26346, 26347, 26351, 26394],
+  "Benicia (South)": [
+    26346, 26347, 26351, 26394,
+    26224, 26228, 26229, 26230,
+    59678, 59690, 59692,
+  ],
+  "Benicia (South West)": [
+    26225, 59672, 59674, 59684,
+    59686, 59698, 59702,
+  ],
+  "Benicia (North)": [
+    26345, 26349, 26350, 26354, 26348,
+    26227, 26232, 59676, 59680,
+    59682, 59688, 59696, 59689, 59700
+  ],
   "Vallejo": [
-              // Previous sensor list (may have included indoor monitors)
-              // 12688, 13332, 12931, 14000, 13302,
-              // 13470, 12964, 14933, 12756, 13169,
-              // 13639, 14840, 14615, 12682, 14887,
-              // 13820, 13778, 12966, 13377, 13815, 14284,
-              14840, 14841, 33095, 36715, 14933, 14934,
-              24327, 24328, 13470, 13471, 
-              38638, 38639, 38649, 38647, 38641,
-              38637, 38643, 38644, 38645, 38646],
+    // Previous sensor list (may have included indoor monitors)
+    // 12688, 13332, 12931, 14000, 13302,
+    // 13470, 12964, 14933, 12756, 13169,
+    // 13639, 14840, 14615, 12682, 14887,
+    // 13820, 13778, 12966, 13377, 13815, 14284,
+    14840, 14841, 33095, 36715, 14933, 14934,
+    24327, 24328, 13470, 13471, 
+    38638, 38639, 38649, 38647, 38641,
+    38637, 38643, 38644, 38645, 38646],
   "El Sobrante" : [13310],
   "El Cerrito" : [13304],
   "Berkeley" : [12848],
@@ -107,7 +118,7 @@ function selectArea(targetArea, locale) {
     area.locale = "North Rodeo";
   }
   else if(!locale && targetArea === "benicia") {
-    area.locale = "Benicia"
+    area.locale = "Benicia (South)"
   }
   else if(!locale && targetArea === "vallejo") {
     area.locale = "Vallejo"
@@ -118,6 +129,7 @@ function selectArea(targetArea, locale) {
   else {
     area.locale = locale;
   }
+  updateLocalePicker();
 }
 
 function changeLocale(targetArea, locale) {
@@ -258,10 +270,10 @@ function requestEsdrExport(requestInfo, callBack) {
     type: "GET",
     dataType: "text",
     url: ESDR_API_ROOT_URL + "/feeds/" + requestInfo.feed_id + "/channels/" + requestInfo.channels + "/export",
-    data: { from: requestInfo.start_time, to: requestInfo.end_time, FeedApiKey: requestInfo.api_key},
-    success: function(csvData) {
+    data: { from: requestInfo.start_time, to: requestInfo.end_time, FeedApiKey: requestInfo.api_key, format: requestInfo.format || 'csv'},
+    success: function(data) {
       if (typeof(callBack) === "function")
-        callBack(csvData);
+        callBack(data);
     },
     failure: function(data) {
       console.log('Failed to load sensor data.');
@@ -552,7 +564,7 @@ function setSizes() {
   if ($('.chart').length && !$('.no-feeds').length){
      $('#map_parent').css('height', '45%');
     var chartsAreaHeight = Math.floor(.3*window.innerHeight);
-    var height = clamp(Math.floor(chartsAreaHeight/$('.chart').length), parseInt($('.chart').css('min-height').slice(0,-2)) || 75, 250);
+    var height = clamp(Math.floor(chartsAreaHeight/$('.chart').length), 100, 250);
     $('.chart').height(height);
     $('.chartContent').height(height - 1);
     $('.chartTitle').height(height - 23);
@@ -624,16 +636,6 @@ function toggleYAxisAutoScaling() {
   });
   // autoScaleToggleButton.toggleClass("ui-icon-locked");
   // autoScaleToggleButton.toggleClass("ui-icon-unlocked");
-}
-
-function initialize(fromShareLink, location, monitor) {
-  selectArea(location, monitor);
-  if (!timelapse) {
-    channelPageSetup(fromShareLink);
-  } else {
-    refreshChannelPage();
-  }
-  google.maps.event.trigger(map, 'resize');
 }
 
 function processHash(){
@@ -731,7 +733,7 @@ var playCallback = function() {
 
 function channelPageSetup(fromShareLink) {
   loadCalendar(currentDate);
-  initMap('map-canvas');
+  refreshMap();
 
   //Zoom buttons
   $("#zoomGrapherIn").on("click", function(event) {

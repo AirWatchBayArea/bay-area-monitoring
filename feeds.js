@@ -171,6 +171,9 @@ function loadFeed(area_feed_id){
   });
 }
 
+/**
+ * Get the feed info for each wind ID and cache it in the windFeeds array.
+ */
 function loadWindFeeds(wind_feed_ids) {
   Promise.all(wind_feed_ids.map(function(feed_id){
     return loadWindFeed(feed_id);
@@ -179,6 +182,9 @@ function loadWindFeeds(wind_feed_ids) {
   })
 }
 
+/**
+ * Fetch the feed info.
+ */
 function loadWindFeed(wind_feed_id){
   return new Promise(function(resolve, reject){
     $.ajax({
@@ -222,6 +228,7 @@ function loadWindFeed(wind_feed_id){
   });
 }
 
+// On page load, fetch the ESDR feed info for each of the wind feeds.
 $(function(){
   loadWindFeeds(windFeedIds);
 })

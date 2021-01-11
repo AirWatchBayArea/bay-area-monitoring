@@ -90,6 +90,14 @@ var icons = {
     localize: "dashboard.icon.pollution-source"
   },
 }
+var $localePicker;
+var locales = {
+  "richmond": ["Atchison Village", "North Richmond", "Point Richmond"],
+  "crockett-rodeo": ["North Rodeo", "South Rodeo"],
+  "benicia": ["Benicia (South)", "Benicia (South West)", "Benicia (North)"],
+  "vallejo": ["Vallejo"],
+  "martinez": ["Martinez", "Clyde"],
+}
 
 function makeSourceLink(link) {
   return '<br><a href="' + link + '" rel="noopener noreferrer" target="_blank">Source</a>';
@@ -127,7 +135,7 @@ var fencelineMonitors = {
     lng: -122.25653,
     description: "Fenceline Monitor" + makeSourceLink("https://www.fenceline.org/rodeo/data.php")
   }],
-  "Valero North": [
+  "Benicia (North)": [
     {
       lat: 38.07023, 
       lng: -122.1325, 
@@ -154,7 +162,7 @@ var fencelineMonitors = {
       description: "Fenceline Monitor" + makeSourceLink("https://beniciarefineryairmonitors.org/measurements.html")
     }
   ],
-  "Valero South": [
+  "Benicia (South)": [
     {
       lat: 38.06556, 
       lng: -122.1508, 
@@ -325,33 +333,127 @@ var purpleAirMonitors = {
       description: "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
     }
   ],
-  "Benicia": [
-  {
-    "lat": 38.079625, 
-    "lng": -122.155216, 
-    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-  }, 
-  {
-    "lat": 38.060789, 
-    "lng": -122.149458, 
-    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-  }, 
-  {
-    "lat": 38.058971, 
-    "lng": -122.141785, 
-    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-  }, 
-  {
-    "lat": 38.058086, 
-    "lng": -122.157553, 
-    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-  }, 
-  {
-    "lat": 38.055033, 
-    "lng": -122.157681, 
-    "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
-  }
-],
+  "Benicia (South)": [
+    {
+      "lat": 38.053767, 
+      "lng": -122.163555, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.05739, 
+      "lng": -122.157549, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.060789, 
+      "lng": -122.149458, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.058971, 
+      "lng": -122.141785, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.058086, 
+      "lng": -122.157553, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.055033, 
+      "lng": -122.157681, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.050551, 
+      "lng": -122.15163, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }
+  ],
+  "Benicia (South West)": [
+    {
+      "lat": 38.074533, 
+      "lng": -122.173721, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.082847, 
+      "lng": -122.203734, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.065944, 
+      "lng": -122.179825, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.069053, 
+      "lng": -122.172851, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.068449, 
+      "lng": -122.200071, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.06298, 
+      "lng": -122.170256, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.074216, 
+      "lng": -122.200224, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }
+  ],
+  "Benicia (North)": [
+    {
+      "lat": 38.079625, 
+      "lng": -122.155216, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.086684, 
+      "lng": -122.153081, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.087344, 
+      "lng": -122.165133, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.093334, 
+      "lng": -122.179357, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.095053, 
+      "lng": -122.190709, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.080913, 
+      "lng": -122.154529, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.08549, 
+      "lng": -122.159601, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.080913, 
+      "lng": -122.154529, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }, 
+    {
+      "lat": 38.083575, 
+      "lng": -122.176472, 
+      "description": "PurpleAir Monitor" + makeSourceLink("https://www.purpleair.com/map?#10.59/38.0109/-122.227")
+    }
+  ],
   "Clyde": [
     {
       lat: 38.0285,
@@ -588,13 +690,19 @@ var mapCenters = {
   "martinez":{
     lat : 38.01540113860103,
     lng : -122.11896334490962,
-    zoom: 13
+    zoom: 12
   }
 }
 
 //callback when map finish loaded
 function mapLoaded(){
   localize()
+}
+
+function refreshMap() {
+  var center = mapCenters[area.id] || mapCenters['richmond'];
+  map.setZoom(center.zoom || 13);
+  map.setCenter(new google.maps.LatLng(center.lat, center.lng));
 }
 
 //initializes the google map and draws markers/bounds
@@ -762,6 +870,8 @@ function initMap(div) {
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
   generateLegend();
+  generateLocalePicker();
+  updateLocalePicker();
 }
 
 //used for binding event for marker onclick
@@ -828,12 +938,14 @@ function createMarker(googLatLng, icon, infoContent, clickCallback, hoverCallbac
     radius: 150,
   });
   hoverArea.addListener('mouseover', function() {
-    infowindow.setContent(infoContent);
-    if (hoverCallback){
-      hoverCallback(infowindow, infoContent);
+    if (marker.getVisible()) {
+      infowindow.setContent(infoContent);
+      if (hoverCallback){
+        hoverCallback(infowindow, infoContent);
+      }
+      infowindow.setPosition(googLatLng);
+      infowindow.open(map);
     }
-    infowindow.setPosition(googLatLng);
-    infowindow.open(map);
   });
   hoverArea.addListener('mouseout', function() {
     infowindow.close();
@@ -901,6 +1013,26 @@ function generateLegend() {
   map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($legend[0]);
 }
 
+//generates the locale picker based on the current location.
+function generateLocalePicker() {
+  var $picker = $('<label id="locale-picker"><p>Locale</p><select></select></label>');
+  $localePicker = $picker.find('select');
+  $localePicker.on('change', (e) => changeLocale(area.id, e.target.value));
+  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($picker[0]);
+}
+
+function updateLocalePicker() {
+  if ($localePicker) {
+    var localeList = area.id === 'bay-area' ? Object.values(locales).flat() : (locales[area.id] || []);
+    $localePicker.html(
+      localeList
+        .map((locale) => `<option value="${locale}">${locale}</option>`)
+        .join('')
+    );
+    $localePicker[0].value = area.locale;
+  }
+}
+
 //deals with canvas layer map projection for wind direction drawing
 function setupCanvasLayerProjection() {
   var canvasWidth = canvasLayer.canvas.width;
@@ -934,25 +1066,25 @@ function setupCanvasLayerProjection() {
   context.translate(-offset.x * projectionScale, -offset.y * projectionScale);
 }
 
-//draws wind data for desired point on map at given time
-function drawWind(site, epochTime) {
-  var rectLatLng = new google.maps.LatLng(site.coordinates.latitude, site.coordinates.longitude - .003);
+//draws wind data for desired point on map at given time for the given feed.
+function drawWind(feed, epochTime) {
+  var rectLatLng = new google.maps.LatLng(feed.coordinates.latitude, feed.coordinates.longitude - .003);
   var worldPoint = mapProjection.fromLatLngToPoint(rectLatLng);
   var x = worldPoint.x * projectionScale;
   var y = worldPoint.y * projectionScale;
 
   // How many pixels per mile?
-  var offset1mile = mapProjection.fromLatLngToPoint(new google.maps.LatLng(site.coordinates.latitude + 0.014457067, site.coordinates.longitude));
+  var offset1mile = mapProjection.fromLatLngToPoint(new google.maps.LatLng(feed.coordinates.latitude + 0.014457067, feed.coordinates.longitude));
   var unitsPerMile = 1000 * (worldPoint.y - offset1mile.y);
 
-  y_scale = site.flip_y ? -1 : 1;
+  y_scale = feed.flip_y ? -1 : 1;
 
   var wind_speed, wind_dir;
-  var windSpeedChannel = site.channels.Wind_Speed_MPH || site.channels.Wind_Speed || site.channels.WS;
-  var windDirectionChannel = site.channels.Wind_Direction_degrees || site.channels.Wind_Direction_deg || site.channels.Wind_Direction || site.channels.WD;
+  var windSpeedChannel = feed.channels.Wind_Speed_MPH || feed.channels.Wind_Speed || feed.channels.WS;
+  var windDirectionChannel = feed.channels.Wind_Direction_degrees || feed.channels.Wind_Direction_deg || feed.channels.Wind_Direction || feed.channels.WD;
   if (windSpeedChannel && windDirectionChannel) {
-    wind_speed = getWindData(site, windSpeedChannel, epochTime);
-    wind_dir = getWindData(site, windDirectionChannel, epochTime);
+    wind_speed = getWindData(feed, windSpeedChannel, epochTime);
+    wind_dir = getWindData(feed, windDirectionChannel, epochTime);
   }
 
   // Black dot as base to wind vector
@@ -961,6 +1093,7 @@ function drawWind(site, epochTime) {
   context.arc(x, y, 1, 0, 2 * Math.PI, false);
   context.fill();
 
+  // Draw the wind vector given wind speed and direction.
   if (wind_speed && wind_dir) {
     if (wind_speed > 0.1) {
       var wind_dir_radians = wind_dir * Math.PI / 180;
@@ -1018,18 +1151,21 @@ function drawWind(site, epochTime) {
   }
 }
 
-function getWindData(site, channel, time) {
+/**
+ * Fetch the wind data for the given feed, channel, and time.
+ */
+function getWindData(feed, channel, time) {
   var day = Math.floor(time / 86400);
 
-  if (!site.requested_day[day]) {
-    site.requested_day[day] = true;
-    //console.log('Requesting ' + site.feed_id + ', day ' + day);
+  if (!feed.requested_day[day]) {
+    feed.requested_day[day] = true;
+    //console.log('Requesting ' + feed.feed_id + ', day ' + day);
     var requestInfo = {
-      feed_id : site.feed_id,
-      api_key : site.api_key,
+      feed_id : feed.feed_id,
+      api_key : feed.api_key,
       start_time : day * 86400,
       end_time : (day + 1) * 86400,
-      channels : Object.keys(site.channels)
+      channels : Object.keys(feed.channels)
                        .filter(
                          (key) => key.match(new RegExp('wind|wd|ws', 'i'))
                        )
@@ -1037,12 +1173,12 @@ function getWindData(site, channel, time) {
       headers : null
     };
     requestEsdrExport(requestInfo, function(csvData) {
-      parseEsdrCSV(csvData, site);
+      parseEsdrCSV(csvData, feed);
       //console.log('got that data');
       repaintCanvasLayer(time);
     });
   } else {
-    //console.log('We have data for ' + site.feed_id + ', day ' + day);
+    //console.log('We have data for ' + feed.feed_id + ', day ' + day);
     //console.log(channel);
     if (!channel) return null;
     time = Math.round(time);
@@ -1147,3 +1283,5 @@ function repaintCanvasLayer(epochTime) {
     //console.log(e);
   }
 }
+
+$(() => initMap('map-canvas'));
