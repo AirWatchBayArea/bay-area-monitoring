@@ -709,8 +709,7 @@ function refreshMap() {
 function initMap(div) {
   // Initialize Google Map
   resolutionScale = window.devicePixelRatio || 1;
-  var isBigPicture = area.id === "bay-area";
-  var center = mapCenters[area.id] || mapCenters['richmond'];
+  var center = mapCenters['richmond'];
 
   var styleArray = [
     {
@@ -784,14 +783,13 @@ function initMap(div) {
 
   infowindow = new google.maps.InfoWindow();
 
-  if(!isBigPicture){
-    var service = new google.maps.places.PlacesService(map);
-    service.nearbySearch({
-      location: new google.maps.LatLng(center.lat, center.lng),
-      radius: 5000,
-      type: ['school']
-    }, drawSchoolMarkers);
-  }
+  var service = new google.maps.places.PlacesService(map);
+  service.nearbySearch({
+    location: new google.maps.LatLng(center.lat, center.lng),
+    radius: 5000,
+    type: ['school']
+  }, drawSchoolMarkers);
+  
 
   //add Fenceline Monitors
   for(var key in fencelineMonitors) {
@@ -1022,7 +1020,7 @@ function generateLocalePicker() {
 }
 
 function updateLocalePicker() {
-  if ($localePicker) {
+  if ($localePicker && typeof area !== undefined) {
     var localeList = area.id === 'bay-area' ? Object.values(locales).flat() : (locales[area.id] || []);
     $localePicker.html(
       localeList

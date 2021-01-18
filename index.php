@@ -4,6 +4,8 @@
   $allowed_domains = array(
     'http://localhost',
     'https://localhost',
+    'http://awba-api-server.herokuapp.com',
+    'https://awba-api-server.herokuapp.com',
     'http://air-watch-bay-area-staging.herokuapp.com',
     'https://air-watch-bay-area-staging.herokuapp.com',
     'http://www.airwatchbayarea.org',
@@ -121,6 +123,7 @@
   <script src="report.js" type="text/javascript">
   </script>
   <script src="assets/js/agency.min.js"></script>
+  <script src="feed_manager.js" type="text/javascript"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
   <script src='assets/jquery/jquery.ui.widget.js' type='text/javascript'>
