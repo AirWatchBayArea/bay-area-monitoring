@@ -1,4 +1,4 @@
 <IfModule mod_headers.c>
-    SetEnvIf Origin "http(s)?://(www\.)?(localhost|air-watch-bay-area-staging.herokuapp.com|www.airwatchbayarea.org|esdr.cmucreatelab.org|docs.google.com|api.smellpittsburgh.org|maps.googleapis.com|www.google-analytics.com)$" AccessControlAllowOrigin=$0
+    SetEnvIf Origin "http(s)?://(www\.)?(localhost|air-watch-bay-area-staging.herokuapp.com|awba-api-server.herokuapp.com|www.airwatchbayarea.org|esdr.cmucreatelab.org|docs.google.com|api.smellpittsburgh.org|maps.googleapis.com|www.google-analytics.com)$" AccessControlAllowOrigin=$0
     Header add Access-Control-Allow-Origin %{AccessControlAllowOrigin}e env=AccessControlAllowOrigin
 </IfModule>
