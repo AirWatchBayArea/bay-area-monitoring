@@ -809,18 +809,3 @@ window.requestAnim =
   function(callback) {
     return window.setTimeout(callback, 10);
   };
-
-window.addEventListener('message', function(event) {
-
-  // IMPORTANT: Check the origin of the data!
-  if (~event.origin.indexOf('http://crockett-rodeo-united.com')) {
-      // The data has been sent from your site
-
-      // The data sent with postMessage is stored in event.data
-      console.log(event.data);
-  } else {
-      // The data hasn't been sent from your site!
-      // Be careful! Do not use it.
-      return;
-  }
-});
