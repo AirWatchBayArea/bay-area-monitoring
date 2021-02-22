@@ -1,7 +1,13 @@
 'use strict';
 
+const FeedType = {	
+	REFINERY: 'Refinery',
+	BAAQMD: 'BAAQMD',
+	PURPLEAIR: 'PurpleAir',
+	COMMUNITY: 'Community',
+}
+
 class FeedManager {
-	static USE_AWBA_SERVER = false;
 	static TARGET_CHANNELS = [
 	  'Benzene',
 	  'Toluene',
@@ -23,16 +29,59 @@ class FeedManager {
 	  'Wind',
 	];//,'Ammonia','3_Methylpentane','N_Hexane']
 
-	static FEED_MAP = [{"id":0,"name":"Atchison Village","feedIds":[4910,4909,38825]},{"id":1,"name":"North Richmond","feedIds":[4911,4912,38816,38818]},{"id":2,"name":"Point Richmond","feedIds":[4913,4914,38817]},{"id":3,"name":"North Rodeo","feedIds":[4902,38294]},{"id":4,"name":"South Rodeo","feedIds":[4901,10011,38295]},{"id":5,"name":"Benicia","feedIds":[26227,26224,26228,26229,26230]},{"id":6,"name":"Valero North","feedIds":[26345,26349,26350,26354,26348]},{"id":7,"name":"Valero South","feedIds":[26346,26347,26351,26394]},{"id":8,"name":"Vallejo","feedIds":[14840,14841,33095,36715,14933,14934,24327,24328,13470,13471,38638,38639,38649,38647,38641,38637,38643,38644,38645,38646]},{"id":9,"name":"El Sobrante","feedIds":[13310]},{"id":10,"name":"El Cerrito","feedIds":[13304]},{"id":11,"name":"Berkeley","feedIds":[12848]},{"id":12,"name":"Martinez","feedIds":[38674,38675,38676,38677,38678,38680,38681,38682,38683]},{"id":13,"name":"Clyde","feedIds":[17230]},{"id":14,"name":"BAAQMD","feedIds":[4850,4846,4857,4849]}];
-	static WIND_FEEDS = [26394, 38294, 38684, 38816];
+	static HEALTH_LIMIT_MAP = {
+	  "Benzene (ppb)" : 1,
+	  "Black Carbon (µg/m³)": 5,
+	  "Hydrogen Sulfide (ppb)": 8,
+	  "Sulfur Dioxide (ppb)": 75,
+	  "Toluene (ppb)": 70,
+	  "Xylene (ppb)": 50,
+	  "Ethylbenzene (ppb)": 60,
+	  "VOC (ppb)": 345,
+	  "Dust (µg/m³)": 10,
+	  "PM 2 5 (µg/m³)": 35,
+	  "PM2 5 (µg/m³)": 35,
+	};
+
+	static COMMUNITY_DETECTION_LIMIT_MAP = {
+	  "Benzene (ppb)" : 0.5,
+	  "Hydrogen Sulfide (ppb)": 2,
+	  "Toluene (ppb)": 0.5,
+	  "Xylene (ppb)": 0.5,
+	  "Ethylbenzene (ppb)": 0.5,
+	  "Black Carbon (µg/m³)": 0.05
+	};
+
+	static REFINERY_DETECTION_LIMIT_MAP = {
+	  "Benzene (ppb)" : 5,
+	  "Hydrogen Sulfide (ppb)": 30,
+	  "Sulfur Dioxide (ppb)": 5,
+	  "Toluene (ppb)": 5,
+	  "Xylene (ppb)": 5
+	};
+
+	static MONITOR_TYPE_COLORS = {
+	  [FeedType.REFINERY] : "rgb(245,124,0)",
+	  [FeedType.BAAQMD] : "rgb(1,87,155)",
+	  [FeedType.PURPLEAIR] : "rgb(103,58,183)",
+	  [FeedType.COMMUNITY] : "rgb(170,68,170)"
+	};
 
 	constructor() {
+		/** Current active location to show. */
 		this.activeLocation = 'Atchison Village';
-		this.activeFeedCache = new WeakMap();
-		this.windFeedCache = new WeakMap();
+		/** Feed data keyed by feed object. */
+		this.feedDataCache = new WeakMap();
+		/** Feed metadata keyed by feed ID. */
 		this.esdrFeedCache = {};
+		/** Feeds keyed by location. */
 		this.feedMap = {};
+		/** Promise to wait on for feedMap initialization. */
 		this.feedMapPromise = this.initFeedMap();
+		/** Wind feed metadata and data.*/
+		this.windFeeds = [];
+		/** Promise to wait on for windFeeds initialization. */
+		this.windFeedsPromise = this.initWindFeeds();
 	}
 
 	get locationId() {
@@ -47,14 +96,18 @@ class FeedManager {
 		return this.feedIds.map(id => this.esdrFeedCache[id]);
 	}
 
+	get feedData() {
+		return this.feeds.map(feed => this.feedDataCache.get(feed));
+	}
+
 	makeAWBARequest(route) {
-		const apiServerRoot = 'http://awba-api-server.herokuapp.com';
-		return this.load(`${apiServerRoot}/${route}`, 'json');
+		const apiServerRoot = 'http://awba-api-server-staging.herokuapp.com';
+		return this.load(`${apiServerRoot}/${route.replace(/^\//, '')}`, 'json');
 	}
  
 	makeESDRRequest(route) {
 		const esdrServerRoot = 'https://esdr.cmucreatelab.org/api/v1';
-		return this.load(`${esdrServerRoot}/${route}`, 'json');
+		return this.load(`${esdrServerRoot}/${route.replace(/^\//, '')}`, 'json');
 	}
 
 	load(url, responseType) {
@@ -78,10 +131,7 @@ class FeedManager {
 	}
 
 	async initFeedMap() {
-		const feeds = await (
-			FeedManager.USE_AWBA_SERVER ? 
-				this.makeAWBARequest('locations') : 
-				Promise.resolve(FeedManager.FEED_MAP));
+		const feeds = await this.makeAWBARequest('/locations');
 		const feedMap = {};
 		feeds.forEach((feed) => {
 			feed.name && (feedMap[feed.name] = feed);
@@ -90,13 +140,25 @@ class FeedManager {
 		return feedMap;
 	}
 
+	async initWindFeeds() {
+		const feeds = await this.makeAWBARequest('/feeds/wind');
+		this.windFeeds = feeds.map((feed) => Object.assign(feed, {
+			requested_day: {},
+	        channels: this.getChannels(feed),
+	        fullTimeRange: {},
+	        type: this.getType(feed),
+		}));
+		return this.windFeeds;
+	}
+
 	async loadFeeds() {
 		const feedMap = await this.feedMapPromise;
 		if (this.feedIds.some((id) => !(id in this.esdrFeedCache))) {
 			let feeds = [];
-			if (FeedManager.USE_AWBA_SERVER) {
-				feeds = await this.makeAWBARequest(`/feeds/location/${this.locationId}`);
-			} else {
+			try {
+				feeds = await this.makeAWBARequest(`feeds/location/${this.locationId}`);
+			} catch {
+				// Fallback to ESDR.
 				feeds = await Promise.all(this.feedIds.map((id) => this.makeESDRRequest(`feeds/${id}`)))
 			}
 			feeds.forEach((feed) => {
@@ -105,7 +167,7 @@ class FeedManager {
 			});
 		}
 		this.feedIds.map((id) => this.esdrFeedCache[id]).forEach((feed) => {
-			this.activeFeedCache.has(feed) || (this.activeFeedCache.set(feed, {
+			this.feedDataCache.has(feed) || (this.feedDataCache.set(feed, {
 				requested_day: {},
 		        channels: this.getChannels(feed),
 		        fullTimeRange: {},
@@ -114,43 +176,18 @@ class FeedManager {
 		});
 	}
 
-	async loadWindFeeds() {
-		if (FeedManager.WIND_FEEDS.some((id) => !(id in this.esdrFeedCache))) {
-			let feeds = [];
-			if (FeedManager.USE_AWBA_SERVER) {
-				feeds = await this.makeAWBARequest(`/feeds/wind`);
-			} else {
-				feeds = await Promise.all(FeedManager.WIND_FEEDS.map((id) => this.makeESDRRequest(`feeds/${id}`)))
-			}
-			feeds.forEach((feed) => {
-				feed = feed.data || feed;
-				feed.id && (feed.id in this.esdrFeedCache || (this.esdrFeedCache[feed.id] = feed));
-			});
-		}
-		FeedManager.WIND_FEEDS.map((id) => this.esdrFeedCache[id]).forEach((feed) => {
-			this.windFeedCache.has(feed) || (
-				this.windFeedCache.set(feed, 
-					this.activeFeedCache.get(feed) || {
-						requested_day: {},
-				        channels: this.getChannels(feed),
-				        fullTimeRange: {},
-				        type: this.getType(feed),
-					}));
-		});
-	}
-
 	getType(feed) {
-		if(feed.name.match(/Fenceline|Valero|Chevron/i)) {
-			return 'Refinery';
+		if(feed.name.match(/fenceline|valero|chevron/i)) {
+			return FeedType.REFINERY;
 		}
 		else if(feed.name.match(/BAAQMD/i)) {
-			return 'BAAQMD';
+			return FeedType.BAAQMD;
 		}
 		else if (feed.name.match(/PurpleAir/i)) {
-			return 'PurpleAir';
+			return FeedType.PURPLEAIR;
 		}
 		else {
-			return 'Community';
+			return FeedType.COMMUNITY;
 		}
 	}
 
@@ -178,7 +215,7 @@ class FeedManager {
 	        const bestMatch = matches.sort((a, b) => b.length - a.length)[0];
 	        if (bestMatch) {
 	        	label = label.replace(/_|\.|(?:\s+)/g,' ').trim();
-	        	label = label.replace(/\s(H2S|SO2|NO2|NO|CO)$/, '');
+	        	label = label.replace(/\s(H2S|SO2|NO2|NO|CO)$/, '').trim();
 	        	switch(label) {
 	        		case 'H2S':
 	        			label = 'Hydrogen Sulfide';
@@ -209,5 +246,35 @@ class FeedManager {
 	       }
 		}
 		return channels;
+	}
+
+	/**
+	 * E.g. // https://environmentaldata.org/#channels=26231.PM2_5,26231.PM2_5&time=1611986393.792,1612591193.792&center=38.08323001621915,-122.09415435791016&zoom=13&search=AWBA
+	 */
+	makeESDRLink(minTime, maxTime, cursor) {
+		const channels = this.feedData.reduce((feed, channels) => {
+			return [
+				...channels,
+				...Object.keys(feed.channels).map(channel => `${feed.id}.${channel}`)
+			];
+		}, []).join(',');
+		const center = `${this.feeds[0].latitude},${this.feeds[0].longitude}`;
+		const link = `https://environmentaldata.org/#channels=${channels}&time=${minTime},${maxTime}&cursor=${cursor}&center=${center}&search=AWBA`;
+	}
+
+	healthLimit(chemicalLabel) {
+		return FeedManager.HEALTH_LIMIT_MAP[chemicalLabel];
+	}
+
+	communityDetectionLimit(chemicalLabel) {
+		return FeedManager.COMMUNITY_DETECTION_LIMIT_MAP[chemicalLabel];
+	}
+
+	refineryDetectionLimit(chemicalLabel) {
+		return FeedManager.REFINERY_DETECTION_LIMIT_MAP[chemicalLabel];
+	}
+
+	monitorTypeColor(feedType) {
+		return FeedManager.MONITOR_TYPE_COLORS[feedType];
 	}
 }
