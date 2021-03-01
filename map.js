@@ -91,13 +91,6 @@ var icons = {
   },
 }
 var $localePicker;
-var locales = {
-  "richmond": ["Atchison Village", "North Richmond", "Point Richmond"],
-  "crockett-rodeo": ["North Rodeo", "South Rodeo"],
-  "benicia": ["Benicia (South)", "Benicia (South West)", "Benicia (North)"],
-  "vallejo": ["Vallejo"],
-  "martinez": ["Martinez", "Clyde"],
-}
 
 function makeSourceLink(link) {
   return '<br><a href="' + link + '" rel="noopener noreferrer" target="_blank">Source</a>';
@@ -699,10 +692,10 @@ function mapLoaded(){
   localize()
 }
 
-function refreshMap() {
-  var center = mapCenters[area.id] || mapCenters['richmond'];
-  map.setZoom(center.zoom || 13);
-  map.setCenter(new google.maps.LatLng(center.lat, center.lng));
+function setMapCenter(area) {
+  var center = mapCenters[area] || mapCenters['richmond'];
+  window.map.setZoom(center.zoom || 13);
+  window.map.setCenter(new google.maps.LatLng(center.lat, center.lng));
 }
 
 //initializes the google map and draws markers/bounds
@@ -775,8 +768,8 @@ function initMap(div) {
 
     styles: styleArray
   };
-  map = new google.maps.Map(document.getElementById(div), mapOptions);
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
+  window.map = new google.maps.Map(document.getElementById(div), mapOptions);
+  window.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(controlDiv);
   $(controlDiv).click(function(){
       $('[title="Toggle fullscreen view"]').click();
   });
@@ -797,7 +790,7 @@ function initMap(div) {
       var fencelineMonitor = fencelineMonitors[key][i];
       var latlng = {"lat":fencelineMonitor.lat, "lng":fencelineMonitor.lng};
       var icon = icons['Fenceline Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, fencelineMonitor.description),makeClosure(key)).setZIndex(1);
     }
   }
 
@@ -807,7 +800,7 @@ function initMap(div) {
       var communityMonitor = communityMonitors[key][i];
       var latlng = {"lat":communityMonitor.lat, "lng":communityMonitor.lng};
       var icon = icons['Community Monitor'];
-      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, communityMonitor.description),makeClosure(key)).setZIndex(1);
     }
   }
 
@@ -816,7 +809,7 @@ function initMap(div) {
     var BAAQMDMonitor = BAAQMDMonitors[key];
     var latlng = {"lat":BAAQMDMonitor.lat, "lng":BAAQMDMonitor.lng};
     var icon = icons['BAAQMD Monitor'];
-    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+    createMarker(latlng, icon, createInfoWindowContent(key, BAAQMDMonitor.description), makeClosure(key)).setZIndex(1);
   }
 
   //add PurpleAir Monitors
@@ -825,7 +818,7 @@ function initMap(div) {
       var purpleAirMonitor = purpleAirMonitors[key][i];
       var latlng = {"lat":purpleAirMonitor.lat, "lng":purpleAirMonitor.lng};
       var icon = icons["PurpleAir Monitor"];
-      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), makeClosure(key), addDataToInfoWindow).setZIndex(1);
+      createMarker(latlng, icon, createInfoWindowContent(key, purpleAirMonitor.description), makeClosure(key)).setZIndex(1);
     }
   }
 
@@ -853,7 +846,7 @@ function initMap(div) {
 
   // initialize the canvasLayer
   var update = function() {
-    var epochTime = plotManager.getDateAxis().getCursorPosition();
+    var epochTime = window.dashboard.plotManager.getDateAxis().getCursorPosition();
     repaintCanvasLayer(epochTime);
   }
   var canvasLayerOptions = {
@@ -868,14 +861,13 @@ function initMap(div) {
   //window.addEventListener('resize', function () { google.maps.event.trigger(map, 'resize'); }, false);
   addMapLabels();
   generateLegend();
-  generateLocalePicker();
-  updateLocalePicker();
+  window.dashboard.generateLocalePicker();
 }
 
 //used for binding event for marker onclick
 function makeClosure(key){
   return (function(){
-    changeLocale(area.id, key);
+    window.dashboard.changeLocale(undefined, key);
   })
 }
 
@@ -883,19 +875,6 @@ function makeClosure(key){
 function createInfoWindowContent(title, description){
   return ['<h4>',title,'</h4>',
           '<p>',description,'</p>'].join('');
-}
-
-//adds data to infowindow if available
-function addDataToInfoWindow(infowindow, infoContent){
-  var communityName = $(infoContent).get(0).innerHTML;
-  if (communityName in feedMap){
-    for(var i = 0; i < feedMap[communityName].length; i++){
-      var feedId = feedMap[communityName][i];
-      // if (feedId in feedIDtoPlotId){
-      //     console.log(feedIDtoPlotId[feedId]);
-      // }
-    }
-  }
 }
 
 //draws school markers based on Google Places results
@@ -909,7 +888,7 @@ function drawSchoolMarkers(results, status) {
 
 //scales icons based on zoom level array at top
 function scaleIcon(marker, icon){
-  var icon_size = .75 * countryPointSizePixels * Math.pow(blockPointSizePixels / countryPointSizePixels, (map.getZoom() - 4) / (18 - 4));
+  var icon_size = .75 * countryPointSizePixels * Math.pow(blockPointSizePixels / countryPointSizePixels, (window.map.getZoom() - 4) / (18 - 4));
   icon.scaledSize = new google.maps.Size(icon_size,icon_size);
   icon.origin = new google.maps.Point(0,0), // origin
   icon.anchor = new google.maps.Point(0, 0) // anchor
@@ -1008,27 +987,7 @@ function generateLegend() {
     $legend.append(div);
   }
   $legend[0].index = -1
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($legend[0]);
-}
-
-//generates the locale picker based on the current location.
-function generateLocalePicker() {
-  var $picker = $('<label id="locale-picker"><p>Locale</p><select></select></label>');
-  $localePicker = $picker.find('select');
-  $localePicker.on('change', (e) => changeLocale(area.id, e.target.value));
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($picker[0]);
-}
-
-function updateLocalePicker() {
-  if ($localePicker && typeof area !== undefined) {
-    var localeList = area.id === 'bay-area' ? Object.values(locales).flat() : (locales[area.id] || []);
-    $localePicker.html(
-      localeList
-        .map((locale) => `<option value="${locale}">${locale}</option>`)
-        .join('')
-    );
-    $localePicker[0].value = area.locale;
-  }
+  window.map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push($legend[0]);
 }
 
 //deals with canvas layer map projection for wind direction drawing
@@ -1041,7 +1000,7 @@ function setupCanvasLayerProjection() {
   /* We need to scale and translate the map for current view.
    * see https://developers.google.com/maps/documentation/javascript/maptypes#MapCoordinates
    */
-  mapProjection = map.getProjection();
+  mapProjection = window.map.getProjection();
   if (!mapProjection) return;
 
   /**
@@ -1053,7 +1012,7 @@ function setupCanvasLayerProjection() {
   // scale is just 2^zoom
   // If canvasLayer is scaled (with resolutionScale), we need to scale by
   // the same amount to account for the larger canvas.
-  contextScale = Math.pow(2, map.zoom) * resolutionScale / projectionScale;
+  contextScale = Math.pow(2, window.map.zoom) * resolutionScale / projectionScale;
   context.scale(contextScale, contextScale);
 
   /* If the map was not translated, the topLeft corner would be 0,0 in
@@ -1149,6 +1108,40 @@ function drawWind(feed, epochTime) {
   }
 }
 
+function requestEsdrExport(requestInfo, callBack) {
+  $.ajax({
+    crossDomain: true,
+    type: "GET",
+    dataType: "text",
+    url: "https://esdr.cmucreatelab.org/api/v1/feeds/" + requestInfo.feed_id + "/channels/" + requestInfo.channels + "/export",
+    data: { from: requestInfo.start_time, to: requestInfo.end_time, FeedApiKey: requestInfo.api_key, format: requestInfo.format || 'csv'},
+    success: function(data) {
+      if (typeof(callBack) === "function")
+        callBack(data);
+    },
+    failure: function(data) {
+      console.log('Failed to load sensor data.');
+    },
+    headers: requestInfo.headers
+  });
+}
+
+function parseEsdrCSV(csvData, sensor) {
+  var csvArray = csvData.split("\n");
+  var headingsArray = csvArray[0].split(",");
+  // First row is the CSV headers, which we took care of above, so start at 1.
+  for (var i = 1; i < csvArray.length; i++) {
+    var csvLineAsArray = csvArray[i].split(",");
+    // First entry is the EPOC time, so start at index 1.
+    for (var j = 1; j < csvLineAsArray.length; j++) {
+      var tmpChannelHeading = headingsArray[j].split(".");
+      var channelHeading = tmpChannelHeading[tmpChannelHeading.length - 1];
+      var timeStamp = sensor.channels[channelHeading].hourly ? (csvLineAsArray[0] - 1800): csvLineAsArray[0];
+      sensor.channels[channelHeading].summary[timeStamp] = parseFloat(csvLineAsArray[j]);
+    }
+  }
+}
+
 /**
  * Fetch the wind data for the given feed, channel, and time.
  */
@@ -1224,7 +1217,7 @@ function highlightSelectedMonitors() {
       lng: esdr_feeds[feed].coordinates.longitude
     }
     var factor, radius, center;
-    factor = Math.pow(2,(13 - map.zoom));
+    factor = Math.pow(2,(13 - window.map.zoom));
     radius = 125 * factor;
     center = coords;
     var markerOptions = {

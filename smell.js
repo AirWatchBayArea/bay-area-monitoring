@@ -93,8 +93,8 @@ function zoomMapToClickedReport(pointData) {
 function addSmellReportsToGrapher() {
   //cache smell report index in series
   var smellPlotIndex = 0;
-  series[smellPlotIndex] = {};
-  series[smellPlotIndex].id = smellPlotIndex;
+  // series[smellPlotIndex] = {};
+  // series[smellPlotIndex].id = smellPlotIndex;
 
   for (var report of smellReports) {
     var mean = 1;
@@ -113,8 +113,8 @@ function addSmellReportsToGrapher() {
   var plotContainerId, yAxisId;
   var plots = [];
   var lastHighlightDate = null;
-  loadedChannelLabels["Smell Reports"] = {};
-  loadedChannelLabels["Smell Reports"].plotContainerIdx = 0;
+  // loadedChannelLabels["Smell Reports"] = {};
+  // loadedChannelLabels["Smell Reports"].plotContainerIdx = 0;
 
   for (var rating in commentDataByRating) {
     (function(rating){
@@ -142,15 +142,15 @@ function addSmellReportsToGrapher() {
         row.append('<td id="' + plotContainerId + '" class="annotationContent" style="height:35px;"></td>');
         row.append('<td id="' + yAxisId + '" class="annotationChartAxis" style="display: none"></td>');
         $('#dateAxisContainer').after(row);
-        plotManager.addDataSeriesPlot(plotId, commentDatasource, plotContainerId, yAxisId);
-        plotManager.getPlotContainer(plotContainerId).setAutoScaleEnabled(true, false);
-        plotManager.getYAxis(yAxisId).constrainMinRangeTo(-3,4);
-        plotManager.getYAxis(yAxisId).setRange(-3,4);
+        window.dashboard.plotManager.addDataSeriesPlot(plotId, commentDatasource, plotContainerId, yAxisId);
+        window.dashboard.plotManager.getPlotContainer(plotContainerId).setAutoScaleEnabled(true, false);
+        window.dashboard.plotManager.getYAxis(yAxisId).constrainMinRangeTo(-3,4);
+        window.dashboard.plotManager.getYAxis(yAxisId).setRange(-3,4);
       }
       else {
-        plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, commentDatasource, yAxisId);
+        window.dashboard.plotManager.getPlotContainer(plotContainerId).addDataSeriesPlot(plotId, commentDatasource, yAxisId);
       }
-      var plot = plotManager.getPlot(plotId);
+      var plot = window.dashboard.plotManager.getPlot(plotId);
 
       plot.addDataPointListener(function(pointData, event) {
         if (event && event.type == "mousedown") {
@@ -168,7 +168,7 @@ function addSmellReportsToGrapher() {
         ]
       });
       plots.push(plot);
-      series[smellPlotIndex].p = plots;
+      // series[smellPlotIndex].p = plots;
     })(rating);
   }
 }
@@ -185,7 +185,7 @@ function processSmellReportsForMap(){
 //set marker visible if smell report if time is in range
 function drawSmellReports(range) {
   if (!range) {
-    range = plotManager.getDateAxis().getRange();
+    range = window.dashboard.plotManager.getDateAxis().getRange();
   }
 
   for (var markerKey in smellMarkers) {

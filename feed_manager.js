@@ -69,7 +69,7 @@ class FeedManager {
 
 	constructor() {
 		/** Current active location to show. */
-		this.activeLocation = 'Atchison Village';
+		this.locale = '';
 		/** Feed data keyed by feed object. */
 		this.feedDataCache = new WeakMap();
 		/** Feed metadata keyed by feed ID. */
@@ -85,19 +85,33 @@ class FeedManager {
 	}
 
 	get locationId() {
-		return this.feedMap[this.activeLocation]?.id;
+		return this.feedMap[this.locale]?.id;
 	}
 
 	get feedIds() {
-		return this.feedMap[this.activeLocation]?.feedIds;
+		return this.feedMap[this.locale]?.feedIds;
 	}
 
 	get feeds() {
-		return this.feedIds.map(id => this.esdrFeedCache[id]);
+		return (this.feedIds ?? []).map(id => this.esdrFeedCache[id]);
 	}
 
 	get feedData() {
-		return this.feeds.map(feed => this.feedDataCache.get(feed));
+		return (this.feeds ?? []).map(feed => this.feedDataCache.get(feed));
+	}
+
+	get locales() {
+		return {
+		  "richmond": ["Atchison Village", "North Richmond", "Point Richmond"],
+		  "crockett-rodeo": ["North Rodeo", "South Rodeo"],
+		  "benicia": ["Benicia (South)", "Benicia (South West)", "Benicia (North)"],
+		  "vallejo": ["Vallejo"],
+		  "martinez": ["Martinez", "Clyde"],
+		}
+	}
+
+	ready() {
+		return this.feedMapPromise;
 	}
 
 	makeAWBARequest(route) {
@@ -152,6 +166,9 @@ class FeedManager {
 	}
 
 	async loadFeeds() {
+		if (!this.locationId) {
+			return;
+		}
 		const feedMap = await this.feedMapPromise;
 		if (this.feedIds.some((id) => !(id in this.esdrFeedCache))) {
 			let feeds = [];

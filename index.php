@@ -90,6 +90,9 @@
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZuOqKr7onchQX0np-fCgwrx5c0VK11Os&libraries=places" type="text/javascript">
   </script>
+  <!-- From RxJS: https://rxjs-dev.firebaseapp.com/guide/installation -->
+  <script src="https://unpkg.com/@reactivex/rxjs@6.6.3/dist/global/rxjs.umd.js">
+  </script>
   <script src="assets/js/Promise.js">
   </script>
   <script src="assets/jquery/jquery.form.min.js">
@@ -124,6 +127,7 @@
   </script>
   <script src="assets/js/agency.min.js"></script>
   <script src="feed_manager.js" type="text/javascript"></script>
+  <script src="chart_manager.js" type="text/javascript"></script>
   <script src="dashboard.js" type="text/javascript">
   </script>
   <script src='assets/jquery/jquery.ui.widget.js' type='text/javascript'>
@@ -377,16 +381,16 @@
         <div class="full-height" id="map-canvas"></div>
       </div>
       <div id="calendarMenu" class="calendar-controls">
-        <div id="datepicker"></div><button class="btn custom-button time-button" onclick="grapherZoomToDay()" type="button" data-localize="dashboard.past-24-hours">Past 24 Hours</button> <button class="btn custom-button time-button" onclick="grapherZoomToWeek()" type="button" data-localize="dashboard.past-7-days">Past 7 Days</button> <button class="btn custom-button time-button" onclick="grapherZoomToMonth()" type="button" data-localize="dashboard.past-30-days">Past 30 Days</button>
+        <div id="datepicker"></div><button id="grapher-zoom-day" class="btn custom-button time-button" type="button" data-localize="dashboard.past-24-hours">Past 24 Hours</button> <button id="grapher-zoom-week" class="btn custom-button time-button" type="button" data-localize="dashboard.past-7-days">Past 7 Days</button> <button id="grapher-zoom-month" class="btn custom-button time-button" type="button" data-localize="dashboard.past-30-days">Past 30 Days</button>
       </div>
       <div id="grapher_toolbar" class="row">
         <h4 class="timeline_toolbar_label" data-localize="dashboard.timeline-toolbar">Timeline Toolbar:</h4>
         <span id="grapher_zoom" class="grapher-tool-icon" data-localize="dashboard.zoom">
-          <span id="zoomGrapherOut" title="zoom out" class="fa-stack fa-2x">
+          <span id="zoom-grapher-out" title="zoom out" class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-primary"></i>
             <i class="fa fa-search-minus fa-stack-1x fa-inverse"></i>
           </span>
-          <span id="zoomGrapherIn" title="zoom in" class="fa-stack fa-2x">
+          <span id="zoom-grapher-in" title="zoom in" class="fa-stack fa-2x">
             <i class="fa fa-square fa-stack-2x text-primary"></i>
             <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
           </span>
@@ -403,7 +407,7 @@
               <i class="fa fa-calendar fa-stack-1x fa-inverse"></i>
             </span>
         </span>
-        <span id="share" title="share" class="grapher-tool-icon" onclick="generateShareLink()" data-localize="dashboard.share">
+        <span id="share" title="share" class="grapher-tool-icon" data-localize="dashboard.share">
             <span class="fa-stack fa-2x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-share-square-o fa-stack-1x fa-inverse"></i>

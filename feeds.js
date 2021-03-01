@@ -190,7 +190,7 @@ function loadWindFeed(wind_feed_id){
     $.ajax({
     type: "GET",
     dataType: "json",
-    url: ESDR_API_ROOT_URL + "/feeds/" + wind_feed_id,
+    url: "https://esdr.cmucreatelab.org/api/v1/feeds/" + wind_feed_id,
     success: function(json) {
       var feed = json.data;
       var wind_feed_data = {
