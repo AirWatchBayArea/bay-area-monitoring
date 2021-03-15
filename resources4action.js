@@ -1,12 +1,14 @@
 const localizedTsvUrls = {
     en: [
             'r4a/facebook_en.tsv',
+            'r4a/alerts_en.tsv',
             'r4a/bay_orgs_en.tsv',
             'r4a/officials_en.tsv',
             'r4a/contact_en.tsv'
         ],
     es: [
             'r4a/facebook_es.tsv',
+            'r4a/alerts_es.tsv',
             'r4a/bay_orgs_es.tsv',
             'r4a/officials_es.tsv',
             'r4a/contact_es.tsv'
