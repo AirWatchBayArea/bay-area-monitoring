@@ -59,7 +59,7 @@ html:lang(es) [data-localize="dashboard.playback-speed"]:after{
 	content: "velocidad";
 }
 html:lang(es) [data-localize="dashboard.chemical-info"]:after{
-	content: "info\00a0química";
+	content: "info\00a0salud";
 }
 html:lang(es) [data-localize="dashboard.download"]:after{
 	content: "descargar";

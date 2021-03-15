@@ -63,7 +63,7 @@ html:lang(en) [data-localize="dashboard.playback-speed"]:after{
 }
 
 html:lang(en) [data-localize="dashboard.chemical-info"]:after{
-	content: "chemical\00a0info";
+	content: "health\00a0info";
 }
 html:lang(en) [data-localize="dashboard.download"]:after{
 	content: "download";

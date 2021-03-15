@@ -20,7 +20,7 @@ function localizeUserGuide(language){
 		},
 		'es': {
 			'guide': 'https://docs.google.com/document/d/e/2PACX-1vSu8OQrIvnimES2bWpqrUbxtPOGAsa3gPNgLGXm2NoSBQFw5AFwTZqs4YT5V6vBvCLyYtdoIbIhQHTk/pub',
-			'chem':  '#h.y2qt3fnrqosf'
+			'chem':  '#h.hb455108dhd'
 		}
 	}
 	language = language || $("html").attr("lang");
